@@ -158,7 +158,10 @@ class Experiment:
                         ground_truth=ground_truth_dict,
                         input_data=sample
                     )
-                    print(f"✓ Score: {(score * 100):.2f}%")
+                    if score is not None:
+                        print(f"✓ Score: {(score * 100):.2f}%")
+                    else:
+                        print(f"✓ Score: N/A (scoring failed)")
                 else:
                     print("✓ (no ground truth for scoring)")
             
