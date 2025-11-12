@@ -48,7 +48,7 @@ class Experiment:
     def _generate_experiment_id(self) -> str:
         """Generate a unique experiment ID based on parameters."""
         params_str = f"{self.model_id}_{self.system_instructions}_{self.temperature}_{self.thinking}"
-        return hashlib.md5(params_str.encode()).hexdigest()[:12]
+        return hashlib.md5(params_str.encode()).hexdigest()
     
     def _get_all_tasks(self) -> List[Task]:
         """Get all available tasks (excluding example_task)."""
