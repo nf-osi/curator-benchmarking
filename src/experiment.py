@@ -18,6 +18,8 @@ class Experiment:
         tasks_dir: Path,
         model_id: str,
         system_instructions: Optional[str] = None,
+        temperature: Optional[float] = None,
+        thinking: Optional[bool] = None,
         config: Optional[Config] = None
     ):
         """Initialize experiment with parameters."""
@@ -25,6 +27,14 @@ class Experiment:
         self.tasks_dir = Path(tasks_dir)
         self.model_id = model_id
         self.system_instructions = system_instructions or self.config.default_system_instructions
+        
+        # Get temperature from parameter or config default
+        experiment_config = self.config.experiment_config
+        self.temperature = temperature if temperature is not None else experiment_config.get('temperature', 0.0)
+        
+        # Get thinking mode from parameter or config default
+        self.thinking = thinking if thinking is not None else experiment_config.get('thinking', False)
+        
         self.bedrock_client = BedrockClient(self.config)
         self.scorer = Scorer()
         
@@ -37,7 +47,7 @@ class Experiment:
     
     def _generate_experiment_id(self) -> str:
         """Generate a unique experiment ID based on parameters."""
-        params_str = f"{self.model_id}_{self.system_instructions}"
+        params_str = f"{self.model_id}_{self.system_instructions}_{self.temperature}_{self.thinking}"
         return hashlib.md5(params_str.encode()).hexdigest()[:12]
     
     def _get_all_tasks(self) -> List[Task]:
@@ -108,7 +118,8 @@ class Experiment:
                 model_id=self.model_id,
                 prompt=formatted_prompt,
                 system_instructions=self.system_instructions,
-                temperature=experiment_config.get('temperature', 0.0),
+                temperature=self.temperature,
+                thinking=self.thinking,
                 max_tokens=experiment_config.get('max_tokens', 4096),
                 max_retries=experiment_config.get('max_retries', 3)
             )
@@ -176,6 +187,8 @@ class Experiment:
         print(f"{'='*60}")
         print(f"  Model: {self.model_id}")
         print(f"  System Instructions: {self.system_instructions[:50]}...")
+        print(f"  Temperature: {self.temperature}")
+        print(f"  Thinking: {self.thinking}")
         print(f"  Timestamp: {datetime.now().isoformat()}")
         
         tasks = self._get_all_tasks()
@@ -246,6 +259,8 @@ class Experiment:
             'timestamp': datetime.now().isoformat(),
             'model_id': self.model_id,
             'system_instructions': self.system_instructions,
+            'temperature': self.temperature,
+            'thinking': self.thinking,
             'task_results': task_results,
             'overall_metrics': overall_metrics
         }

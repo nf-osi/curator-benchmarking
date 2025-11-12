@@ -43,6 +43,7 @@ class BedrockClient:
         prompt: str,
         system_instructions: Optional[str] = None,
         temperature: float = 0.0,
+        thinking: bool = False,
         max_tokens: int = 4096,
         max_retries: int = 3
     ) -> Dict[str, Any]:
@@ -116,6 +117,12 @@ class BedrockClient:
             }
             if system_instructions:
                 body["system"] = system_instructions
+            
+            # Add thinking/reasoning parameters if enabled
+            if thinking:
+                # For models that support thinking mode (e.g., Claude Sonnet 4.5)
+                # This enables extended reasoning/thinking
+                body["reasoning_effort"] = "high"  # Options: "low", "medium", "high"
         
         for attempt in range(max_retries):
             try:

@@ -57,6 +57,25 @@ class IssueProcessor:
                     # If file not found, treat as direct content
                     params['system_instructions'] = sys_inst
         
+        # Extract temperature
+        temp_match = re.search(r'### Temperature\s*\n\n([^\n]+)', issue_body)
+        if temp_match:
+            temp_str = temp_match.group(1).strip()
+            if temp_str and temp_str not in ['', '-']:
+                try:
+                    params['temperature'] = float(temp_str)
+                except ValueError:
+                    print(f"Warning: Invalid temperature value: {temp_str}")
+        
+        # Extract thinking mode
+        thinking_match = re.search(r'### Thinking Mode\s*\n\n([^\n]+)', issue_body)
+        if thinking_match:
+            thinking_str = thinking_match.group(1).strip().lower()
+            if thinking_str in ['true', 'yes', '1', 'enabled']:
+                params['thinking'] = True
+            elif thinking_str in ['false', 'no', '0', 'disabled', '']:
+                params['thinking'] = False
+        
         # Prompt is always task default, so ignore any prompt field in issue
         
         # Extract description
@@ -108,17 +127,25 @@ class IssueProcessor:
         
         model_id = params.get('model') or self.config.default_model
         system_instructions = params.get('system_instructions')
+        temperature = params.get('temperature')
+        thinking = params.get('thinking')
         
         print(f"Running experiment from issue #{issue_number}" if issue_number else "Running experiment")
         print(f"  Model: {model_id}")
         if system_instructions:
             print(f"  Custom system instructions: Yes")
+        if temperature is not None:
+            print(f"  Temperature: {temperature}")
+        if thinking is not None:
+            print(f"  Thinking mode: {thinking}")
         print(f"  Running all tasks...")
         
         experiment = Experiment(
             tasks_dir=self.tasks_dir,
             model_id=model_id,
             system_instructions=system_instructions,
+            temperature=temperature,
+            thinking=thinking,
             config=self.config
         )
         

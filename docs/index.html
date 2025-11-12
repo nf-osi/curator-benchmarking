@@ -409,6 +409,8 @@
                         const detailed = await response.json();
                         exp.task_results = detailed.task_results || {};
                         exp.system_instructions = detailed.system_instructions || '';
+                        exp.temperature = detailed.temperature !== undefined ? detailed.temperature : null;
+                        exp.thinking = detailed.thinking !== undefined ? detailed.thinking : false;
                         // Also update overall_metrics from detailed results if available
                         if (detailed.overall_metrics) {
                             exp.overall_metrics = detailed.overall_metrics;
@@ -529,6 +531,8 @@
                 experiment_id: exp.experiment_id,
                 model_id: exp.model_id,
                 system_instructions: exp.system_instructions || 'Default',
+                temperature: exp.temperature !== undefined ? exp.temperature : null,
+                thinking: exp.thinking !== undefined ? exp.thinking : false,
                 averageAccuracy: exp.overall_metrics?.average_accuracy || 0,
                 tasksCompleted: exp.overall_metrics?.tasks_completed || 0,
                 totalSamples: exp.overall_metrics?.total_samples || 0,
@@ -569,6 +573,8 @@
                                     <th>Average Accuracy</th>
                                     <th>Model</th>
                                     <th>System Instructions</th>
+                                    <th>Temperature</th>
+                                    <th>Thinking</th>
                                     <th>Tasks Completed</th>
                                     <th>Total Samples</th>
                                     <th>Experiment ID</th>
@@ -581,12 +587,18 @@
                                     const sysInstPreview = perf.system_instructions.length > 50 
                                         ? perf.system_instructions.substring(0, 50) + '...'
                                         : perf.system_instructions;
+                                    const tempDisplay = perf.temperature !== null && perf.temperature !== undefined 
+                                        ? perf.temperature.toFixed(2) 
+                                        : 'N/A';
+                                    const thinkingDisplay = perf.thinking ? 'Yes' : 'No';
                                     return `
                                         <tr>
                                             <td class="rank ${getRankClass(rank)}">${rank}</td>
                                             <td class="accuracy-cell ${getScoreClass(perf.averageAccuracy)}">${avgAccuracy}%</td>
                                             <td class="model-cell">${perf.model_id}</td>
                                             <td title="${perf.system_instructions}">${sysInstPreview}</td>
+                                            <td>${tempDisplay}</td>
+                                            <td>${thinkingDisplay}</td>
                                             <td>${perf.tasksCompleted}</td>
                                             <td>${perf.totalSamples}</td>
                                             <td class="experiment-id-cell">${perf.experiment_id}</td>
@@ -621,6 +633,8 @@
                         experiment_id: exp.experiment_id,
                         model_id: exp.model_id,
                         system_instructions: exp.system_instructions,
+                        temperature: exp.temperature,
+                        thinking: exp.thinking,
                         accuracy: exp.task_results[taskName].metrics?.average_score || 0,
                         samples: exp.task_results[taskName].metrics?.total_samples || 0
                     }))
@@ -635,37 +649,45 @@
                             <label for="${searchId}">Search experiments:</label>
                             <input type="text" id="${searchId}" placeholder="Search by model, experiment ID..." onkeyup="filterTable('${searchId}', '${tableId}')">
                         </div>
-                        <table class="leaderboard-table" id="${tableId}">
-                            <thead>
-                                <tr>
-                                    <th class="rank">Rank</th>
-                                    <th>Accuracy</th>
-                                    <th>Model</th>
-                                    <th>System Instructions</th>
-                                    <th>Samples</th>
-                                    <th>Experiment ID</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${taskExperiments.map((exp, index) => {
-                                    const rank = index + 1;
-                                    const accuracyPercent = (exp.accuracy * 100).toFixed(2);
-                                    const sysInstPreview = exp.system_instructions.length > 50 
-                                        ? exp.system_instructions.substring(0, 50) + '...'
-                                        : exp.system_instructions;
-                                    return `
-                                        <tr>
-                                            <td class="rank ${getRankClass(rank)}">${rank}</td>
-                                            <td class="accuracy-cell ${getScoreClass(exp.accuracy)}">${accuracyPercent}%</td>
-                                            <td class="model-cell">${exp.model_id}</td>
-                                            <td title="${exp.system_instructions}">${sysInstPreview}</td>
-                                            <td>${exp.samples}</td>
-                                            <td class="experiment-id-cell">${exp.experiment_id}</td>
-                                        </tr>
-                                    `;
-                                }).join('')}
-                            </tbody>
-                        </table>
+                           <table class="leaderboard-table" id="${tableId}">
+                               <thead>
+                                   <tr>
+                                       <th class="rank">Rank</th>
+                                       <th>Accuracy</th>
+                                       <th>Model</th>
+                                       <th>System Instructions</th>
+                                       <th>Temperature</th>
+                                       <th>Thinking</th>
+                                       <th>Samples</th>
+                                       <th>Experiment ID</th>
+                                   </tr>
+                               </thead>
+                               <tbody>
+                                   ${taskExperiments.map((exp, index) => {
+                                       const rank = index + 1;
+                                       const accuracyPercent = (exp.accuracy * 100).toFixed(2);
+                                       const sysInstPreview = exp.system_instructions.length > 50 
+                                           ? exp.system_instructions.substring(0, 50) + '...'
+                                           : exp.system_instructions;
+                                       const tempDisplay = exp.temperature !== null && exp.temperature !== undefined 
+                                           ? exp.temperature.toFixed(2) 
+                                           : 'N/A';
+                                       const thinkingDisplay = exp.thinking ? 'Yes' : 'No';
+                                       return `
+                                           <tr>
+                                               <td class="rank ${getRankClass(rank)}">${rank}</td>
+                                               <td class="accuracy-cell ${getScoreClass(exp.accuracy)}">${accuracyPercent}%</td>
+                                               <td class="model-cell">${exp.model_id}</td>
+                                               <td title="${exp.system_instructions}">${sysInstPreview}</td>
+                                               <td>${tempDisplay}</td>
+                                               <td>${thinkingDisplay}</td>
+                                               <td>${exp.samples}</td>
+                                               <td class="experiment-id-cell">${exp.experiment_id}</td>
+                                           </tr>
+                                       `;
+                                   }).join('')}
+                               </tbody>
+                           </table>
                     </div>
                 `;
             });
