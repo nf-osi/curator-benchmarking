@@ -127,8 +127,12 @@ class Experiment:
                     # Debug output for first sample of first task
                     if idx == 0 and task.name == list(self._get_all_tasks())[0].name:
                         print(f"\n    [DEBUG] Sample {idx + 1} - Prediction (first 200 chars):")
-                        print(f"    {prediction_content[:200]}...")
+                        print(f"    {prediction_content[:200] if prediction_content else '(empty)'}...")
                         print(f"    [DEBUG] Ground truth: {ground_truth_dict}")
+                        # Show raw response structure if content is empty
+                        if not prediction_content and 'raw_response' in response:
+                            print(f"    [DEBUG] Raw response keys: {list(response.get('raw_response', {}).keys())}")
+                            print(f"    [DEBUG] Raw response (first 500 chars): {str(response.get('raw_response', {}))[:500]}")
                         # Use scorer's extraction method to show what will be scored
                         json_str = self.scorer._extract_json(prediction_content)
                         try:
@@ -136,7 +140,7 @@ class Experiment:
                             print(f"    [DEBUG] Extracted and parsed prediction: {pred_parsed}")
                         except Exception as e:
                             print(f"    [DEBUG] Failed to parse extracted JSON: {e}")
-                            print(f"    [DEBUG] Extracted JSON string: {json_str[:200]}")
+                            print(f"    [DEBUG] Extracted JSON string: {json_str[:200] if json_str else '(empty)'}")
                     
                     score = self.scorer.score(
                         prediction=prediction_content,

@@ -36,6 +36,7 @@ class BedrockClient:
             self.use_bearer_token = True
             self.bedrock_runtime = None
             # Construct the Bedrock endpoint URL
+            # Note: Some models may use different endpoints or require different URL formats
             self.bedrock_endpoint = f"https://bedrock-runtime.{config.aws_region}.amazonaws.com"
     
     def invoke_model(
@@ -84,15 +85,42 @@ class BedrockClient:
             try:
                 if self.use_bearer_token:
                     # Use bearer token authentication with direct HTTP request
-                    url = f"{self.bedrock_endpoint}/model/{model_id}/invoke"
+                    # Try /foundation-model/{model_id}/invoke endpoint first
+                    url = f"{self.bedrock_endpoint}/foundation-model/{model_id}/invoke"
                     headers = {
                         'Content-Type': 'application/json',
                         'Authorization': f'Bearer {self.bearer_token}'
                     }
                     
-                    response = requests.post(url, headers=headers, json=body, timeout=300)
-                    response.raise_for_status()
-                    response_body = response.json()
+                    try:
+                        response = requests.post(url, headers=headers, json=body, timeout=300)
+                        response.raise_for_status()
+                        response_body = response.json()
+                        
+                        # Check if we got an UnknownOperationException
+                        if 'Output' in response_body and isinstance(response_body.get('Output'), dict):
+                            error_type = response_body['Output'].get('__type', '')
+                            if 'UnknownOperationException' in error_type:
+                                # Fall back to boto3 if bearer token doesn't work for this model
+                                raise ValueError("UnknownOperationException - falling back to boto3")
+                    except (requests.exceptions.HTTPError, ValueError) as e:
+                        # Fall back to boto3 if bearer token fails
+                        # Initialize boto3 client if not already done
+                        if not hasattr(self, '_boto3_client'):
+                            client_kwargs = {'region_name': self.config.aws_region}
+                            aws_key = self.config.get_aws_access_key()
+                            aws_secret = self.config.get_aws_secret_key()
+                            if aws_key and aws_secret:
+                                client_kwargs['aws_access_key_id'] = aws_key
+                                client_kwargs['aws_secret_access_key'] = aws_secret
+                            self._boto3_client = boto3.client('bedrock-runtime', **client_kwargs)
+                        
+                        # Use boto3 instead
+                        response = self._boto3_client.invoke_model(
+                            modelId=model_id,
+                            body=json.dumps(body)
+                        )
+                        response_body = json.loads(response['body'].read())
                 else:
                     # Use boto3 with AWS credentials
                     response = self.bedrock_runtime.invoke_model(
@@ -101,12 +129,36 @@ class BedrockClient:
                     )
                     response_body = json.loads(response['body'].read())
                 
+                # Extract content based on model response format
+                content = ''
+                
+                # Try Anthropic format first (content array with text)
+                if 'content' in response_body:
+                    content_list = response_body.get('content', [])
+                    if content_list and isinstance(content_list, list):
+                        content = content_list[0].get('text', '')
+                
+                # Try OpenAI format (choices array)
+                if not content and 'choices' in response_body:
+                    choices = response_body.get('choices', [])
+                    if choices and isinstance(choices, list):
+                        choice = choices[0]
+                        if 'message' in choice:
+                            content = choice['message'].get('content', '')
+                        elif 'text' in choice:
+                            content = choice.get('text', '')
+                
+                # Fallback: try direct text field
+                if not content:
+                    content = response_body.get('text', response_body.get('output', ''))
+                
                 return {
                     'success': True,
-                    'content': response_body.get('content', [{}])[0].get('text', ''),
+                    'content': content,
                     'model_id': model_id,
                     'usage': response_body.get('usage', {}),
-                    'attempt': attempt + 1
+                    'attempt': attempt + 1,
+                    'raw_response': response_body  # Include for debugging
                 }
             
             except ClientError as e:
@@ -127,9 +179,15 @@ class BedrockClient:
             except requests.exceptions.HTTPError as e:
                 # Handle HTTP errors from bearer token requests
                 error_code = None
+                error_message = str(e)
                 try:
                     error_body = e.response.json()
                     error_code = error_body.get('__type', '')
+                    error_message = error_body.get('message', error_body.get('error', str(e)))
+                    # Include full error details for debugging
+                    print(f"    [ERROR] HTTP {e.response.status_code}: {error_message}")
+                    if error_body:
+                        print(f"    [ERROR] Full error response: {error_body}")
                 except:
                     pass
                 
@@ -141,7 +199,7 @@ class BedrockClient:
                 
                 return {
                     'success': False,
-                    'error': str(e),
+                    'error': error_message,
                     'error_code': error_code or f'HTTP_{e.response.status_code}',
                     'model_id': model_id,
                     'attempt': attempt + 1
