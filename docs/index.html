@@ -458,41 +458,32 @@
         }
 
         function calculateOverallPerformance(experiments) {
-            // Group by model_id
-            const modelMap = {};
-            
-            experiments.forEach(exp => {
-                const modelId = exp.model_id;
-                if (!modelMap[modelId]) {
-                    modelMap[modelId] = {
-                        model_id: modelId,
-                        scores: [],
-                        tasks: new Set(),
-                        totalSamples: 0
-                    };
+            // Filter experiments where all tasks have 100% success rate
+            const validExperiments = experiments.filter(exp => {
+                if (!exp.task_results) return false;
+                for (const taskResult of Object.values(exp.task_results)) {
+                    if (taskResult.error) return false;
+                    if ((taskResult.metrics?.success_rate || 0) < 1.0) return false;
                 }
-                
-                if (exp.metrics.average_score !== null) {
-                    modelMap[modelId].scores.push(exp.metrics.average_score);
-                }
-                modelMap[modelId].tasks.add(exp.task_name);
-                modelMap[modelId].totalSamples += exp.metrics.total_samples || 0;
+                return true;
             });
             
-            // Calculate average accuracy for each model
-            const performance = Object.values(modelMap).map(model => ({
-                model_id: model.model_id,
-                averageAccuracy: model.scores.length > 0 
-                    ? model.scores.reduce((sum, s) => sum + s, 0) / model.scores.length 
-                    : 0,
-                tasksCompleted: model.tasks.size,
-                totalSamples: model.totalSamples
-            }));
-            
             // Sort by average accuracy (best to worst)
-            performance.sort((a, b) => b.averageAccuracy - a.averageAccuracy);
+            validExperiments.sort((a, b) => {
+                const aAcc = a.overall_metrics?.average_accuracy || 0;
+                const bAcc = b.overall_metrics?.average_accuracy || 0;
+                return bAcc - aAcc;
+            });
             
-            return performance;
+            return validExperiments.map(exp => ({
+                experiment_id: exp.experiment_id,
+                model_id: exp.model_id,
+                system_instructions: exp.system_instructions || 'Default',
+                averageAccuracy: exp.overall_metrics?.average_accuracy || 0,
+                tasksCompleted: exp.overall_metrics?.tasks_completed || 0,
+                totalSamples: exp.overall_metrics?.total_samples || 0,
+                task_results: exp.task_results || {}
+            }));
         }
 
         function displayExperiments() {
