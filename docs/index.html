@@ -331,6 +331,7 @@
                 </div>
             </div>
 
+            <div id="overallPerformance"></div>
             <div id="taskTables"></div>
         </div>
     </div>
@@ -454,6 +455,44 @@
             return '';
         }
 
+        function calculateOverallPerformance(experiments) {
+            // Group by model_id
+            const modelMap = {};
+            
+            experiments.forEach(exp => {
+                const modelId = exp.model_id;
+                if (!modelMap[modelId]) {
+                    modelMap[modelId] = {
+                        model_id: modelId,
+                        scores: [],
+                        tasks: new Set(),
+                        totalSamples: 0
+                    };
+                }
+                
+                if (exp.metrics.average_score !== null) {
+                    modelMap[modelId].scores.push(exp.metrics.average_score);
+                }
+                modelMap[modelId].tasks.add(exp.task_name);
+                modelMap[modelId].totalSamples += exp.metrics.total_samples || 0;
+            });
+            
+            // Calculate average accuracy for each model
+            const performance = Object.values(modelMap).map(model => ({
+                model_id: model.model_id,
+                averageAccuracy: model.scores.length > 0 
+                    ? model.scores.reduce((sum, s) => sum + s, 0) / model.scores.length 
+                    : 0,
+                tasksCompleted: model.tasks.size,
+                totalSamples: model.totalSamples
+            }));
+            
+            // Sort by average accuracy (best to worst)
+            performance.sort((a, b) => b.averageAccuracy - a.averageAccuracy);
+            
+            return performance;
+        }
+
         function displayExperiments() {
             const container = document.getElementById('taskTables');
             
@@ -487,6 +526,51 @@
                     return (b.metrics.average_score || 0) - (a.metrics.average_score || 0);
                 });
             });
+
+            // Calculate overall performance by model
+            const overallPerformance = calculateOverallPerformance(filteredExperiments);
+            
+            // Generate overall performance table
+            let overallHtml = '';
+            if (overallPerformance.length > 0) {
+                overallHtml = `
+                    <div class="task-section">
+                        <div class="task-header">Overall Performance</div>
+                        <div class="search-box">
+                            <label for="search-overall">Search models:</label>
+                            <input type="text" id="search-overall" placeholder="Search by model..." onkeyup="filterTable('search-overall', 'table-overall')">
+                        </div>
+                        <table class="leaderboard-table" id="table-overall">
+                            <thead>
+                                <tr>
+                                    <th class="rank">Rank</th>
+                                    <th>Average Accuracy</th>
+                                    <th>Model</th>
+                                    <th>Tasks Completed</th>
+                                    <th>Total Samples</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${overallPerformance.map((perf, index) => {
+                                    const rank = index + 1;
+                                    const avgAccuracy = (perf.averageAccuracy * 100).toFixed(2);
+                                    return `
+                                        <tr>
+                                            <td class="rank ${getRankClass(rank)}">${rank}</td>
+                                            <td class="accuracy-cell ${getScoreClass(perf.averageAccuracy)}">${avgAccuracy}%</td>
+                                            <td class="model-cell">${perf.model_id}</td>
+                                            <td>${perf.tasksCompleted}</td>
+                                            <td>${perf.totalSamples}</td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('overallPerformance').innerHTML = overallHtml;
 
             // Generate HTML for each task table
             let html = '';

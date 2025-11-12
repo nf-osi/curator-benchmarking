@@ -65,17 +65,7 @@ class IssueProcessor:
                     # If file not found, treat as direct content
                     params['system_instructions'] = sys_inst
         
-        # Extract prompt (may span multiple lines)
-        prompt_match = re.search(r'### Prompt\s*\n\n(.*?)(?=\n###|\Z)', issue_body, re.DOTALL)
-        if prompt_match:
-            prompt = prompt_match.group(1).strip()
-            if prompt and prompt not in ['', '-']:
-                try:
-                    params['prompt'] = self._resolve_content(prompt)
-                except FileNotFoundError as e:
-                    print(f"Warning: {e}")
-                    # If file not found, treat as direct content
-                    params['prompt'] = prompt
+        # Prompt is always task default, so ignore any prompt field in issue
         
         # Extract description
         desc_match = re.search(r'### Experiment Description\s*\n\n(.*?)(?=\n###|\Z)', issue_body, re.DOTALL)
@@ -141,21 +131,18 @@ class IssueProcessor:
         
         model_id = params.get('model') or self.config.default_model
         system_instructions = params.get('system_instructions')
-        prompt = params.get('prompt')
         
         print(f"Running experiment from issue #{issue_number}" if issue_number else "Running experiment")
         print(f"  Task: {task_name}")
         print(f"  Model: {model_id}")
         if system_instructions:
             print(f"  Custom system instructions: Yes")
-        if prompt:
-            print(f"  Custom prompt: Yes")
+        print(f"  Prompt: Using task default")
         
         experiment = Experiment(
             task=task,
             model_id=model_id,
             system_instructions=system_instructions,
-            prompt=prompt,
             config=self.config
         )
         

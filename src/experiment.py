@@ -18,7 +18,6 @@ class Experiment:
         task: Task,
         model_id: str,
         system_instructions: Optional[str] = None,
-        prompt: Optional[str] = None,
         config: Optional[Config] = None
     ):
         """Initialize experiment with parameters."""
@@ -26,7 +25,7 @@ class Experiment:
         self.task = task
         self.model_id = model_id
         self.system_instructions = system_instructions or self.config.default_system_instructions
-        self.prompt = prompt or task.default_prompt
+        self.prompt = task.default_prompt  # Always use task default prompt
         self.bedrock_client = BedrockClient(self.config)
         self.scorer = Scorer()
         
@@ -39,7 +38,8 @@ class Experiment:
     
     def _generate_experiment_id(self) -> str:
         """Generate a unique experiment ID based on parameters."""
-        params_str = f"{self.task.name}_{self.model_id}_{self.system_instructions}_{self.prompt}"
+        # Prompt is always task default, so exclude it from ID generation
+        params_str = f"{self.task.name}_{self.model_id}_{self.system_instructions}"
         return hashlib.md5(params_str.encode()).hexdigest()[:12]
     
     def run(self) -> Dict[str, Any]:

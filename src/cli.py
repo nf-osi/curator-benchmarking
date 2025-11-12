@@ -34,7 +34,6 @@ def run_experiment(
     tasks_dir: Path,
     model_id: Optional[str] = None,
     system_instructions_file: Optional[str] = None,
-    prompt_file: Optional[str] = None,
     config: Optional[Config] = None
 ):
     """Run a single experiment."""
@@ -61,21 +60,14 @@ def run_experiment(
         with open(system_instructions_file, 'r') as f:
             system_instructions = f.read()
     
-    # Load custom prompt if provided
-    prompt = None
-    if prompt_file:
-        with open(prompt_file, 'r') as f:
-            prompt = f.read()
-    
     # Use default model if not specified
     model_id = model_id or config.default_model
     
-    # Create and run experiment
+    # Create and run experiment (prompt always uses task default)
     experiment = Experiment(
         task=task,
         model_id=model_id,
         system_instructions=system_instructions,
-        prompt=prompt,
         config=config
     )
     
@@ -94,7 +86,6 @@ def run_experiment_suite(
     tasks_dir: Path,
     models: List[str],
     system_instructions_files: Optional[List[str]] = None,
-    prompt_files: Optional[List[str]] = None,
     config: Optional[Config] = None
 ):
     """Run a suite of experiments with different parameter combinations."""
@@ -123,33 +114,24 @@ def run_experiment_suite(
             with open(file, 'r') as f:
                 system_instructions_list.append(f.read())
     
-    prompt_list = [None]
-    if prompt_files:
-        prompt_list = []
-        for file in prompt_files:
-            with open(file, 'r') as f:
-                prompt_list.append(f.read())
-    
-    # Run all combinations
-    total_experiments = len(models) * len(system_instructions_list) * len(prompt_list)
+    # Run all combinations (prompt always uses task default)
+    total_experiments = len(models) * len(system_instructions_list)
     print(f"Running {total_experiments} experiments...")
     
     experiment_num = 0
     for model_id in models:
         for system_instructions in system_instructions_list:
-            for prompt in prompt_list:
-                experiment_num += 1
-                print(f"\n[{experiment_num}/{total_experiments}] Running experiment...")
-                
-                experiment = Experiment(
-                    task=task,
-                    model_id=model_id,
-                    system_instructions=system_instructions,
-                    prompt=prompt,
-                    config=config
-                )
-                
-                experiment.run()
+            experiment_num += 1
+            print(f"\n[{experiment_num}/{total_experiments}] Running experiment...")
+            
+            experiment = Experiment(
+                task=task,
+                model_id=model_id,
+                system_instructions=system_instructions,
+                config=config
+            )
+            
+            experiment.run()
 
 
 def main():
@@ -188,11 +170,6 @@ def main():
         type=str,
         help='Path to custom system instructions file'
     )
-    run_parser.add_argument(
-        '--prompt',
-        type=str,
-        help='Path to custom prompt file'
-    )
     
     # Run suite command
     suite_parser = subparsers.add_parser('suite', help='Run a suite of experiments')
@@ -214,11 +191,6 @@ def main():
         nargs='+',
         help='Paths to system instructions files'
     )
-    suite_parser.add_argument(
-        '--prompts',
-        nargs='+',
-        help='Paths to prompt files'
-    )
     
     args = parser.parse_args()
     
@@ -230,8 +202,7 @@ def main():
             task_name=args.task,
             tasks_dir=Path(args.tasks_dir),
             model_id=args.model,
-            system_instructions_file=args.system_instructions,
-            prompt_file=args.prompt
+            system_instructions_file=args.system_instructions
         )
     
     elif args.command == 'suite':
@@ -239,8 +210,7 @@ def main():
             task_name=args.task,
             tasks_dir=Path(args.tasks_dir),
             models=args.models,
-            system_instructions_files=args.system_instructions,
-            prompt_files=args.prompts
+            system_instructions_files=args.system_instructions
         )
     
     else:
