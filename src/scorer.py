@@ -12,10 +12,10 @@ class Scorer:
         ground_truth: Dict[str, Any]
     ) -> Optional[float]:
         """
-        Score a prediction against ground truth.
+        Score a prediction against ground truth using strict matching.
         
         Args:
-            prediction: The model's prediction (may be JSON string or text)
+            prediction: The model's prediction (must be valid JSON)
             ground_truth: The expected result as a dictionary
             
         Returns:
@@ -26,10 +26,10 @@ class Scorer:
             try:
                 pred_dict = json.loads(prediction)
             except (json.JSONDecodeError, TypeError):
-                # If not JSON, treat as text and do simple comparison
-                return self._text_similarity_score(prediction, str(ground_truth))
+                # If not JSON, return 0.0 - adherence to prompt format is part of the test
+                return 0.0
             
-            # If both are dictionaries, do structured comparison
+            # If both are dictionaries, do strict structured comparison
             return self._structured_score(pred_dict, ground_truth)
         
         except Exception as e:
@@ -41,11 +41,15 @@ class Scorer:
         prediction: Dict[str, Any],
         ground_truth: Dict[str, Any]
     ) -> float:
-        """Score structured data (dictionaries)."""
+        """
+        Score structured data (dictionaries) using strict exact matching.
+        
+        Adherence to the prompt (exact values, correct format) is part of the test.
+        """
         if not isinstance(prediction, dict) or not isinstance(ground_truth, dict):
             return 0.0
         
-        # Calculate field-level accuracy
+        # Calculate field-level accuracy with strict matching
         all_keys = set(prediction.keys()) | set(ground_truth.keys())
         if not all_keys:
             return 1.0  # Both empty, perfect match
@@ -55,36 +59,10 @@ class Scorer:
             pred_val = prediction.get(key)
             truth_val = ground_truth.get(key)
             
+            # Strict exact match only - no fuzzy matching
             if pred_val == truth_val:
                 matches += 1
-            elif isinstance(pred_val, str) and isinstance(truth_val, str):
-                # Fuzzy match for strings (case-insensitive, whitespace-normalized)
-                if pred_val.strip().lower() == truth_val.strip().lower():
-                    matches += 1
         
         return matches / len(all_keys)
     
-    def _text_similarity_score(
-        self,
-        prediction: str,
-        ground_truth: str
-    ) -> float:
-        """Score text similarity using simple string matching."""
-        pred_norm = prediction.strip().lower()
-        truth_norm = ground_truth.strip().lower()
-        
-        if pred_norm == truth_norm:
-            return 1.0
-        
-        # Simple word overlap
-        pred_words = set(pred_norm.split())
-        truth_words = set(truth_norm.split())
-        
-        if not truth_words:
-            return 1.0 if not pred_words else 0.0
-        
-        intersection = pred_words & truth_words
-        union = pred_words | truth_words
-        
-        return len(intersection) / len(union) if union else 0.0
 
