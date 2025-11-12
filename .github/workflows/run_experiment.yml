@@ -122,15 +122,46 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          
+          # Pull latest changes to avoid conflicts
+          git pull --rebase origin main || git pull origin main
+          
           # Add results/ directory (experiment results)
           git add results/
           # Add docs/results/ (for GitHub Pages)
           git add docs/results/
+          
           # Check if there are any changes to commit
           if ! git diff --staged --quiet; then
             git commit -m "Save experiment results [skip ci]"
-            git push
-            echo "✅ Results committed and pushed to repository"
+            
+            # Retry push with exponential backoff to handle race conditions
+            max_retries=3
+            retry_count=0
+            while [ $retry_count -lt $max_retries ]; do
+              if git push origin main; then
+                echo "✅ Results committed and pushed to repository"
+                break
+              else
+                retry_count=$((retry_count + 1))
+                if [ $retry_count -lt $max_retries ]; then
+                  echo "⚠️ Push failed, pulling latest changes and retrying (attempt $retry_count/$max_retries)..."
+                  sleep $((retry_count * 2))
+                  git pull --rebase origin main || git pull origin main
+                  # Re-add files in case they were updated
+                  git add results/ docs/results/
+                  # Amend commit if needed, or create new one
+                  if git diff --staged --quiet; then
+                    git commit --amend --no-edit || true
+                  else
+                    git commit -m "Save experiment results [skip ci]"
+                  fi
+                else
+                  echo "❌ Failed to push after $max_retries attempts"
+                  exit 1
+                fi
+              fi
+            done
           else
             echo "⚠️ No changes to commit (results may already be up to date)"
           fi
