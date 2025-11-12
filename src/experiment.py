@@ -65,7 +65,36 @@ class Experiment:
         # Include schema in prompt if available
         schema_text = ""
         if task.schema:
-            schema_text = f"\n\nTarget Schema (controlled terminology):\n{json.dumps(task.schema, indent=2)}"
+            # Extract just the relevant properties from the schema
+            schema_properties = {}
+            if 'properties' in task.schema:
+                schema_properties = task.schema['properties']
+            
+            if schema_properties:
+                # Create a simplified schema with just the properties and their enums
+                simplified_schema = {
+                    "type": "object",
+                    "properties": {}
+                }
+                enum_count = 0
+                for prop_name, prop_def in schema_properties.items():
+                    simplified_schema["properties"][prop_name] = {
+                        "description": prop_def.get("description", ""),
+                        "type": prop_def.get("type", "string")
+                    }
+                    if "enum" in prop_def:
+                        simplified_schema["properties"][prop_name]["enum"] = prop_def["enum"]
+                        enum_count += 1
+                
+                schema_text = f"\n\nTarget Schema (controlled terminology - use these exact values where enums are specified):\n{json.dumps(simplified_schema, indent=2)}"
+                print(f"    Schema loaded: {len(schema_properties)} properties, {enum_count} with controlled terminology (enums)")
+                # Debug: show schema snippet
+                schema_preview = json.dumps(simplified_schema, indent=2)[:200]
+                print(f"    Schema preview: {schema_preview}...")
+            else:
+                print(f"    Warning: Schema found but no properties defined")
+        else:
+            print(f"    No schema file found for this task")
         
         for idx, sample in enumerate(input_samples):
             print(f"    Processing sample {idx + 1}/{len(input_samples)}...", end=' ', flush=True)
