@@ -114,33 +114,17 @@ class IssueProcessor:
         """
         params = self.parse_issue_body(issue_body)
         
-        if 'task' not in params:
-            raise ValueError("Task not specified in issue")
-        
-        task_name = params['task']
-        
-        if task_name == 'example_task':
-            raise ValueError("'example_task' is not a runnable task. It is only for documentation purposes.")
-        
-        task_dir = self.tasks_dir / task_name
-        
-        if not task_dir.exists():
-            raise ValueError(f"Task directory not found: {task_name}")
-        
-        task = Task(task_dir)
-        
         model_id = params.get('model') or self.config.default_model
         system_instructions = params.get('system_instructions')
         
         print(f"Running experiment from issue #{issue_number}" if issue_number else "Running experiment")
-        print(f"  Task: {task_name}")
         print(f"  Model: {model_id}")
         if system_instructions:
             print(f"  Custom system instructions: Yes")
-        print(f"  Prompt: Using task default")
+        print(f"  Running all tasks...")
         
         experiment = Experiment(
-            task=task,
+            tasks_dir=self.tasks_dir,
             model_id=model_id,
             system_instructions=system_instructions,
             config=self.config

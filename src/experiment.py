@@ -11,21 +11,20 @@ from .config import Config
 
 
 class Experiment:
-    """Represents and executes a benchmarking experiment."""
+    """Represents and executes a benchmarking experiment across all tasks."""
     
     def __init__(
         self,
-        task: Task,
+        tasks_dir: Path,
         model_id: str,
         system_instructions: Optional[str] = None,
         config: Optional[Config] = None
     ):
         """Initialize experiment with parameters."""
         self.config = config or Config()
-        self.task = task
+        self.tasks_dir = Path(tasks_dir)
         self.model_id = model_id
         self.system_instructions = system_instructions or self.config.default_system_instructions
-        self.prompt = task.default_prompt  # Always use task default prompt
         self.bedrock_client = BedrockClient(self.config)
         self.scorer = Scorer()
         
@@ -38,29 +37,37 @@ class Experiment:
     
     def _generate_experiment_id(self) -> str:
         """Generate a unique experiment ID based on parameters."""
-        # Prompt is always task default, so exclude it from ID generation
-        params_str = f"{self.task.name}_{self.model_id}_{self.system_instructions}"
+        params_str = f"{self.model_id}_{self.system_instructions}"
         return hashlib.md5(params_str.encode()).hexdigest()[:12]
     
-    def run(self) -> Dict[str, Any]:
-        """Execute the experiment and return results."""
-        print(f"Running experiment {self.experiment_id}")
-        print(f"  Task: {self.task.name}")
-        print(f"  Model: {self.model_id}")
-        print(f"  System Instructions: {self.system_instructions[:50]}...")
-        print(f"  Prompt: {self.prompt[:50]}...")
-        
-        input_samples = self.task.get_input_samples()
-        ground_truth_samples = self.task.get_ground_truth_samples()
+    def _get_all_tasks(self) -> List[Task]:
+        """Get all available tasks (excluding example_task)."""
+        tasks = []
+        for task_dir in sorted(self.tasks_dir.iterdir()):
+            if task_dir.is_dir() and task_dir.name != 'example_task':
+                try:
+                    task = Task(task_dir)
+                    tasks.append(task)
+                except Exception as e:
+                    print(f"Warning: Could not load task {task_dir.name}: {e}")
+                    continue
+        return tasks
+    
+    def _run_task(self, task: Task) -> Dict[str, Any]:
+        """Run a single task and return results."""
+        prompt = task.default_prompt
+        input_samples = task.get_input_samples()
+        ground_truth_samples = task.get_ground_truth_samples()
         
         results = []
         experiment_config = self.config.experiment_config
         
         for idx, sample in enumerate(input_samples):
-            print(f"  Processing sample {idx + 1}/{len(input_samples)}")
+            print(f"    Processing sample {idx + 1}/{len(input_samples)}")
             
             # Format prompt with sample data
-            formatted_prompt = self._format_prompt(sample)
+            sample_str = json.dumps(sample, indent=2)
+            formatted_prompt = f"{prompt}\n\nInput data:\n{sample_str}"
             
             # Invoke model
             response = self.bedrock_client.invoke_model(
@@ -88,32 +95,80 @@ class Experiment:
                 'ground_truth': ground_truth_samples[idx] if ground_truth_samples else None
             })
         
-        # Calculate aggregate metrics
+        # Calculate metrics for this task
         metrics = self._calculate_metrics(results)
+        
+        return {
+            'task_name': task.name,
+            'num_samples': len(input_samples),
+            'results': results,
+            'metrics': metrics
+        }
+    
+    def run(self) -> Dict[str, Any]:
+        """Execute the experiment across all tasks and return results."""
+        print(f"Running experiment {self.experiment_id}")
+        print(f"  Model: {self.model_id}")
+        print(f"  System Instructions: {self.system_instructions[:50]}...")
+        
+        tasks = self._get_all_tasks()
+        if not tasks:
+            raise ValueError("No tasks found to run")
+        
+        print(f"  Running {len(tasks)} tasks...")
+        
+        task_results = {}
+        overall_scores = []
+        total_samples = 0
+        
+        for task in tasks:
+            print(f"  Task: {task.name}")
+            try:
+                task_result = self._run_task(task)
+                task_results[task.name] = task_result
+                
+                # Collect scores for overall metrics
+                if task_result['metrics'].get('average_score') is not None:
+                    overall_scores.append(task_result['metrics']['average_score'])
+                total_samples += task_result['metrics']['total_samples']
+                
+            except Exception as e:
+                print(f"    Error running task {task.name}: {e}")
+                task_results[task.name] = {
+                    'task_name': task.name,
+                    'error': str(e),
+                    'metrics': {
+                        'total_samples': 0,
+                        'successful_runs': 0,
+                        'failed_runs': 0,
+                        'success_rate': 0,
+                        'average_score': None
+                    }
+                }
+        
+        # Calculate overall metrics
+        overall_metrics = {
+            'total_samples': total_samples,
+            'tasks_completed': len([r for r in task_results.values() if 'error' not in r]),
+            'tasks_failed': len([r for r in task_results.values() if 'error' in r]),
+            'average_accuracy': sum(overall_scores) / len(overall_scores) if overall_scores else None,
+            'task_metrics': {name: result['metrics'] for name, result in task_results.items()}
+        }
         
         # Prepare experiment result
         experiment_result = {
             'experiment_id': self.experiment_id,
             'timestamp': datetime.now().isoformat(),
-            'task_name': self.task.name,
             'model_id': self.model_id,
             'system_instructions': self.system_instructions,
-            'prompt': self.prompt,
-            'num_samples': len(input_samples),
-            'results': results,
-            'metrics': metrics
+            'task_results': task_results,
+            'overall_metrics': overall_metrics
         }
         
         # Save results
         self._save_results(experiment_result)
         
         return experiment_result
-    
-    def _format_prompt(self, sample: Dict[str, Any]) -> str:
-        """Format the prompt with sample data."""
-        # Convert sample to a readable format
-        sample_str = json.dumps(sample, indent=2)
-        return f"{self.prompt}\n\nInput data:\n{sample_str}"
     
     def _calculate_metrics(self, results: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Calculate aggregate metrics from results."""
@@ -147,13 +202,13 @@ class Experiment:
         with open(results_file, 'w') as f:
             json.dump(experiment_result, f, indent=2)
         
-        # Save summary to experiments log
+        # Save summary to experiments log (one entry per experiment)
         summary = {
             'experiment_id': experiment_result['experiment_id'],
             'timestamp': experiment_result['timestamp'],
-            'task_name': experiment_result['task_name'],
             'model_id': experiment_result['model_id'],
-            'metrics': experiment_result['metrics']
+            'system_instructions': experiment_result['system_instructions'],
+            'overall_metrics': experiment_result['overall_metrics']
         }
         
         log_file = self.results_dir / "experiments_log.jsonl"
@@ -161,5 +216,4 @@ class Experiment:
             f.write(json.dumps(summary) + '\n')
         
         print(f"  Results saved to {results_file}")
-        print(f"  Metrics: {experiment_result['metrics']}")
-
+        print(f"  Overall Metrics: {experiment_result['overall_metrics']}")

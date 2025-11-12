@@ -30,29 +30,16 @@ def list_tasks(tasks_dir: Path):
 
 
 def run_experiment(
-    task_name: str,
     tasks_dir: Path,
     model_id: Optional[str] = None,
     system_instructions_file: Optional[str] = None,
     config: Optional[Config] = None
 ):
-    """Run a single experiment."""
+    """Run an experiment across all tasks."""
     if config is None:
         config = Config()
     
     tasks_dir = Path(tasks_dir)
-    
-    if task_name == 'example_task':
-        print(f"Error: 'example_task' is not a runnable task. It is only for documentation purposes.")
-        sys.exit(1)
-    
-    task_dir = tasks_dir / task_name
-    
-    if not task_dir.exists():
-        print(f"Task not found: {task_name}")
-        sys.exit(1)
-    
-    task = Task(task_dir)
     
     # Load custom system instructions if provided
     system_instructions = None
@@ -63,9 +50,9 @@ def run_experiment(
     # Use default model if not specified
     model_id = model_id or config.default_model
     
-    # Create and run experiment (prompt always uses task default)
+    # Create and run experiment (runs all tasks)
     experiment = Experiment(
-        task=task,
+        tasks_dir=tasks_dir,
         model_id=model_id,
         system_instructions=system_instructions,
         config=config
@@ -77,12 +64,11 @@ def run_experiment(
     print("Experiment Complete")
     print("="*60)
     print(f"Experiment ID: {result['experiment_id']}")
-    print(f"Metrics: {result['metrics']}")
+    print(f"Overall Metrics: {result['overall_metrics']}")
     print("="*60)
 
 
 def run_experiment_suite(
-    task_name: str,
     tasks_dir: Path,
     models: List[str],
     system_instructions_files: Optional[List[str]] = None,
@@ -94,18 +80,6 @@ def run_experiment_suite(
     
     tasks_dir = Path(tasks_dir)
     
-    if task_name == 'example_task':
-        print(f"Error: 'example_task' is not a runnable task. It is only for documentation purposes.")
-        sys.exit(1)
-    
-    task_dir = tasks_dir / task_name
-    
-    if not task_dir.exists():
-        print(f"Task not found: {task_name}")
-        sys.exit(1)
-    
-    task = Task(task_dir)
-    
     # Default to using task defaults if not provided
     system_instructions_list = [None]
     if system_instructions_files:
@@ -114,7 +88,7 @@ def run_experiment_suite(
             with open(file, 'r') as f:
                 system_instructions_list.append(f.read())
     
-    # Run all combinations (prompt always uses task default)
+    # Run all combinations (each experiment runs all tasks)
     total_experiments = len(models) * len(system_instructions_list)
     print(f"Running {total_experiments} experiments...")
     
@@ -125,7 +99,7 @@ def run_experiment_suite(
             print(f"\n[{experiment_num}/{total_experiments}] Running experiment...")
             
             experiment = Experiment(
-                task=task,
+                tasks_dir=tasks_dir,
                 model_id=model_id,
                 system_instructions=system_instructions,
                 config=config
@@ -152,8 +126,7 @@ def main():
     )
     
     # Run experiment command
-    run_parser = subparsers.add_parser('run', help='Run a single experiment')
-    run_parser.add_argument('task', help='Task name to run')
+    run_parser = subparsers.add_parser('run', help='Run an experiment across all tasks')
     run_parser.add_argument(
         '--tasks-dir',
         type=str,
@@ -172,8 +145,7 @@ def main():
     )
     
     # Run suite command
-    suite_parser = subparsers.add_parser('suite', help='Run a suite of experiments')
-    suite_parser.add_argument('task', help='Task name to run')
+    suite_parser = subparsers.add_parser('suite', help='Run a suite of experiments across all tasks')
     suite_parser.add_argument(
         '--tasks-dir',
         type=str,
@@ -199,7 +171,6 @@ def main():
     
     elif args.command == 'run':
         run_experiment(
-            task_name=args.task,
             tasks_dir=Path(args.tasks_dir),
             model_id=args.model,
             system_instructions_file=args.system_instructions
@@ -207,7 +178,6 @@ def main():
     
     elif args.command == 'suite':
         run_experiment_suite(
-            task_name=args.task,
             tasks_dir=Path(args.tasks_dir),
             models=args.models,
             system_instructions_files=args.system_instructions

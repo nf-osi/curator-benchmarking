@@ -376,14 +376,14 @@
         }
 
         async function loadDetailedResults() {
-            // Load detailed results to get system_instructions and prompt
+            // Load detailed results to get task_results
             for (let exp of allExperiments) {
                 try {
                     const response = await fetch(`results/${exp.experiment_id}_results.json`);
                     if (response.ok) {
                         const detailed = await response.json();
+                        exp.task_results = detailed.task_results || {};
                         exp.system_instructions = detailed.system_instructions || '';
-                        exp.prompt = detailed.prompt || '';
                     }
                 } catch (e) {
                     // Ignore errors for individual detailed results
@@ -392,14 +392,20 @@
         }
 
         function updateStats() {
-            // Only count experiments with 100% success rate
-            const validExperiments = allExperiments.filter(exp => (exp.metrics.success_rate || 0) >= 1.0);
+            // Only count experiments where all tasks have 100% success rate
+            const validExperiments = allExperiments.filter(exp => {
+                if (!exp.task_results) return false;
+                for (const taskResult of Object.values(exp.task_results)) {
+                    if (taskResult.error) return false;
+                    if ((taskResult.metrics?.success_rate || 0) < 1.0) return false;
+                }
+                return true;
+            });
             
             const stats = {
                 total: validExperiments.length,
-                tasks: new Set(validExperiments.map(e => e.task_name)).size,
-                avgScore: validExperiments.length > 0 
-                    ? validExperiments.reduce((sum, e) => sum + (e.metrics.average_score || 0), 0) / validExperiments.length
+                avgAccuracy: validExperiments.length > 0 
+                    ? validExperiments.reduce((sum, e) => sum + (e.overall_metrics?.average_accuracy || 0), 0) / validExperiments.length
                     : 0
             };
 
@@ -409,11 +415,7 @@
                     <div class="stat-label">Total Experiments</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">${stats.tasks}</div>
-                    <div class="stat-label">Unique Tasks</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">${(stats.avgScore * 100).toFixed(2)}%</div>
+                    <div class="stat-value">${(stats.avgAccuracy * 100).toFixed(2)}%</div>
                     <div class="stat-label">Average Accuracy</div>
                 </div>
             `;
@@ -506,28 +508,7 @@
                 return;
             }
 
-            // Filter out experiments with success rate < 100%
-            filteredExperiments = filteredExperiments.filter(exp => {
-                return (exp.metrics.success_rate || 0) >= 1.0;
-            });
-
-            // Group experiments by task
-            const tasksMap = {};
-            filteredExperiments.forEach(exp => {
-                if (!tasksMap[exp.task_name]) {
-                    tasksMap[exp.task_name] = [];
-                }
-                tasksMap[exp.task_name].push(exp);
-            });
-
-            // Sort each task's experiments by score (best to worst)
-            Object.keys(tasksMap).forEach(taskName => {
-                tasksMap[taskName].sort((a, b) => {
-                    return (b.metrics.average_score || 0) - (a.metrics.average_score || 0);
-                });
-            });
-
-            // Calculate overall performance by model
+            // Calculate overall performance (experiments ranked by average accuracy)
             const overallPerformance = calculateOverallPerformance(filteredExperiments);
             
             // Generate overall performance table
@@ -537,8 +518,8 @@
                     <div class="task-section">
                         <div class="task-header">Overall Performance</div>
                         <div class="search-box">
-                            <label for="search-overall">Search models:</label>
-                            <input type="text" id="search-overall" placeholder="Search by model..." onkeyup="filterTable('search-overall', 'table-overall')">
+                            <label for="search-overall">Search experiments:</label>
+                            <input type="text" id="search-overall" placeholder="Search by model or experiment ID..." onkeyup="filterTable('search-overall', 'table-overall')">
                         </div>
                         <table class="leaderboard-table" id="table-overall">
                             <thead>
@@ -546,21 +527,28 @@
                                     <th class="rank">Rank</th>
                                     <th>Average Accuracy</th>
                                     <th>Model</th>
+                                    <th>System Instructions</th>
                                     <th>Tasks Completed</th>
                                     <th>Total Samples</th>
+                                    <th>Experiment ID</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 ${overallPerformance.map((perf, index) => {
                                     const rank = index + 1;
                                     const avgAccuracy = (perf.averageAccuracy * 100).toFixed(2);
+                                    const sysInstPreview = perf.system_instructions.length > 50 
+                                        ? perf.system_instructions.substring(0, 50) + '...'
+                                        : perf.system_instructions;
                                     return `
                                         <tr>
                                             <td class="rank ${getRankClass(rank)}">${rank}</td>
                                             <td class="accuracy-cell ${getScoreClass(perf.averageAccuracy)}">${avgAccuracy}%</td>
                                             <td class="model-cell">${perf.model_id}</td>
+                                            <td title="${perf.system_instructions}">${sysInstPreview}</td>
                                             <td>${perf.tasksCompleted}</td>
                                             <td>${perf.totalSamples}</td>
+                                            <td class="experiment-id-cell">${perf.experiment_id}</td>
                                         </tr>
                                     `;
                                 }).join('')}
@@ -572,20 +560,39 @@
             
             document.getElementById('overallPerformance').innerHTML = overallHtml;
 
-            // Generate HTML for each task table
+            // Generate task-wise breakdown tables
+            // Get all unique tasks from all experiments
+            const allTasks = new Set();
+            overallPerformance.forEach(exp => {
+                Object.keys(exp.task_results).forEach(task => allTasks.add(task));
+            });
+            
             let html = '';
-            Object.keys(tasksMap).sort().forEach((taskName, taskIndex) => {
-                const experiments = tasksMap[taskName];
+            Array.from(allTasks).sort().forEach((taskName, taskIndex) => {
                 const taskDisplayName = taskName.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
                 const searchId = `search-${taskIndex}`;
                 const tableId = `table-${taskIndex}`;
+                
+                // Get all experiments with results for this task, sorted by accuracy
+                const taskExperiments = overallPerformance
+                    .filter(exp => exp.task_results[taskName] && !exp.task_results[taskName].error)
+                    .map(exp => ({
+                        experiment_id: exp.experiment_id,
+                        model_id: exp.model_id,
+                        system_instructions: exp.system_instructions,
+                        accuracy: exp.task_results[taskName].metrics?.average_score || 0,
+                        samples: exp.task_results[taskName].metrics?.total_samples || 0
+                    }))
+                    .sort((a, b) => b.accuracy - a.accuracy);
+                
+                if (taskExperiments.length === 0) return;
                 
                 html += `
                     <div class="task-section">
                         <div class="task-header">${taskDisplayName}</div>
                         <div class="search-box">
                             <label for="${searchId}">Search experiments:</label>
-                            <input type="text" id="${searchId}" placeholder="Search by model, experiment ID, or date..." onkeyup="filterTable('${searchId}', '${tableId}')">
+                            <input type="text" id="${searchId}" placeholder="Search by model, experiment ID..." onkeyup="filterTable('${searchId}', '${tableId}')">
                         </div>
                         <table class="leaderboard-table" id="${tableId}">
                             <thead>
@@ -593,26 +600,26 @@
                                     <th class="rank">Rank</th>
                                     <th>Accuracy</th>
                                     <th>Model</th>
+                                    <th>System Instructions</th>
                                     <th>Samples</th>
                                     <th>Experiment ID</th>
-                                    <th>Date</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                ${experiments.map((exp, index) => {
+                                ${taskExperiments.map((exp, index) => {
                                     const rank = index + 1;
-                                    const score = exp.metrics.average_score || 0;
-                                    const scorePercent = (score * 100).toFixed(2);
-                                    const date = new Date(exp.timestamp).toLocaleDateString();
-                                    
+                                    const accuracyPercent = (exp.accuracy * 100).toFixed(2);
+                                    const sysInstPreview = exp.system_instructions.length > 50 
+                                        ? exp.system_instructions.substring(0, 50) + '...'
+                                        : exp.system_instructions;
                                     return `
                                         <tr>
                                             <td class="rank ${getRankClass(rank)}">${rank}</td>
-                                            <td class="accuracy-cell ${getScoreClass(score)}">${scorePercent}%</td>
+                                            <td class="accuracy-cell ${getScoreClass(exp.accuracy)}">${accuracyPercent}%</td>
                                             <td class="model-cell">${exp.model_id}</td>
-                                            <td>${exp.metrics.total_samples || 0}</td>
+                                            <td title="${exp.system_instructions}">${sysInstPreview}</td>
+                                            <td>${exp.samples}</td>
                                             <td class="experiment-id-cell">${exp.experiment_id}</td>
-                                            <td class="timestamp-cell">${date}</td>
                                         </tr>
                                     `;
                                 }).join('')}
