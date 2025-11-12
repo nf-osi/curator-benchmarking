@@ -352,7 +352,8 @@
                 
                 console.log(`Loaded ${lines.length} experiment entries from log file`);
                 
-                allExperiments = lines.map(line => {
+                // Parse all experiments
+                const parsedExperiments = lines.map(line => {
                     try {
                         return JSON.parse(line);
                     } catch (e) {
@@ -360,6 +361,18 @@
                         return null;
                     }
                 }).filter(exp => exp !== null);
+                
+                // Deduplicate by experiment_id, keeping the most recent (last) entry
+                const experimentMap = new Map();
+                for (const exp of parsedExperiments) {
+                    const existing = experimentMap.get(exp.experiment_id);
+                    if (!existing || new Date(exp.timestamp) > new Date(existing.timestamp)) {
+                        experimentMap.set(exp.experiment_id, exp);
+                    }
+                }
+                allExperiments = Array.from(experimentMap.values());
+                
+                console.log(`After deduplication: ${allExperiments.length} unique experiments`);
 
                 console.log(`Parsed ${allExperiments.length} valid experiments`);
 
