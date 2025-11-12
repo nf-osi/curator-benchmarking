@@ -118,8 +118,19 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          # Pull latest changes to avoid conflicts
-          git pull --rebase origin main || git pull origin main
+          # Function to safely pull with handling of untracked files
+          safe_pull() {
+            # Stash any untracked files that might conflict
+            git add docs/results/ || true
+            git stash push -u -m "temp-untracked-$(date +%s)" || true
+            # Pull latest changes
+            git pull --rebase origin main || git pull origin main || true
+            # Restore stashed files if any
+            git stash pop || true
+          }
+          
+          # Initial pull
+          safe_pull
           
           # Add docs/results/ (main results directory)
           git add docs/results/
@@ -140,7 +151,7 @@ jobs:
                 if [ $retry_count -lt $max_retries ]; then
                   echo "⚠️ Push failed, pulling latest changes and retrying (attempt $retry_count/$max_retries)..."
                   sleep $((retry_count * 2))
-                  git pull --rebase origin main || git pull origin main
+                  safe_pull
                   # Re-add files in case they were updated
                   git add docs/results/
                   # Amend commit if needed, or create new one
