@@ -113,11 +113,13 @@ class Experiment:
                 max_retries=experiment_config.get('max_retries', 3)
             )
             
+            # Initialize score to None
+            score = None
+            
             if not response.get('success', False):
                 print(f"✗ Failed: {response.get('error', 'Unknown error')}")
             else:
                 # Score if ground truth available
-                score = None
                 if ground_truth_samples and idx < len(ground_truth_samples):
                     prediction_content = response.get('content', '')
                     ground_truth_dict = ground_truth_samples[idx]
