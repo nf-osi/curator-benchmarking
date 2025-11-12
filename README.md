@@ -96,6 +96,7 @@ The recommended way to submit experiments is through GitHub issues:
 **Note:** For GitHub Actions to work, you need to:
 - Set up repository secrets: `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
 - Ensure the GitHub Actions workflow has permission to write comments and close issues
+- Update the issue template with available tasks: `python scripts/update_issue_template.py`
 
 ### Command-Line Usage
 

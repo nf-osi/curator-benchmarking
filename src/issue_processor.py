@@ -31,40 +31,57 @@ class IssueProcessor:
         params = {}
         
         # Extract task (from dropdown or custom)
+        # Try dropdown first
         task_match = re.search(r'### Task\s*\n\n([^\n]+)', issue_body)
         if task_match:
-            params['task'] = task_match.group(1).strip()
+            task_value = task_match.group(1).strip()
+            # Skip if it's the placeholder or empty
+            if task_value and task_value not in ['', '-']:
+                params['task'] = task_value
         
+        # Override with custom task if provided
         custom_task_match = re.search(r'### Custom Task Name\s*\n\n([^\n]+)', issue_body)
-        if custom_task_match and custom_task_match.group(1).strip():
-            params['task'] = custom_task_match.group(1).strip()
+        if custom_task_match:
+            custom_task = custom_task_match.group(1).strip()
+            if custom_task and custom_task not in ['', '-']:
+                params['task'] = custom_task
         
         # Extract model
         model_match = re.search(r'### Model Endpoint\s*\n\n([^\n]+)', issue_body)
         if model_match:
             model = model_match.group(1).strip()
-            if model:
+            if model and model not in ['', '-']:
                 params['model'] = model
         
-        # Extract system instructions
+        # Extract system instructions (may span multiple lines)
         sys_inst_match = re.search(r'### System Instructions\s*\n\n(.*?)(?=\n###|\Z)', issue_body, re.DOTALL)
         if sys_inst_match:
             sys_inst = sys_inst_match.group(1).strip()
-            if sys_inst:
-                params['system_instructions'] = self._resolve_content(sys_inst)
+            if sys_inst and sys_inst not in ['', '-']:
+                try:
+                    params['system_instructions'] = self._resolve_content(sys_inst)
+                except FileNotFoundError as e:
+                    print(f"Warning: {e}")
+                    # If file not found, treat as direct content
+                    params['system_instructions'] = sys_inst
         
-        # Extract prompt
+        # Extract prompt (may span multiple lines)
         prompt_match = re.search(r'### Prompt\s*\n\n(.*?)(?=\n###|\Z)', issue_body, re.DOTALL)
         if prompt_match:
             prompt = prompt_match.group(1).strip()
-            if prompt:
-                params['prompt'] = self._resolve_content(prompt)
+            if prompt and prompt not in ['', '-']:
+                try:
+                    params['prompt'] = self._resolve_content(prompt)
+                except FileNotFoundError as e:
+                    print(f"Warning: {e}")
+                    # If file not found, treat as direct content
+                    params['prompt'] = prompt
         
         # Extract description
         desc_match = re.search(r'### Experiment Description\s*\n\n(.*?)(?=\n###|\Z)', issue_body, re.DOTALL)
         if desc_match:
             desc = desc_match.group(1).strip()
-            if desc:
+            if desc and desc not in ['', '-']:
                 params['description'] = desc
         
         return params
