@@ -205,7 +205,11 @@ class Experiment:
                 total_samples += task_result['metrics']['total_samples']
                 
                 print(f"  ✓ Task {task.name} completed successfully")
-                print(f"    Accuracy: {(task_result['metrics'].get('average_score', 0) * 100):.2f}%")
+                avg_score = task_result['metrics'].get('average_score')
+                if avg_score is not None:
+                    print(f"    Accuracy: {(avg_score * 100):.2f}%")
+                else:
+                    print(f"    Accuracy: N/A (no scores calculated)")
                 print(f"    Samples: {task_result['metrics']['total_samples']}")
                 print()
                 

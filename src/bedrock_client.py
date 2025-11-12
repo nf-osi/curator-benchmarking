@@ -16,28 +16,26 @@ class BedrockClient:
         self.config = config
         self.bearer_token = config.get_bearer_token()
         
-        # If bearer token is available, we'll use direct HTTP requests
-        # Otherwise, use boto3 with AWS credentials
+        # Set bearer token as environment variable so boto3 can use it
+        if self.bearer_token:
+            import os
+            os.environ['AWS_BEARER_TOKEN_BEDROCK'] = self.bearer_token
+        
+        # Always use boto3 - it will automatically use the bearer token from environment
+        # if available, otherwise fall back to AWS credentials
+        client_kwargs = {'region_name': config.aws_region}
+        
+        # Only set AWS credentials if bearer token is not available
         if not self.bearer_token:
-            # Build client kwargs - use credentials from env if available, otherwise use default chain
-            client_kwargs = {'region_name': config.aws_region}
-            
             aws_key = config.get_aws_access_key()
             aws_secret = config.get_aws_secret_key()
             
             if aws_key and aws_secret:
                 client_kwargs['aws_access_key_id'] = aws_key
                 client_kwargs['aws_secret_access_key'] = aws_secret
-            
-            self.bedrock_runtime = boto3.client('bedrock-runtime', **client_kwargs)
-            self.use_bearer_token = False
-        else:
-            # Use bearer token for authentication
-            self.use_bearer_token = True
-            self.bedrock_runtime = None
-            # Construct the Bedrock endpoint URL
-            # Note: Some models may use different endpoints or require different URL formats
-            self.bedrock_endpoint = f"https://bedrock-runtime.{config.aws_region}.amazonaws.com"
+        
+        self.bedrock_runtime = boto3.client('bedrock-runtime', **client_kwargs)
+        self.use_bearer_token = False  # We use boto3, which handles bearer token via env var
     
     def invoke_model(
         self,
@@ -83,57 +81,66 @@ class BedrockClient:
         
         for attempt in range(max_retries):
             try:
-                if self.use_bearer_token:
-                    # Use bearer token authentication with direct HTTP request
-                    # Try /foundation-model/{model_id}/invoke endpoint first
-                    url = f"{self.bedrock_endpoint}/foundation-model/{model_id}/invoke"
-                    headers = {
-                        'Content-Type': 'application/json',
-                        'Authorization': f'Bearer {self.bearer_token}'
-                    }
-                    
-                    try:
-                        response = requests.post(url, headers=headers, json=body, timeout=300)
-                        response.raise_for_status()
-                        response_body = response.json()
-                        
-                        # Check if we got an UnknownOperationException
-                        if 'Output' in response_body and isinstance(response_body.get('Output'), dict):
-                            error_type = response_body['Output'].get('__type', '')
-                            if 'UnknownOperationException' in error_type:
-                                # Fall back to boto3 if bearer token doesn't work for this model
-                                raise ValueError("UnknownOperationException - falling back to boto3")
-                    except (requests.exceptions.HTTPError, ValueError) as e:
-                        # Fall back to boto3 if bearer token fails
-                        # Initialize boto3 client if not already done
-                        if not hasattr(self, '_boto3_client'):
-                            client_kwargs = {'region_name': self.config.aws_region}
-                            aws_key = self.config.get_aws_access_key()
-                            aws_secret = self.config.get_aws_secret_key()
-                            if aws_key and aws_secret:
-                                client_kwargs['aws_access_key_id'] = aws_key
-                                client_kwargs['aws_secret_access_key'] = aws_secret
-                            self._boto3_client = boto3.client('bedrock-runtime', **client_kwargs)
-                        
-                        # Use boto3 instead
-                        response = self._boto3_client.invoke_model(
-                            modelId=model_id,
-                            body=json.dumps(body)
-                        )
-                        response_body = json.loads(response['body'].read())
-                else:
-                    # Use boto3 with AWS credentials
+                # Always use boto3 - it automatically uses bearer token from AWS_BEARER_TOKEN_BEDROCK env var
+                # if available, otherwise uses AWS credentials
+                
+                # Try invoke_model first (for older models)
+                try:
                     response = self.bedrock_runtime.invoke_model(
                         modelId=model_id,
                         body=json.dumps(body)
                     )
                     response_body = json.loads(response['body'].read())
+                except ClientError as e:
+                    error_code = e.response.get('Error', {}).get('Code', '')
+                    error_message = e.response.get('Error', {}).get('Message', '')
+                    
+                    # If invoke_model fails with ValidationException about on-demand throughput,
+                    # try using converse API instead (for newer models)
+                    if error_code == 'ValidationException' and 'on-demand throughput' in error_message:
+                        # Convert to converse API format
+                        converse_messages = []
+                        for msg in body.get('messages', []):
+                            converse_messages.append({
+                                'role': msg.get('role', 'user'),
+                                'content': [{'text': msg.get('content', '')}]
+                            })
+                        
+                        converse_kwargs = {
+                            'modelId': model_id,
+                            'messages': converse_messages
+                        }
+                        
+                        if body.get('system'):
+                            converse_kwargs['system'] = [{'text': body['system']}]
+                        
+                        if 'max_tokens' in body:
+                            converse_kwargs['inferenceConfig'] = {
+                                'maxTokens': body['max_tokens'],
+                                'temperature': body.get('temperature', 0.0)
+                            }
+                        
+                        response = self.bedrock_runtime.converse(**converse_kwargs)
+                        # Converse API returns response directly, not wrapped in 'body'
+                        response_body = response
+                    else:
+                        raise e
                 
                 # Extract content based on model response format
                 content = ''
                 
-                # Try Anthropic format first (content array with text)
-                if 'content' in response_body:
+                # Try converse API format first (output.message.content array)
+                if 'output' in response_body:
+                    output = response_body.get('output', {})
+                    if 'message' in output:
+                        message = output['message']
+                        if 'content' in message:
+                            content_list = message.get('content', [])
+                            if content_list and isinstance(content_list, list):
+                                content = content_list[0].get('text', '')
+                
+                # Try Anthropic invoke_model format (content array with text)
+                if not content and 'content' in response_body:
                     content_list = response_body.get('content', [])
                     if content_list and isinstance(content_list, list):
                         content = content_list[0].get('text', '')
