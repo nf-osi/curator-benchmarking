@@ -117,13 +117,17 @@ jobs:
         run: |
           python scripts/update_gh_pages.py
       
-      - name: Commit and push GitHub Pages update
+      - name: Commit and push results
         if: steps.run-experiment.outcome == 'success'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          # Add results directory (the actual experiment results)
+          git add results/
+          # Add docs/results/ (for GitHub Pages)
           git add docs/results/
-          git diff --staged --quiet || git commit -m "Update GitHub Pages with experiment results [skip ci]"
+          # Commit if there are changes
+          git diff --staged --quiet || git commit -m "Save experiment results [skip ci]"
           git push
       
       - name: Upload results
