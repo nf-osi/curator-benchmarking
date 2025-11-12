@@ -23,6 +23,9 @@ class Task:
         
         # Load default prompt
         self.default_prompt = self._load_default_prompt()
+        
+        # Load schema if it exists
+        self.schema = self._load_schema()
     
     def _load_config(self) -> Dict[str, Any]:
         """Load task configuration if it exists."""
@@ -80,6 +83,15 @@ class Task:
         
         # Return a generic prompt if none exists
         return "Please process the following metadata according to the task requirements."
+    
+    def _load_schema(self) -> Optional[Dict[str, Any]]:
+        """Load JSON schema if it exists."""
+        schema_path = self.task_dir / "schema.json"
+        if schema_path.exists():
+            import json
+            with open(schema_path, 'r') as f:
+                return json.load(f)
+        return None
     
     def get_input_samples(self) -> list:
         """Get input samples as a list of dictionaries."""

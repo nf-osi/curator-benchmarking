@@ -62,12 +62,17 @@ class Experiment:
         results = []
         experiment_config = self.config.experiment_config
         
+        # Include schema in prompt if available
+        schema_text = ""
+        if task.schema:
+            schema_text = f"\n\nTarget Schema (controlled terminology):\n{json.dumps(task.schema, indent=2)}"
+        
         for idx, sample in enumerate(input_samples):
             print(f"    Processing sample {idx + 1}/{len(input_samples)}")
             
-            # Format prompt with sample data
+            # Format prompt with sample data and schema
             sample_str = json.dumps(sample, indent=2)
-            formatted_prompt = f"{prompt}\n\nInput data:\n{sample_str}"
+            formatted_prompt = f"{prompt}{schema_text}\n\nInput data:\n{sample_str}"
             
             # Invoke model
             response = self.bedrock_client.invoke_model(
