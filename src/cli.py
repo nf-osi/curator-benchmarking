@@ -15,7 +15,7 @@ def list_tasks(tasks_dir: Path):
         print(f"Tasks directory not found: {tasks_dir}")
         return
     
-    task_dirs = [d for d in tasks_dir.iterdir() if d.is_dir()]
+    task_dirs = [d for d in tasks_dir.iterdir() if d.is_dir() and d.name != 'example_task']
     
     if not task_dirs:
         print("No tasks found.")
@@ -42,6 +42,11 @@ def run_experiment(
         config = Config()
     
     tasks_dir = Path(tasks_dir)
+    
+    if task_name == 'example_task':
+        print(f"Error: 'example_task' is not a runnable task. It is only for documentation purposes.")
+        sys.exit(1)
+    
     task_dir = tasks_dir / task_name
     
     if not task_dir.exists():
@@ -97,6 +102,11 @@ def run_experiment_suite(
         config = Config()
     
     tasks_dir = Path(tasks_dir)
+    
+    if task_name == 'example_task':
+        print(f"Error: 'example_task' is not a runnable task. It is only for documentation purposes.")
+        sys.exit(1)
+    
     task_dir = tasks_dir / task_name
     
     if not task_dir.exists():

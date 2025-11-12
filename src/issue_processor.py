@@ -128,6 +128,10 @@ class IssueProcessor:
             raise ValueError("Task not specified in issue")
         
         task_name = params['task']
+        
+        if task_name == 'example_task':
+            raise ValueError("'example_task' is not a runnable task. It is only for documentation purposes.")
+        
         task_dir = self.tasks_dir / task_name
         
         if not task_dir.exists():

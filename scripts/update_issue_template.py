@@ -10,7 +10,7 @@ def get_available_tasks(tasks_dir: Path) -> list:
     if not tasks_dir.exists():
         return []
     
-    return sorted([d.name for d in tasks_dir.iterdir() if d.is_dir() and not d.name.startswith('.')])
+    return sorted([d.name for d in tasks_dir.iterdir() if d.is_dir() and not d.name.startswith('.') and d.name != 'example_task'])
 
 
 def update_issue_template(template_path: Path, tasks: list):

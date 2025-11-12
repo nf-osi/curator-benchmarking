@@ -125,6 +125,34 @@
             text-transform: capitalize;
         }
 
+        .search-box {
+            padding: 15px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .search-box label {
+            display: block;
+            margin-bottom: 8px;
+            color: #666;
+            font-weight: 500;
+            font-size: 0.9em;
+        }
+
         .leaderboard-table {
             width: 100%;
             border-collapse: collapse;
@@ -210,7 +238,7 @@
             color: #cd7f32;
         }
 
-        .score-cell {
+        .score-cell, .accuracy-cell {
             font-weight: bold;
             font-size: 1.1em;
         }
@@ -385,7 +413,7 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-value">${(stats.avgScore * 100).toFixed(2)}%</div>
-                    <div class="stat-label">Average Score</div>
+                    <div class="stat-label">Average Accuracy</div>
                 </div>
             `;
         }
@@ -462,18 +490,24 @@
 
             // Generate HTML for each task table
             let html = '';
-            Object.keys(tasksMap).sort().forEach(taskName => {
+            Object.keys(tasksMap).sort().forEach((taskName, taskIndex) => {
                 const experiments = tasksMap[taskName];
                 const taskDisplayName = taskName.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                const searchId = `search-${taskIndex}`;
+                const tableId = `table-${taskIndex}`;
                 
                 html += `
                     <div class="task-section">
                         <div class="task-header">${taskDisplayName}</div>
-                        <table class="leaderboard-table">
+                        <div class="search-box">
+                            <label for="${searchId}">Search experiments:</label>
+                            <input type="text" id="${searchId}" placeholder="Search by model, experiment ID, or date..." onkeyup="filterTable('${searchId}', '${tableId}')">
+                        </div>
+                        <table class="leaderboard-table" id="${tableId}">
                             <thead>
                                 <tr>
                                     <th class="rank">Rank</th>
-                                    <th>Score</th>
+                                    <th>Accuracy</th>
                                     <th>Model</th>
                                     <th>Samples</th>
                                     <th>Experiment ID</th>
@@ -490,7 +524,7 @@
                                     return `
                                         <tr>
                                             <td class="rank ${getRankClass(rank)}">${rank}</td>
-                                            <td class="score-cell ${getScoreClass(score)}">${scorePercent}%</td>
+                                            <td class="accuracy-cell ${getScoreClass(score)}">${scorePercent}%</td>
                                             <td class="model-cell">${exp.model_id}</td>
                                             <td>${exp.metrics.total_samples || 0}</td>
                                             <td class="experiment-id-cell">${exp.experiment_id}</td>
@@ -505,6 +539,24 @@
             });
 
             container.innerHTML = html;
+        }
+
+        function filterTable(searchId, tableId) {
+            const searchInput = document.getElementById(searchId);
+            const filter = searchInput.value.toLowerCase();
+            const table = document.getElementById(tableId);
+            const rows = table.getElementsByTagName('tr');
+            
+            // Skip header row (index 0)
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                const text = row.textContent || row.innerText;
+                if (text.toLowerCase().indexOf(filter) > -1) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
         }
 
         // Event listeners
