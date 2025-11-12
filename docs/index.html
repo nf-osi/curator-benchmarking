@@ -350,6 +350,8 @@
                 const text = await response.text();
                 const lines = text.trim().split('\n').filter(line => line.trim());
                 
+                console.log(`Loaded ${lines.length} experiment entries from log file`);
+                
                 allExperiments = lines.map(line => {
                     try {
                         return JSON.parse(line);
@@ -359,8 +361,12 @@
                     }
                 }).filter(exp => exp !== null);
 
+                console.log(`Parsed ${allExperiments.length} valid experiments`);
+
                 // Also try to load detailed results for additional info
                 await loadDetailedResults();
+                
+                console.log(`Loaded detailed results. Experiments with task_results: ${allExperiments.filter(e => e.task_results).length}`);
 
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('content').style.display = 'block';
@@ -369,6 +375,7 @@
                 populateFilters();
                 filterAndDisplay();
             } catch (error) {
+                console.error('Error loading experiments:', error);
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('error').style.display = 'block';
                 document.getElementById('error').textContent = `Error loading experiments: ${error.message}`;
