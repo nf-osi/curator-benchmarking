@@ -6,7 +6,9 @@ on:
 
 jobs:
   run-experiment:
-    if: contains(github.event.issue.labels.*.name, 'experiment')
+    if: |
+      contains(join(github.event.issue.labels.*.name, ','), 'experiment') ||
+      startsWith(github.event.issue.title, '[Experiment]')
     runs-on: ubuntu-latest
     
     steps:
