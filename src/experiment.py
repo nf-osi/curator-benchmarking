@@ -185,6 +185,30 @@ class Experiment:
     
     def run(self) -> Dict[str, Any]:
         """Execute the experiment across all tasks and return results."""
+        # Check if experiment already exists
+        results_file = self.results_dir / f"{self.experiment_id}_results.json"
+        if results_file.exists():
+            print(f"\n{'='*60}")
+            print(f"Experiment {self.experiment_id} already exists - skipping")
+            print(f"{'='*60}")
+            print(f"  Loading existing results from: {results_file}")
+            
+            # Load and return existing results
+            with open(results_file, 'r') as f:
+                existing_result = json.load(f)
+            
+            print(f"  Model: {existing_result.get('model_id', 'N/A')}")
+            print(f"  Temperature: {existing_result.get('temperature', 'N/A')}")
+            print(f"  Thinking: {existing_result.get('thinking', 'N/A')}")
+            print(f"  Original timestamp: {existing_result.get('timestamp', 'N/A')}")
+            print(f"  Tasks completed: {existing_result.get('overall_metrics', {}).get('tasks_completed', 'N/A')}")
+            if existing_result.get('overall_metrics', {}).get('average_accuracy') is not None:
+                avg_acc = existing_result['overall_metrics']['average_accuracy']
+                print(f"  Average accuracy: {(avg_acc * 100):.2f}%")
+            print(f"{'='*60}\n")
+            
+            return existing_result
+        
         print(f"\n{'='*60}")
         print(f"Running experiment {self.experiment_id}")
         print(f"{'='*60}")
