@@ -415,11 +415,16 @@
                         if (detailed.overall_metrics) {
                             exp.overall_metrics = detailed.overall_metrics;
                         }
-                        // Update task durations from detailed results
+                        // Update task durations and token usage from detailed results
                         if (detailed.task_results) {
                             for (const [taskName, taskResult] of Object.entries(detailed.task_results)) {
-                                if (exp.task_results[taskName] && taskResult.duration_seconds !== undefined) {
-                                    exp.task_results[taskName].duration_seconds = taskResult.duration_seconds;
+                                if (exp.task_results[taskName]) {
+                                    if (taskResult.duration_seconds !== undefined) {
+                                        exp.task_results[taskName].duration_seconds = taskResult.duration_seconds;
+                                    }
+                                    if (taskResult.token_usage !== undefined) {
+                                        exp.task_results[taskName].token_usage = taskResult.token_usage;
+                                    }
                                 }
                             }
                         }
