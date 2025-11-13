@@ -131,16 +131,16 @@ class Scorer:
         input_data: Dict[str, Any]
     ) -> float:
         """
-        Score regex generation task by applying the generated regex to the input
+        Score regex generation task by applying the generated regex to all input filenames
         and comparing matches to ground truth.
         
         Args:
             prediction: The model's prediction containing a regex pattern
             ground_truth: Dictionary with "matches" key containing expected matches as JSON array
-            input_data: Dictionary with "filename" key containing the input filename
+            input_data: Dictionary with "filenames" key containing all input filenames as JSON array
             
         Returns:
-            Score between 0.0 and 1.0
+            Score between 0.0 and 1.0 (fraction of correct matches)
         """
         try:
             # Extract JSON from prediction
@@ -157,26 +157,17 @@ class Scorer:
             if not regex_pattern:
                 return 0.0
             
-            # Get input filename
-            filename = input_data.get('filename', '')
-            if not filename:
+            # Get input filenames (now a list, not a single filename)
+            filenames_str = input_data.get('filenames', '[]')
+            try:
+                if isinstance(filenames_str, str):
+                    filenames = json.loads(filenames_str)
+                else:
+                    filenames = filenames_str
+            except (json.JSONDecodeError, TypeError):
                 return 0.0
             
-            # Apply regex to filename
-            try:
-                matches = re.findall(regex_pattern, filename)
-                # Convert to list of strings (re.findall returns tuples for groups)
-                if matches:
-                    # If regex has groups, matches will be tuples; flatten to strings
-                    if isinstance(matches[0], tuple):
-                        matches = [''.join(m) for m in matches]
-                    else:
-                        matches = [str(m) for m in matches]
-                else:
-                    matches = []
-            except re.error as e:
-                # Invalid regex pattern
-                print(f"    Invalid regex pattern: {e}")
+            if not filenames:
                 return 0.0
             
             # Get expected matches from ground truth
@@ -187,13 +178,42 @@ class Scorer:
                 else:
                     expected_matches = expected_matches_str
             except (json.JSONDecodeError, TypeError):
-                expected_matches = []
+                return 0.0
             
-            # Normalize to lists of strings for comparison
-            matches = [str(m) for m in matches]
-            expected_matches = [str(m) for m in expected_matches]
+            if len(filenames) != len(expected_matches):
+                # Mismatch in number of filenames vs expected matches
+                return 0.0
             
-            # Compare matches (order matters for regex extraction)
+            # Apply regex to each filename and collect all matches
+            all_matches = []
+            try:
+                for filename in filenames:
+                    matches = re.findall(regex_pattern, filename)
+                    # Convert to list of strings (re.findall returns tuples for groups)
+                    if matches:
+                        # If regex has groups, matches will be tuples; flatten to strings
+                        if isinstance(matches[0], tuple):
+                            # Take the first match (or join all groups)
+                            match = ''.join(matches[0]) if matches[0] else ''
+                        else:
+                            # Take the first match
+                            match = str(matches[0]) if matches else ''
+                        all_matches.append(match)
+                    else:
+                        all_matches.append('')
+            except re.error as e:
+                # Invalid regex pattern
+                print(f"    Invalid regex pattern: {e}")
+                return 0.0
+            
+            # Compare matches - calculate accuracy as fraction of correct matches
+            if len(all_matches) == 0:
+                return 0.0
+            
+            correct = sum(1 for i, match in enumerate(all_matches) 
+                        if i < len(expected_matches) and match == expected_matches[i])
+            
+            return correct / len(expected_matches) if expected_matches else 0.0
             if matches == expected_matches:
                 return 1.0
             else:
