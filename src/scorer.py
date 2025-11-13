@@ -214,11 +214,6 @@ class Scorer:
                         if i < len(expected_matches) and match == expected_matches[i])
             
             return correct / len(expected_matches) if expected_matches else 0.0
-            if matches == expected_matches:
-                return 1.0
-            else:
-                # Partial credit: check if all expected matches are present
-                if set(matches) == set(expected_matches) and len(matches) == len(expected_matches):
                     # Same matches but different order - give partial credit
                     return 0.5
                 # Check how many expected matches are found
