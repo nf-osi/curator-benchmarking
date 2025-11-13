@@ -577,13 +577,21 @@ class Experiment:
             json.dump(experiment_result, f, indent=2)
         
         # Save summary to experiments log (one entry per experiment)
+        # Include temperature and thinking for dashboard
         summary = {
             'experiment_id': experiment_result['experiment_id'],
             'timestamp': experiment_result['timestamp'],
             'model_id': experiment_result['model_id'],
             'system_instructions': experiment_result['system_instructions'],
+            'temperature': experiment_result.get('temperature'),
+            'thinking': experiment_result.get('thinking'),
             'overall_metrics': experiment_result['overall_metrics']
         }
+        
+        # Add update metadata if this was an update
+        if 'original_timestamp' in experiment_result:
+            summary['original_timestamp'] = experiment_result['original_timestamp']
+            summary['last_updated'] = experiment_result.get('last_updated')
         
         log_file = self.results_dir / "experiments_log.jsonl"
         with open(log_file, 'a') as f:
