@@ -688,16 +688,16 @@
                             <thead>
                                 <tr>
                                     <th class="rank">Rank</th>
-                                    <th>Average Accuracy</th>
-                                    <th>Model</th>
-                                    <th>System Instructions</th>
-                                    <th>Temperature</th>
-                                    <th>Thinking</th>
-                                    <th>Tasks Completed</th>
-                                    <th>Total Samples</th>
-                                    <th>Duration</th>
-                                    <th>Total Tokens</th>
-                                    <th>Experiment ID</th>
+                                    <th class="sortable" data-column="accuracy" data-type="number">Average Accuracy</th>
+                                    <th class="sortable" data-column="model" data-type="string">Model</th>
+                                    <th class="sortable" data-column="system" data-type="string">System Instructions</th>
+                                    <th class="sortable" data-column="temperature" data-type="number">Temperature</th>
+                                    <th class="sortable" data-column="thinking" data-type="string">Thinking</th>
+                                    <th class="sortable" data-column="tasks" data-type="number">Tasks Completed</th>
+                                    <th class="sortable" data-column="samples" data-type="number">Total Samples</th>
+                                    <th class="sortable" data-column="duration" data-type="number">Duration</th>
+                                    <th class="sortable" data-column="tokens" data-type="number">Total Tokens</th>
+                                    <th class="sortable" data-column="experiment_id" data-type="string">Experiment ID</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -745,6 +745,9 @@
             }
             
             document.getElementById('overallPerformance').innerHTML = overallHtml;
+            
+            // Setup sorting for overall performance table
+            setTimeout(() => setupTableSorting(), 0);
 
             // Generate task-wise breakdown tables
             // Get all unique tasks from all experiments (only from experiments with task_results)
@@ -790,15 +793,15 @@
                                <thead>
                                    <tr>
                                        <th class="rank">Rank</th>
-                                       <th>Accuracy</th>
-                                       <th>Model</th>
-                                       <th>System Instructions</th>
-                                        <th>Temperature</th>
-                                        <th>Thinking</th>
-                                        <th>Samples</th>
-                                        <th>Duration</th>
-                                        <th>Tokens</th>
-                                        <th>Experiment ID</th>
+                                       <th class="sortable" data-column="accuracy" data-type="number">Accuracy</th>
+                                       <th class="sortable" data-column="model" data-type="string">Model</th>
+                                       <th class="sortable" data-column="system" data-type="string">System Instructions</th>
+                                        <th class="sortable" data-column="temperature" data-type="number">Temperature</th>
+                                        <th class="sortable" data-column="thinking" data-type="string">Thinking</th>
+                                        <th class="sortable" data-column="samples" data-type="number">Samples</th>
+                                        <th class="sortable" data-column="duration" data-type="number">Duration</th>
+                                        <th class="sortable" data-column="tokens" data-type="number">Tokens</th>
+                                        <th class="sortable" data-column="experiment_id" data-type="string">Experiment ID</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -845,6 +848,9 @@
             });
 
             container.innerHTML = html;
+            
+            // Setup sorting for all task tables
+            setTimeout(() => setupTableSorting(), 0);
         }
 
         function filterTable(searchId, tableId) {
@@ -863,6 +869,95 @@
                     row.style.display = 'none';
                 }
             }
+        }
+
+        function sortTable(tableId, columnIndex, dataType) {
+            const table = document.getElementById(tableId);
+            if (!table) return;
+            
+            const tbody = table.querySelector('tbody');
+            if (!tbody) return;
+            
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            const headerRow = table.querySelector('thead tr');
+            const headers = headerRow.querySelectorAll('th');
+            
+            // Remove sort classes from all headers
+            headers.forEach(h => {
+                h.classList.remove('sorted-asc', 'sorted-desc');
+            });
+            
+            // Get current sort direction
+            const currentHeader = headers[columnIndex];
+            const isAscending = currentHeader.classList.contains('sorted-asc');
+            const newDirection = isAscending ? 'desc' : 'asc';
+            
+            // Add sort class to current header
+            currentHeader.classList.remove('sorted-asc', 'sorted-desc');
+            currentHeader.classList.add(`sorted-${newDirection}`);
+            
+            // Sort rows
+            rows.sort((a, b) => {
+                const aCell = a.cells[columnIndex];
+                const bCell = b.cells[columnIndex];
+                
+                if (!aCell || !bCell) return 0;
+                
+                let aValue = aCell.textContent.trim();
+                let bValue = bCell.textContent.trim();
+                
+                // Handle different data types
+                if (dataType === 'number') {
+                    // Extract number from text (handle "N/A", percentages, formatted numbers)
+                    const extractNumber = (text) => {
+                        if (text === 'N/A' || text === '') return -Infinity;
+                        // Remove commas, %, and extract number
+                        const num = parseFloat(text.replace(/[%,]/g, ''));
+                        return isNaN(num) ? -Infinity : num;
+                    };
+                    aValue = extractNumber(aValue);
+                    bValue = extractNumber(bValue);
+                } else {
+                    // String comparison
+                    aValue = aValue.toLowerCase();
+                    bValue = bValue.toLowerCase();
+                }
+                
+                // Compare values
+                if (aValue < bValue) return newDirection === 'asc' ? -1 : 1;
+                if (aValue > bValue) return newDirection === 'asc' ? 1 : -1;
+                return 0;
+            });
+            
+            // Update rank column and re-append rows
+            rows.forEach((row, index) => {
+                const rankCell = row.querySelector('.rank');
+                if (rankCell) {
+                    const rank = index + 1;
+                    rankCell.textContent = rank;
+                    rankCell.className = 'rank ' + getRankClass(rank);
+                }
+                tbody.appendChild(row);
+            });
+        }
+
+        function setupTableSorting() {
+            // Setup sorting for all tables
+            document.querySelectorAll('.leaderboard-table').forEach(table => {
+                const allHeaders = table.querySelectorAll('thead th');
+                allHeaders.forEach((header, columnIndex) => {
+                    if (header.classList.contains('sortable')) {
+                        // Remove any existing listeners by cloning
+                        const newHeader = header.cloneNode(true);
+                        header.parentNode.replaceChild(newHeader, header);
+                        
+                        newHeader.addEventListener('click', () => {
+                            const dataType = newHeader.getAttribute('data-type') || 'string';
+                            sortTable(table.id, columnIndex, dataType);
+                        });
+                    }
+                });
+            });
         }
 
         // Event listeners
