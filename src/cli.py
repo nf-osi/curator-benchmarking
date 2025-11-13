@@ -112,6 +112,63 @@ def run_experiment_suite(
             experiment.run()
 
 
+def update_all_experiments(
+    tasks_dir: Path,
+    config: Optional[Config] = None
+):
+    """Update all existing experiments with changed/new tasks."""
+    if config is None:
+        config = Config()
+    
+    tasks_dir = Path(tasks_dir)
+    results_dir = Path(__file__).parent.parent / "docs" / "results"
+    
+    if not results_dir.exists():
+        print("No results directory found. No experiments to update.")
+        return
+    
+    # Find all experiment result files
+    result_files = list(results_dir.glob("*_results.json"))
+    
+    if not result_files:
+        print("No existing experiments found.")
+        return
+    
+    print(f"Found {len(result_files)} existing experiments to check for updates...\n")
+    
+    updated_count = 0
+    for result_file in result_files:
+        try:
+            with open(result_file, 'r') as f:
+                experiment_data = json.load(f)
+            
+            experiment_id = experiment_data.get('experiment_id')
+            if not experiment_id:
+                continue
+            
+            # Recreate experiment from stored parameters
+            experiment = Experiment(
+                tasks_dir=tasks_dir,
+                model_id=experiment_data.get('model_id', config.default_model),
+                system_instructions=experiment_data.get('system_instructions'),
+                temperature=experiment_data.get('temperature'),
+                thinking=experiment_data.get('thinking', False),
+                config=config
+            )
+            
+            # Run will automatically detect and update changed/new tasks
+            experiment.run()
+            updated_count += 1
+            
+        except Exception as e:
+            print(f"Error updating experiment from {result_file.name}: {e}")
+            continue
+    
+    print(f"\n{'='*60}")
+    print(f"Update complete: {updated_count}/{len(result_files)} experiments processed")
+    print(f"{'='*60}")
+
+
 def main():
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
@@ -178,6 +235,15 @@ def main():
         help='Paths to system instructions files'
     )
     
+    # Update all experiments command
+    update_parser = subparsers.add_parser('update-all', help='Update all existing experiments with changed/new tasks')
+    update_parser.add_argument(
+        '--tasks-dir',
+        type=str,
+        default='tasks',
+        help='Directory containing tasks'
+    )
+    
     args = parser.parse_args()
     
     if args.command == 'list':
@@ -197,6 +263,11 @@ def main():
             tasks_dir=Path(args.tasks_dir),
             models=args.models,
             system_instructions_files=args.system_instructions
+        )
+    
+    elif args.command == 'update-all':
+        update_all_experiments(
+            tasks_dir=Path(args.tasks_dir)
         )
     
     else:
