@@ -1,0 +1,268 @@
+{
+  "experiment_id": "b3b84ce0ee231cfecdd06fa46572b3e3",
+  "task_name": "regex_generation",
+  "task_hash": "7f39c14b085115083089fd7b42e3b282",
+  "model_id": "us.amazon.nova-micro-v1:0",
+  "system_instructions": "### Temperature\n\n1.0",
+  "temperature": 1.0,
+  "thinking": false,
+  "timestamp": "2025-11-13T19:25:42.168277",
+  "task_result": {
+    "task_name": "regex_generation",
+    "num_samples": 4,
+    "results": [
+      {
+        "sample_index": 0,
+        "input": {
+          "filenames": "[\"swn_patient_55_tumor_118.markdup.sorted.bam\", \"swn_patient_64_tumor_125.markdup.sorted.bam\", \"swn_patient_3_tumor_32.markdup.sorted.bam\", \"swn_patient_10_tumor_110.markdup.sorted.bam\", \"swn_patient_51_tumor_2.markdup.sorted.bam\", \"swn_patient_38_tumor_90.markdup.sorted.bam\", \"swn_patient_10_tumor_109.markdup.sorted.bam\", \"swn_patient_59_tumor_136.markdup.sorted.bam\", \"swn_patient_62_tumor_120.markdup.sorted.bam\", \"swn_patient_63_tumor_123.markdup.sorted.bam\", \"swn_patient_51_tumor_3.markdup.sorted.bam\", \"swn_patient_60_tumor_5.markdup.sorted.bam\", \"swn_patient_17_tumor_31.markdup.sorted.bam\", \"swn_patient_19_tumor_29.markdup.sorted.bam\"]"
+        },
+        "response": {
+          "success": true,
+          "content": "To extract the desired information from the filenames, we can observe the following pattern:\n\n- The filenames start with a prefix \"swn_patient_\".\n- This prefix is followed by a patient ID (a number).\n- Then, there is an underscore `_`.\n- Next, the word \"tumor\" appears.\n- Another underscore `_` follows.\n- Finally, a tumor ID (a number) appears before the file extension.\n\nGiven this pattern, we can construct a regex pattern to capture the desired information. Here's the regex pattern:\n\n```json\n{\n  \"regex\": \"swn_patient_(\\\\d+)_tumor_(\\\\d+)\\\\.markdup\\\\.sorted\\\\.bam\"\n}\n```\n\nExplanation:\n- `swn_patient_` matches the literal string \"swn_patient_\".\n- `(\\\\d+)` captures one or more digits (the patient ID).\n- `_tumor_` matches the literal string \"_tumor_\".\n- Another `(\\\\d+)` captures one or more digits (the tumor ID).\n- The rest of the filename (file extension) is matched literally.\n\nThis regex will correctly extract the desired information from all the provided filenames. Here's how it works with the example matches:\n\n- From 'swn_patient_55_tumor_118.markdup.sorted.bam': \"swn_patient_55_tumor_118\"\n- From 'swn_patient_64_tumor_125.markdup.sorted.bam': \"swn_patient_64_tumor_125\"\n- From 'swn_patient_3_tumor_32.markdup.sorted.bam': \"swn_patient_3_tumor_32\"\n\nThis pattern will work for all the filenames provided.",
+          "model_id": "us.amazon.nova-micro-v1:0",
+          "usage": {
+            "inputTokens": 602,
+            "outputTokens": 388,
+            "totalTokens": 990
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "2b08d04f-2ef6-4d53-94b3-5bdaa1f352bd",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Thu, 13 Nov 2025 19:25:37 GMT",
+                "content-type": "application/json",
+                "content-length": "1586",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "2b08d04f-2ef6-4d53-94b3-5bdaa1f352bd"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To extract the desired information from the filenames, we can observe the following pattern:\n\n- The filenames start with a prefix \"swn_patient_\".\n- This prefix is followed by a patient ID (a number).\n- Then, there is an underscore `_`.\n- Next, the word \"tumor\" appears.\n- Another underscore `_` follows.\n- Finally, a tumor ID (a number) appears before the file extension.\n\nGiven this pattern, we can construct a regex pattern to capture the desired information. Here's the regex pattern:\n\n```json\n{\n  \"regex\": \"swn_patient_(\\\\d+)_tumor_(\\\\d+)\\\\.markdup\\\\.sorted\\\\.bam\"\n}\n```\n\nExplanation:\n- `swn_patient_` matches the literal string \"swn_patient_\".\n- `(\\\\d+)` captures one or more digits (the patient ID).\n- `_tumor_` matches the literal string \"_tumor_\".\n- Another `(\\\\d+)` captures one or more digits (the tumor ID).\n- The rest of the filename (file extension) is matched literally.\n\nThis regex will correctly extract the desired information from all the provided filenames. Here's how it works with the example matches:\n\n- From 'swn_patient_55_tumor_118.markdup.sorted.bam': \"swn_patient_55_tumor_118\"\n- From 'swn_patient_64_tumor_125.markdup.sorted.bam': \"swn_patient_64_tumor_125\"\n- From 'swn_patient_3_tumor_32.markdup.sorted.bam': \"swn_patient_3_tumor_32\"\n\nThis pattern will work for all the filenames provided."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 602,
+              "outputTokens": 388,
+              "totalTokens": 990
+            },
+            "metrics": {
+              "latencyMs": 6069
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "matches": "[\"swn_patient_55_tumor_118\", \"swn_patient_64_tumor_125\", \"swn_patient_3_tumor_32\", \"swn_patient_10_tumor_110\", \"swn_patient_51_tumor_2\", \"swn_patient_38_tumor_90\", \"swn_patient_10_tumor_109\", \"swn_patient_59_tumor_136\", \"swn_patient_62_tumor_120\", \"swn_patient_63_tumor_123\", \"swn_patient_51_tumor_3\", \"swn_patient_60_tumor_5\", \"swn_patient_17_tumor_31\", \"swn_patient_19_tumor_29\"]"
+        },
+        "token_usage": {
+          "input_tokens": 602,
+          "output_tokens": 388,
+          "total_tokens": 990
+        }
+      },
+      {
+        "sample_index": 1,
+        "input": {
+          "filenames": "[\"UPN3050_HM5282_Post_S5_L001_R2_001.fastq.gz\", \"UPN2987_HM5523_Post_S9_L001_R1_001.fastq.gz\", \"UPN2987_HM5523_Post_S9_L001_R2_001.fastq.gz\", \"UPN2951_HM5541_Post_S10_L001_R1_001.fastq.gz\", \"UPN2951_HM5541_Post_S10_L001_R2_001.fastq.gz\", \"UPN3153_HM5547_Dx_S1_R1_001.fastq.gz\", \"UPN3153_HM5547_Dx_S1_R2_001.fastq.gz\", \"UPN3154_HM5550_Dx_S2_R1_001.fastq.gz\", \"UPN3154_HM5550_Dx_S2_R1_001.fastq.gz\", \"UPN3153_HM5556_Pre_S8_R1_001.fastq.gz\", \"UPN3153_HM5556_Pre_S8_R2_001.fastq.gz\", \"UPN3153_HM5574_Post_S11_L001_R1_001.fastq.gz\", \"UPN3153_HM5574_Post_S11_L001_R2_001.fastq.gz\", \"UPN3154_HM5698_Pre_S5_R1_001.fastq.gz\", \"UPN3154_HM5698_Pre_S5_R2_001.fastq.gz\", \"UPN3154_HM5723_Post_S6_R1_001.fastq.gz\", \"UPN3154_HM5723_Post_S6_R2_001.fastq.gz\", \"UPN3242_HM5807_Pre_S8_R1_001.fastq.gz\", \"UPN3242_HM5807_Pre_S8_R2_001.fastq.gz\", \"UPN3242_HM5818_Post_S9_R1_001.fastq.gz\", \"UPN3242_HM5818_Post_S9_R2_001.fastq.gz\", \"UPN3242_MP21-3643_Dx_S7_R1_001.fastq.gz\", \"UPN3242_MP21-3643_Dx_S7_R2_001.fastq.gz\", \"UPN2951_HM5496_Pre_S10_L001_R1_001.fastq.gz\", \"UPN2951_HM5496_Pre_S10_L001_R2_001.fastq.gz\", \"UPN2951_HM4959_Dx_pb_Mseq_R1_001.fastq.gz\", \"UPN2951_HM4959_Dx_pb_Mseq_R2_001.fastq.gz\", \"UPN2987_HM5085_Dx_S8_L001_R1_001.fastq.gz\", \"UPN2987_HM5085_Dx_S8_L001_R2_001.fastq.gz\", \"UPN3037_HM5231_Pre_S6_L001_R1_001.fastq.gz\", \"UPN3037_HM5231_Pre_S6_L001_R2_001.fastq.gz\", \"UPN3074_HM5244_Dx_pb_Mseq_R1_001.fastq.gz\", \"UPN3074_HM5244_Dx_pb_Mseq_R2_001.fastq.gz\", \"UPN3074_HM5435_Pre_S12_L001_R1_001.fastq.gz\", \"UPN3080_HM5446_Pre_S11_L001_R1_001.fastq.gz\", \"UPN3080_HM5446_Pre_S11_L001_R2_001.fastq.gz\", \"UPN2987_HM5490_Pre_S9_L001_R1_001.fastq.gz\", \"UPN2987_HM5490_Pre_S9_L001_R2_001.fastq.gz\"]"
+        },
+        "response": {
+          "success": true,
+          "content": "To extract the specific information from the given filenames, we need to identify the pattern that consistently appears in the middle of each filename. Based on the examples provided, the pattern we are looking to extract is a sequence of characters that follows \"_HM\" and precedes \"_Post\", \"_Dx\", or any other similar prefixes.\n\nHere's the inferred pattern and the corresponding regex:\n\n### Pattern:\n- The pattern to extract is a sequence of alphanumeric characters that follows \"_HM\" and precedes \"_Post\", \"_Dx\", or any other similar prefixes.\n\n### Regex:\n- The regex pattern we can use is: `_HM([A-Z0-9]+)_`\n\nThis regex will match the sequence of alphanumeric characters following \"_HM\" and before the next underscore.\n\n### JSON Response:\n```json\n{\n  \"regex\": \"_HM([A-Z0-9]+)_\"\n}\n```\n\nThis regex pattern can be used with the `re.findall()` function to extract the desired information from all the provided filenames.",
+          "model_id": "us.amazon.nova-micro-v1:0",
+          "usage": {
+            "inputTokens": 1616,
+            "outputTokens": 222,
+            "totalTokens": 1838
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "ca612d6a-dc7f-4ce4-9dd1-be0e93e240a6",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Thu, 13 Nov 2025 19:25:38 GMT",
+                "content-type": "application/json",
+                "content-length": "1164",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "ca612d6a-dc7f-4ce4-9dd1-be0e93e240a6"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To extract the specific information from the given filenames, we need to identify the pattern that consistently appears in the middle of each filename. Based on the examples provided, the pattern we are looking to extract is a sequence of characters that follows \"_HM\" and precedes \"_Post\", \"_Dx\", or any other similar prefixes.\n\nHere's the inferred pattern and the corresponding regex:\n\n### Pattern:\n- The pattern to extract is a sequence of alphanumeric characters that follows \"_HM\" and precedes \"_Post\", \"_Dx\", or any other similar prefixes.\n\n### Regex:\n- The regex pattern we can use is: `_HM([A-Z0-9]+)_`\n\nThis regex will match the sequence of alphanumeric characters following \"_HM\" and before the next underscore.\n\n### JSON Response:\n```json\n{\n  \"regex\": \"_HM([A-Z0-9]+)_\"\n}\n```\n\nThis regex pattern can be used with the `re.findall()` function to extract the desired information from all the provided filenames."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 1616,
+              "outputTokens": 222,
+              "totalTokens": 1838
+            },
+            "metrics": {
+              "latencyMs": 1635
+            }
+          }
+        },
+        "score": 0.9473684210526315,
+        "ground_truth": {
+          "matches": "[\"HM5282\", \"HM5523\", \"HM5523\", \"HM5541\", \"HM5541\", \"HM5547\", \"HM5547\", \"HM5550\", \"HM5550\", \"HM5556\", \"HM5556\", \"HM5574\", \"HM5574\", \"HM5698\", \"HM5698\", \"HM5723\", \"HM5723\", \"HM5807\", \"HM5807\", \"HM5818\", \"HM5818\", \"MP21-3643\", \"MP21-3643\", \"HM5496\", \"HM5496\", \"HM4959\", \"HM4959\", \"HM5085\", \"HM5085\", \"HM5231\", \"HM5231\", \"HM5244\", \"HM5244\", \"HM5435\", \"HM5446\", \"HM5446\", \"HM5490\", \"HM5490\"]"
+        },
+        "token_usage": {
+          "input_tokens": 1616,
+          "output_tokens": 222,
+          "total_tokens": 1838
+        }
+      },
+      {
+        "sample_index": 2,
+        "input": {
+          "filenames": "[\"NF0014_T1_Nilotinib_1.0_uM_parquet\", \"NF0030_T1_Selumetinib_10.0_uM_parquet\", \"SARCO361_T1_Ketotifen_1.0_uM_parquet\", \"NF0014_T1_Mirdametinib_10.0_uM_parquet\", \"NF0014_T1_Mirdametinib_1.0_uM_parquet\", \"NF0021_T1_Onalespib_1.0_uM_parquet\", \"SARCO219_T2_Onalespib_1.0_uM_parquet\", \"NF0040_T1_Mirdametinib_10.0_uM_parquet\", \"NF0016_T1_Nilotinib_1.0_uM_parquet\", \"NF0014_T1_Trametinib_1.0_uM_parquet\", \"SARCO361_T1_Digoxin_1.0_uM_parquet\", \"NF0040_T1_Digoxin_1.0_uM_parquet\", \"SARCO219_T2_DMSO_1.0_percent25_parquet\", \"NF0030_T1_Staurosporine_10.0_nM_parquet\", \"NF0030_T1_Mirdametinib_1.0_uM_parquet\", \"NF0016_T1_Trametinib_10.0_uM_parquet\", \"SARCO361_T1_Selumetinib_1.0_uM_parquet\", \"NF0030_T1_Mirdametinib_10.0_uM_parquet\", \"SARCO219_T2_Imatinib_1.0_uM_parquet\", \"NF0014_T1_Onalespib_1.0_uM_parquet\", \"SARCO361_T1_Fimepinostat_1.0_uM_parquet\", \"NF0014_T1_Rapamycin_1.0_uM_parquet\", \"SARCO219_T2_Linsitinib_1.0_uM_parquet\", \"NF0040_T1_Ketotifen_1.0_uM_parquet\", \"NF0016_T1_Cabozantinib_1.0_uM_parquet\", \"NF0016_T1_Mirdametinib_1.0_uM_parquet\", \"NF0018_T6_Mirdametinib_1.0_uM_parquet\", \"SARCO219_T2_Trametinib_10.0_uM_parquet\", \"NF0014_T1_Binimetinib_10.0_uM_parquet\", \"NF0021_T1_Mirdametinib_10.0_uM_parquet\", \"NF0040_T1_Staurosporine_10.0_nM_parquet\", \"NF0040_T1_Binimetinib_10.0_uM_parquet\", \"SARCO361_T1_Onalespib_1.0_uM_parquet\", \"SARCO361_T1_Mirdametinib_10.0_uM_parquet\", \"NF0018_T6_Trametinib_1.0_uM_parquet\", \"NF0040_T1_Selumetinib_1.0_uM_parquet\", \"NF0016_T1_Rapamycin_1.0_uM_parquet\", \"NF0040_T1_Binimetinib_1.0_uM_parquet\", \"SARCO219_T2_Binimetinib_10.0_uM_parquet\", \"NF0030_T1_Ketotifen_1.0_uM_parquet\", \"NF0040_T1_Onalespib_1.0_uM_parquet\", \"NF0030_T1_Nilotinib_1.0_uM_parquet\", \"NF0030_T1_Trametinib_10.0_uM_parquet\", \"NF0014_T1_Fimepinostat_1.0_uM_parquet\", \"SARCO361_T1_DMSO_1.0_percent25_parquet\", \"SARCO361_T1_Imatinib_1.0_uM_parquet\", \"NF0018_T6_Cabozantinib_1.0_uM_parquet\", \"NF0040_T1_Panobinostat_1.0_uM_parquet\", \"NF0016_T1_Digoxin_1.0_uM_parquet\", \"NF0030_T1_DMSO_1.0_percent25_parquet\", \"NF0018_T6_Everolimus_1.0_uM_parquet\", \"NF0016_T1_Fimepinostat_1.0_uM_parquet\", \"NF0040_T1_Everolimus_1.0_uM_parquet\", \"NF0021_T1_Trametinib_1.0_uM_parquet\", \"NF0030_T1_Selumetinib_1.0_uM_parquet\", \"NF0021_T1_Rapamycin_1.0_uM_parquet\", \"NF0040_T1_Trabectedin_1.0_uM_parquet\", \"NF0018_T6_Rapamycin_1.0_uM_parquet\", \"NF0016_T1_Trametinib_1.0_uM_parquet\", \"NF0030_T1_Onalespib_1.0_uM_parquet\", \"NF0021_T1_Binimetinib_1.0_uM_parquet\", \"NF0018_T6_Linsitinib_1.0_uM_parquet\", \"SARCO361_T1_Copanlisib_1.0_uM_parquet\", \"NF0016_T1_Ketotifen_1.0_uM_parquet\", \"NF0016_T1_Linsitinib_1.0_uM_parquet\", \"SARCO219_T2_Digoxin_1.0_uM_parquet\", \"NF0018_T6_Ketotifen_1.0_uM_parquet\", \"NF0021_T1_Selumetinib_1.0_uM_parquet\", \"NF0030_T1_Mirdametinib_10.0_uM_parquet\", \"NF0030_T1_Copanlisib_1.0_uM_parquet\", \"NF0021_T1_Fimepinostat_1.0_uM_parquet\", \"NF0014_T1_Trametinib_10.0_uM_parquet\", \"NF0030_T1_Digoxin_1.0_uM_parquet\", \"SARCO219_T2_Fimepinostat_1.0_uM_parquet\", \"NF0030_T1_Imatinib_1.0_uM_parquet\", \"NF0030_T1_Trametinib_1.0_uM_parquet\", \"NF0014_T1_Copanlisib_1.0_uM_parquet\", \"NF0040_T1_Trametinib_1.0_uM_parquet\", \"SARCO219_T2_Cabozantinib_1.0_uM_parquet\", \"NF0014_T1_Binimetinib_1.0_uM_parquet\", \"NF0018_T6_Mirdametinib_10.0_uM_parquet\", \"NF0040_T1_Cabozantinib_1.0_uM_parquet\", \"NF0030_T1_Binimetinib_10.0_uM_parquet\", \"NF0021_T1_DMSO_1.0_percent25_parquet\", \"NF0014_T1_Staurosporine_10.0_nM_parquet\", \"NF0014_T1_Selumetinib_10.0_uM_parquet\", \"SARCO219_T2_Copanlisib_1.0_uM_parquet\", \"SARCO361_T1_Staurosporine_10.0_nM_parquet\", \"NF0016_T1_Selumetinib_10.0_uM_parquet\", \"NF0014_T1_Linsitinib_1.0_uM_parquet\", \"NF0018_T6_Trametinib_10.0_uM_parquet\", \"SARCO219_T2_Staurosporine_10.0_nM_parquet\", \"NF0030_T1_Binimetinib_1.0_uM_parquet\", \"NF0021_T1_Binimetinib_10.0_uM_parquet\", \"SARCO219_T2_Mirdametinib_10.0_uM_parquet\", \"NF0040_T1_DMSO_1.0_percent25_parquet\", \"NF0018_T6_Copanlisib_1.0_uM_parquet\", \"NF0014_T1_Everolimus_1.0_uM_parquet\", \"NF0040_T1_Trametinib_10.0_uM_parquet\", \"SARCO361_T1_Mirdametinib_1.0_uM_parquet\", \"NF0021_T1_Linsitinib_1.0_uM_parquet\", \"SARCO361_T1_Binimetinib_10.0_uM_parquet\", \"NF0018_T6_Staurosporine_10.0_nM_parquet\", \"NF0021_T1_Nilotinib_1.0_uM_parquet\", \"NF0021_T1_Ketotifen_1.0_uM_parquet\", \"NF0040_T1_Rapamycin_1.0_uM_parquet\", \"NF0021_T1_Copanlisib_1.0_uM_parquet\", \"NF0040_T1_Mirdametinib_1.0_uM_parquet\", \"NF0014_T1_Ketotifen_1.0_uM_parquet\", \"NF0021_T1_Trametinib_10.0_uM_parquet\", \"NF0018_T6_Selumetinib_10.0_uM_parquet\", \"NF0014_T1_DMSO_1.0_percent25_parquet\", \"NF0030_T1_Fimepinostat_1.0_uM_parquet\", \"NF0030_T1_Cabozantinib_1.0_uM_parquet\", \"NF0021_T1_Mirdametinib_1.0_uM_parquet\", \"NF0040_T1_Sapanisertib_1.0_uM_parquet\", \"NF0040_T1_Linsitinib_1.0_uM_parquet\", \"SARCO361_T1_Selumetinib_10.0_uM_parquet\", \"SARCO361_T1_Everolimus_1.0_uM_parquet\", \"NF0040_T1_Copanlisib_1.0_uM_parquet\", \"NF0014_T1_Selumetinib_1.0_uM_parquet\", \"NF0018_T6_Binimetinib_10.0_uM_parquet\", \"NF0021_T1_Cabozantinib_1.0_uM_parquet\", \"NF0021_T1_Everolimus_1.0_uM_parquet\", \"SARCO219_T2_Binimetinib_1.0_uM_parquet\", \"SARCO219_T2_Selumetinib_1.0_uM_parquet\", \"NF0016_T1_Binimetinib_10.0_uM_parquet\", \"SARCO361_T1_Linsitinib_1.0_uM_parquet\", \"SARCO219_T2_Ketotifen_1.0_uM_parquet\", \"NF0014_T1_Cabozantinib_1.0_uM_parquet\", \"NF0021_T1_Imatinib_1.0_uM_parquet\", \"NF0016_T1_DMSO_1.0_percent25_parquet\", \"NF0018_T6_DMSO_1.0_percent25_parquet\", \"NF0030_T1_Rapamycin_1.0_uM_parquet\", \"NF0021_T1_Staurosporine_10.0_nM_parquet\", \"NF0018_T6_Nilotinib_1.0_uM_parquet\", \"SARCO219_T2_Selumetinib_10.0_uM_parquet\", \"NF0014_T1_Imatinib_1.0_uM_parquet\", \"NF0018_T6_Selumetinib_1.0_uM_parquet\", \"NF0016_T1_Copanlisib_1.0_uM_parquet\", \"NF0040_T1_Selumetinib_10.0_uM_parquet\", \"NF0040_T1_Fimepinostat_1.0_uM_parquet\", \"NF0016_T1_Binimetinib_1.0_uM_parquet\", \"SARCO361_T1_Rapamycin_1.0_uM_parquet\", \"NF0014_T1_Nilotinib_1.0_uM_parquet\", \"NF0018_T6_Imatinib_1.0_uM_parquet\", \"NF0018_T6_Digoxin_1.0_uM_parquet\", \"NF0040_T1_ARV-825_1.0_uM_parquet\", \"SARCO219_T2_Trametinib_1.0_uM_parquet\", \"SARCO219_T2_Nilotinib_1.0_uM_parquet\", \"NF0040_T1_Nilotinib_1.0_uM_parquet\", \"SARCO361_T1_Nilotinib_1.0_uM_parquet\", \"NF0014_T1_Digoxin_1.0_uM_parquet\", \"NF0016_T1_Imatinib_1.0_uM_parquet\", \"NF0030_T1_Linsitinib_1.0_uM_parquet\", \"NF0016_T1_Imatinib_1.0_uM_parquet\", \"SARCO361_T1_Trametinib_1.0_uM_parquet\", \"NF0016_T1_Mirdametinib_10.0_uM_parquet\", \"SARCO219_T2_Everolimus_1.0_uM_parquet\", \"NF0018_T6_Binimetinib_1.0_uM_parquet\", \"NF0021_T1_Digoxin_1.0_uM_parquet\", \"NF0018_T6_Onalespib_1.0_uM_parquet\", \"NF0040_T1_Imatinib_1.0_uM_parquet\", \"SARCO361_T1_Trametinib_10.0_uM_parquet\", \"SARCO361_T1_Ketotifen_1.0_uM_parquet\", \"SARCO361_T1_Cabozantinib_1.0_uM_parquet\", \"NF0018_T6_Fimepinostat_1.0_uM_parquet\", \"NF0021_T1_Selumetinib_10.0_uM_parquet\", \"NF0030_T1_Everolimus_1.0_uM_parquet\", \"NF0030_T1_Selumetinib_10.0_uM_parquet\", \"NF0014_T1_Mirdametinib_10.0_uM_parquet\", \"SARCO219_T2_Mirdametinib_1.0_uM_parquet\", \"NF0016_T1_Selumetinib_1.0_uM_parquet\", \"NF0021_T1_Onalespib_1.0_uM_parquet\", \"NF0040_T1_Selumetinib_1.0_uM_parquet\", \"NF0016_T1_Mirdametinib_10.0_uM_parquet\", \"SARCO219_T2_Digoxin_1.0_uM_parquet\", \"NF0016_T1_Onalespib_1.0_uM_parquet\", \"NF0030_T1_Mirdametinib_10.0_uM_parquet\", \"NF0014_T1_Trametinib_1.0_uM_parquet\", \"NF0040_T1_Binimetinib_1.0_uM_parquet\", \"NF0016_T1_Trametinib_10.0_uM_parquet\", \"NF0040_T1_Mirdametinib_10.0_uM_parquet\", \"SARCO361_T1_Fimepinostat_1.0_uM_parquet\", \"NF0014_T1_Mirdametinib_1.0_uM_parquet\", \"NF0040_T1_Digoxin_1.0_uM_parquet\", \"NF0030_T1_Staurosporine_10.0_nM_parquet\", \"NF0016_T1_Imatinib_1.0_uM_parquet\", \"SARCO219_T2_DMSO_1.0_percent25_parquet\", \"SARCO219_T2_Imatinib_1.0_uM_parquet\", \"SARCO361_T1_Selumetinib_1.0_uM_parquet\", \"NF0016_T1_Mirdametinib_1.0_uM_parquet\", \"NF0014_T1_Rapamycin_1.0_uM_parquet\", \"NF0016_T1_Cabozantinib_1.0_uM_parquet\", \"NF0030_T1_Selumetinib_1.0_uM_parquet\", \"SARCO219_T2_Trametinib_10.0_uM_parquet\", \"NF0040_T1_Panobinostat_1.0_uM_parquet\", \"NF0014_T1_Onalespib_1.0_uM_parquet\", \"NF0021_T1_Mirdametinib_10.0_uM_parquet\", \"NF0040_T1_Staurosporine_10.0_nM_parquet\", \"NF0030_T1_Trametinib_10.0_uM_parquet\"]"
+        },
+        "response": {
+          "success": true,
+          "content": "Based on the filenames provided and the example matches, we can infer the pattern that needs to be extracted. Each filename follows a specific format:\n\n1. A code that starts with two uppercase letters followed by four digits.\n2. Followed by '_T' and a digit indicating the treatment type.\n3. Followed by an underscore and the drug name.\n4. Followed by the concentration and unit of the drug.\n5. Ends with the file extension '_parquet'.\n\nFrom the examples, we need to extract the code and treatment type in the format `CODE-T`.\n\nHere is the regular expression that will correctly extract the required information:\n\n```json\n{\n  \"regex\": \"([A-Z]{2}[0-9]{4})_T\"\n}\n```\n\nThis regex pattern will match the code followed by `_T` in each filename, effectively extracting the required format like `NF0014-T1`, `NF0030-T1`, and `SARCO361-T1`.\n\nHere is the Python regular expression pattern in JSON format:\n\n```json\n{\n  \"regex\": \"([A-Z]{2}[0-9]{4})_T\"\n}\n```",
+          "model_id": "us.amazon.nova-micro-v1:0",
+          "usage": {
+            "inputTokens": 5339,
+            "outputTokens": 257,
+            "totalTokens": 5596
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "8853d4a8-5d57-43b2-bbf2-51f2522d0efa",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Thu, 13 Nov 2025 19:25:40 GMT",
+                "content-type": "application/json",
+                "content-length": "1187",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "8853d4a8-5d57-43b2-bbf2-51f2522d0efa"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "Based on the filenames provided and the example matches, we can infer the pattern that needs to be extracted. Each filename follows a specific format:\n\n1. A code that starts with two uppercase letters followed by four digits.\n2. Followed by '_T' and a digit indicating the treatment type.\n3. Followed by an underscore and the drug name.\n4. Followed by the concentration and unit of the drug.\n5. Ends with the file extension '_parquet'.\n\nFrom the examples, we need to extract the code and treatment type in the format `CODE-T`.\n\nHere is the regular expression that will correctly extract the required information:\n\n```json\n{\n  \"regex\": \"([A-Z]{2}[0-9]{4})_T\"\n}\n```\n\nThis regex pattern will match the code followed by `_T` in each filename, effectively extracting the required format like `NF0014-T1`, `NF0030-T1`, and `SARCO361-T1`.\n\nHere is the Python regular expression pattern in JSON format:\n\n```json\n{\n  \"regex\": \"([A-Z]{2}[0-9]{4})_T\"\n}\n```"
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 5339,
+              "outputTokens": 257,
+              "totalTokens": 5596
+            },
+            "metrics": {
+              "latencyMs": 1656
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "matches": "[\"NF0014-T1\", \"NF0030-T1\", \"SARCO361-T1\", \"NF0014-T1\", \"NF0014-T1\", \"NF0021-T1\", \"SARCO219-T2\", \"NF0040-T1\", \"NF0016-T1\", \"NF0014-T1\", \"SARCO361-T1\", \"NF0040-T1\", \"SARCO219-T2\", \"NF0030-T1\", \"NF0030-T1\", \"NF0016-T1\", \"SARCO361-T1\", \"NF0030-T1\", \"SARCO219-T2\", \"NF0014-T1\", \"SARCO361-T1\", \"NF0014-T1\", \"SARCO219-T2\", \"NF0040-T1\", \"NF0016-T1\", \"NF0016-T1\", \"NF0018-T6\", \"SARCO219-T2\", \"NF0014-T1\", \"NF0021-T1\", \"NF0040-T1\", \"NF0040-T1\", \"SARCO361-T1\", \"SARCO361-T1\", \"NF0018-T6\", \"NF0040-T1\", \"NF0016-T1\", \"NF0016-T1\", \"SARCO219-T2\", \"NF0018-T6\", \"NF0030-T1\", \"NF0040-T1\", \"NF0030-T1\", \"NF0014-T1\", \"SARCO361-T1\", \"SARCO361-T1\", \"NF0018-T6\", \"NF0040-T1\", \"NF0016-T1\", \"NF0030-T1\", \"NF0021-T1\", \"NF0018-T6\", \"SARCO361-T1\", \"NF0016-T1\", \"NF0016-T1\", \"SARCO219-T2\", \"NF0018-T6\", \"NF0021-T1\", \"NF0030-T1\", \"NF0021-T1\", \"NF0014-T1\", \"SARCO219-T2\", \"SARCO361-T1\", \"NF0016-T1\", \"NF0014-T1\", \"NF0018-T6\", \"SARCO219-T2\", \"NF0030-T1\", \"NF0014-T1\", \"NF0040-T1\", \"SARCO219-T2\", \"NF0014-T1\", \"NF0018-T6\", \"NF0040-T1\", \"NF0030-T1\", \"NF0021-T1\", \"NF0014-T1\", \"NF0014-T1\", \"SARCO219-T2\", \"SARCO361-T1\", \"NF0016-T1\", \"NF0014-T1\", \"NF0018-T6\", \"SARCO219-T2\", \"NF0030-T1\", \"NF0021-T1\", \"SARCO219-T2\", \"NF0040-T1\", \"NF0018-T6\", \"NF0014-T1\", \"NF0040-T1\", \"SARCO361-T1\", \"NF0021-T1\", \"SARCO361-T1\", \"NF0018-T6\", \"NF0021-T1\", \"NF0021-T1\", \"NF0018-T6\", \"NF0030-T1\", \"NF0014-T1\", \"NF0014-T1\", \"NF0018-T6\", \"NF0021-T1\", \"NF0040-T1\", \"SARCO361-T1\", \"SARCO361-T1\", \"NF0014-T1\", \"NF0018-T6\", \"NF0021-T1\", \"NF0030-T1\", \"NF0030-T1\", \"NF0014-T1\", \"SARCO219-T2\", \"NF0016-T1\", \"NF0021-T1\", \"NF0040-T1\", \"NF0016-T1\", \"SARCO219-T2\", \"SARCO219-T2\", \"NF0016-T1\", \"SARCO361-T1\", \"SARCO219-T2\", \"NF0014-T1\", \"NF0021-T1\", \"NF0016-T1\", \"NF0018-T6\", \"NF0030-T1\", \"NF0014-T1\", \"NF0014-T1\", \"NF0018-T6\", \"SARCO219-T2\", \"NF0030-T1\", \"NF0030-T1\", \"NF0014-T1\", \"SARCO219-T2\", \"NF0040-T1\", \"NF0018-T6\", \"NF0014-T1\", \"NF0040-T1\", \"SARCO361-T1\", \"NF0021-T1\", \"SARCO361-T1\", \"NF0018-T6\", \"NF0021-T1\", \"NF0014-T1\", \"NF0021-T1\", \"NF0040-T1\", \"NF0018-T6\", \"NF0021-T1\", \"NF0021-T1\", \"SARCO219-T2\", \"SARCO219-T2\", \"NF0016-T1\", \"SARCO361-T1\", \"SARCO219-T2\", \"NF0014-T1\", \"NF0021-T1\", \"NF0016-T1\", \"NF0018-T6\", \"NF0030-T1\", \"NF0014-T1\", \"NF0014-T1\", \"NF0018-T6\", \"SARCO219-T2\", \"NF0030-T1\", \"NF0030-T1\", \"NF0014-T1\", \"SARCO219-T2\", \"NF0040-T1\", \"NF0018-T6\", \"NF0014-T1\", \"NF0040-T1\", \"SARCO361-T1\", \"NF0021-T1\", \"SARCO361-T1\", \"NF0018-T6\", \"NF0021-T1\", \"NF0014-T1\", \"NF0021-T1\", \"NF0040-T1\", \"NF0018-T6\", \"NF0021-T1\", \"NF0021-T1\", \"SARCO219-T2\", \"SARCO219-T2\", \"NF0016-T1\", \"SARCO361-T1\", \"SARCO219-T2\", \"NF0014-T1\", \"NF0021-T1\", \"NF0016-T1\", \"NF0018-T6\", \"NF0030-T1\", \"NF0014-T1\", \"NF0014-T1\", \"NF0018-T6\", \"SARCO219-T2\", \"NF0030-T1\", \"NF0030-T1\", \"NF0014-T1\", \"SARCO219-T2\", \"NF0040-T1\", \"NF0018-T6\", \"NF0014-T1\", \"NF0040-T1\", \"SARCO361-T1\", \"NF0021-T1\", \"SARCO361-T1\", \"NF0018-T6\", \"NF0021-T1\", \"NF0014-T1\", \"NF0021-T1\", \"NF0040-T1\", \"NF0018-T6\", \"NF0021-T1\", \"NF0021-T1\", \"SARCO219-T2\", \"SARCO219-T2\", \"NF0016-T1\", \"SARCO361-T1\", \"SARCO219-T2\", \"NF0014-T1\", \"NF0021-T1\", \"NF0016-T1\", \"NF0018-T6\", \"NF0030-T1\", \"NF0014-T1\", \"NF0014-T1\", \"NF0018-T6\", \"SARCO219-T2\", \"NF0030-T1\", \"NF0030-T1\"]"
+        },
+        "token_usage": {
+          "input_tokens": 5339,
+          "output_tokens": 257,
+          "total_tokens": 5596
+        }
+      },
+      {
+        "sample_index": 3,
+        "input": {
+          "filenames": "[\"HS01_1_quant.sf\", \"HS01_10_quant.sf\", \"HS01_11_quant.sf\", \"HS01_12_quant.sf\", \"HS01_13_quant.sf\", \"HS01_14_quant.sf\", \"HS01_15_quant.sf\", \"HS01_16_quant.sf\", \"HS01_17_quant.sf\", \"HS01_18_quant.sf\", \"HS01_2_quant.sf\", \"HS01_3_quant.sf\", \"HS01_4_quant.sf\", \"HS01_5_quant.sf\", \"HS01_6_quant.sf\", \"HS01_7_quant.sf\", \"HS01_8_quant.sf\", \"HS01_9_quant.sf\", \"HS11_1_quant.sf\", \"HS11_10_quant.sf\", \"HS11_11_quant.sf\", \"HS11_12_quant.sf\", \"HS11_13_quant.sf\", \"HS11_14_quant.sf\", \"HS11_15_quant.sf\", \"HS11_16_quant.sf\", \"HS11_17_quant.sf\", \"HS11_18_quant.sf\", \"HS11_2_quant.sf\", \"HS11_3_quant.sf\", \"HS11_4_quant.sf\", \"HS11_5_quant.sf\", \"HS11_6_quant.sf\", \"HS11_7_quant.sf\", \"HS11_8_quant.sf\", \"HS11_9_quant.sf\", \"Syn1_1_quant.sf\", \"Syn1_10_quant.sf\", \"Syn1_11_quant.sf\", \"Syn1_12_quant.sf\", \"Syn1_13_quant.sf\", \"Syn1_14_quant.sf\", \"Syn1_15_quant.sf\", \"Syn1_16_quant.sf\", \"Syn1_17_quant.sf\", \"Syn1_18_quant.sf\", \"Syn1_19_quant.sf\", \"Syn1_2_quant.sf\", \"Syn1_20_quant.sf\", \"Syn1_21_quant.sf\", \"Syn1_22_quant.sf\", \"Syn1_23_quant.sf\", \"Syn1_24_quant.sf\", \"Syn1_3_quant.sf\", \"Syn1_4_quant.sf\", \"Syn1_5_quant.sf\", \"Syn1_6_quant.sf\", \"Syn1_7_quant.sf\", \"Syn1_8_quant.sf\", \"Syn1_9_quant.sf\", \"Syn5_1_quant.sf\", \"Syn5_10_quant.sf\", \"Syn5_11_quant.sf\", \"Syn5_12_quant.sf\", \"Syn5_13_quant.sf\", \"Syn5_14_quant.sf\", \"Syn5_15_quant.sf\", \"Syn5_16_quant.sf\", \"Syn5_17_quant.sf\", \"Syn5_18_quant.sf\", \"Syn5_19_quant.sf\", \"Syn5_2_quant.sf\", \"Syn5_20_quant.sf\", \"Syn5_21_quant.sf\", \"Syn5_22_quant.sf\", \"Syn5_23_quant.sf\", \"Syn5_24_quant.sf\", \"Syn5_3_quant.sf\", \"Syn5_4_quant.sf\", \"Syn5_5_quant.sf\", \"Syn5_6_quant.sf\", \"Syn5_7_quant.sf\", \"Syn5_8_quant.sf\", \"Syn5_9_quant.sf\", \"ipNF05.5_quant.sf\", \"ipNF04.4_quant.sf\", \"ipNF05.5 (mixed clone)_quant.sf\", \"ipn02.3_quant.sf\", \"ipn97.4_quant.sf\"]"
+        },
+        "response": {
+          "success": true,
+          "content": "To extract the desired information from the filenames, we need to identify the common pattern in the examples. The examples show that we need to extract a sequence that starts with two uppercase letters followed by a number, then an underscore, and finally a number. This pattern repeats once and is followed by \"_quant.sf\".\n\nHere's the inferred pattern:\n- Two uppercase letters\n- An underscore\n- One or more digits\n- An underscore\n- One or more digits\n- \"_quant.sf\"\n\nThe regular expression to match this pattern is:\n\n```regex\n([A-Z]{2}_\\d+_\\d+)\n```\n\nThis regex will capture the desired segments from the filenames.\n\nHere's the JSON response:\n\n```json\n{\n  \"regex\": \"([A-Z]{2}_\\d+_\\d+)\"\n}\n```\n\nThis regex can be used with `re.findall()` to extract the required information from all the input filenames.",
+          "model_id": "us.amazon.nova-micro-v1:0",
+          "usage": {
+            "inputTokens": 1322,
+            "outputTokens": 208,
+            "totalTokens": 1530
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "167c7561-6a36-4951-a4c1-6ab8ed6853b5",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Thu, 13 Nov 2025 19:25:42 GMT",
+                "content-type": "application/json",
+                "content-length": "1047",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "167c7561-6a36-4951-a4c1-6ab8ed6853b5"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To extract the desired information from the filenames, we need to identify the common pattern in the examples. The examples show that we need to extract a sequence that starts with two uppercase letters followed by a number, then an underscore, and finally a number. This pattern repeats once and is followed by \"_quant.sf\".\n\nHere's the inferred pattern:\n- Two uppercase letters\n- An underscore\n- One or more digits\n- An underscore\n- One or more digits\n- \"_quant.sf\"\n\nThe regular expression to match this pattern is:\n\n```regex\n([A-Z]{2}_\\d+_\\d+)\n```\n\nThis regex will capture the desired segments from the filenames.\n\nHere's the JSON response:\n\n```json\n{\n  \"regex\": \"([A-Z]{2}_\\d+_\\d+)\"\n}\n```\n\nThis regex can be used with `re.findall()` to extract the required information from all the input filenames."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 1322,
+              "outputTokens": 208,
+              "totalTokens": 1530
+            },
+            "metrics": {
+              "latencyMs": 1476
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "matches": "[\"HS01_1\", \"HS01_10\", \"HS01_11\", \"HS01_12\", \"HS01_13\", \"HS01_14\", \"HS01_15\", \"HS01_16\", \"HS01_17\", \"HS01_18\", \"HS01_2\", \"HS01_3\", \"HS01_4\", \"HS01_5\", \"HS01_6\", \"HS01_7\", \"HS01_8\", \"HS01_9\", \"HS11_1\", \"HS11_10\", \"HS11_11\", \"HS11_12\", \"HS11_13\", \"HS11_14\", \"HS11_15\", \"HS11_16\", \"HS11_17\", \"HS11_18\", \"HS11_2\", \"HS11_3\", \"HS11_4\", \"HS11_5\", \"HS11_6\", \"HS11_7\", \"HS11_8\", \"HS11_9\", \"Syn1_1\", \"Syn1_10\", \"Syn1_11\", \"Syn1_12\", \"Syn1_13\", \"Syn1_14\", \"Syn1_15\", \"Syn1_16\", \"Syn1_17\", \"Syn1_18\", \"Syn1_19\", \"Syn1_2\", \"Syn1_20\", \"Syn1_21\", \"Syn1_22\", \"Syn1_23\", \"Syn1_24\", \"Syn1_3\", \"Syn1_4\", \"Syn1_5\", \"Syn1_6\", \"Syn1_7\", \"Syn1_8\", \"Syn1_9\", \"Syn5_1\", \"Syn5_10\", \"Syn5_11\", \"Syn5_12\", \"Syn5_13\", \"Syn5_14\", \"Syn5_15\", \"Syn5_16\", \"Syn5_17\", \"Syn5_18\", \"Syn5_19\", \"Syn5_2\", \"Syn5_20\", \"Syn5_21\", \"Syn5_22\", \"Syn5_23\", \"Syn5_24\", \"Syn5_3\", \"Syn5_4\", \"Syn5_5\", \"Syn5_6\", \"Syn5_7\", \"Syn5_8\", \"Syn5_9\", \"ipNF05.5\", \"ipNF04.4\", \"ipNF05.5 (mixed clone)\", \"ipn02.3\", \"ipn97.4\"]"
+        },
+        "token_usage": {
+          "input_tokens": 1322,
+          "output_tokens": 208,
+          "total_tokens": 1530
+        }
+      }
+    ],
+    "metrics": {
+      "total_samples": 4,
+      "successful_runs": 4,
+      "failed_runs": 0,
+      "success_rate": 1.0,
+      "average_score": 0.48684210526315785,
+      "min_score": 0.0,
+      "max_score": 1.0,
+      "num_scored": 4
+    },
+    "duration_seconds": 10.959558010101318,
+    "token_usage": {
+      "input_tokens": 8879,
+      "output_tokens": 1075,
+      "total_tokens": 9954
+    }
+  }
+}
