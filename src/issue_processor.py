@@ -32,12 +32,12 @@ class IssueProcessor:
         
         # Task selection removed - experiments now run all tasks automatically
         
-        # Extract model
-        model_match = re.search(r'### Model Endpoint\s*\n\n([^\n]+)', issue_body)
+        # Extract model - handle both "Model" and "Model Endpoint" labels
+        model_match = re.search(r'### Model(?: Endpoint)?\s*\n\n([^\n]+)', issue_body)
         if model_match:
             model = model_match.group(1).strip()
             # Handle "Default" option from dropdown
-            if model and model not in ['', '-', 'Default (global.anthropic.claude-sonnet-4-5-20250929-v1:0)']:
+            if model and model not in ['', '-', 'Default (global.anthropic.claude-sonnet-4-5-20250929-v1:0)', 'Default']:
                 # Extract model ID if it's in the format "Default (model_id)"
                 if model.startswith('Default'):
                     # Use default from config
