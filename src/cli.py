@@ -1,5 +1,6 @@
 """Command-line interface for running experiments."""
 import argparse
+import json
 import sys
 from pathlib import Path
 from typing import List, Optional
@@ -142,21 +143,41 @@ def update_all_experiments(
                     continue
                 try:
                     entry = json.loads(line)
-                    experiments.append(entry)
-                except:
+                    if entry.get('experiment_id'):
+                        experiments.append(entry)
+                except Exception as parse_error:
+                    # Skip invalid JSON lines
                     continue
     except Exception as e:
         print(f"Error reading experiments log: {e}")
+        import traceback
+        traceback.print_exc()
         return
     
     if not experiments:
         print("No existing experiments found in log.")
         return
     
-    print(f"Found {len(experiments)} existing experiments to check for updates...\n")
+    # Deduplicate by experiment_id, keeping the most recent entry
+    experiment_map = {}
+    for exp in experiments:
+        exp_id = exp.get('experiment_id')
+        if not exp_id:
+            continue
+        existing = experiment_map.get(exp_id)
+        if not existing or exp.get('timestamp', '') > existing.get('timestamp', ''):
+            experiment_map[exp_id] = exp
+    
+    unique_experiments = list(experiment_map.values())
+    
+    if not unique_experiments:
+        print("No valid experiments found after deduplication.")
+        return
+    
+    print(f"Found {len(unique_experiments)} unique experiments to check for updates...\n")
     
     updated_count = 0
-    for exp_entry in experiments:
+    for exp_entry in unique_experiments:
         try:
             experiment_id = exp_entry.get('experiment_id')
             if not experiment_id:
