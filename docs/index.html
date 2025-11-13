@@ -327,6 +327,74 @@
             color: #666;
             font-family: 'Courier New', monospace;
         }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .pagination-info {
+            color: #666;
+            font-size: 0.9em;
+            margin: 0 10px;
+        }
+
+        .pagination-button {
+            padding: 8px 16px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .pagination-button:hover:not(:disabled) {
+            background: #667eea;
+            color: white;
+        }
+
+        .pagination-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #ccc;
+            color: #999;
+        }
+
+        .pagination-page-numbers {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .pagination-page-number {
+            padding: 6px 12px;
+            border: 1px solid #e0e0e0;
+            background: white;
+            color: #666;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.2s;
+        }
+
+        .pagination-page-number:hover {
+            background: #f0f0f0;
+            border-color: #667eea;
+        }
+
+        .pagination-page-number.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
     </style>
 </head>
 <body>
@@ -622,21 +690,29 @@
                 model_id: exp.model_id
             }));
 
-            // Find min/max for token normalization (for color brightness)
+            // Find min/max for token normalization (for color intensity)
             const tokenValues = dataPoints.map(d => d.tokens);
             const minTokens = Math.min(...tokenValues);
             const maxTokens = Math.max(...tokenValues);
             const tokenRange = maxTokens - minTokens;
 
-            // Create colors based on token count (brighter = more tokens)
-            // Using HSL: brighter means higher lightness
+            // Create colors based on token count: grey (low) to hot red (high)
+            // Interpolate RGB values from grey to hot red
             const colors = dataPoints.map(d => {
                 // Normalize token count to 0-1 range
                 const normalized = tokenRange > 0 ? (d.tokens - minTokens) / tokenRange : 0.5;
-                // Map to lightness: 30% (darker) to 80% (brighter)
-                const lightness = 30 + (normalized * 50);
-                // Use a purple/blue hue to match the theme
-                return `hsla(260, 70%, ${lightness}%, 0.7)`;
+                
+                // Grey (low tokens): rgb(150, 150, 150)
+                // Hot red (high tokens): rgb(255, 30, 30)
+                const greyR = 150, greyG = 150, greyB = 150;
+                const redR = 255, redG = 30, redB = 30;
+                
+                // Interpolate between grey and red
+                const r = Math.round(greyR + (redR - greyR) * normalized);
+                const g = Math.round(greyG + (redG - greyG) * normalized);
+                const b = Math.round(greyB + (redB - greyB) * normalized);
+                
+                return `rgba(${r}, ${g}, ${b}, 0.7)`;
             });
 
             const ctx = document.getElementById('scatterplotChart').getContext('2d');
@@ -909,6 +985,7 @@
                                 }).join('')}
                             </tbody>
                         </table>
+                        ${createPaginationHTML('table-overall', overallPerformance.length)}
                     </div>
                 `;
             }
@@ -916,7 +993,13 @@
             document.getElementById('overallPerformance').innerHTML = overallHtml;
             
             // Setup sorting for overall performance table
-            setTimeout(() => setupTableSorting(), 0);
+            setTimeout(() => {
+                setupTableSorting();
+                // Initialize pagination - show first 5 rows
+                if (overallPerformance.length > 5) {
+                    goToPage('table-overall', 1);
+                }
+            }, 0);
 
             // Generate task-wise breakdown tables
             // Get all unique tasks from all experiments (only from experiments with task_results)
@@ -1012,24 +1095,41 @@
                                     }).join('')}
                                </tbody>
                            </table>
+                           ${createPaginationHTML(tableId, taskExperiments.length)}
                     </div>
                 `;
             });
 
             container.innerHTML = html;
             
-            // Setup sorting for all task tables
-            setTimeout(() => setupTableSorting(), 0);
+            // Setup sorting for all task tables and initialize pagination
+            setTimeout(() => {
+                setupTableSorting();
+                // Initialize pagination for all task tables
+                Array.from(allTasks).sort().forEach((taskName, taskIndex) => {
+                    const tableId = `table-${taskIndex}`;
+                    const table = document.getElementById(tableId);
+                    if (table) {
+                        const rows = table.querySelectorAll('tbody tr');
+                        if (rows.length > 5) {
+                            goToPage(tableId, 1);
+                        }
+                    }
+                });
+            }, 0);
         }
 
         function filterTable(searchId, tableId) {
             const searchInput = document.getElementById(searchId);
             const filter = searchInput.value.toLowerCase();
             const table = document.getElementById(tableId);
-            const rows = table.getElementsByTagName('tr');
+            const tbody = table.querySelector('tbody');
+            if (!tbody) return;
             
-            // Skip header row (index 0)
-            for (let i = 1; i < rows.length; i++) {
+            const rows = tbody.getElementsByTagName('tr');
+            
+            // First, show/hide rows based on filter
+            for (let i = 0; i < rows.length; i++) {
                 const row = rows[i];
                 const text = row.textContent || row.innerText;
                 if (text.toLowerCase().indexOf(filter) > -1) {
@@ -1038,6 +1138,119 @@
                     row.style.display = 'none';
                 }
             }
+            
+            // Reset pagination when filtering
+            const paginationId = `pagination-${tableId}`;
+            const pagination = document.getElementById(paginationId);
+            if (pagination) {
+                goToPage(tableId, 1);
+            }
+        }
+
+        function goToPage(tableId, page) {
+            const table = document.getElementById(tableId);
+            if (!table) return;
+            
+            // Get all rows
+            const allRows = Array.from(table.querySelectorAll('tbody tr'));
+            // Filter to only rows that are not explicitly hidden by search filter
+            // Rows hidden by search have display='none', others are visible
+            const visibleRows = allRows.filter(row => row.style.display !== 'none');
+            
+            const rowsPerPage = 5;
+            const totalPages = Math.ceil(visibleRows.length / rowsPerPage);
+            
+            // Hide all visible rows
+            visibleRows.forEach(row => row.style.display = 'none');
+            
+            // Show rows for current page
+            const startIndex = (page - 1) * rowsPerPage;
+            const endIndex = startIndex + rowsPerPage;
+            visibleRows.slice(startIndex, endIndex).forEach(row => row.style.display = '');
+            
+            // Update pagination controls
+            updatePaginationControls(tableId, page, totalPages, visibleRows.length);
+        }
+
+        function updatePaginationControls(tableId, currentPage, totalPages, totalRows) {
+            const paginationId = `pagination-${tableId}`;
+            const pagination = document.getElementById(paginationId);
+            if (!pagination) return;
+            
+            const rowsPerPage = 5;
+            const startRow = (currentPage - 1) * rowsPerPage + 1;
+            const endRow = Math.min(currentPage * rowsPerPage, totalRows);
+            
+            // Update info
+            const infoElement = pagination.querySelector('.pagination-info');
+            if (infoElement) {
+                infoElement.textContent = `Showing ${startRow}-${endRow} of ${totalRows}`;
+            }
+            
+            // Update prev/next buttons
+            const prevButton = pagination.querySelector('.pagination-prev');
+            const nextButton = pagination.querySelector('.pagination-next');
+            if (prevButton) {
+                prevButton.disabled = currentPage === 1;
+            }
+            if (nextButton) {
+                nextButton.disabled = currentPage === totalPages;
+            }
+            
+            // Update page numbers
+            const pageNumbersContainer = pagination.querySelector('.pagination-page-numbers');
+            if (pageNumbersContainer) {
+                pageNumbersContainer.innerHTML = '';
+                
+                // Show page numbers (max 5 visible at a time)
+                let startPage = Math.max(1, currentPage - 2);
+                let endPage = Math.min(totalPages, startPage + 4);
+                
+                // Adjust if we're near the end
+                if (endPage - startPage < 4) {
+                    startPage = Math.max(1, endPage - 4);
+                }
+                
+                for (let i = startPage; i <= endPage; i++) {
+                    const pageButton = document.createElement('button');
+                    pageButton.className = `pagination-page-number ${i === currentPage ? 'active' : ''}`;
+                    pageButton.textContent = i;
+                    pageButton.onclick = () => goToPage(tableId, i);
+                    pageNumbersContainer.appendChild(pageButton);
+                }
+            }
+        }
+
+        function createPaginationHTML(tableId, totalRows) {
+            const rowsPerPage = 5;
+            const totalPages = Math.ceil(totalRows / rowsPerPage);
+            
+            if (totalPages <= 1) {
+                return ''; // No pagination needed if 5 or fewer rows
+            }
+            
+            return `
+                <div class="pagination" id="pagination-${tableId}">
+                    <button class="pagination-button pagination-prev" onclick="goToPage('${tableId}', 1)" disabled>First</button>
+                    <button class="pagination-button pagination-prev" onclick="goToPage('${tableId}', getCurrentPage('${tableId}') - 1)">Previous</button>
+                    <div class="pagination-page-numbers"></div>
+                    <button class="pagination-button pagination-next" onclick="goToPage('${tableId}', getCurrentPage('${tableId}') + 1)">Next</button>
+                    <button class="pagination-button pagination-next" onclick="goToPage('${tableId}', ${totalPages})">Last</button>
+                    <span class="pagination-info">Showing 1-${Math.min(rowsPerPage, totalRows)} of ${totalRows}</span>
+                </div>
+            `;
+        }
+
+        function getCurrentPage(tableId) {
+            const table = document.getElementById(tableId);
+            if (!table) return 1;
+            
+            const rows = Array.from(table.querySelectorAll('tbody tr')).filter(row => row.style.display !== 'none');
+            const visibleRows = rows.filter(row => row.style.display === '');
+            if (visibleRows.length === 0) return 1;
+            
+            const firstVisibleIndex = rows.indexOf(visibleRows[0]);
+            return Math.floor(firstVisibleIndex / 5) + 1;
         }
 
         function sortTable(tableId, columnIndex, dataType) {
@@ -1108,6 +1321,13 @@
                 }
                 tbody.appendChild(row);
             });
+            
+            // Reset pagination to page 1 after sorting
+            const paginationId = `pagination-${tableId}`;
+            const pagination = document.getElementById(paginationId);
+            if (pagination) {
+                goToPage(tableId, 1);
+            }
         }
 
         function setupTableSorting() {
