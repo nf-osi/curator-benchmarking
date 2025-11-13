@@ -214,13 +214,6 @@ class Scorer:
                         if i < len(expected_matches) and match == expected_matches[i])
             
             return correct / len(expected_matches) if expected_matches else 0.0
-                    # Same matches but different order - give partial credit
-                    return 0.5
-                # Check how many expected matches are found
-                found_count = len(set(matches) & set(expected_matches))
-                if len(expected_matches) > 0:
-                    return found_count / len(expected_matches)
-                return 0.0
         
         except Exception as e:
             print(f"Error scoring regex generation: {e}")
