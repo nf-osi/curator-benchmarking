@@ -127,32 +127,48 @@ def update_all_experiments(
         print("No results directory found. No experiments to update.")
         return
     
-    # Find all experiment result files
-    result_files = list(results_dir.glob("*_results.json"))
-    
-    if not result_files:
-        print("No existing experiments found.")
+    # Load experiments from the log file
+    log_file = results_dir / "experiments_log.jsonl"
+    if not log_file.exists():
+        print("No experiments log found. No experiments to update.")
         return
     
-    print(f"Found {len(result_files)} existing experiments to check for updates...\n")
+    experiments = []
+    try:
+        with open(log_file, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith('<<<<<<<') or line.startswith('=======') or line.startswith('>>>>>>>'):
+                    continue
+                try:
+                    entry = json.loads(line)
+                    experiments.append(entry)
+                except:
+                    continue
+    except Exception as e:
+        print(f"Error reading experiments log: {e}")
+        return
+    
+    if not experiments:
+        print("No existing experiments found in log.")
+        return
+    
+    print(f"Found {len(experiments)} existing experiments to check for updates...\n")
     
     updated_count = 0
-    for result_file in result_files:
+    for exp_entry in experiments:
         try:
-            with open(result_file, 'r') as f:
-                experiment_data = json.load(f)
-            
-            experiment_id = experiment_data.get('experiment_id')
+            experiment_id = exp_entry.get('experiment_id')
             if not experiment_id:
                 continue
             
             # Recreate experiment from stored parameters
             experiment = Experiment(
                 tasks_dir=tasks_dir,
-                model_id=experiment_data.get('model_id', config.default_model),
-                system_instructions=experiment_data.get('system_instructions'),
-                temperature=experiment_data.get('temperature'),
-                thinking=experiment_data.get('thinking', False),
+                model_id=exp_entry.get('model_id', config.default_model),
+                system_instructions=exp_entry.get('system_instructions'),
+                temperature=exp_entry.get('temperature'),
+                thinking=exp_entry.get('thinking', False),
                 config=config
             )
             
@@ -161,11 +177,13 @@ def update_all_experiments(
             updated_count += 1
             
         except Exception as e:
-            print(f"Error updating experiment from {result_file.name}: {e}")
+            print(f"Error updating experiment {exp_entry.get('experiment_id', 'unknown')}: {e}")
+            import traceback
+            traceback.print_exc()
             continue
     
     print(f"\n{'='*60}")
-    print(f"Update complete: {updated_count}/{len(result_files)} experiments processed")
+    print(f"Update complete: {updated_count}/{len(experiments)} experiments processed")
     print(f"{'='*60}")
 
 
