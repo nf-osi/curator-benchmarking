@@ -184,8 +184,8 @@ class Experiment:
                     except (json.JSONDecodeError, TypeError):
                         gt_matches = []
                     
-                    # Provide 1-2 example matches
-                    num_examples = min(2, len(gt_matches))
+                    # Provide 3 example matches
+                    num_examples = min(3, len(gt_matches))
                     example_matches = gt_matches[:num_examples] if gt_matches else []
                     
                     # Format prompt with all filenames and examples
