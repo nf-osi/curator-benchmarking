@@ -69,27 +69,27 @@ jobs:
                   const result = JSON.parse(fs.readFileSync(resultPath, 'utf8'));
                   
                   comment += `✅ Experiment completed successfully!\n\n`;
-                comment += `**Experiment ID:** ${result.experiment_id}\n\n`;
-                comment += `**Overall Metrics:**\n`;
-                comment += `- Tasks completed: ${result.overall_metrics.tasks_completed}\n`;
-                comment += `- Total samples: ${result.overall_metrics.total_samples}\n`;
-                
-                if (result.overall_metrics.average_accuracy !== null) {
-                  comment += `- Average accuracy: ${(result.overall_metrics.average_accuracy * 100).toFixed(1)}%\n`;
-                }
-                
-                comment += `\n**Task-wise Results:**\n`;
-                for (const [taskName, taskResult] of Object.entries(result.task_results)) {
-                  if (taskResult.error) {
-                    comment += `- ${taskName}: ❌ Error - ${taskResult.error}\n`;
-                  } else {
-                    const accuracy = taskResult.metrics.average_score !== null 
-                      ? (taskResult.metrics.average_score * 100).toFixed(1) + '%'
-                      : 'N/A';
-                    comment += `- ${taskName}: ${accuracy} (${taskResult.metrics.total_samples} samples)\n`;
+                  comment += `**Experiment ID:** ${result.experiment_id}\n\n`;
+                  comment += `**Overall Metrics:**\n`;
+                  comment += `- Tasks completed: ${result.overall_metrics.tasks_completed}\n`;
+                  comment += `- Total samples: ${result.overall_metrics.total_samples}\n`;
+                  
+                  if (result.overall_metrics.average_accuracy !== null) {
+                    comment += `- Average accuracy: ${(result.overall_metrics.average_accuracy * 100).toFixed(1)}%\n`;
                   }
-                }
-                
+                  
+                  comment += `\n**Task-wise Results:**\n`;
+                  for (const [taskName, taskResult] of Object.entries(result.task_results)) {
+                    if (taskResult.error) {
+                      comment += `- ${taskName}: ❌ Error - ${taskResult.error}\n`;
+                    } else {
+                      const accuracy = taskResult.metrics.average_score !== null 
+                        ? (taskResult.metrics.average_score * 100).toFixed(1) + '%'
+                        : 'N/A';
+                      comment += `- ${taskName}: ${accuracy} (${taskResult.metrics.total_samples} samples)\n`;
+                    }
+                  }
+                  
                   comment += `\n**Results saved to:** \`docs/results/${resultFile}\`\n`;
                 } else {
                   comment += `⚠️ Results file not found for experiment ${experimentId}.\n`;
