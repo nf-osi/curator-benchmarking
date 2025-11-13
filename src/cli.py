@@ -129,34 +129,34 @@ def main():
         help='Directory containing tasks'
     )
     
-           # Run experiment command
-           run_parser = subparsers.add_parser('run', help='Run an experiment across all tasks')
-           run_parser.add_argument(
-               '--tasks-dir',
-               type=str,
-               default='tasks',
-               help='Directory containing tasks'
-           )
-           run_parser.add_argument(
-               '--model',
-               type=str,
-               help='Model endpoint ID (default: from config)'
-           )
-           run_parser.add_argument(
-               '--system-instructions',
-               type=str,
-               help='Path to custom system instructions file'
-           )
-           run_parser.add_argument(
-               '--temperature',
-               type=float,
-               help='Sampling temperature (default: from config, usually 0.0)'
-           )
-           run_parser.add_argument(
-               '--thinking',
-               action='store_true',
-               help='Enable thinking/reasoning mode (for supported models)'
-           )
+    # Run experiment command
+    run_parser = subparsers.add_parser('run', help='Run an experiment across all tasks')
+    run_parser.add_argument(
+        '--tasks-dir',
+        type=str,
+        default='tasks',
+        help='Directory containing tasks'
+    )
+    run_parser.add_argument(
+        '--model',
+        type=str,
+        help='Model endpoint ID (default: from config)'
+    )
+    run_parser.add_argument(
+        '--system-instructions',
+        type=str,
+        help='Path to custom system instructions file'
+    )
+    run_parser.add_argument(
+        '--temperature',
+        type=float,
+        help='Sampling temperature (default: from config, usually 0.0)'
+    )
+    run_parser.add_argument(
+        '--thinking',
+        action='store_true',
+        help='Enable thinking/reasoning mode (for supported models)'
+    )
     
     # Run suite command
     suite_parser = subparsers.add_parser('suite', help='Run a suite of experiments across all tasks')
@@ -183,14 +183,14 @@ def main():
     if args.command == 'list':
         list_tasks(Path(args.tasks_dir))
     
-           elif args.command == 'run':
-               run_experiment(
-                   tasks_dir=Path(args.tasks_dir),
-                   model_id=args.model,
-                   system_instructions_file=args.system_instructions,
-                   temperature=args.temperature,
-                   thinking=args.thinking
-               )
+    elif args.command == 'run':
+        run_experiment(
+            tasks_dir=Path(args.tasks_dir),
+            model_id=args.model,
+            system_instructions_file=args.system_instructions,
+            temperature=args.temperature,
+            thinking=args.thinking
+        )
     
     elif args.command == 'suite':
         run_experiment_suite(

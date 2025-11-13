@@ -104,12 +104,9 @@ class BedrockClient:
             # Note: Nova may not support temperature in this format
         else:
             # Anthropic format (default)
-            # Note: reasoning_effort is only supported in converse API, not invoke_model
-            # So we don't add it here - it will be added when using converse API fallback
             body = {
                 "anthropic_version": "bedrock-2023-05-31",
                 "max_tokens": max_tokens,
-                "temperature": temperature,
                 "messages": [
                     {
                         "role": "user",
@@ -119,6 +116,24 @@ class BedrockClient:
             }
             if system_instructions:
                 body["system"] = system_instructions
+            
+            # Add thinking mode if enabled (per AWS docs: https://docs.aws.amazon.com/bedrock/latest/userguide/claude-messages-extended-thinking.html)
+            # Thinking mode requires a thinking object with type: "enabled" and budget_tokens
+            # Note: temperature is not compatible with thinking mode, so we omit it when thinking is enabled
+            if thinking:
+                # Set a reasonable thinking budget (minimum is 1024, we'll use 4096 as a default)
+                # The budget should be less than max_tokens
+                thinking_budget = min(4096, max_tokens - 100)  # Leave some room for text output
+                if thinking_budget < 1024:
+                    thinking_budget = 1024  # Minimum required
+                
+                body["thinking"] = {
+                    "type": "enabled",
+                    "budget_tokens": thinking_budget
+                }
+            else:
+                # Only set temperature when thinking is NOT enabled (they're incompatible)
+                body["temperature"] = temperature
         
         for attempt in range(max_retries):
             try:
@@ -140,82 +155,73 @@ class BedrockClient:
                         error_message = e.response.get('Error', {}).get('Message', '')
                         raise e
                 else:
-                    # For thinking mode, use converse API directly (reasoningEffort only works with converse)
-                    # Otherwise, try invoke_model first (for older models)
-                    if thinking:
-                        # Convert to converse API format for thinking mode
-                        converse_messages = []
-                        for msg in body.get('messages', []):
-                            converse_messages.append({
-                                'role': msg.get('role', 'user'),
-                                'content': [{'text': msg.get('content', '')}]
-                            })
+                    # Use invoke_model for Anthropic models (supports thinking mode via thinking object in body)
+                    try:
+                        response = self.bedrock_runtime.invoke_model(
+                            modelId=model_id,
+                            body=json.dumps(body)
+                        )
+                        response_body = json.loads(response['body'].read())
+                    except ClientError as e:
+                        error_code = e.response.get('Error', {}).get('Code', '')
+                        error_message = e.response.get('Error', {}).get('Message', '')
                         
-                        converse_kwargs = {
-                            'modelId': model_id,
-                            'messages': converse_messages
-                        }
-                        
-                        if body.get('system'):
-                            converse_kwargs['system'] = [{'text': body['system']}]
-                        
-                        inference_config = {
-                            'maxTokens': body.get('max_tokens', max_tokens),
-                            'temperature': body.get('temperature', temperature),
-                            'reasoningEffort': "high"  # Options: "low", "medium", "high"
-                        }
-                        
-                        converse_kwargs['inferenceConfig'] = inference_config
-                        
-                        response = self.bedrock_runtime.converse(**converse_kwargs)
-                        # Converse API returns response directly, not wrapped in 'body'
-                        response_body = response
-                    else:
-                        # Try invoke_model first (for older models)
-                        try:
-                            response = self.bedrock_runtime.invoke_model(
-                                modelId=model_id,
-                                body=json.dumps(body)
-                            )
-                            response_body = json.loads(response['body'].read())
-                        except ClientError as e:
-                            error_code = e.response.get('Error', {}).get('Code', '')
-                            error_message = e.response.get('Error', {}).get('Message', '')
+                        # If invoke_model fails with ValidationException about on-demand throughput,
+                        # try using converse API instead (for newer models)
+                        if error_code == 'ValidationException' and 'on-demand throughput' in error_message:
+                            # Convert to converse API format
+                            converse_messages = []
+                            for msg in body.get('messages', []):
+                                converse_messages.append({
+                                    'role': msg.get('role', 'user'),
+                                    'content': [{'text': msg.get('content', '')}]
+                                })
                             
-                            # If invoke_model fails with ValidationException about on-demand throughput,
-                            # try using converse API instead (for newer models)
-                            if error_code == 'ValidationException' and 'on-demand throughput' in error_message:
-                                # Convert to converse API format
-                                converse_messages = []
-                                for msg in body.get('messages', []):
-                                    converse_messages.append({
-                                        'role': msg.get('role', 'user'),
-                                        'content': [{'text': msg.get('content', '')}]
-                                    })
-                                
-                                converse_kwargs = {
-                                    'modelId': model_id,
-                                    'messages': converse_messages
-                                }
-                                
-                                if body.get('system'):
-                                    converse_kwargs['system'] = [{'text': body['system']}]
-                                
-                                inference_config = {
-                                    'maxTokens': body.get('max_tokens', max_tokens),
-                                    'temperature': body.get('temperature', temperature)
-                                }
-                                
-                                converse_kwargs['inferenceConfig'] = inference_config
-                                
-                                response = self.bedrock_runtime.converse(**converse_kwargs)
-                                # Converse API returns response directly, not wrapped in 'body'
-                                response_body = response
-                            else:
-                                raise e
+                            converse_kwargs = {
+                                'modelId': model_id,
+                                'messages': converse_messages
+                            }
+                            
+                            if body.get('system'):
+                                converse_kwargs['system'] = [{'text': body['system']}]
+                            
+                            inference_config = {
+                                'maxTokens': body.get('max_tokens', max_tokens)
+                            }
+                            
+                            # Note: thinking mode and temperature are incompatible
+                            # If thinking is enabled, don't set temperature
+                            if not thinking:
+                                inference_config['temperature'] = body.get('temperature', temperature)
+                            
+                            converse_kwargs['inferenceConfig'] = inference_config
+                            
+                            # Note: thinking mode may not be supported in converse API fallback
+                            # If thinking was requested, log a warning
+                            if thinking:
+                                print(f"Warning: Thinking mode requested but falling back to converse API which may not support it")
+                            
+                            response = self.bedrock_runtime.converse(**converse_kwargs)
+                            # Converse API returns response directly, not wrapped in 'body'
+                            response_body = response
+                        else:
+                            raise e
                 
                 # Extract content based on model response format
                 content = ''
+                
+                # Helper function to extract text from content array (filters out thinking blocks)
+                def extract_text_from_content_array(content_list):
+                    """Extract text from content array, skipping thinking blocks."""
+                    if not content_list or not isinstance(content_list, list):
+                        return ''
+                    text_parts = []
+                    for item in content_list:
+                        if isinstance(item, dict):
+                            # Only extract text type blocks, skip thinking blocks
+                            if item.get('type') == 'text' and 'text' in item:
+                                text_parts.append(item['text'])
+                    return ''.join(text_parts)
                 
                 # Try converse API format first (output.message.content array)
                 if 'output' in response_body:
@@ -224,14 +230,12 @@ class BedrockClient:
                         message = output['message']
                         if 'content' in message:
                             content_list = message.get('content', [])
-                            if content_list and isinstance(content_list, list):
-                                content = content_list[0].get('text', '')
+                            content = extract_text_from_content_array(content_list)
                 
-                # Try Anthropic invoke_model format (content array with text)
+                # Try Anthropic invoke_model format (content array with text and thinking blocks)
                 if not content and 'content' in response_body:
                     content_list = response_body.get('content', [])
-                    if content_list and isinstance(content_list, list):
-                        content = content_list[0].get('text', '')
+                    content = extract_text_from_content_array(content_list)
                 
                 # Try OpenAI format (choices array)
                 if not content and 'choices' in response_body:
