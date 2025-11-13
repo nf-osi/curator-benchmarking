@@ -693,6 +693,7 @@
                                        <th>Temperature</th>
                                        <th>Thinking</th>
                                        <th>Samples</th>
+                                       <th>Duration</th>
                                        <th>Experiment ID</th>
                                    </tr>
                                </thead>
@@ -707,6 +708,12 @@
                                            ? exp.temperature.toFixed(2) 
                                            : 'N/A';
                                        const thinkingDisplay = exp.thinking ? 'Yes' : 'No';
+                                       const durationSeconds = exp.durationSeconds || 0;
+                                       const durationDisplay = durationSeconds > 0 
+                                           ? durationSeconds < 60 
+                                               ? `${durationSeconds.toFixed(1)}s`
+                                               : `${Math.floor(durationSeconds / 60)}m ${(durationSeconds % 60).toFixed(0)}s`
+                                           : 'N/A';
                                        return `
                                            <tr>
                                                <td class="rank ${getRankClass(rank)}">${rank}</td>
@@ -716,6 +723,7 @@
                                                <td>${tempDisplay}</td>
                                                <td>${thinkingDisplay}</td>
                                                <td>${exp.samples}</td>
+                                               <td>${durationDisplay}</td>
                                                <td class="experiment-id-cell">${exp.experiment_id}</td>
                                            </tr>
                                        `;
