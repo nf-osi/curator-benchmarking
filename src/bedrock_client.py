@@ -104,6 +104,8 @@ class BedrockClient:
             # Note: Nova may not support temperature in this format
         else:
             # Anthropic format (default)
+            # Note: reasoning_effort is only supported in converse API, not invoke_model
+            # So we don't add it here - it will be added when using converse API fallback
             body = {
                 "anthropic_version": "bedrock-2023-05-31",
                 "max_tokens": max_tokens,
@@ -117,12 +119,6 @@ class BedrockClient:
             }
             if system_instructions:
                 body["system"] = system_instructions
-            
-            # Add thinking/reasoning parameters if enabled
-            if thinking:
-                # For models that support thinking mode (e.g., Claude Sonnet 4.5)
-                # This enables extended reasoning/thinking
-                body["reasoning_effort"] = "high"  # Options: "low", "medium", "high"
         
         for attempt in range(max_retries):
             try:
@@ -174,11 +170,18 @@ class BedrockClient:
                             if body.get('system'):
                                 converse_kwargs['system'] = [{'text': body['system']}]
                             
-                            if 'max_tokens' in body:
-                                converse_kwargs['inferenceConfig'] = {
-                                    'maxTokens': body['max_tokens'],
-                                    'temperature': body.get('temperature', 0.0)
-                                }
+                            inference_config = {
+                                'maxTokens': body.get('max_tokens', max_tokens),
+                                'temperature': body.get('temperature', temperature)
+                            }
+                            
+                            # Add thinking/reasoning parameters if enabled (only for converse API)
+                            if thinking:
+                                # For models that support thinking mode (e.g., Claude Sonnet 4.5)
+                                # reasoning_effort is only valid in converse API, not invoke_model
+                                inference_config['reasoningEffort'] = "high"  # Options: "low", "medium", "high"
+                            
+                            converse_kwargs['inferenceConfig'] = inference_config
                             
                             response = self.bedrock_runtime.converse(**converse_kwargs)
                             # Converse API returns response directly, not wrapped in 'body'
