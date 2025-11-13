@@ -56,8 +56,8 @@ class IssueProcessor:
         sys_inst_match = re.search(r'### System Instructions\s*\n\n(.*?)(?=\n###|\Z)', issue_body, re.DOTALL)
         if sys_inst_match:
             sys_inst = sys_inst_match.group(1).strip()
-            # Treat "default" (case-insensitive) as empty to use default instructions
-            if sys_inst and sys_inst.lower() != 'default' and sys_inst not in ['', '-']:
+            # Treat "default" (case-insensitive) and "_No response_" as empty to use default instructions
+            if sys_inst and sys_inst.lower() not in ['default', '_no response_'] and sys_inst not in ['', '-', '_No response_']:
                 try:
                     params['system_instructions'] = self._resolve_content(sys_inst)
                 except FileNotFoundError as e:
@@ -69,7 +69,8 @@ class IssueProcessor:
         temp_match = re.search(r'### Temperature\s*\n\n([^\n]+)', issue_body)
         if temp_match:
             temp_str = temp_match.group(1).strip()
-            if temp_str and temp_str not in ['', '-']:
+            # Treat "_No response_" as empty to use default temperature
+            if temp_str and temp_str not in ['', '-', '_No response_']:
                 try:
                     params['temperature'] = float(temp_str)
                 except ValueError:
