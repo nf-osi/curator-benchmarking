@@ -620,12 +620,29 @@
         let scatterplotChart = null;
 
         function updateStats() {
-            // Only count experiments where all tasks have 100% success rate
+            // Count all experiments that have completed at least one task
+            // Use the same logic as calculateOverallPerformance for consistency
             const validExperiments = allExperiments.filter(exp => {
-                if (!exp.task_results) return false;
-                for (const taskResult of Object.values(exp.task_results)) {
-                    if (taskResult.error) return false;
-                    if ((taskResult.metrics?.success_rate || 0) < 1.0) return false;
+                // If no task_results, check if we have overall_metrics from log file
+                if (!exp.task_results || Object.keys(exp.task_results).length === 0) {
+                    // Still include if we have overall_metrics from the log
+                    if (exp.overall_metrics && exp.overall_metrics.tasks_completed > 0) {
+                        return true;
+                    }
+                    return false;
+                }
+                // If we have task_results, check all tasks don't have errors
+                for (const [taskName, taskResult] of Object.entries(exp.task_results)) {
+                    if (taskResult.error) {
+                        return false;
+                    }
+                    // Handle both minified format (no metrics wrapper) and full format
+                    // For minified format, if average_score exists, consider it valid
+                    const successRate = taskResult.metrics?.success_rate;
+                    if (successRate !== undefined && successRate < 1.0) {
+                        return false;
+                    }
+                    // If no success_rate but we have average_score, it's valid (minified format)
                 }
                 return true;
             });
@@ -834,29 +851,22 @@
         }
 
         function calculateOverallPerformance(experiments) {
-            // Filter experiments where all tasks have 100% success rate
-            // But include experiments even if they don't have task_results loaded yet
+            // Include all experiments that have completed at least one task
+            // Don't filter by success rate - show all experiments regardless of performance
             const validExperiments = experiments.filter(exp => {
                 // If no task_results, check if we have overall_metrics from log file
-                if (!exp.task_results) {
+                if (!exp.task_results || Object.keys(exp.task_results).length === 0) {
                     // Still include if we have overall_metrics from the log
                     if (exp.overall_metrics && exp.overall_metrics.tasks_completed > 0) {
                         return true;
                     }
-                    console.log(`Experiment ${exp.experiment_id}: No task_results and no overall_metrics`);
                     return false;
                 }
-                // If we have task_results, check all tasks have 100% success rate
+                // If we have task_results, just check they don't have errors
+                // Don't filter by success rate - show all experiments
                 for (const [taskName, taskResult] of Object.entries(exp.task_results)) {
                     if (taskResult.error) {
-                        console.log(`Experiment ${exp.experiment_id}, task ${taskName}: Has error`);
-                        return false;
-                    }
-                    // Handle both minified format (no metrics wrapper) and full format
-                    const successRate = taskResult.metrics?.success_rate || 
-                                      (taskResult.average_score !== undefined && taskResult.average_score !== null ? 1.0 : 0);
-                    if (successRate < 1.0) {
-                        console.log(`Experiment ${exp.experiment_id}, task ${taskName}: Success rate ${successRate} < 1.0`);
+                        // Skip experiments with errors
                         return false;
                     }
                 }
