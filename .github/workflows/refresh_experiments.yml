@@ -35,6 +35,11 @@ jobs:
           python -m src.cli update-all
           # The script will exit with code 1 if any experiment fails, causing the workflow to fail
       
+      - name: Generate minified dashboard data
+        if: success()
+        run: |
+          python scripts/generate_dashboard_data.py docs/results docs/results/dashboard_data.json
+      
       - name: Commit and push results
         if: success()
         run: |

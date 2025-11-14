@@ -409,65 +409,82 @@
 
         async function loadExperiments() {
             try {
-                const response = await fetch('results/experiments_log.jsonl');
-                if (!response.ok) {
-                    throw new Error(`Failed to load experiments: ${response.statusText}`);
-                }
-                
-                const text = await response.text();
-                const lines = text.trim().split('\n').filter(line => line.trim());
-                
-                console.log(`Loaded ${lines.length} experiment entries from log file`);
-                
-                // Parse all experiments, filtering out merge conflict markers and invalid JSON
-                const parsedExperiments = lines
-                    .filter(line => {
-                        const trimmed = line.trim();
-                        // Skip merge conflict markers
-                        if (trimmed.startsWith('<<<<<<<') || trimmed.startsWith('=======') || trimmed.startsWith('>>>>>>>')) {
-                            return false;
-                        }
-                        return trimmed.length > 0;
-                    })
-                    .map(line => {
-                        try {
-                            return JSON.parse(line);
-                        } catch (e) {
-                            console.warn('Error parsing line (skipping):', line.substring(0, 100), e);
-                            return null;
-                        }
-                    })
-                    .filter(exp => exp !== null);
-                
-                // Deduplicate by experiment_id, keeping the most recent (last) entry
-                const experimentMap = new Map();
-                for (const exp of parsedExperiments) {
-                    const existing = experimentMap.get(exp.experiment_id);
-                    if (!existing || new Date(exp.timestamp) > new Date(existing.timestamp)) {
-                        experimentMap.set(exp.experiment_id, exp);
+                // Try to load minified dashboard data first (much faster)
+                let useMinified = false;
+                try {
+                    const dashboardResponse = await fetch('results/dashboard_data.json');
+                    if (dashboardResponse.ok) {
+                        const dashboardData = await dashboardResponse.json();
+                        console.log(`Loaded ${dashboardData.length} experiments from minified dashboard data`);
+                        
+                        // Convert to expected format
+                        allExperiments = dashboardData.map(exp => ({
+                            experiment_id: exp.experiment_id,
+                            model_id: exp.model_id,
+                            system_instructions: exp.system_instructions || '',
+                            temperature: exp.temperature,
+                            thinking: exp.thinking || false,
+                            tools: exp.tools || [],
+                            overall_metrics: exp.overall_metrics,
+                            task_results: exp.task_results || {}
+                        }));
+                        
+                        useMinified = true;
                     }
-                }
-                allExperiments = Array.from(experimentMap.values());
-                
-                console.log(`After deduplication: ${allExperiments.length} unique experiments`);
-                
-                // Log experiment IDs for debugging
-                console.log('Experiment IDs:', allExperiments.map(e => e.experiment_id));
-
-                console.log(`Parsed ${allExperiments.length} valid experiments`);
-
-                // Also try to load detailed results for additional info
-                const loadResult = await loadDetailedResults();
-                
-                console.log(`Loaded detailed results. Experiments with task_results: ${allExperiments.filter(e => e.task_results).length}`);
-                
-                // Log experiment IDs that failed to load detailed results for debugging
-                if (loadResult.experimentsToRemove.length > 0) {
-                    console.warn(`Experiments without detailed results files:`, loadResult.experimentsToRemove.map(e => e.experiment_id));
+                } catch (e) {
+                    console.warn('Could not load minified dashboard data, falling back to individual files:', e);
                 }
                 
-                // Log all experiment IDs for debugging
-                console.log('All experiment IDs after loading:', allExperiments.map(e => e.experiment_id));
+                if (!useMinified) {
+                    // Fallback to loading individual files (slower)
+                    console.log('Loading experiments from individual files...');
+                    const response = await fetch('results/experiments_log.jsonl');
+                    if (!response.ok) {
+                        throw new Error(`Failed to load experiments: ${response.statusText}`);
+                    }
+                    
+                    const text = await response.text();
+                    const lines = text.trim().split('\n').filter(line => line.trim());
+                    
+                    console.log(`Loaded ${lines.length} experiment entries from log file`);
+                    
+                    // Parse all experiments, filtering out merge conflict markers and invalid JSON
+                    const parsedExperiments = lines
+                        .filter(line => {
+                            const trimmed = line.trim();
+                            // Skip merge conflict markers
+                            if (trimmed.startsWith('<<<<<<<') || trimmed.startsWith('=======') || trimmed.startsWith('>>>>>>>')) {
+                                return false;
+                            }
+                            return trimmed.length > 0;
+                        })
+                        .map(line => {
+                            try {
+                                return JSON.parse(line);
+                            } catch (e) {
+                                console.warn('Error parsing line (skipping):', line.substring(0, 100), e);
+                                return null;
+                            }
+                        })
+                        .filter(exp => exp !== null);
+                    
+                    // Deduplicate by experiment_id, keeping the most recent (last) entry
+                    const experimentMap = new Map();
+                    for (const exp of parsedExperiments) {
+                        const existing = experimentMap.get(exp.experiment_id);
+                        if (!existing || new Date(exp.timestamp) > new Date(existing.timestamp)) {
+                            experimentMap.set(exp.experiment_id, exp);
+                        }
+                    }
+                    allExperiments = Array.from(experimentMap.values());
+                    
+                    console.log(`After deduplication: ${allExperiments.length} unique experiments`);
+                    
+                    // Also try to load detailed results for additional info
+                    const loadResult = await loadDetailedResults();
+                    
+                    console.log(`Loaded detailed results. Experiments with task_results: ${allExperiments.filter(e => e.task_results).length}`);
+                }
 
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('content').style.display = 'block';

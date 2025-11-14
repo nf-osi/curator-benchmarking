@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Script to update GitHub Pages with latest results."""
 import shutil
+import subprocess
+import sys
 from pathlib import Path
 
 def main():
@@ -24,8 +26,24 @@ def main():
         shutil.copy2(file, docs_results_dir)
         copied += 1
     
-    print(f"GitHub Pages results updated successfully!")
     print(f"Copied {copied} files to: {docs_results_dir}")
+    
+    # Generate minified dashboard data file
+    print("\nGenerating minified dashboard data...")
+    generate_script = repo_root / "scripts" / "generate_dashboard_data.py"
+    try:
+        result = subprocess.run(
+            [sys.executable, str(generate_script), str(docs_results_dir), str(docs_results_dir / "dashboard_data.json")],
+            check=True,
+            capture_output=True,
+            text=True
+        )
+        print(result.stdout)
+    except subprocess.CalledProcessError as e:
+        print(f"Warning: Failed to generate dashboard data: {e}")
+        print(e.stderr)
+    
+    print(f"\nGitHub Pages results updated successfully!")
 
 if __name__ == "__main__":
     main()

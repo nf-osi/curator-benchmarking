@@ -35,6 +35,11 @@ jobs:
           python -m src.issue_processor_github "${{ github.event.issue.body }}" "${{ github.event.issue.number }}"
           # The script will exit with code 1 if success rate < 100%, causing the workflow to fail
       
+      - name: Generate minified dashboard data
+        if: steps.run-experiment.outcome == 'success'
+        run: |
+          python scripts/generate_dashboard_data.py docs/results docs/results/dashboard_data.json
+      
       - name: Comment results on issue
         uses: actions/github-script@v7
         if: always()
