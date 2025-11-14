@@ -1,0 +1,46 @@
+{
+  "tools": [
+    {
+      "type": "function",
+      "name": "ols_mcp",
+      "description": "Access the OLS (Ontology Lookup Service) MCP API to retrieve ontology mappings, search for terms, get cross-products, and retrieve term information. Useful for ontology term translation, alignment, and metadata lookup.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "operation": {
+            "type": "string",
+            "description": "The operation to perform",
+            "enum": ["mappings", "search", "cross_product", "term"],
+            "default": "search"
+          },
+          "term": {
+            "type": "string",
+            "description": "The term or label to search for (required for 'mappings' and 'search' operations)"
+          },
+          "ontology": {
+            "type": "string",
+            "description": "The ontology ID (e.g., 'go', 'chebi', 'efo', 'doid'). Required for 'mappings', 'cross_product', and 'term' operations."
+          },
+          "iri": {
+            "type": "string",
+            "description": "The IRI of the term (required for 'term' operation)"
+          },
+          "size": {
+            "type": "integer",
+            "description": "Maximum number of results to return (for 'search' and 'cross_product' operations)",
+            "default": 10
+          },
+          "exact": {
+            "type": "boolean",
+            "description": "Whether to perform exact match (for 'search' operation)",
+            "default": false
+          }
+        },
+        "required": ["operation"]
+      },
+      "function_path": "tools/ols_mcp_tool.py",
+      "function_name": "execute"
+    }
+  ]
+}
+

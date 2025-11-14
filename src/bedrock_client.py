@@ -3,9 +3,11 @@ import json
 import time
 import boto3
 import requests
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 from botocore.exceptions import ClientError
 from .config import Config
+from .tool import Tool
+from .tool_executor import ToolExecutor
 
 
 class BedrockClient:
@@ -37,6 +39,300 @@ class BedrockClient:
         self.bedrock_runtime = boto3.client('bedrock-runtime', **client_kwargs)
         self.use_bearer_token = False  # We use boto3, which handles bearer token via env var
     
+    def _convert_tools_to_bedrock_format(self, tools: List[Tool], model_id: str) -> List[Dict[str, Any]]:
+        """
+        Convert Tool objects to Bedrock API format.
+        
+        Args:
+            tools: List of Tool objects
+            model_id: Model ID to determine format (Anthropic vs Converse API)
+            
+        Returns:
+            List of tool definitions in appropriate format
+        """
+        # Determine if we should use Converse API format (for Nova, DeepSeek, Meta) or Anthropic format
+        use_converse_api = (
+            model_id.startswith('us.amazon.') or model_id.startswith('amazon.') or
+            model_id.startswith('us.deepseek.') or model_id.startswith('deepseek.') or
+            model_id.startswith('us.meta.') or model_id.startswith('meta.')
+        )
+        
+        if use_converse_api:
+            # Converse API format
+            return [tool.to_bedrock_format() for tool in tools]
+        else:
+            # Anthropic format
+            result = []
+            for tool in tools:
+                schema = tool.get_schema()
+                result.append({
+                    "name": tool.name,
+                    "description": tool.description,
+                    "input_schema": schema
+                })
+            return result
+    
+    def _extract_tool_calls_from_response(self, response_body: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Extract tool calls from a Bedrock response."""
+        tool_calls = []
+        
+        # Check Converse API format (output.message.content)
+        if 'output' in response_body:
+            output = response_body.get('output', {})
+            if 'message' in output:
+                message = output.get('message', {})
+                content = message.get('content', [])
+                for item in content:
+                    if isinstance(item, dict) and item.get('toolUse'):
+                        tool_calls.append(item['toolUse'])
+        
+        # Check Anthropic format (content array)
+        if 'content' in response_body:
+            for item in response_body.get('content', []):
+                if isinstance(item, dict) and item.get('type') == 'tool_use':
+                    tool_calls.append({
+                        'toolUseId': item.get('id'),
+                        'name': item.get('name'),
+                        'input': item.get('input', {})
+                    })
+        
+        return tool_calls
+    
+    def _invoke_model_with_tools(
+        self,
+        model_id: str,
+        prompt: str,
+        system_instructions: str,
+        temperature: float,
+        thinking: bool,
+        max_tokens: int,
+        max_retries: int,
+        tools: List[Tool],
+        tool_executor: ToolExecutor
+    ) -> Dict[str, Any]:
+        """
+        Invoke model with tools, handling tool use flow.
+        
+        This method handles the multi-turn conversation where the model may request
+        tool calls, we execute them, and continue the conversation.
+        """
+        # Convert tools to Bedrock format
+        bedrock_tools = self._convert_tools_to_bedrock_format(tools, model_id)
+        
+        # Build initial messages
+        messages = []
+        
+        # Determine if we should use Converse API (for Nova, DeepSeek, Meta) or invoke_model (for Anthropic)
+        use_converse_api = (
+            model_id.startswith('us.amazon.') or model_id.startswith('amazon.') or
+            model_id.startswith('us.deepseek.') or model_id.startswith('deepseek.') or
+            model_id.startswith('us.meta.') or model_id.startswith('meta.')
+        )
+        
+        if use_converse_api:
+            # Converse API format
+            messages.append({
+                "role": "user",
+                "content": [{"text": prompt}]
+            })
+        else:
+            # Anthropic format
+            messages.append({
+                "role": "user",
+                "content": prompt
+            })
+        
+        # Maximum tool use iterations to prevent infinite loops
+        max_tool_iterations = 10
+        tool_iterations = 0
+        all_tool_calls = []
+        
+        for attempt in range(max_retries):
+            try:
+                while tool_iterations < max_tool_iterations:
+                    # Build API call parameters
+                    if use_converse_api:
+                        converse_kwargs = {
+                            'modelId': model_id,
+                            'messages': messages,
+                            'inferenceConfig': {
+                                'maxTokens': max_tokens,
+                                'temperature': temperature
+                            },
+                            'toolConfig': {
+                                'tools': bedrock_tools
+                            }
+                        }
+                        if system_instructions:
+                            converse_kwargs['system'] = [{"text": system_instructions}]
+                        
+                        response = self.bedrock_runtime.converse(**converse_kwargs)
+                        response_body = response
+                    else:
+                        # Anthropic format
+                        body = {
+                            "anthropic_version": "bedrock-2023-05-31",
+                            "max_tokens": max_tokens,
+                            "messages": messages,
+                            "tools": bedrock_tools
+                        }
+                        if system_instructions:
+                            body["system"] = system_instructions
+                        if thinking:
+                            thinking_budget = min(4096, max_tokens - 100)
+                            if thinking_budget < 1024:
+                                thinking_budget = 1024
+                            body["thinking"] = {
+                                "type": "enabled",
+                                "budget_tokens": thinking_budget
+                            }
+                        else:
+                            body["temperature"] = temperature
+                        
+                        response = self.bedrock_runtime.invoke_model(
+                            modelId=model_id,
+                            body=json.dumps(body)
+                        )
+                        response_body = json.loads(response['body'].read())
+                    
+                    # Check for tool calls
+                    tool_calls = self._extract_tool_calls_from_response(response_body)
+                    
+                    if not tool_calls:
+                        # No tool calls - we have the final response
+                        break
+                    
+                    # Execute tool calls
+                    tool_results = tool_executor.execute_tool_calls(tool_calls)
+                    all_tool_calls.extend(tool_calls)
+                    
+                    # Add assistant message with tool use
+                    if use_converse_api:
+                        assistant_content = []
+                        for tool_call in tool_calls:
+                            assistant_content.append({"toolUse": tool_call})
+                        messages.append({
+                            "role": "assistant",
+                            "content": assistant_content
+                        })
+                        
+                        # Add tool results
+                        tool_result_content = []
+                        for result in tool_results:
+                            tool_result_content.append({"toolResult": result})
+                        messages.append({
+                            "role": "user",
+                            "content": tool_result_content
+                        })
+                    else:
+                        # Anthropic format
+                        assistant_content = []
+                        for tool_call in tool_calls:
+                            assistant_content.append({
+                                "type": "tool_use",
+                                "id": tool_call.get('toolUseId'),
+                                "name": tool_call.get('name'),
+                                "input": tool_call.get('input', {})
+                            })
+                        messages.append({
+                            "role": "assistant",
+                            "content": assistant_content
+                        })
+                        
+                        # Add tool results
+                        tool_result_content = []
+                        for result in tool_results:
+                            # Convert content to proper format - each item needs a type field
+                            content_items = []
+                            for content_item in result.get('content', []):
+                                if isinstance(content_item, dict):
+                                    # If already has type, use as is
+                                    if 'type' in content_item:
+                                        content_items.append(content_item)
+                                    else:
+                                        # Otherwise, wrap text in proper format
+                                        content_items.append({
+                                            "type": "text",
+                                            "text": content_item.get('text', str(content_item))
+                                        })
+                                elif isinstance(content_item, str):
+                                    content_items.append({
+                                        "type": "text",
+                                        "text": content_item
+                                    })
+                            
+                            tool_result_content.append({
+                                "type": "tool_result",
+                                "tool_use_id": result.get('toolUseId'),
+                                "content": content_items
+                            })
+                        messages.append({
+                            "role": "user",
+                            "content": tool_result_content
+                        })
+                    
+                    tool_iterations += 1
+                
+                # Extract final content
+                content = ''
+                if use_converse_api:
+                    if 'output' in response_body:
+                        output = response_body.get('output', {})
+                        if 'message' in output:
+                            message = output.get('message', {})
+                            content_list = message.get('content', [])
+                            for item in content_list:
+                                if isinstance(item, dict) and item.get('text'):
+                                    content += item['text']
+                else:
+                    # Anthropic format
+                    content_list = response_body.get('content', [])
+                    for item in content_list:
+                        if isinstance(item, dict) and item.get('type') == 'text':
+                            content += item.get('text', '')
+                
+                return {
+                    'success': True,
+                    'content': content,
+                    'model_id': model_id,
+                    'usage': response_body.get('usage', {}),
+                    'attempt': attempt + 1,
+                    'raw_response': response_body,
+                    'tool_calls': all_tool_calls,
+                    'tool_execution_history': tool_executor.get_execution_history()
+                }
+            
+            except ClientError as e:
+                error_code = e.response.get('Error', {}).get('Code', '')
+                if error_code == 'ThrottlingException' and attempt < max_retries - 1:
+                    wait_time = 2 ** attempt
+                    time.sleep(wait_time)
+                    continue
+                else:
+                    return {
+                        'success': False,
+                        'error': str(e),
+                        'error_code': error_code,
+                        'model_id': model_id,
+                        'attempt': attempt + 1,
+                        'tool_calls': all_tool_calls
+                    }
+            except Exception as e:
+                return {
+                    'success': False,
+                    'error': str(e),
+                    'model_id': model_id,
+                    'attempt': attempt + 1,
+                    'tool_calls': all_tool_calls
+                }
+        
+        return {
+            'success': False,
+            'error': 'Max retries exceeded',
+            'model_id': model_id,
+            'tool_calls': all_tool_calls
+        }
+    
     def invoke_model(
         self,
         model_id: str,
@@ -45,7 +341,9 @@ class BedrockClient:
         temperature: float = 0.0,
         thinking: bool = False,
         max_tokens: int = 4096,
-        max_retries: int = 3
+        max_retries: int = 3,
+        tools: Optional[List[Tool]] = None,
+        tool_executor: Optional[ToolExecutor] = None
     ) -> Dict[str, Any]:
         """
         Invoke a Bedrock model with the given parameters.
@@ -55,15 +353,33 @@ class BedrockClient:
             prompt: The user prompt
             system_instructions: Optional system instructions (uses default if None)
             temperature: Sampling temperature
+            thinking: Enable thinking mode
             max_tokens: Maximum tokens to generate
             max_retries: Number of retry attempts
+            tools: Optional list of Tool objects to make available to the model
+            tool_executor: Optional ToolExecutor for handling tool calls (required if tools provided)
             
         Returns:
-            Dictionary containing the response and metadata
+            Dictionary containing the response and metadata, including tool usage information
         """
         if system_instructions is None:
             system_instructions = self.config.default_system_instructions
         
+        # If tools are provided, use tool-aware invocation
+        if tools and tool_executor:
+            return self._invoke_model_with_tools(
+                model_id=model_id,
+                prompt=prompt,
+                system_instructions=system_instructions,
+                temperature=temperature,
+                thinking=thinking,
+                max_tokens=max_tokens,
+                max_retries=max_retries,
+                tools=tools,
+                tool_executor=tool_executor
+            )
+        
+        # Otherwise, use standard invocation (existing code)
         # Detect model provider and prepare appropriate request body
         if model_id.startswith('openai.'):
             # OpenAI format

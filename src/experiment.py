@@ -9,6 +9,8 @@ from .bedrock_client import BedrockClient
 from .task import Task
 from .scorer import Scorer
 from .config import Config
+from .tool import Tool, ToolRegistry
+from .tool_executor import ToolExecutor
 
 
 def compute_task_hash(task: Task) -> str:
@@ -61,7 +63,9 @@ class Experiment:
         system_instructions: Optional[str] = None,
         temperature: Optional[float] = None,
         thinking: Optional[bool] = None,
-        config: Optional[Config] = None
+        config: Optional[Config] = None,
+        tools: Optional[List[Tool]] = None,
+        tool_registry: Optional[ToolRegistry] = None
     ):
         """Initialize experiment with parameters."""
         self.config = config or Config()
@@ -76,10 +80,20 @@ class Experiment:
         # Get thinking mode from parameter or config default
         self.thinking = thinking if thinking is not None else experiment_config.get('thinking', False)
         
+        # Setup tools
+        self.tools = tools or []
+        self.tool_registry = tool_registry or ToolRegistry()
+        if self.tools:
+            # Register tools in registry
+            for tool in self.tools:
+                if not self.tool_registry.get(tool.name):
+                    self.tool_registry.register(tool)
+        self.tool_executor = ToolExecutor(self.tool_registry) if self.tools else None
+        
         self.bedrock_client = BedrockClient(self.config)
         self.scorer = Scorer()
         
-        # Generate experiment ID
+        # Generate experiment ID (include tools in hash)
         self.experiment_id = self._generate_experiment_id()
         
         # Results storage - use docs/results/ as the main results directory
@@ -88,7 +102,26 @@ class Experiment:
     
     def _generate_experiment_id(self) -> str:
         """Generate a unique experiment ID based on parameters."""
-        params_str = f"{self.model_id}_{self.system_instructions}_{self.temperature}_{self.thinking}"
+        # Include tools in the hash (sorted by name for consistency)
+        # Hash includes tool names and schemas to ensure uniqueness when tool definitions change
+        if self.tools:
+            tool_info = []
+            for tool in sorted(self.tools, key=lambda t: t.name):
+                schema = tool.get_schema()
+                # Create a hash of the tool definition (name + schema)
+                tool_hash = hashlib.md5(
+                    json.dumps({
+                        "name": tool.name,
+                        "description": tool.description,
+                        "schema": schema
+                    }, sort_keys=True).encode()
+                ).hexdigest()[:8]
+                tool_info.append(f"{tool.name}:{tool_hash}")
+            tools_str = ",".join(tool_info)
+        else:
+            tools_str = "no_tools"
+        
+        params_str = f"{self.model_id}_{self.system_instructions}_{self.temperature}_{self.thinking}_{tools_str}"
         return hashlib.md5(params_str.encode()).hexdigest()
     
     def _get_all_tasks(self) -> List[Task]:
@@ -183,7 +216,9 @@ class Experiment:
                 temperature=self.temperature,
                 thinking=self.thinking,
                 max_tokens=experiment_config.get('max_tokens', 4096),
-                max_retries=experiment_config.get('max_retries', 3)
+                max_retries=experiment_config.get('max_retries', 3),
+                tools=self.tools if self.tools else None,
+                tool_executor=self.tool_executor
             )
             
             # Initialize score to None
@@ -234,6 +269,10 @@ class Experiment:
             output_tokens = usage.get('outputTokens') or usage.get('output_tokens') or 0
             total_tokens = usage.get('totalTokens') or usage.get('total_tokens') or (input_tokens + output_tokens)
             
+            # Extract tool usage information
+            tool_calls = response.get('tool_calls', [])
+            tool_execution_history = response.get('tool_execution_history', [])
+            
             results.append({
                 'sample_index': idx,
                 'input': sample,
@@ -244,7 +283,9 @@ class Experiment:
                     'input_tokens': input_tokens,
                     'output_tokens': output_tokens,
                     'total_tokens': total_tokens
-                }
+                },
+                'tool_calls': tool_calls,
+                'tool_execution_history': tool_execution_history
             })
         
         # Calculate metrics for this task
@@ -291,6 +332,9 @@ class Experiment:
         task_file = self._get_experiment_task_file(task_name)
         
         # Prepare the result with experiment metadata
+        # Include tool names in experiment metadata
+        tool_names = [tool.name for tool in self.tools] if self.tools else []
+        
         result_data = {
             'experiment_id': self.experiment_id,
             'task_name': task_name,
@@ -299,6 +343,7 @@ class Experiment:
             'system_instructions': self.system_instructions,
             'temperature': self.temperature,
             'thinking': self.thinking,
+            'tools': tool_names,
             'timestamp': datetime.now().isoformat(),
             'task_result': task_result
         }
@@ -331,13 +376,16 @@ class Experiment:
     def _log_experiment(self):
         """Log experiment metadata to experiments_log.jsonl."""
         log_file = self.results_dir / "experiments_log.jsonl"
+        tool_names = [tool.name for tool in self.tools] if self.tools else []
+        
         summary = {
             'experiment_id': self.experiment_id,
             'timestamp': datetime.now().isoformat(),
             'model_id': self.model_id,
             'system_instructions': self.system_instructions,
             'temperature': self.temperature,
-            'thinking': self.thinking
+            'thinking': self.thinking,
+            'tools': tool_names
         }
         with open(log_file, 'a') as f:
             f.write(json.dumps(summary) + '\n')
@@ -370,6 +418,11 @@ class Experiment:
             print(f"  System Instructions: {self.system_instructions[:50]}...")
             print(f"  Temperature: {self.temperature}")
             print(f"  Thinking: {self.thinking}")
+            if self.tools:
+                tool_names = [tool.name for tool in self.tools]
+                print(f"  Tools: {', '.join(tool_names)}")
+            else:
+                print(f"  Tools: None")
             print(f"  Timestamp: {datetime.now().isoformat()}")
             print(f"\n  Found {len(tasks)} tasks to run:")
             for task in tasks:
@@ -537,6 +590,9 @@ class Experiment:
         print(f"  Total duration: {total_duration_seconds:.2f}s")
         print(f"{'='*60}\n")
         
+        # Get tool names for result
+        tool_names = [tool.name for tool in self.tools] if self.tools else []
+        
         return {
             'experiment_id': self.experiment_id,
             'timestamp': datetime.now().isoformat(),
@@ -544,6 +600,7 @@ class Experiment:
             'system_instructions': self.system_instructions,
             'temperature': self.temperature,
             'thinking': self.thinking,
+            'tools': tool_names,
             'task_results': task_results,
             'overall_metrics': overall_metrics
         }
@@ -626,13 +683,16 @@ class Experiment:
                 print(f"\n  Updating experiment {other_experiment_id[:16]}... (missing: {', '.join(missing_tasks)})")
                 
                 # Recreate the experiment from stored parameters
+                # Note: tools are not restored from experiment data - they would need to be
+                # loaded from config or passed separately
                 other_experiment = Experiment(
                     tasks_dir=self.tasks_dir,
                     model_id=experiment_data.get('model_id', self.config.default_model),
                     system_instructions=experiment_data.get('system_instructions'),
                     temperature=experiment_data.get('temperature'),
                     thinking=experiment_data.get('thinking', False),
-                    config=self.config
+                    config=self.config,
+                    tools=None  # Tools not restored from experiment data
                 )
                 
                 # Run will automatically detect and add the new tasks

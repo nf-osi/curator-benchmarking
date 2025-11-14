@@ -7,6 +7,7 @@ from typing import List, Optional
 from .config import Config
 from .task import Task
 from .experiment import Experiment
+from .tool import ToolRegistry
 
 
 def list_tasks(tasks_dir: Path):
@@ -36,7 +37,8 @@ def run_experiment(
     system_instructions_file: Optional[str] = None,
     temperature: Optional[float] = None,
     thinking: Optional[bool] = None,
-    config: Optional[Config] = None
+    config: Optional[Config] = None,
+    tools_config_file: Optional[str] = None
 ):
     """Run an experiment across all tasks."""
     if config is None:
@@ -50,6 +52,17 @@ def run_experiment(
         with open(system_instructions_file, 'r') as f:
             system_instructions = f.read()
     
+    # Load tools if provided
+    tools = None
+    tool_registry = None
+    if tools_config_file:
+        tool_registry = ToolRegistry()
+        tools = tool_registry.load_from_config(Path(tools_config_file))
+        if tools:
+            print(f"Loaded {len(tools)} tool(s): {', '.join([t.name for t in tools])}")
+        else:
+            print(f"Warning: No tools loaded from {tools_config_file}")
+    
     # Use default model if not specified
     model_id = model_id or config.default_model
     
@@ -60,7 +73,9 @@ def run_experiment(
         system_instructions=system_instructions,
         temperature=temperature,
         thinking=thinking,
-        config=config
+        config=config,
+        tools=tools,
+        tool_registry=tool_registry
     )
     
     result = experiment.run()
@@ -269,6 +284,11 @@ def main():
         action='store_true',
         help='Enable thinking/reasoning mode (for supported models)'
     )
+    run_parser.add_argument(
+        '--tools',
+        type=str,
+        help='Path to tools configuration file (JSON or YAML)'
+    )
     
     # Run suite command
     suite_parser = subparsers.add_parser('suite', help='Run a suite of experiments across all tasks')
@@ -310,7 +330,8 @@ def main():
             model_id=args.model,
             system_instructions_file=args.system_instructions,
             temperature=args.temperature,
-            thinking=args.thinking
+            thinking=args.thinking,
+            tools_config_file=args.tools
         )
     
     elif args.command == 'suite':

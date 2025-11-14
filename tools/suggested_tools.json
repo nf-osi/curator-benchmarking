@@ -1,0 +1,204 @@
+{
+  "tools": [
+    {
+      "type": "function",
+      "name": "zooma",
+      "description": "Map free-text annotations to ontology terms using ZOOMA API. Perfect for synonym mapping, terminology standardization, and finding ontology terms for free-text values.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "property_value": {
+            "type": "string",
+            "description": "The free-text value to map to ontology terms (e.g., 'diabetes', 'NF1', 'Neurofibromatosis')"
+          },
+          "property_type": {
+            "type": "string",
+            "description": "Optional property type (e.g., 'disease', 'cell type', 'assay')"
+          },
+          "ontologies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Optional list of ontology IDs to search (e.g., ['doid', 'efo', 'chebi'])"
+          },
+          "required": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Optional list of required ontology IDs"
+          },
+          "preferred": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Optional list of preferred ontology IDs"
+          }
+        },
+        "required": ["property_value"]
+      },
+      "function_path": "tools/zooma_tool.py",
+      "function_name": "execute"
+    },
+    {
+      "type": "function",
+      "name": "fuzzy_match",
+      "description": "Find fuzzy matches for a value against a list of candidates using string similarity. Useful for typo correction, finding similar terms in controlled vocabularies, and matching against enum values.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "The value to find matches for"
+          },
+          "candidates": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of candidate strings to match against"
+          },
+          "threshold": {
+            "type": "number",
+            "description": "Minimum similarity threshold (0.0 to 1.0, default 0.6)",
+            "default": 0.6,
+            "minimum": 0.0,
+            "maximum": 1.0
+          },
+          "max_results": {
+            "type": "integer",
+            "description": "Maximum number of results to return (default 5)",
+            "default": 5,
+            "minimum": 1
+          }
+        },
+        "required": ["value", "candidates"]
+      },
+      "function_path": "tools/fuzzy_match_tool.py",
+      "function_name": "execute"
+    },
+    {
+      "type": "function",
+      "name": "fuzzy_match_schema",
+      "description": "Find fuzzy matches for a value against enum values in a JSON schema file. Useful for matching against controlled vocabularies defined in schema.json files.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "The value to find matches for"
+          },
+          "schema_path": {
+            "type": "string",
+            "description": "Path to the JSON schema file (e.g., 'tasks/broadening_of_narrow_synonyms/schema.json')"
+          },
+          "field_name": {
+            "type": "string",
+            "description": "Optional field name to match against (if not provided, searches all enum fields)"
+          },
+          "threshold": {
+            "type": "number",
+            "description": "Minimum similarity threshold (0.0 to 1.0, default 0.6)",
+            "default": 0.6,
+            "minimum": 0.0,
+            "maximum": 1.0
+          },
+          "max_results": {
+            "type": "integer",
+            "description": "Maximum number of results to return (default 5)",
+            "default": 5,
+            "minimum": 1
+          }
+        },
+        "required": ["value", "schema_path"]
+      },
+      "function_path": "tools/fuzzy_match_tool.py",
+      "function_name": "execute_with_schema"
+    },
+    {
+      "type": "function",
+      "name": "regex_tester",
+      "description": "Test and validate regex patterns against sample strings. Useful for regex generation tasks to verify patterns work correctly.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "regex_pattern": {
+            "type": "string",
+            "description": "The regex pattern to test"
+          },
+          "test_strings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of strings to test the pattern against"
+          },
+          "expected_matches": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Optional list of expected matches (one per test string) for validation"
+          }
+        },
+        "required": ["regex_pattern", "test_strings"]
+      },
+      "function_path": "tools/regex_tester_tool.py",
+      "function_name": "execute"
+    },
+    {
+      "type": "function",
+      "name": "schema_validator",
+      "description": "Validate data against a JSON schema. Useful for validation explanation tasks and ensuring data conforms to schema constraints.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "description": "The data dictionary to validate"
+          },
+          "schema_path": {
+            "type": "string",
+            "description": "Path to the JSON schema file (e.g., 'tasks/broadening_of_narrow_synonyms/schema.json')"
+          },
+          "strict": {
+            "type": "boolean",
+            "description": "If true, return detailed error information",
+            "default": false
+          }
+        },
+        "required": ["data", "schema_path"]
+      },
+      "function_path": "tools/schema_validator_tool.py",
+      "function_name": "execute"
+    },
+    {
+      "type": "function",
+      "name": "data_pattern_analyzer",
+      "description": "Analyze data patterns to infer data types (string, integer, number, date, boolean, email, URL). Useful for column type identification tasks.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of string values to analyze"
+          },
+          "analyze_format": {
+            "type": "boolean",
+            "description": "Whether to analyze specific formats (dates, emails, etc.)",
+            "default": true
+          }
+        },
+        "required": ["values"]
+      },
+      "function_path": "tools/data_pattern_analyzer_tool.py",
+      "function_name": "execute"
+    }
+  ]
+}
+
