@@ -1,0 +1,653 @@
+{
+  "experiment_id": "3c9676f8e7697227c0759393690d0330",
+  "task_name": "column_value_retrieval",
+  "task_hash": "bb01f4acb026623565c00cbb92a62e11",
+  "model_id": "openai.gpt-oss-20b-1:0",
+  "system_instructions": "### Temperature\n\n1.0",
+  "temperature": 1.0,
+  "thinking": false,
+  "tools": [],
+  "timestamp": "2025-11-15T04:41:33.763452",
+  "task_result": {
+    "task_name": "column_value_retrieval",
+    "num_samples": 10,
+    "results": [
+      {
+        "sample_index": 0,
+        "input": {
+          "row_data": "{\"row_id\": 1, \"columns\": {\"a\": 1, \"b\": \"one\"}}",
+          "column_name": "b",
+          "question": "Can you provide the value of column b for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "<reasoning>We need to parse the JSON string row_data: \"{\\\"row_id\\\": 1, \\\"columns\\\": {\\\"a\\\": 1, \\\"b\\\": \\\"one\\\"}}\". It's a string that parses to a JSON object with row_id 1 and columns object. column_name is \"b\". So value is \"one\". The question: request value. Return JSON. The value, string \"one\". Output: {\"value\":\"one\"}.\n\nCheck that it's acceptable. Shouldn't include nested quotes incorrectly. Should be proper JSON string. Done.</reasoning>{\n  \"value\": \"one\"\n}",
+          "model_id": "openai.gpt-oss-20b-1:0",
+          "usage": {
+            "completion_tokens": 128,
+            "prompt_tokens": 255,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 64
+            },
+            "total_tokens": 383
+          },
+          "attempt": 1,
+          "raw_response": {
+            "choices": [
+              {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "message": {
+                  "content": "<reasoning>We need to parse the JSON string row_data: \"{\\\"row_id\\\": 1, \\\"columns\\\": {\\\"a\\\": 1, \\\"b\\\": \\\"one\\\"}}\". It's a string that parses to a JSON object with row_id 1 and columns object. column_name is \"b\". So value is \"one\". The question: request value. Return JSON. The value, string \"one\". Output: {\"value\":\"one\"}.\n\nCheck that it's acceptable. Shouldn't include nested quotes incorrectly. Should be proper JSON string. Done.</reasoning>{\n  \"value\": \"one\"\n}",
+                  "refusal": null,
+                  "role": "assistant"
+                }
+              }
+            ],
+            "created": 1763181683,
+            "id": "chatcmpl-fac77556-59bf-4c8b-b145-b405147b0530",
+            "model": "openai.gpt-oss-20b-1:0",
+            "object": "chat.completion",
+            "service_tier": "default",
+            "usage": {
+              "completion_tokens": 128,
+              "prompt_tokens": 255,
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 64
+              },
+              "total_tokens": 383
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "expected_value": "one"
+        },
+        "token_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 383
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 1,
+        "input": {
+          "row_data": "{\"row_id\": 2, \"columns\": {\"patient_id\": \"P001\", \"diagnosis\": \"NF1\", \"age\": 25}}",
+          "column_name": "diagnosis",
+          "question": "Can you provide the value of column diagnosis for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "<reasoning>We parse row_data JSON. It is string containing JSON object. Need parse to object. column_name diagnosis. The row_data columns contain patient_id, diagnosis, age. So value = \"NF1\". Return JSON: {\"value\":\"NF1\"}</reasoning>{\"value\":\"NF1\"}",
+          "model_id": "openai.gpt-oss-20b-1:0",
+          "usage": {
+            "completion_tokens": 66,
+            "prompt_tokens": 265,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 176
+            },
+            "total_tokens": 331
+          },
+          "attempt": 1,
+          "raw_response": {
+            "choices": [
+              {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "message": {
+                  "content": "<reasoning>We parse row_data JSON. It is string containing JSON object. Need parse to object. column_name diagnosis. The row_data columns contain patient_id, diagnosis, age. So value = \"NF1\". Return JSON: {\"value\":\"NF1\"}</reasoning>{\"value\":\"NF1\"}",
+                  "refusal": null,
+                  "role": "assistant"
+                }
+              }
+            ],
+            "created": 1763181685,
+            "id": "chatcmpl-943420f6-f8d1-422f-880b-9480878ac809",
+            "model": "openai.gpt-oss-20b-1:0",
+            "object": "chat.completion",
+            "service_tier": "default",
+            "usage": {
+              "completion_tokens": 66,
+              "prompt_tokens": 265,
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 176
+              },
+              "total_tokens": 331
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "expected_value": "NF1"
+        },
+        "token_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 331
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 2,
+        "input": {
+          "row_data": "{\"row_id\": 3, \"columns\": {\"sample_id\": \"S123\", \"assay\": \"RNA-seq\", \"tumor_type\": \"GBM\"}}",
+          "column_name": "assay",
+          "question": "Can you provide the value of column assay for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "<reasoning>We need extract from the JSON string given. row_data is a JSON string: {\"row_id\":3,\"columns\":{\"sample_id\":\"S123\",\"assay\":\"RNA-seq\",\"tumor_type\":\"GBM\"}}. column_name is \"assay\". So value is \"RNA-seq\".\n\nReturn JSON: {\"value\": \"RNA-seq\"}.\n\nCheck if any type? It's string. Good.</reasoning>{\n  \"value\": \"RNA-seq\"\n}",
+          "model_id": "openai.gpt-oss-20b-1:0",
+          "usage": {
+            "completion_tokens": 103,
+            "prompt_tokens": 270,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 64
+            },
+            "total_tokens": 373
+          },
+          "attempt": 1,
+          "raw_response": {
+            "choices": [
+              {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "message": {
+                  "content": "<reasoning>We need extract from the JSON string given. row_data is a JSON string: {\"row_id\":3,\"columns\":{\"sample_id\":\"S123\",\"assay\":\"RNA-seq\",\"tumor_type\":\"GBM\"}}. column_name is \"assay\". So value is \"RNA-seq\".\n\nReturn JSON: {\"value\": \"RNA-seq\"}.\n\nCheck if any type? It's string. Good.</reasoning>{\n  \"value\": \"RNA-seq\"\n}",
+                  "refusal": null,
+                  "role": "assistant"
+                }
+              }
+            ],
+            "created": 1763181686,
+            "id": "chatcmpl-a71a1e74-bf06-4c19-8ce8-a617a77652df",
+            "model": "openai.gpt-oss-20b-1:0",
+            "object": "chat.completion",
+            "service_tier": "default",
+            "usage": {
+              "completion_tokens": 103,
+              "prompt_tokens": 270,
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 64
+              },
+              "total_tokens": 373
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "expected_value": "RNA-seq"
+        },
+        "token_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 373
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 3,
+        "input": {
+          "row_data": "{\"row_id\": 4, \"columns\": {\"id\": 42, \"name\": \"Test\", \"value\": 3.14}}",
+          "column_name": "value",
+          "question": "Can you provide the value of column value for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "<reasoning>We need to parse the row_data JSON: string value is JSON string. It is: \"{\\\"row_id\\\": 4, \\\"columns\\\": {\\\"id\\\": 42, \\\"name\\\": \\\"Test\\\", \\\"value\\\": 3.14}}\". So the actual structure is:\n\n{\n  row_id: 4,\n  columns: {\n    id: 42,\n    name: \"Test\",\n    value: 3.14\n  }\n}\n\nWe need column_name \"value\". So we need to return value of that column, which is 3.14 (a number). Output JSON: {\"value\": 3.14}.</reasoning>{\n  \"value\": 3.14\n}",
+          "model_id": "openai.gpt-oss-20b-1:0",
+          "usage": {
+            "completion_tokens": 150,
+            "prompt_tokens": 262,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 176
+            },
+            "total_tokens": 412
+          },
+          "attempt": 1,
+          "raw_response": {
+            "choices": [
+              {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "message": {
+                  "content": "<reasoning>We need to parse the row_data JSON: string value is JSON string. It is: \"{\\\"row_id\\\": 4, \\\"columns\\\": {\\\"id\\\": 42, \\\"name\\\": \\\"Test\\\", \\\"value\\\": 3.14}}\". So the actual structure is:\n\n{\n  row_id: 4,\n  columns: {\n    id: 42,\n    name: \"Test\",\n    value: 3.14\n  }\n}\n\nWe need column_name \"value\". So we need to return value of that column, which is 3.14 (a number). Output JSON: {\"value\": 3.14}.</reasoning>{\n  \"value\": 3.14\n}",
+                  "refusal": null,
+                  "role": "assistant"
+                }
+              }
+            ],
+            "created": 1763181687,
+            "id": "chatcmpl-19b9caf2-51ab-4039-9772-ab1b977bd1cf",
+            "model": "openai.gpt-oss-20b-1:0",
+            "object": "chat.completion",
+            "service_tier": "default",
+            "usage": {
+              "completion_tokens": 150,
+              "prompt_tokens": 262,
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 176
+              },
+              "total_tokens": 412
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "expected_value": "3.14"
+        },
+        "token_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 412
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 4,
+        "input": {
+          "row_data": "{\"row_id\": 5, \"columns\": {\"gene\": \"TP53\", \"expression\": 2.5, \"p_value\": 0.001}}",
+          "column_name": "expression",
+          "question": "Can you provide the value of column expression for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "<reasoning>The instruction: The assistant receives input JSON object with keys row_data (a JSON string), column_name, question. We need to retrieve column value from row_data.columns for column_name. Then return JSON with \"value\": column_value. So we parse row_data string to JSON. Let's parse: {\"row_id\":5,\"columns\":{\"gene\":\"TP53\",\"expression\":2.5,\"p_value\":0.001}}. The columns expression is 2.5 (number). So result: {\"value\": 2.5}. Ensure exactly correct JSON.</reasoning>{\"value\": 2.5}",
+          "model_id": "openai.gpt-oss-20b-1:0",
+          "usage": {
+            "completion_tokens": 131,
+            "prompt_tokens": 266,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 176
+            },
+            "total_tokens": 397
+          },
+          "attempt": 1,
+          "raw_response": {
+            "choices": [
+              {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "message": {
+                  "content": "<reasoning>The instruction: The assistant receives input JSON object with keys row_data (a JSON string), column_name, question. We need to retrieve column value from row_data.columns for column_name. Then return JSON with \"value\": column_value. So we parse row_data string to JSON. Let's parse: {\"row_id\":5,\"columns\":{\"gene\":\"TP53\",\"expression\":2.5,\"p_value\":0.001}}. The columns expression is 2.5 (number). So result: {\"value\": 2.5}. Ensure exactly correct JSON.</reasoning>{\"value\": 2.5}",
+                  "refusal": null,
+                  "role": "assistant"
+                }
+              }
+            ],
+            "created": 1763181688,
+            "id": "chatcmpl-2db97079-e0f2-469c-875d-b495c9a33037",
+            "model": "openai.gpt-oss-20b-1:0",
+            "object": "chat.completion",
+            "service_tier": "default",
+            "usage": {
+              "completion_tokens": 131,
+              "prompt_tokens": 266,
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 176
+              },
+              "total_tokens": 397
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "expected_value": "2.5"
+        },
+        "token_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 397
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 5,
+        "input": {
+          "row_data": "{\"row_id\": 6, \"columns\": {\"a\": null, \"b\": \"no id\"}}",
+          "column_name": "b",
+          "question": "Can you provide the value of column b for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "<reasoning>We need to parse row_data string JSON. The row_data is a string: \"{\\\"row_id\\\": 6, \\\"columns\\\": {\\\"a\\\": null, \\\"b\\\": \\\"no id\\\"}}\". The columns key holds mapping a->null, b->\"no id\". column_name = \"b\". So value is \"no id\". Return JSON {\"value\": \"no id\"}. Ensure proper typing. ok.</reasoning>{\n  \"value\": \"no id\"\n}",
+          "model_id": "openai.gpt-oss-20b-1:0",
+          "usage": {
+            "completion_tokens": 105,
+            "prompt_tokens": 255,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 176
+            },
+            "total_tokens": 360
+          },
+          "attempt": 1,
+          "raw_response": {
+            "choices": [
+              {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "message": {
+                  "content": "<reasoning>We need to parse row_data string JSON. The row_data is a string: \"{\\\"row_id\\\": 6, \\\"columns\\\": {\\\"a\\\": null, \\\"b\\\": \\\"no id\\\"}}\". The columns key holds mapping a->null, b->\"no id\". column_name = \"b\". So value is \"no id\". Return JSON {\"value\": \"no id\"}. Ensure proper typing. ok.</reasoning>{\n  \"value\": \"no id\"\n}",
+                  "refusal": null,
+                  "role": "assistant"
+                }
+              }
+            ],
+            "created": 1763181689,
+            "id": "chatcmpl-deb4e26d-7a31-45de-b031-8030bace288d",
+            "model": "openai.gpt-oss-20b-1:0",
+            "object": "chat.completion",
+            "service_tier": "default",
+            "usage": {
+              "completion_tokens": 105,
+              "prompt_tokens": 255,
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 176
+              },
+              "total_tokens": 360
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "expected_value": "no id"
+        },
+        "token_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 360
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 6,
+        "input": {
+          "row_data": "{\"row_id\": 7, \"columns\": {\"file_name\": \"data.csv\", \"file_size\": 1024, \"file_type\": \"CSV\"}}",
+          "column_name": "file_size",
+          "question": "Can you provide the value of column file_size for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "<reasoning>We parse input data. row_data is a string representation of JSON. We need to extract file_size from columns. Value is 1024. Return JSON with key \"value\": 1024.\n\nMake sure it's a number. Return correct JSON.</reasoning>```json\n{\n  \"value\": 1024\n}\n```",
+          "model_id": "openai.gpt-oss-20b-1:0",
+          "usage": {
+            "completion_tokens": 74,
+            "prompt_tokens": 268,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 176
+            },
+            "total_tokens": 342
+          },
+          "attempt": 1,
+          "raw_response": {
+            "choices": [
+              {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "message": {
+                  "content": "<reasoning>We parse input data. row_data is a string representation of JSON. We need to extract file_size from columns. Value is 1024. Return JSON with key \"value\": 1024.\n\nMake sure it's a number. Return correct JSON.</reasoning>```json\n{\n  \"value\": 1024\n}\n```",
+                  "refusal": null,
+                  "role": "assistant"
+                }
+              }
+            ],
+            "created": 1763181690,
+            "id": "chatcmpl-a54274a9-701d-439c-9ab3-c5675f3d1a15",
+            "model": "openai.gpt-oss-20b-1:0",
+            "object": "chat.completion",
+            "service_tier": "default",
+            "usage": {
+              "completion_tokens": 74,
+              "prompt_tokens": 268,
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 176
+              },
+              "total_tokens": 342
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "1024"
+        },
+        "token_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 342
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 7,
+        "input": {
+          "row_data": "{\"row_id\": 8, \"columns\": {\"experiment_id\": \"EXP001\", \"replicate\": 3, \"condition\": \"control\"}}",
+          "column_name": "replicate",
+          "question": "Can you provide the value of column replicate for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "<reasoning>The task: We have JSON input. row_data is a JSON string; parse it. It has keys \"row_id\" and \"columns\". columns is an object with experiment_id, replicate, condition. We need to fetch replicate value. That's 3. The answer must be JSON: {\"value\": 3}.\n\nCheck for number or string: replicate is 3 numeric, so we return number. So final output: {\"value\": 3}.</reasoning>{\n  \"value\": 3\n}",
+          "model_id": "openai.gpt-oss-20b-1:0",
+          "usage": {
+            "completion_tokens": 111,
+            "prompt_tokens": 265,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 176
+            },
+            "total_tokens": 376
+          },
+          "attempt": 1,
+          "raw_response": {
+            "choices": [
+              {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "message": {
+                  "content": "<reasoning>The task: We have JSON input. row_data is a JSON string; parse it. It has keys \"row_id\" and \"columns\". columns is an object with experiment_id, replicate, condition. We need to fetch replicate value. That's 3. The answer must be JSON: {\"value\": 3}.\n\nCheck for number or string: replicate is 3 numeric, so we return number. So final output: {\"value\": 3}.</reasoning>{\n  \"value\": 3\n}",
+                  "refusal": null,
+                  "role": "assistant"
+                }
+              }
+            ],
+            "created": 1763181691,
+            "id": "chatcmpl-80115f19-c846-4ea6-9da9-bc12eaa4c523",
+            "model": "openai.gpt-oss-20b-1:0",
+            "object": "chat.completion",
+            "service_tier": "default",
+            "usage": {
+              "completion_tokens": 111,
+              "prompt_tokens": 265,
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 176
+              },
+              "total_tokens": 376
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "expected_value": "3"
+        },
+        "token_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 376
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 8,
+        "input": {
+          "row_data": "{\"row_id\": 9, \"columns\": {\"subject\": \"SUB001\", \"treatment\": \"A\", \"outcome\": \"success\", \"score\": 85}}",
+          "column_name": "score",
+          "question": "Can you provide the value of column score for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "<reasoning>We need to parse row_data JSON string: {\"row_id\": 9, \"columns\": {\"subject\":\"SUB001\",\"treatment\":\"A\",\"outcome\":\"success\",\"score\":85}}\n\ncolumn_name is \"score\". Value is 85. Output JSON: {\"value\": 85}.</reasoning>{\n  \"value\": 85\n}",
+          "model_id": "openai.gpt-oss-20b-1:0",
+          "usage": {
+            "completion_tokens": 78,
+            "prompt_tokens": 269,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 176
+            },
+            "total_tokens": 347
+          },
+          "attempt": 1,
+          "raw_response": {
+            "choices": [
+              {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "message": {
+                  "content": "<reasoning>We need to parse row_data JSON string: {\"row_id\": 9, \"columns\": {\"subject\":\"SUB001\",\"treatment\":\"A\",\"outcome\":\"success\",\"score\":85}}\n\ncolumn_name is \"score\". Value is 85. Output JSON: {\"value\": 85}.</reasoning>{\n  \"value\": 85\n}",
+                  "refusal": null,
+                  "role": "assistant"
+                }
+              }
+            ],
+            "created": 1763181692,
+            "id": "chatcmpl-92534416-6714-46e9-879a-c286d634789a",
+            "model": "openai.gpt-oss-20b-1:0",
+            "object": "chat.completion",
+            "service_tier": "default",
+            "usage": {
+              "completion_tokens": 78,
+              "prompt_tokens": 269,
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 176
+              },
+              "total_tokens": 347
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "expected_value": "85"
+        },
+        "token_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 347
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 9,
+        "input": {
+          "row_data": "{\"row_id\": 10, \"columns\": {\"timestamp\": \"2024-01-01T10:00:00\", \"event\": \"start\", \"severity\": \"low\"}}",
+          "column_name": "event",
+          "question": "Can you provide the value of column event for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "<reasoning>We just parse the row_data JSON string, get columns dict, then get value for key 'event'. It is \"start\". Return JSON accordingly.\n\nOutput:\n{\n  \"value\": \"start\"\n}\n\n</reasoning>```json\n{\n  \"value\": \"start\"\n}\n```\n",
+          "model_id": "openai.gpt-oss-20b-1:0",
+          "usage": {
+            "completion_tokens": 65,
+            "prompt_tokens": 272,
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 176
+            },
+            "total_tokens": 337
+          },
+          "attempt": 1,
+          "raw_response": {
+            "choices": [
+              {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "message": {
+                  "content": "<reasoning>We just parse the row_data JSON string, get columns dict, then get value for key 'event'. It is \"start\". Return JSON accordingly.\n\nOutput:\n{\n  \"value\": \"start\"\n}\n\n</reasoning>```json\n{\n  \"value\": \"start\"\n}\n```\n",
+                  "refusal": null,
+                  "role": "assistant"
+                }
+              }
+            ],
+            "created": 1763181693,
+            "id": "chatcmpl-dab4958f-6dd3-46a3-89e5-f9b448d88a57",
+            "model": "openai.gpt-oss-20b-1:0",
+            "object": "chat.completion",
+            "service_tier": "default",
+            "usage": {
+              "completion_tokens": 65,
+              "prompt_tokens": 272,
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 176
+              },
+              "total_tokens": 337
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "expected_value": "start"
+        },
+        "token_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 337
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      }
+    ],
+    "metrics": {
+      "total_samples": 10,
+      "successful_runs": 10,
+      "failed_runs": 0,
+      "success_rate": 1.0,
+      "average_score": 0.1,
+      "min_score": 0.0,
+      "max_score": 1.0,
+      "num_scored": 10
+    },
+    "duration_seconds": 10.272445917129517,
+    "token_usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 3658
+    }
+  }
+}

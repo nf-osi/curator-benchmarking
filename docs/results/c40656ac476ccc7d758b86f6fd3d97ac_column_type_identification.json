@@ -1,0 +1,663 @@
+{
+  "experiment_id": "c40656ac476ccc7d758b86f6fd3d97ac",
+  "task_name": "column_type_identification",
+  "task_hash": "219a0326146c46df1294e2c48258a510",
+  "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+  "system_instructions": "_No response_",
+  "temperature": 0.0,
+  "thinking": false,
+  "tools": [],
+  "timestamp": "2025-11-15T04:12:00.530053",
+  "task_result": {
+    "task_name": "column_type_identification",
+    "num_samples": 10,
+    "results": [
+      {
+        "sample_index": 0,
+        "input": {
+          "grid_structure": "{\"columns\": [{\"name\": \"a\", \"type\": \"integer\"}, {\"name\": \"b\", \"type\": \"string\"}]}",
+          "column_name": "a",
+          "question": "What is the type of column a?"
+        },
+        "response": {
+          "success": true,
+          "content": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its elements.\n\n2. **Identify the column**: Once we have the JSON object representing the grid structure, we can iterate through its columns to find the one with the name matching the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the 'type' attribute.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nThe input data is given as a JSON object with three attributes: `grid_structure`, `column_name`, and `question`. The `grid_structure` is a JSON string that needs to be parsed.\n\n### Step 2: Implement the Solution\n\n```python\nimport json\n\ndef get_column_type(input_data):\n    # Parse the grid structure from JSON string to JSON object\n    grid_structure = json.loads(input_data['grid_structure'])\n    \n    # Iterate through the columns to find the type of the specified column\n    for column in grid_structure['columns']:\n        if column['name'] == input_data['column_name']:\n            # Return the type of the column as a JSON object\n            return json.dumps({\"type\": column['type']})\n    \n    # If the column is not found, you might want to handle this case appropriately\n    return json.dumps({\"error\": \"Column not found\"})\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"a\\\", \\\"type\\\": \\\"integer\\\"}, {\\\"name\\\": \\\"b\\\", \\\"type\\\": \\\"string\\\"}]}\",\n  \"column_name\": \"a\",\n  \"question\": \"What is the type of column a?\"\n}\n\nprint(get_column_type(input_data))\n```\n\n### Output\n\nFor the given input data, the output will be:\n```json\n{\"type\": \"integer\"}\n```\n\nThis output matches the required JSON structure and correctly identifies the data type of column \"a\" as \"integer\".\n\n### Explanation\n\n- The `json.loads()` function is used to parse the `grid_structure` JSON string into a Python dictionary.\n- We then iterate through the 'columns' list in the grid structure to find the column with the name matching `input_data['column_name']`.\n- Once the column is found, its type is retrieved and returned as a JSON object using `json.dumps()`.\n- The solution assumes that the column names are unique. If there are duplicate column names, this solution will return the type of the first occurrence. \n\nThis approach effectively solves the task by parsing the grid structure, identifying the specified column, and returning its data type in the required JSON format.",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 210,
+            "outputTokens": 581,
+            "totalTokens": 791
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "07301aa2-05d6-4cda-89d1-9cb7bbb84a38",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:11:38 GMT",
+                "content-type": "application/json",
+                "content-length": "2984",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "07301aa2-05d6-4cda-89d1-9cb7bbb84a38"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its elements.\n\n2. **Identify the column**: Once we have the JSON object representing the grid structure, we can iterate through its columns to find the one with the name matching the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the 'type' attribute.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nThe input data is given as a JSON object with three attributes: `grid_structure`, `column_name`, and `question`. The `grid_structure` is a JSON string that needs to be parsed.\n\n### Step 2: Implement the Solution\n\n```python\nimport json\n\ndef get_column_type(input_data):\n    # Parse the grid structure from JSON string to JSON object\n    grid_structure = json.loads(input_data['grid_structure'])\n    \n    # Iterate through the columns to find the type of the specified column\n    for column in grid_structure['columns']:\n        if column['name'] == input_data['column_name']:\n            # Return the type of the column as a JSON object\n            return json.dumps({\"type\": column['type']})\n    \n    # If the column is not found, you might want to handle this case appropriately\n    return json.dumps({\"error\": \"Column not found\"})\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"a\\\", \\\"type\\\": \\\"integer\\\"}, {\\\"name\\\": \\\"b\\\", \\\"type\\\": \\\"string\\\"}]}\",\n  \"column_name\": \"a\",\n  \"question\": \"What is the type of column a?\"\n}\n\nprint(get_column_type(input_data))\n```\n\n### Output\n\nFor the given input data, the output will be:\n```json\n{\"type\": \"integer\"}\n```\n\nThis output matches the required JSON structure and correctly identifies the data type of column \"a\" as \"integer\".\n\n### Explanation\n\n- The `json.loads()` function is used to parse the `grid_structure` JSON string into a Python dictionary.\n- We then iterate through the 'columns' list in the grid structure to find the column with the name matching `input_data['column_name']`.\n- Once the column is found, its type is retrieved and returned as a JSON object using `json.dumps()`.\n- The solution assumes that the column names are unique. If there are duplicate column names, this solution will return the type of the first occurrence. \n\nThis approach effectively solves the task by parsing the grid structure, identifying the specified column, and returning its data type in the required JSON format."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 210,
+              "outputTokens": 581,
+              "totalTokens": 791
+            },
+            "metrics": {
+              "latencyMs": 3031
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "expected_type": "integer"
+        },
+        "token_usage": {
+          "input_tokens": 210,
+          "output_tokens": 581,
+          "total_tokens": 791
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 1,
+        "input": {
+          "grid_structure": "{\"columns\": [{\"name\": \"patient_id\", \"type\": \"string\"}, {\"name\": \"diagnosis\", \"type\": \"string\"}, {\"name\": \"age\", \"type\": \"integer\"}]}",
+          "column_name": "age",
+          "question": "What is the type of column age?"
+        },
+        "response": {
+          "success": true,
+          "content": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its elements.\n\n2. **Identify the column**: Once we have the JSON object representing the grid structure, we can iterate through its columns to find the one that matches the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the column definition.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nThe input data is given as:\n```json\n{\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"patient_id\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"diagnosis\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"age\\\", \\\"type\\\": \\\"integer\\\"}]}\",\n  \"column_name\": \"age\",\n  \"question\": \"What is the type of column age?\"\n}\n```\n\n### Step 2: Process the Grid Structure\n\nFirst, we parse the `grid_structure` JSON string into a JSON object.\n\n```json\n{\n  \"columns\": [\n    {\"name\": \"patient_id\", \"type\": \"string\"},\n    {\"name\": \"diagnosis\", \"type\": \"string\"},\n    {\"name\": \"age\", \"type\": \"integer\"}\n  ]\n}\n```\n\n### Step 3: Find the Column Type\n\nWe then iterate through the `columns` array to find the column with `name` equal to the given `column_name`, which is \"age\".\n\nUpon finding the column \"age\", we see its type is \"integer\".\n\n### Step 4: Return the Response\n\nThe response should be in the format:\n```json\n{\n  \"type\": \"column_type_here\"\n}\n```\n\nFor the column \"age\", the response will be:\n```json\n{\n  \"type\": \"integer\"\n}\n```\n\nHere's a simple Python code snippet that accomplishes this task:\n\n```python\nimport json\n\ndef find_column_type(input_data):\n    # Parse the grid structure JSON string into a Python dictionary\n    grid_structure = json.loads(input_data['grid_structure'])\n    \n    # Find the column type\n    column_name = input_data['column_name']\n    for column in grid_structure['columns']:\n        if column['name'] == column_name:\n            column_type = column['type']\n            break\n    else:\n        # Handle the case when the column is not found\n        return json.dumps({\"error\": \"Column not found\"})\n    \n    # Return the column type as JSON\n    return json.dumps({\"type\": column_type})\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"patient_id\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"diagnosis\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"age\\\", \\\"type\\\": \\\"integer\\\"}]}\",\n  \"column_name\": \"age\",\n  \"question\": \"What is the type of column age?\"\n}\n\nprint(find_column_type(input_data))\n```\n\nOutput:\n```json\n{\"type\": \"integer\"}\n```\n\nThis code defines a function `find_column_type` that takes the input data, parses the grid structure, finds the specified column, and returns its data type as a JSON object.",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 226,
+            "outputTokens": 700,
+            "totalTokens": 926
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "ffce8afd-89c8-41be-b288-91871538be01",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:11:41 GMT",
+                "content-type": "application/json",
+                "content-length": "3365",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "ffce8afd-89c8-41be-b288-91871538be01"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its elements.\n\n2. **Identify the column**: Once we have the JSON object representing the grid structure, we can iterate through its columns to find the one that matches the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the column definition.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nThe input data is given as:\n```json\n{\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"patient_id\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"diagnosis\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"age\\\", \\\"type\\\": \\\"integer\\\"}]}\",\n  \"column_name\": \"age\",\n  \"question\": \"What is the type of column age?\"\n}\n```\n\n### Step 2: Process the Grid Structure\n\nFirst, we parse the `grid_structure` JSON string into a JSON object.\n\n```json\n{\n  \"columns\": [\n    {\"name\": \"patient_id\", \"type\": \"string\"},\n    {\"name\": \"diagnosis\", \"type\": \"string\"},\n    {\"name\": \"age\", \"type\": \"integer\"}\n  ]\n}\n```\n\n### Step 3: Find the Column Type\n\nWe then iterate through the `columns` array to find the column with `name` equal to the given `column_name`, which is \"age\".\n\nUpon finding the column \"age\", we see its type is \"integer\".\n\n### Step 4: Return the Response\n\nThe response should be in the format:\n```json\n{\n  \"type\": \"column_type_here\"\n}\n```\n\nFor the column \"age\", the response will be:\n```json\n{\n  \"type\": \"integer\"\n}\n```\n\nHere's a simple Python code snippet that accomplishes this task:\n\n```python\nimport json\n\ndef find_column_type(input_data):\n    # Parse the grid structure JSON string into a Python dictionary\n    grid_structure = json.loads(input_data['grid_structure'])\n    \n    # Find the column type\n    column_name = input_data['column_name']\n    for column in grid_structure['columns']:\n        if column['name'] == column_name:\n            column_type = column['type']\n            break\n    else:\n        # Handle the case when the column is not found\n        return json.dumps({\"error\": \"Column not found\"})\n    \n    # Return the column type as JSON\n    return json.dumps({\"type\": column_type})\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"patient_id\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"diagnosis\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"age\\\", \\\"type\\\": \\\"integer\\\"}]}\",\n  \"column_name\": \"age\",\n  \"question\": \"What is the type of column age?\"\n}\n\nprint(find_column_type(input_data))\n```\n\nOutput:\n```json\n{\"type\": \"integer\"}\n```\n\nThis code defines a function `find_column_type` that takes the input data, parses the grid structure, finds the specified column, and returns its data type as a JSON object."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 226,
+              "outputTokens": 700,
+              "totalTokens": 926
+            },
+            "metrics": {
+              "latencyMs": 3145
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "expected_type": "integer"
+        },
+        "token_usage": {
+          "input_tokens": 226,
+          "output_tokens": 700,
+          "total_tokens": 926
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 2,
+        "input": {
+          "grid_structure": "{\"columns\": [{\"name\": \"sample_id\", \"type\": \"string\"}, {\"name\": \"assay\", \"type\": \"string\"}, {\"name\": \"tumor_type\", \"type\": \"string\"}, {\"name\": \"date\", \"type\": \"date\"}]}",
+          "column_name": "date",
+          "question": "What is the type of column date?"
+        },
+        "response": {
+          "success": true,
+          "content": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its elements.\n\n2. **Identify the column**: Once we have the JSON object representing the grid structure, we can iterate through its columns to find the one with the name matching the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the column definition.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nThe input data is given in a specific format. We need to extract the grid structure and the column name.\n\n### Step 2: Implement the Solution\n\n```python\nimport json\n\ndef get_column_type(input_data):\n    # Parse the grid structure from the input data\n    grid_structure = json.loads(input_data['grid_structure'])\n    \n    # Extract the column name from the input data\n    column_name = input_data['column_name']\n    \n    # Iterate through the columns to find the type of the specified column\n    for column in grid_structure['columns']:\n        if column['name'] == column_name:\n            # Return the type as JSON\n            return json.dumps({\"type\": column['type']})\n    \n    # If the column is not found, you might want to handle this case\n    return json.dumps({\"error\": \"Column not found\"})\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"sample_id\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"assay\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"tumor_type\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"date\\\", \\\"type\\\": \\\"date\\\"}]}\",\n  \"column_name\": \"date\",\n  \"question\": \"What is the type of column date?\"\n}\n\nprint(get_column_type(input_data))\n```\n\n### Output\n\nWhen you run this code with the provided input data, it will output:\n\n```json\n{\"type\": \"date\"}\n```\n\nThis output matches the required JSON structure and correctly identifies the data type of the \"date\" column as \"date\".\n\n### Explanation\n\n- The `json.loads()` function is used to parse the grid structure JSON string into a Python dictionary.\n- We then iterate through the `columns` list in the grid structure to find the column with the matching `name`.\n- Once the column is found, its `type` is returned in the required JSON format using `json.dumps()`.\n- The example usage demonstrates how to call the `get_column_type()` function with the given input data and print the result.",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 241,
+            "outputTokens": 568,
+            "totalTokens": 809
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "164d7986-78aa-4df0-a493-e1dcff46b89f",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:11:44 GMT",
+                "content-type": "application/json",
+                "content-length": "2895",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "164d7986-78aa-4df0-a493-e1dcff46b89f"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its elements.\n\n2. **Identify the column**: Once we have the JSON object representing the grid structure, we can iterate through its columns to find the one with the name matching the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the column definition.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nThe input data is given in a specific format. We need to extract the grid structure and the column name.\n\n### Step 2: Implement the Solution\n\n```python\nimport json\n\ndef get_column_type(input_data):\n    # Parse the grid structure from the input data\n    grid_structure = json.loads(input_data['grid_structure'])\n    \n    # Extract the column name from the input data\n    column_name = input_data['column_name']\n    \n    # Iterate through the columns to find the type of the specified column\n    for column in grid_structure['columns']:\n        if column['name'] == column_name:\n            # Return the type as JSON\n            return json.dumps({\"type\": column['type']})\n    \n    # If the column is not found, you might want to handle this case\n    return json.dumps({\"error\": \"Column not found\"})\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"sample_id\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"assay\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"tumor_type\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"date\\\", \\\"type\\\": \\\"date\\\"}]}\",\n  \"column_name\": \"date\",\n  \"question\": \"What is the type of column date?\"\n}\n\nprint(get_column_type(input_data))\n```\n\n### Output\n\nWhen you run this code with the provided input data, it will output:\n\n```json\n{\"type\": \"date\"}\n```\n\nThis output matches the required JSON structure and correctly identifies the data type of the \"date\" column as \"date\".\n\n### Explanation\n\n- The `json.loads()` function is used to parse the grid structure JSON string into a Python dictionary.\n- We then iterate through the `columns` list in the grid structure to find the column with the matching `name`.\n- Once the column is found, its `type` is returned in the required JSON format using `json.dumps()`.\n- The example usage demonstrates how to call the `get_column_type()` function with the given input data and print the result."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 241,
+              "outputTokens": 568,
+              "totalTokens": 809
+            },
+            "metrics": {
+              "latencyMs": 2717
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "expected_type": "date"
+        },
+        "token_usage": {
+          "input_tokens": 241,
+          "output_tokens": 568,
+          "total_tokens": 809
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 3,
+        "input": {
+          "grid_structure": "{\"columns\": [{\"name\": \"id\", \"type\": \"integer\"}, {\"name\": \"name\", \"type\": \"string\"}, {\"name\": \"value\", \"type\": \"number\"}]}",
+          "column_name": "value",
+          "question": "What is the type of column value?"
+        },
+        "response": {
+          "success": true,
+          "content": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its properties.\n\n2. **Identify the column**: Once we have the grid structure as a JSON object, we can iterate through its columns to find the one with the name matching the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the column definition.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nThe input data is given as a JSON object with three properties: `grid_structure`, `column_name`, and `question`. The `grid_structure` is a JSON string that needs to be parsed.\n\n### Step 2: Implement the Solution\n\n```python\nimport json\n\ndef get_column_type(input_data):\n    # Parse the grid structure from JSON string to JSON object\n    grid_structure = json.loads(input_data['grid_structure'])\n    \n    # Iterate through the columns to find the type of the specified column\n    for column in grid_structure['columns']:\n        if column['name'] == input_data['column_name']:\n            # Return the type as a JSON object\n            return json.dumps({\"type\": column['type']})\n    \n    # If the column is not found, you might want to handle this case\n    return json.dumps({\"error\": \"Column not found\"})\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"id\\\", \\\"type\\\": \\\"integer\\\"}, {\\\"name\\\": \\\"name\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"value\\\", \\\"type\\\": \\\"number\\\"}]}\",\n  \"column_name\": \"value\",\n  \"question\": \"What is the type of column value?\"\n}\n\nprint(get_column_type(input_data))\n```\n\n### Output\n\nThe output will be a JSON string representing the data type of the specified column.\n\n```json\n{\"type\": \"number\"}\n```\n\nThis solution directly addresses the task by parsing the grid structure, finding the specified column, and returning its data type in the required JSON format.",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 224,
+            "outputTokens": 463,
+            "totalTokens": 687
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "b398d97d-fa54-4459-97e7-e49712f38cdc",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:11:46 GMT",
+                "content-type": "application/json",
+                "content-length": "2408",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "b398d97d-fa54-4459-97e7-e49712f38cdc"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its properties.\n\n2. **Identify the column**: Once we have the grid structure as a JSON object, we can iterate through its columns to find the one with the name matching the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the column definition.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nThe input data is given as a JSON object with three properties: `grid_structure`, `column_name`, and `question`. The `grid_structure` is a JSON string that needs to be parsed.\n\n### Step 2: Implement the Solution\n\n```python\nimport json\n\ndef get_column_type(input_data):\n    # Parse the grid structure from JSON string to JSON object\n    grid_structure = json.loads(input_data['grid_structure'])\n    \n    # Iterate through the columns to find the type of the specified column\n    for column in grid_structure['columns']:\n        if column['name'] == input_data['column_name']:\n            # Return the type as a JSON object\n            return json.dumps({\"type\": column['type']})\n    \n    # If the column is not found, you might want to handle this case\n    return json.dumps({\"error\": \"Column not found\"})\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"id\\\", \\\"type\\\": \\\"integer\\\"}, {\\\"name\\\": \\\"name\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"value\\\", \\\"type\\\": \\\"number\\\"}]}\",\n  \"column_name\": \"value\",\n  \"question\": \"What is the type of column value?\"\n}\n\nprint(get_column_type(input_data))\n```\n\n### Output\n\nThe output will be a JSON string representing the data type of the specified column.\n\n```json\n{\"type\": \"number\"}\n```\n\nThis solution directly addresses the task by parsing the grid structure, finding the specified column, and returning its data type in the required JSON format."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 224,
+              "outputTokens": 463,
+              "totalTokens": 687
+            },
+            "metrics": {
+              "latencyMs": 2149
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "expected_type": "number"
+        },
+        "token_usage": {
+          "input_tokens": 224,
+          "output_tokens": 463,
+          "total_tokens": 687
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 4,
+        "input": {
+          "grid_structure": "{\"columns\": [{\"name\": \"gene\", \"type\": \"string\"}, {\"name\": \"expression\", \"type\": \"number\"}, {\"name\": \"p_value\", \"type\": \"number\"}]}",
+          "column_name": "expression",
+          "question": "What is the type of column expression?"
+        },
+        "response": {
+          "success": true,
+          "content": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its elements.\n\n2. **Identify the column**: Once we have the JSON object representing the grid structure, we can iterate through its columns to find the one with the name matching the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the 'type' attribute.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nFirst, we need to parse the given input data, specifically the `grid_structure` which is a JSON string.\n\n### Step 2: Identify the Column and Its Type\n\nWe will iterate through the columns in the parsed grid structure to find the column with the name that matches the given `column_name`.\n\n### Step 3: Return the Type as JSON\n\nAfter finding the column, we will return its type in the required JSON format.\n\nHere's how we can achieve this:\n\n```python\nimport json\n\ndef get_column_type(input_data):\n    # Parse the grid structure from JSON string to Python dictionary\n    grid_structure = json.loads(input_data['grid_structure'])\n    \n    # Iterate through the columns to find the type of the specified column\n    for column in grid_structure['columns']:\n        if column['name'] == input_data['column_name']:\n            column_type = column['type']\n            break\n    else:\n        # If the column is not found, you might want to handle this case\n        column_type = \"unknown\"\n    \n    # Return the type as JSON\n    return json.dumps({\"type\": column_type})\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"gene\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"expression\\\", \\\"type\\\": \\\"number\\\"}, {\\\"name\\\": \\\"p_value\\\", \\\"type\\\": \\\"number\\\"}]}\",\n  \"column_name\": \"expression\",\n  \"question\": \"What is the type of column expression?\"\n}\n\nprint(get_column_type(input_data))\n```\n\n### Output\n\n```json\n{\"type\": \"number\"}\n```\n\nThis solution directly addresses the task by parsing the grid structure, finding the specified column, and returning its data type in the required JSON format.",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 225,
+            "outputTokens": 500,
+            "totalTokens": 725
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "98b71e5f-2312-4ed7-a128-1099760a867e",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:11:48 GMT",
+                "content-type": "application/json",
+                "content-length": "2612",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "98b71e5f-2312-4ed7-a128-1099760a867e"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its elements.\n\n2. **Identify the column**: Once we have the JSON object representing the grid structure, we can iterate through its columns to find the one with the name matching the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the 'type' attribute.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nFirst, we need to parse the given input data, specifically the `grid_structure` which is a JSON string.\n\n### Step 2: Identify the Column and Its Type\n\nWe will iterate through the columns in the parsed grid structure to find the column with the name that matches the given `column_name`.\n\n### Step 3: Return the Type as JSON\n\nAfter finding the column, we will return its type in the required JSON format.\n\nHere's how we can achieve this:\n\n```python\nimport json\n\ndef get_column_type(input_data):\n    # Parse the grid structure from JSON string to Python dictionary\n    grid_structure = json.loads(input_data['grid_structure'])\n    \n    # Iterate through the columns to find the type of the specified column\n    for column in grid_structure['columns']:\n        if column['name'] == input_data['column_name']:\n            column_type = column['type']\n            break\n    else:\n        # If the column is not found, you might want to handle this case\n        column_type = \"unknown\"\n    \n    # Return the type as JSON\n    return json.dumps({\"type\": column_type})\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"gene\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"expression\\\", \\\"type\\\": \\\"number\\\"}, {\\\"name\\\": \\\"p_value\\\", \\\"type\\\": \\\"number\\\"}]}\",\n  \"column_name\": \"expression\",\n  \"question\": \"What is the type of column expression?\"\n}\n\nprint(get_column_type(input_data))\n```\n\n### Output\n\n```json\n{\"type\": \"number\"}\n```\n\nThis solution directly addresses the task by parsing the grid structure, finding the specified column, and returning its data type in the required JSON format."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 225,
+              "outputTokens": 500,
+              "totalTokens": 725
+            },
+            "metrics": {
+              "latencyMs": 2256
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "expected_type": "number"
+        },
+        "token_usage": {
+          "input_tokens": 225,
+          "output_tokens": 500,
+          "total_tokens": 725
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 5,
+        "input": {
+          "grid_structure": "{\"columns\": [{\"name\": \"file_name\", \"type\": \"string\"}, {\"name\": \"file_size\", \"type\": \"integer\"}, {\"name\": \"file_type\", \"type\": \"string\"}]}",
+          "column_name": "file_size",
+          "question": "What is the type of column file_size?"
+        },
+        "response": {
+          "success": true,
+          "content": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its elements.\n\n2. **Identify the column**: Once we have the JSON object representing the grid structure, we can iterate through its columns to find the one that matches the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the column definition.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nFirst, we need to parse the given `grid_structure` from a JSON string into a Python dictionary.\n\n### Step 2: Identify the Column and Its Type\n\nThen, we iterate through the columns in the grid structure to find the column with the name matching `column_name` and retrieve its type.\n\n### Step 3: Return the Type as JSON\n\nFinally, we format the identified data type into the required JSON structure and return it.\n\nHere's how you can do it in Python:\n\n```python\nimport json\n\ndef get_column_type(input_data):\n    # Parse the grid structure from JSON string to Python dictionary\n    grid_structure = json.loads(input_data[\"grid_structure\"])\n    \n    # Iterate through the columns to find the type of the specified column\n    for column in grid_structure[\"columns\"]:\n        if column[\"name\"] == input_data[\"column_name\"]:\n            column_type = column[\"type\"]\n            break\n    else:\n        # If the column is not found, you might want to handle this case\n        column_type = \"unknown\"\n    \n    # Return the type as JSON\n    return json.dumps({\"type\": column_type})\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"file_name\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"file_size\\\", \\\"type\\\": \\\"integer\\\"}, {\\\"name\\\": \\\"file_type\\\", \\\"type\\\": \\\"string\\\"}]}\",\n  \"column_name\": \"file_size\",\n  \"question\": \"What is the type of column file_size?\"\n}\n\nprint(get_column_type(input_data))\n```\n\n### Output\n\n```json\n{\"type\": \"integer\"}\n```\n\nThis Python function takes the input data, parses the grid structure, finds the type of the specified column, and returns it in the required JSON format.",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 229,
+            "outputTokens": 505,
+            "totalTokens": 734
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "2a3dfe23-b6db-461f-a658-ca35a28be467",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:11:50 GMT",
+                "content-type": "application/json",
+                "content-length": "2624",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "2a3dfe23-b6db-461f-a658-ca35a28be467"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its elements.\n\n2. **Identify the column**: Once we have the JSON object representing the grid structure, we can iterate through its columns to find the one that matches the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the column definition.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nFirst, we need to parse the given `grid_structure` from a JSON string into a Python dictionary.\n\n### Step 2: Identify the Column and Its Type\n\nThen, we iterate through the columns in the grid structure to find the column with the name matching `column_name` and retrieve its type.\n\n### Step 3: Return the Type as JSON\n\nFinally, we format the identified data type into the required JSON structure and return it.\n\nHere's how you can do it in Python:\n\n```python\nimport json\n\ndef get_column_type(input_data):\n    # Parse the grid structure from JSON string to Python dictionary\n    grid_structure = json.loads(input_data[\"grid_structure\"])\n    \n    # Iterate through the columns to find the type of the specified column\n    for column in grid_structure[\"columns\"]:\n        if column[\"name\"] == input_data[\"column_name\"]:\n            column_type = column[\"type\"]\n            break\n    else:\n        # If the column is not found, you might want to handle this case\n        column_type = \"unknown\"\n    \n    # Return the type as JSON\n    return json.dumps({\"type\": column_type})\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"file_name\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"file_size\\\", \\\"type\\\": \\\"integer\\\"}, {\\\"name\\\": \\\"file_type\\\", \\\"type\\\": \\\"string\\\"}]}\",\n  \"column_name\": \"file_size\",\n  \"question\": \"What is the type of column file_size?\"\n}\n\nprint(get_column_type(input_data))\n```\n\n### Output\n\n```json\n{\"type\": \"integer\"}\n```\n\nThis Python function takes the input data, parses the grid structure, finds the type of the specified column, and returns it in the required JSON format."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 229,
+              "outputTokens": 505,
+              "totalTokens": 734
+            },
+            "metrics": {
+              "latencyMs": 2228
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "expected_type": "integer"
+        },
+        "token_usage": {
+          "input_tokens": 229,
+          "output_tokens": 505,
+          "total_tokens": 734
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 6,
+        "input": {
+          "grid_structure": "{\"columns\": [{\"name\": \"experiment_id\", \"type\": \"string\"}, {\"name\": \"replicate\", \"type\": \"integer\"}, {\"name\": \"condition\", \"type\": \"string\"}]}",
+          "column_name": "replicate",
+          "question": "What is the type of column replicate?"
+        },
+        "response": {
+          "success": true,
+          "content": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its elements.\n\n2. **Identify the column**: Once we have the JSON object representing the grid structure, we can iterate through its columns to find the one that matches the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the column definition.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nThe input data is given as a JSON object with three properties: `grid_structure`, `column_name`, and `question`. The `grid_structure` is a JSON string that needs to be parsed.\n\n### Step 2: Identify the Column and Its Type\n\nWe'll parse the `grid_structure` JSON string into a Python dictionary, access its `columns` list, and iterate through it to find the column with the name matching `column_name`.\n\n### Step 3: Return the Column Type as JSON\n\nAfter finding the column, we'll return its type in the required JSON format.\n\nHere's how you can do it in Python:\n\n```python\nimport json\n\ndef get_column_type(input_data):\n    # Parse the grid structure from JSON string to Python dictionary\n    grid_structure = json.loads(input_data['grid_structure'])\n    \n    # Iterate through the columns to find the type of the specified column\n    for column in grid_structure['columns']:\n        if column['name'] == input_data['column_name']:\n            column_type = column['type']\n            break\n    else:\n        # If the column is not found, you might want to handle this case\n        column_type = \"unknown\"\n    \n    # Return the column type in the required JSON format\n    return json.dumps({\"type\": column_type})\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"experiment_id\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"replicate\\\", \\\"type\\\": \\\"integer\\\"}, {\\\"name\\\": \\\"condition\\\", \\\"type\\\": \\\"string\\\"}]}\",\n  \"column_name\": \"replicate\",\n  \"question\": \"What is the type of column replicate?\"\n}\n\nprint(get_column_type(input_data))\n```\n\n### Output\n\n```json\n{\"type\": \"integer\"}\n```\n\nThis Python function takes the input data, parses the grid structure, finds the type of the specified column, and returns it in the required JSON format. The output for the given example will be `{\"type\": \"integer\"}`, indicating that the `replicate` column is of type `integer`.",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 227,
+            "outputTokens": 564,
+            "totalTokens": 791
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "49c0eb37-67e1-4a09-b6be-f66732d4e1ee",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:11:53 GMT",
+                "content-type": "application/json",
+                "content-length": "2886",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "49c0eb37-67e1-4a09-b6be-f66732d4e1ee"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its elements.\n\n2. **Identify the column**: Once we have the JSON object representing the grid structure, we can iterate through its columns to find the one that matches the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the column definition.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nThe input data is given as a JSON object with three properties: `grid_structure`, `column_name`, and `question`. The `grid_structure` is a JSON string that needs to be parsed.\n\n### Step 2: Identify the Column and Its Type\n\nWe'll parse the `grid_structure` JSON string into a Python dictionary, access its `columns` list, and iterate through it to find the column with the name matching `column_name`.\n\n### Step 3: Return the Column Type as JSON\n\nAfter finding the column, we'll return its type in the required JSON format.\n\nHere's how you can do it in Python:\n\n```python\nimport json\n\ndef get_column_type(input_data):\n    # Parse the grid structure from JSON string to Python dictionary\n    grid_structure = json.loads(input_data['grid_structure'])\n    \n    # Iterate through the columns to find the type of the specified column\n    for column in grid_structure['columns']:\n        if column['name'] == input_data['column_name']:\n            column_type = column['type']\n            break\n    else:\n        # If the column is not found, you might want to handle this case\n        column_type = \"unknown\"\n    \n    # Return the column type in the required JSON format\n    return json.dumps({\"type\": column_type})\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"experiment_id\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"replicate\\\", \\\"type\\\": \\\"integer\\\"}, {\\\"name\\\": \\\"condition\\\", \\\"type\\\": \\\"string\\\"}]}\",\n  \"column_name\": \"replicate\",\n  \"question\": \"What is the type of column replicate?\"\n}\n\nprint(get_column_type(input_data))\n```\n\n### Output\n\n```json\n{\"type\": \"integer\"}\n```\n\nThis Python function takes the input data, parses the grid structure, finds the type of the specified column, and returns it in the required JSON format. The output for the given example will be `{\"type\": \"integer\"}`, indicating that the `replicate` column is of type `integer`."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 227,
+              "outputTokens": 564,
+              "totalTokens": 791
+            },
+            "metrics": {
+              "latencyMs": 2174
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "expected_type": "integer"
+        },
+        "token_usage": {
+          "input_tokens": 227,
+          "output_tokens": 564,
+          "total_tokens": 791
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 7,
+        "input": {
+          "grid_structure": "{\"columns\": [{\"name\": \"subject\", \"type\": \"string\"}, {\"name\": \"treatment\", \"type\": \"string\"}, {\"name\": \"outcome\", \"type\": \"string\"}, {\"name\": \"score\", \"type\": \"number\"}]}",
+          "column_name": "score",
+          "question": "What is the type of column score?"
+        },
+        "response": {
+          "success": true,
+          "content": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its elements.\n\n2. **Identify the column**: Once we have the JSON object representing the grid structure, we can iterate through its columns to find the one that matches the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the column definition.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nThe input data is given in JSON format. We need to extract the grid structure and the column name.\n\n### Step 2: Process the Grid Structure\n\nFirst, we parse the `grid_structure` from a string to a JSON object. Then, we iterate through the `columns` to find the column with the name matching `column_name`.\n\n### Step 3: Find the Column Type\n\nOnce we find the matching column, we return its type in the required JSON format.\n\nHere's how we can achieve this:\n\n```python\nimport json\n\ndef find_column_type(input_data):\n    # Parse the grid structure from string to JSON\n    grid_structure = json.loads(input_data['grid_structure'])\n    \n    # Extract the column name from the input data\n    column_name = input_data['column_name']\n    \n    # Iterate through the columns to find the matching column\n    for column in grid_structure['columns']:\n        if column['name'] == column_name:\n            # Return the type of the column in the required JSON format\n            return json.dumps({\"type\": column['type']})\n    \n    # If the column is not found, you might want to handle this case\n    # For simplicity, let's assume we return a default type or a message\n    return json.dumps({\"type\": \"unknown\"})\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"subject\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"treatment\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"outcome\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"score\\\", \\\"type\\\": \\\"number\\\"}]}\",\n  \"column_name\": \"score\",\n  \"question\": \"What is the type of column score?\"\n}\n\nprint(find_column_type(input_data))\n```\n\n### Output\n\n```json\n{\"type\": \"number\"}\n```\n\nThis solution directly addresses the task by parsing the grid structure, finding the specified column, and returning its data type in the required JSON format.",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 238,
+            "outputTokens": 545,
+            "totalTokens": 783
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "f3e4b31f-06b3-4c29-b924-0ad1c344ba7a",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:11:55 GMT",
+                "content-type": "application/json",
+                "content-length": "2797",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "f3e4b31f-06b3-4c29-b924-0ad1c344ba7a"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its elements.\n\n2. **Identify the column**: Once we have the JSON object representing the grid structure, we can iterate through its columns to find the one that matches the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the column definition.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nThe input data is given in JSON format. We need to extract the grid structure and the column name.\n\n### Step 2: Process the Grid Structure\n\nFirst, we parse the `grid_structure` from a string to a JSON object. Then, we iterate through the `columns` to find the column with the name matching `column_name`.\n\n### Step 3: Find the Column Type\n\nOnce we find the matching column, we return its type in the required JSON format.\n\nHere's how we can achieve this:\n\n```python\nimport json\n\ndef find_column_type(input_data):\n    # Parse the grid structure from string to JSON\n    grid_structure = json.loads(input_data['grid_structure'])\n    \n    # Extract the column name from the input data\n    column_name = input_data['column_name']\n    \n    # Iterate through the columns to find the matching column\n    for column in grid_structure['columns']:\n        if column['name'] == column_name:\n            # Return the type of the column in the required JSON format\n            return json.dumps({\"type\": column['type']})\n    \n    # If the column is not found, you might want to handle this case\n    # For simplicity, let's assume we return a default type or a message\n    return json.dumps({\"type\": \"unknown\"})\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"subject\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"treatment\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"outcome\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"score\\\", \\\"type\\\": \\\"number\\\"}]}\",\n  \"column_name\": \"score\",\n  \"question\": \"What is the type of column score?\"\n}\n\nprint(find_column_type(input_data))\n```\n\n### Output\n\n```json\n{\"type\": \"number\"}\n```\n\nThis solution directly addresses the task by parsing the grid structure, finding the specified column, and returning its data type in the required JSON format."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 238,
+              "outputTokens": 545,
+              "totalTokens": 783
+            },
+            "metrics": {
+              "latencyMs": 2883
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "expected_type": "number"
+        },
+        "token_usage": {
+          "input_tokens": 238,
+          "output_tokens": 545,
+          "total_tokens": 783
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 8,
+        "input": {
+          "grid_structure": "{\"columns\": [{\"name\": \"timestamp\", \"type\": \"datetime\"}, {\"name\": \"event\", \"type\": \"string\"}, {\"name\": \"severity\", \"type\": \"string\"}]}",
+          "column_name": "timestamp",
+          "question": "What is the type of column timestamp?"
+        },
+        "response": {
+          "success": true,
+          "content": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its elements.\n\n2. **Identify the column**: Once we have the JSON object representing the grid structure, we can iterate through its columns to find the one with the name matching the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the column definition.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nThe input data is given as a JSON object with three properties: `grid_structure`, `column_name`, and `question`. The `grid_structure` is a JSON string that needs to be parsed.\n\n### Step 2: Identify the Column and Its Type\n\nWe will parse the `grid_structure` JSON string into a Python dictionary, access its `columns` list, and iterate through this list to find the column with the matching `name`.\n\n### Step 3: Return the Column Type as JSON\n\nAfter finding the column, we will return its type in the required JSON format.\n\nHere's how you can do it in Python:\n\n```python\nimport json\n\ndef get_column_type(input_data):\n    # Parse the grid structure from JSON string to Python dictionary\n    grid_structure = json.loads(input_data['grid_structure'])\n    \n    # Iterate through the columns to find the type of the specified column\n    for column in grid_structure['columns']:\n        if column['name'] == input_data['column_name']:\n            column_type = column['type']\n            break\n    else:\n        # If the column is not found, you might want to handle this case\n        column_type = \"unknown\"\n    \n    # Return the column type in the required JSON format\n    return json.dumps({\"type\": column_type})\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"timestamp\\\", \\\"type\\\": \\\"datetime\\\"}, {\\\"name\\\": \\\"event\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"severity\\\", \\\"type\\\": \\\"string\\\"}]}\",\n  \"column_name\": \"timestamp\",\n  \"question\": \"What is the type of column timestamp?\"\n}\n\nprint(get_column_type(input_data))\n```\n\n### Output\n\n```json\n{\"type\": \"datetime\"}\n```\n\nThis Python function takes the input data, parses the grid structure, finds the type of the specified column, and returns it in the required JSON format.",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 224,
+            "outputTokens": 534,
+            "totalTokens": 758
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "61b4903a-32cf-470c-ba36-ac28f6eb164a",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:11:58 GMT",
+                "content-type": "application/json",
+                "content-length": "2759",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "61b4903a-32cf-470c-ba36-ac28f6eb164a"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its elements.\n\n2. **Identify the column**: Once we have the JSON object representing the grid structure, we can iterate through its columns to find the one with the name matching the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the column definition.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nThe input data is given as a JSON object with three properties: `grid_structure`, `column_name`, and `question`. The `grid_structure` is a JSON string that needs to be parsed.\n\n### Step 2: Identify the Column and Its Type\n\nWe will parse the `grid_structure` JSON string into a Python dictionary, access its `columns` list, and iterate through this list to find the column with the matching `name`.\n\n### Step 3: Return the Column Type as JSON\n\nAfter finding the column, we will return its type in the required JSON format.\n\nHere's how you can do it in Python:\n\n```python\nimport json\n\ndef get_column_type(input_data):\n    # Parse the grid structure from JSON string to Python dictionary\n    grid_structure = json.loads(input_data['grid_structure'])\n    \n    # Iterate through the columns to find the type of the specified column\n    for column in grid_structure['columns']:\n        if column['name'] == input_data['column_name']:\n            column_type = column['type']\n            break\n    else:\n        # If the column is not found, you might want to handle this case\n        column_type = \"unknown\"\n    \n    # Return the column type in the required JSON format\n    return json.dumps({\"type\": column_type})\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"timestamp\\\", \\\"type\\\": \\\"datetime\\\"}, {\\\"name\\\": \\\"event\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"severity\\\", \\\"type\\\": \\\"string\\\"}]}\",\n  \"column_name\": \"timestamp\",\n  \"question\": \"What is the type of column timestamp?\"\n}\n\nprint(get_column_type(input_data))\n```\n\n### Output\n\n```json\n{\"type\": \"datetime\"}\n```\n\nThis Python function takes the input data, parses the grid structure, finds the type of the specified column, and returns it in the required JSON format."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 224,
+              "outputTokens": 534,
+              "totalTokens": 758
+            },
+            "metrics": {
+              "latencyMs": 2333
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "expected_type": "datetime"
+        },
+        "token_usage": {
+          "input_tokens": 224,
+          "output_tokens": 534,
+          "total_tokens": 758
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 9,
+        "input": {
+          "grid_structure": "{\"columns\": [{\"name\": \"location\", \"type\": \"string\"}, {\"name\": \"temperature\", \"type\": \"number\"}, {\"name\": \"humidity\", \"type\": \"number\"}]}",
+          "column_name": "temperature",
+          "question": "What is the type of column temperature?"
+        },
+        "response": {
+          "success": true,
+          "content": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its properties.\n\n2. **Identify the column**: Once we have the grid structure as a JSON object, we can iterate through its columns to find the one with the name matching the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the column definition.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nFirst, we need to parse the given input data, specifically the `grid_structure` which is a JSON string.\n\n### Step 2: Find the Column Type\n\nWe will iterate through the columns in the grid structure to find the type of the column with the name \"temperature\".\n\n### Implementation\n\n```python\nimport json\n\ndef find_column_type(input_data):\n    # Parse the grid structure from JSON string to Python dictionary\n    grid_structure = json.loads(input_data[\"grid_structure\"])\n    \n    # Iterate through the columns to find the type of the specified column\n    for column in grid_structure[\"columns\"]:\n        if column[\"name\"] == input_data[\"column_name\"]:\n            column_type = column[\"type\"]\n            break\n    else:\n        # If the column is not found, you might want to handle this case\n        column_type = \"unknown\"\n    \n    # Prepare the response as per the required JSON structure\n    response = {\n        \"type\": column_type\n    }\n    \n    return json.dumps(response)\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"location\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"temperature\\\", \\\"type\\\": \\\"number\\\"}, {\\\"name\\\": \\\"humidity\\\", \\\"type\\\": \\\"number\\\"}]}\",\n  \"column_name\": \"temperature\",\n  \"question\": \"What is the type of column temperature?\"\n}\n\nprint(find_column_type(input_data))\n```\n\n### Output\n\nThe output will be a JSON string representing the data type of the specified column.\n\n```json\n{\"type\": \"number\"}\n```\n\nThis solution directly addresses the task by parsing the grid structure, finding the specified column, and returning its data type in the required JSON format.",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 225,
+            "outputTokens": 492,
+            "totalTokens": 717
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "17af18f0-6821-4fbe-bfbd-296448999447",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:12:00 GMT",
+                "content-type": "application/json",
+                "content-length": "2628",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "17af18f0-6821-4fbe-bfbd-296448999447"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To solve this task, we need to parse the given grid structure, identify the column with the specified name, and determine its data type.\n\n1. **Parse the grid structure**: The grid structure is given as a JSON string. We need to parse this string into a JSON object to access its properties.\n\n2. **Identify the column**: Once we have the grid structure as a JSON object, we can iterate through its columns to find the one with the name matching the given column name.\n\n3. **Determine the data type**: After identifying the column, we can directly retrieve its data type from the column definition.\n\nLet's implement these steps:\n\n### Step 1: Parse the Input Data\n\nFirst, we need to parse the given input data, specifically the `grid_structure` which is a JSON string.\n\n### Step 2: Find the Column Type\n\nWe will iterate through the columns in the grid structure to find the type of the column with the name \"temperature\".\n\n### Implementation\n\n```python\nimport json\n\ndef find_column_type(input_data):\n    # Parse the grid structure from JSON string to Python dictionary\n    grid_structure = json.loads(input_data[\"grid_structure\"])\n    \n    # Iterate through the columns to find the type of the specified column\n    for column in grid_structure[\"columns\"]:\n        if column[\"name\"] == input_data[\"column_name\"]:\n            column_type = column[\"type\"]\n            break\n    else:\n        # If the column is not found, you might want to handle this case\n        column_type = \"unknown\"\n    \n    # Prepare the response as per the required JSON structure\n    response = {\n        \"type\": column_type\n    }\n    \n    return json.dumps(response)\n\n# Example usage\ninput_data = {\n  \"grid_structure\": \"{\\\"columns\\\": [{\\\"name\\\": \\\"location\\\", \\\"type\\\": \\\"string\\\"}, {\\\"name\\\": \\\"temperature\\\", \\\"type\\\": \\\"number\\\"}, {\\\"name\\\": \\\"humidity\\\", \\\"type\\\": \\\"number\\\"}]}\",\n  \"column_name\": \"temperature\",\n  \"question\": \"What is the type of column temperature?\"\n}\n\nprint(find_column_type(input_data))\n```\n\n### Output\n\nThe output will be a JSON string representing the data type of the specified column.\n\n```json\n{\"type\": \"number\"}\n```\n\nThis solution directly addresses the task by parsing the grid structure, finding the specified column, and returning its data type in the required JSON format."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 225,
+              "outputTokens": 492,
+              "totalTokens": 717
+            },
+            "metrics": {
+              "latencyMs": 2217
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "expected_type": "number"
+        },
+        "token_usage": {
+          "input_tokens": 225,
+          "output_tokens": 492,
+          "total_tokens": 717
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      }
+    ],
+    "metrics": {
+      "total_samples": 10,
+      "successful_runs": 10,
+      "failed_runs": 0,
+      "success_rate": 1.0,
+      "average_score": 0.0,
+      "min_score": 0.0,
+      "max_score": 0.0,
+      "num_scored": 10
+    },
+    "duration_seconds": 25.398473739624023,
+    "token_usage": {
+      "input_tokens": 2269,
+      "output_tokens": 5452,
+      "total_tokens": 7721
+    }
+  }
+}

@@ -1,0 +1,683 @@
+{
+  "experiment_id": "c40656ac476ccc7d758b86f6fd3d97ac",
+  "task_name": "translation_of_exact_synonyms",
+  "task_hash": "8ad16d30616e7d6242f8204a96cf0019",
+  "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+  "system_instructions": "_No response_",
+  "temperature": 0.0,
+  "thinking": false,
+  "tools": [],
+  "timestamp": "2025-11-15T04:15:11.385723",
+  "task_result": {
+    "task_name": "translation_of_exact_synonyms",
+    "num_samples": 10,
+    "results": [
+      {
+        "sample_index": 0,
+        "input": {
+          "diagnosis": "NF1",
+          "assay": "WEX",
+          "tumorType": "pNF"
+        },
+        "response": {
+          "success": true,
+          "content": "To correct the given metadata, we need to translate the (near) exact synonyms in the provided metadata to the standard, preferred terminology as specified in the Target Schema.\n\n1. **Diagnosis**: The input value is \"NF1\". According to the Target Schema, the standard term for \"NF1\" is \"Neurofibromatosis type 1\". So, we replace \"NF1\" with \"Neurofibromatosis type 1\".\n\n2. **Assay**: The input value is \"WEX\". This value is not present in the Target Schema's enum for \"assay\". However, based on the context and available information, it seems \"WEX\" might be related to a specific experimental method or assay. Without a direct match or more context, we cannot directly translate \"WEX\" to a standard term from the given schema. For the purpose of this task, we will leave it as is because there's no clear standard term provided in the schema. However, in a real-world scenario, further investigation would be needed to determine the appropriate standard term or to decide on an appropriate action (e.g., flagging it for manual review).\n\n3. **TumorType**: The input value is \"pNF\". \"pNF\" is commonly understood to stand for \"Plexiform Neurofibroma\". The Target Schema includes \"Plexiform Neurofibroma\" as a valid enum value for \"tumorType\". So, we replace \"pNF\" with \"Plexiform Neurofibroma\".\n\nGiven these translations, the corrected metadata in JSON format with the same structure as the input is:\n\n```json\n{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"WEX\",\n  \"tumorType\": \"Plexiform Neurofibroma\"\n}\n```\n\nHowever, since \"WEX\" is not a valid value according to the Target Schema, and to adhere strictly to the schema's constraints, the output should ideally be adjusted to either match one of the enum values or be handled in a way that the schema dictates for unknown or invalid values. If the schema allowed for it, we might flag or remove it. Since \"assay\" is not optional according to the schema, we cannot simply remove it. For the sake of this task, we'll keep it as is, but note that in a real application, you might need to either validate it against a broader set of allowed values or handle it according to specific rules for unknown values.\n\nTo strictly follow the schema and assuming that \"WEX\" is not a valid assay, one might consider it as an error or an unknown value. However, without an explicit \"unknown\" or \"other\" category for \"assay\" in the provided schema, and given the instruction to use the exact controlled terminology, the best course of action for \"WEX\" is not clearly defined within the given constraints. \n\nThus, the corrected output, focusing on the fields that could be directly translated, is provided above. For a more robust solution, handling of unrecognized values like \"WEX\" should be defined based on the specific requirements or constraints of the system or application using this metadata.",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 2303,
+            "outputTokens": 639,
+            "totalTokens": 2942
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "cf1db8f5-2e76-47fd-8856-4af4f2f09cf0",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:14:53 GMT",
+                "content-type": "application/json",
+                "content-length": "3129",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "cf1db8f5-2e76-47fd-8856-4af4f2f09cf0"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To correct the given metadata, we need to translate the (near) exact synonyms in the provided metadata to the standard, preferred terminology as specified in the Target Schema.\n\n1. **Diagnosis**: The input value is \"NF1\". According to the Target Schema, the standard term for \"NF1\" is \"Neurofibromatosis type 1\". So, we replace \"NF1\" with \"Neurofibromatosis type 1\".\n\n2. **Assay**: The input value is \"WEX\". This value is not present in the Target Schema's enum for \"assay\". However, based on the context and available information, it seems \"WEX\" might be related to a specific experimental method or assay. Without a direct match or more context, we cannot directly translate \"WEX\" to a standard term from the given schema. For the purpose of this task, we will leave it as is because there's no clear standard term provided in the schema. However, in a real-world scenario, further investigation would be needed to determine the appropriate standard term or to decide on an appropriate action (e.g., flagging it for manual review).\n\n3. **TumorType**: The input value is \"pNF\". \"pNF\" is commonly understood to stand for \"Plexiform Neurofibroma\". The Target Schema includes \"Plexiform Neurofibroma\" as a valid enum value for \"tumorType\". So, we replace \"pNF\" with \"Plexiform Neurofibroma\".\n\nGiven these translations, the corrected metadata in JSON format with the same structure as the input is:\n\n```json\n{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"WEX\",\n  \"tumorType\": \"Plexiform Neurofibroma\"\n}\n```\n\nHowever, since \"WEX\" is not a valid value according to the Target Schema, and to adhere strictly to the schema's constraints, the output should ideally be adjusted to either match one of the enum values or be handled in a way that the schema dictates for unknown or invalid values. If the schema allowed for it, we might flag or remove it. Since \"assay\" is not optional according to the schema, we cannot simply remove it. For the sake of this task, we'll keep it as is, but note that in a real application, you might need to either validate it against a broader set of allowed values or handle it according to specific rules for unknown values.\n\nTo strictly follow the schema and assuming that \"WEX\" is not a valid assay, one might consider it as an error or an unknown value. However, without an explicit \"unknown\" or \"other\" category for \"assay\" in the provided schema, and given the instruction to use the exact controlled terminology, the best course of action for \"WEX\" is not clearly defined within the given constraints. \n\nThus, the corrected output, focusing on the fields that could be directly translated, is provided above. For a more robust solution, handling of unrecognized values like \"WEX\" should be defined based on the specific requirements or constraints of the system or application using this metadata."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 2303,
+              "outputTokens": 639,
+              "totalTokens": 2942
+            },
+            "metrics": {
+              "latencyMs": 4097
+            }
+          }
+        },
+        "score": 0.6666666666666666,
+        "ground_truth": {
+          "diagnosis": "Neurofibromatosis type 1",
+          "assay": "whole exome sequencing",
+          "tumorType": "Plexiform Neurofibroma"
+        },
+        "token_usage": {
+          "input_tokens": 2303,
+          "output_tokens": 639,
+          "total_tokens": 2942
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 1,
+        "input": {
+          "diagnosis": "neurofibromatosis type 1",
+          "assay": "WES",
+          "tumorType": "MPNST"
+        },
+        "response": {
+          "success": true,
+          "content": "To correct the given metadata, we need to translate the (near) exact synonyms in the provided metadata to the standard, preferred terminology as specified in the Target Schema.\n\n1. **Diagnosis**: The input value is \"neurofibromatosis type 1\". The Target Schema has an enum value \"Neurofibromatosis type 1\" which matches the input value when case sensitivity is ignored. Thus, the corrected value for \"diagnosis\" should be \"Neurofibromatosis type 1\".\n\n2. **Assay**: The input value is \"WES\". The Target Schema contains an enum value \"whole exome sequencing\". \"WES\" is a common abbreviation for \"whole exome sequencing\". Thus, the corrected value for \"assay\" should be \"whole exome sequencing\".\n\n3. **TumorType**: The input value is \"MPNST\". The Target Schema contains an enum value \"Malignant Peripheral Nerve Sheath Tumor\". \"MPNST\" is a standard abbreviation for \"Malignant Peripheral Nerve Sheath Tumor\". Thus, the corrected value for \"tumorType\" should be \"Malignant Peripheral Nerve Sheath Tumor\".\n\nThe corrected metadata in JSON format with the same structure as the input is as follows:\n\n```json\n{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"whole exome sequencing\",\n  \"tumorType\": \"Malignant Peripheral Nerve Sheath Tumor\"\n}\n```\n\nThis output adheres to the controlled terminology specified in the Target Schema.",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 2309,
+            "outputTokens": 315,
+            "totalTokens": 2624
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "a75eb9c8-dc73-4d3f-8a18-c5802f449a34",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:14:55 GMT",
+                "content-type": "application/json",
+                "content-length": "1598",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "a75eb9c8-dc73-4d3f-8a18-c5802f449a34"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To correct the given metadata, we need to translate the (near) exact synonyms in the provided metadata to the standard, preferred terminology as specified in the Target Schema.\n\n1. **Diagnosis**: The input value is \"neurofibromatosis type 1\". The Target Schema has an enum value \"Neurofibromatosis type 1\" which matches the input value when case sensitivity is ignored. Thus, the corrected value for \"diagnosis\" should be \"Neurofibromatosis type 1\".\n\n2. **Assay**: The input value is \"WES\". The Target Schema contains an enum value \"whole exome sequencing\". \"WES\" is a common abbreviation for \"whole exome sequencing\". Thus, the corrected value for \"assay\" should be \"whole exome sequencing\".\n\n3. **TumorType**: The input value is \"MPNST\". The Target Schema contains an enum value \"Malignant Peripheral Nerve Sheath Tumor\". \"MPNST\" is a standard abbreviation for \"Malignant Peripheral Nerve Sheath Tumor\". Thus, the corrected value for \"tumorType\" should be \"Malignant Peripheral Nerve Sheath Tumor\".\n\nThe corrected metadata in JSON format with the same structure as the input is as follows:\n\n```json\n{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"whole exome sequencing\",\n  \"tumorType\": \"Malignant Peripheral Nerve Sheath Tumor\"\n}\n```\n\nThis output adheres to the controlled terminology specified in the Target Schema."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 2309,
+              "outputTokens": 315,
+              "totalTokens": 2624
+            },
+            "metrics": {
+              "latencyMs": 1696
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "diagnosis": "Neurofibromatosis type 1",
+          "assay": "whole exome sequencing",
+          "tumorType": "Malignant Peripheral Nerve Sheath Tumor"
+        },
+        "token_usage": {
+          "input_tokens": 2309,
+          "output_tokens": 315,
+          "total_tokens": 2624
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 2,
+        "input": {
+          "diagnosis": "ORPHA:636",
+          "assay": "WGS",
+          "tumorType": "MPN tumor"
+        },
+        "response": {
+          "success": true,
+          "content": "To correct the given metadata, we need to translate the (near) exact synonyms in the provided metadata entries to standard, preferred terminology as per the Target Schema.\n\n1. **Diagnosis**: The input value is \"ORPHA:636\". According to the Orphanet database, \"ORPHA:636\" corresponds to \"Schwannomatosis\". We need to check if \"Schwannomatosis\" is an allowed value in the \"diagnosis\" enum in the Target Schema.\n\n   - The Target Schema for \"diagnosis\" includes \"Schwannomatosis\" as one of the enum values. Therefore, we can directly use \"Schwannomatosis\".\n\n2. **Assay**: The input value is \"WGS\". \"WGS\" is an abbreviation for \"Whole Genome Sequencing\". We need to check if \"Whole Genome Sequencing\" is an allowed value in the \"assay\" enum in the Target Schema.\n\n   - The Target Schema for \"assay\" includes \"whole genome sequencing\" as one of the enum values. Therefore, we should use \"whole genome sequencing\".\n\n3. **TumorType**: The input value is \"MPN tumor\". \"MPN tumor\" is likely referring to a \"Malignant Peripheral Nerve Sheath Tumor\" or could be related to other tumor types, but given the context and the available options, \"Malignant Peripheral Nerve Sheath Tumor\" seems to be the closest match.\n\n   - The Target Schema for \"tumorType\" includes \"Malignant Peripheral Nerve Sheath Tumor\" as one of the enum values. Therefore, we should use \"Malignant Peripheral Nerve Sheath Tumor\".\n\nLet's correct the metadata:\n\n```json\n{\n  \"diagnosis\": \"Schwannomatosis\",\n  \"assay\": \"whole genome sequencing\",\n  \"tumorType\": \"Malignant Peripheral Nerve Sheath Tumor\"\n}\n\\]\n\nThis corrected metadata uses the standard, preferred terminology as specified in the Target Schema. \n\nThe final answer is:\n```json\n{\n  \"diagnosis\": \"Schwannomatosis\",\n  \"assay\": \"whole genome sequencing\",\n  \"tumorType\": \"Malignant Peripheral Nerve Sheath Tumor\"\n}\n```",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 2306,
+            "outputTokens": 452,
+            "totalTokens": 2758
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "2b020bd2-9825-49ad-ba6e-ce2c93fb4317",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:14:58 GMT",
+                "content-type": "application/json",
+                "content-length": "2142",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "2b020bd2-9825-49ad-ba6e-ce2c93fb4317"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To correct the given metadata, we need to translate the (near) exact synonyms in the provided metadata entries to standard, preferred terminology as per the Target Schema.\n\n1. **Diagnosis**: The input value is \"ORPHA:636\". According to the Orphanet database, \"ORPHA:636\" corresponds to \"Schwannomatosis\". We need to check if \"Schwannomatosis\" is an allowed value in the \"diagnosis\" enum in the Target Schema.\n\n   - The Target Schema for \"diagnosis\" includes \"Schwannomatosis\" as one of the enum values. Therefore, we can directly use \"Schwannomatosis\".\n\n2. **Assay**: The input value is \"WGS\". \"WGS\" is an abbreviation for \"Whole Genome Sequencing\". We need to check if \"Whole Genome Sequencing\" is an allowed value in the \"assay\" enum in the Target Schema.\n\n   - The Target Schema for \"assay\" includes \"whole genome sequencing\" as one of the enum values. Therefore, we should use \"whole genome sequencing\".\n\n3. **TumorType**: The input value is \"MPN tumor\". \"MPN tumor\" is likely referring to a \"Malignant Peripheral Nerve Sheath Tumor\" or could be related to other tumor types, but given the context and the available options, \"Malignant Peripheral Nerve Sheath Tumor\" seems to be the closest match.\n\n   - The Target Schema for \"tumorType\" includes \"Malignant Peripheral Nerve Sheath Tumor\" as one of the enum values. Therefore, we should use \"Malignant Peripheral Nerve Sheath Tumor\".\n\nLet's correct the metadata:\n\n```json\n{\n  \"diagnosis\": \"Schwannomatosis\",\n  \"assay\": \"whole genome sequencing\",\n  \"tumorType\": \"Malignant Peripheral Nerve Sheath Tumor\"\n}\n\\]\n\nThis corrected metadata uses the standard, preferred terminology as specified in the Target Schema. \n\nThe final answer is:\n```json\n{\n  \"diagnosis\": \"Schwannomatosis\",\n  \"assay\": \"whole genome sequencing\",\n  \"tumorType\": \"Malignant Peripheral Nerve Sheath Tumor\"\n}\n```"
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 2306,
+              "outputTokens": 452,
+              "totalTokens": 2758
+            },
+            "metrics": {
+              "latencyMs": 2673
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "diagnosis": "Neurofibromatosis type 1",
+          "assay": "whole genome sequencing",
+          "tumorType": "Malignant Peripheral Nerve Sheath Tumor"
+        },
+        "token_usage": {
+          "input_tokens": 2306,
+          "output_tokens": 452,
+          "total_tokens": 2758
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 3,
+        "input": {
+          "diagnosis": "Von Recklinghausen's neurofibromatosis",
+          "assay": "MRS",
+          "tumorType": "NOS"
+        },
+        "response": {
+          "success": true,
+          "content": "To correct the given metadata, we need to translate the (near) exact synonyms in the provided metadata to the standard, preferred terminology as specified in the Target Schema.\n\n1. **Diagnosis**: The input value is \"Von Recklinghausen's neurofibromatosis\". This is a synonym for \"Neurofibromatosis type 1\". According to the Target Schema, the standard term for this condition is \"Neurofibromatosis type 1\".\n\n2. **Assay**: The input value is \"MRS\". This is an abbreviation for \"magnetic resonance spectroscopy\", which is listed in the Target Schema under the \"assay\" enum values.\n\n3. **TumorType**: The input value is \"NOS\". \"NOS\" stands for \"Not Otherwise Specified\", which can be related to \"Schwannomatosis-NOS\" in the context of the given enum values for \"diagnosis\". However, for \"tumorType\", the closest match is not directly \"NOS\" but we can infer that it might be related to a tumor type that is not otherwise specified. The Target Schema provides \"Unknown\" as an option, but a more specific match is not directly available. However, upon closer inspection, there isn't a direct \"NOS\" or \"Not Otherwise Specified\" in the tumorType enum. The closest in meaning could be considered as \"Unknown\".\n\nLet's correct the metadata according to the Target Schema:\n\n- For \"diagnosis\", replace \"Von Recklinghausen's neurofibromatosis\" with \"Neurofibromatosis type 1\".\n- For \"assay\", replace \"MRS\" with \"magnetic resonance spectroscopy\".\n- For \"tumorType\", since \"NOS\" is not directly available, we'll use \"Unknown\" as it's the closest in conveying a lack of specific information.\n\nHere is the corrected metadata in JSON format:\n\n```json\n{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"magnetic resonance spectroscopy\",\n  \"tumorType\": \"Unknown\"\n}\n```\n\nThis corrected metadata adheres to the controlled terminology specified in the Target Schema.",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 2309,
+            "outputTokens": 424,
+            "totalTokens": 2733
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "fd8f4899-ca3b-4ec7-873d-5dc30b2fa007",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:15:00 GMT",
+                "content-type": "application/json",
+                "content-length": "2144",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "fd8f4899-ca3b-4ec7-873d-5dc30b2fa007"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To correct the given metadata, we need to translate the (near) exact synonyms in the provided metadata to the standard, preferred terminology as specified in the Target Schema.\n\n1. **Diagnosis**: The input value is \"Von Recklinghausen's neurofibromatosis\". This is a synonym for \"Neurofibromatosis type 1\". According to the Target Schema, the standard term for this condition is \"Neurofibromatosis type 1\".\n\n2. **Assay**: The input value is \"MRS\". This is an abbreviation for \"magnetic resonance spectroscopy\", which is listed in the Target Schema under the \"assay\" enum values.\n\n3. **TumorType**: The input value is \"NOS\". \"NOS\" stands for \"Not Otherwise Specified\", which can be related to \"Schwannomatosis-NOS\" in the context of the given enum values for \"diagnosis\". However, for \"tumorType\", the closest match is not directly \"NOS\" but we can infer that it might be related to a tumor type that is not otherwise specified. The Target Schema provides \"Unknown\" as an option, but a more specific match is not directly available. However, upon closer inspection, there isn't a direct \"NOS\" or \"Not Otherwise Specified\" in the tumorType enum. The closest in meaning could be considered as \"Unknown\".\n\nLet's correct the metadata according to the Target Schema:\n\n- For \"diagnosis\", replace \"Von Recklinghausen's neurofibromatosis\" with \"Neurofibromatosis type 1\".\n- For \"assay\", replace \"MRS\" with \"magnetic resonance spectroscopy\".\n- For \"tumorType\", since \"NOS\" is not directly available, we'll use \"Unknown\" as it's the closest in conveying a lack of specific information.\n\nHere is the corrected metadata in JSON format:\n\n```json\n{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"magnetic resonance spectroscopy\",\n  \"tumorType\": \"Unknown\"\n}\n```\n\nThis corrected metadata adheres to the controlled terminology specified in the Target Schema."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 2309,
+              "outputTokens": 424,
+              "totalTokens": 2733
+            },
+            "metrics": {
+              "latencyMs": 2729
+            }
+          }
+        },
+        "score": 0.6666666666666666,
+        "ground_truth": {
+          "diagnosis": "Neurofibromatosis type 1",
+          "assay": "conventional MRI",
+          "tumorType": "Unknown"
+        },
+        "token_usage": {
+          "input_tokens": 2309,
+          "output_tokens": 424,
+          "total_tokens": 2733
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 4,
+        "input": {
+          "diagnosis": "does not apply",
+          "assay": "IHC",
+          "tumorType": "cNF"
+        },
+        "response": {
+          "success": true,
+          "content": "To correct the given metadata, we need to translate the (near) exact synonyms in the provided metadata entries to standard, preferred terminology as specified in the Target Schema.\n\n1. For the \"diagnosis\" field, the input value is \"does not apply\". The Target Schema provides an enum list for \"diagnosis\". The value \"Not Applicable\" in the enum list matches the meaning of \"does not apply\". Therefore, \"does not apply\" should be translated to \"Not Applicable\".\n\n2. For the \"assay\" field, the input value is \"IHC\". The Target Schema provides an enum list for \"assay\". \"IHC\" is a common abbreviation for \"immunohistochemistry\", which is present in the enum list. Therefore, \"IHC\" should be translated to \"immunohistochemistry\".\n\n3. For the \"tumorType\" field, the input value is \"cNF\". The Target Schema provides an enum list for \"tumorType\". \"cNF\" is likely an abbreviation for \"Cutaneous Neurofibroma\", which is present in the enum list. Therefore, \"cNF\" should be translated to \"Cutaneous Neurofibroma\".\n\nThe corrected metadata in JSON format with the same structure as the input is as follows:\n\n```json\n{\n  \"diagnosis\": \"Not Applicable\",\n  \"assay\": \"immunohistochemistry\",\n  \"tumorType\": \"Cutaneous Neurofibroma\"\n}\n```\n\nThis corrected metadata uses the standard, preferred terminology as specified in the Target Schema.",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 2304,
+            "outputTokens": 307,
+            "totalTokens": 2611
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "2272eba4-f91f-43c4-9bae-214e771521c6",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:15:02 GMT",
+                "content-type": "application/json",
+                "content-length": "1600",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "2272eba4-f91f-43c4-9bae-214e771521c6"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To correct the given metadata, we need to translate the (near) exact synonyms in the provided metadata entries to standard, preferred terminology as specified in the Target Schema.\n\n1. For the \"diagnosis\" field, the input value is \"does not apply\". The Target Schema provides an enum list for \"diagnosis\". The value \"Not Applicable\" in the enum list matches the meaning of \"does not apply\". Therefore, \"does not apply\" should be translated to \"Not Applicable\".\n\n2. For the \"assay\" field, the input value is \"IHC\". The Target Schema provides an enum list for \"assay\". \"IHC\" is a common abbreviation for \"immunohistochemistry\", which is present in the enum list. Therefore, \"IHC\" should be translated to \"immunohistochemistry\".\n\n3. For the \"tumorType\" field, the input value is \"cNF\". The Target Schema provides an enum list for \"tumorType\". \"cNF\" is likely an abbreviation for \"Cutaneous Neurofibroma\", which is present in the enum list. Therefore, \"cNF\" should be translated to \"Cutaneous Neurofibroma\".\n\nThe corrected metadata in JSON format with the same structure as the input is as follows:\n\n```json\n{\n  \"diagnosis\": \"Not Applicable\",\n  \"assay\": \"immunohistochemistry\",\n  \"tumorType\": \"Cutaneous Neurofibroma\"\n}\n```\n\nThis corrected metadata uses the standard, preferred terminology as specified in the Target Schema."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 2304,
+              "outputTokens": 307,
+              "totalTokens": 2611
+            },
+            "metrics": {
+              "latencyMs": 1636
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "diagnosis": "Not Applicable",
+          "assay": "immunohistochemistry",
+          "tumorType": "Cutaneous Neurofibroma"
+        },
+        "token_usage": {
+          "input_tokens": 2304,
+          "output_tokens": 307,
+          "total_tokens": 2611
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 5,
+        "input": {
+          "diagnosis": "NF-1",
+          "assay": "cell survival assay",
+          "tumorType": "dermal neurofibroma"
+        },
+        "response": {
+          "success": true,
+          "content": "To correct the given metadata, we need to translate the (near) exact synonyms in the provided metadata to the standard, preferred terminology as specified in the Target Schema.\n\n1. **Diagnosis**: The input value is \"NF-1\". The standard terminology for this condition is \"Neurofibromatosis type 1\" as per the Target Schema. So, \"NF-1\" should be translated to \"Neurofibromatosis type 1\".\n\n2. **Assay**: The input value is \"cell survival assay\". The closest standard term in the Target Schema is \"cell viability assay\". Therefore, \"cell survival assay\" should be translated to \"cell viability assay\".\n\n3. **TumorType**: The input value is \"dermal neurofibroma\". The standard term for this in the Target Schema is \"Cutaneous Neurofibroma\". Thus, \"dermal neurofibroma\" should be translated to \"Cutaneous Neurofibroma\".\n\nThe corrected metadata in JSON format with the same structure as the input is as follows:\n\n```json\n{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"cell viability assay\",\n  \"tumorType\": \"Cutaneous Neurofibroma\"\n}\n```\n\nThis corrected metadata adheres to the controlled terminology specified in the Target Schema.",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 2308,
+            "outputTokens": 264,
+            "totalTokens": 2572
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "2ebd32da-f584-46ae-9d0b-fe2108a92eae",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:15:04 GMT",
+                "content-type": "application/json",
+                "content-length": "1396",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "2ebd32da-f584-46ae-9d0b-fe2108a92eae"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To correct the given metadata, we need to translate the (near) exact synonyms in the provided metadata to the standard, preferred terminology as specified in the Target Schema.\n\n1. **Diagnosis**: The input value is \"NF-1\". The standard terminology for this condition is \"Neurofibromatosis type 1\" as per the Target Schema. So, \"NF-1\" should be translated to \"Neurofibromatosis type 1\".\n\n2. **Assay**: The input value is \"cell survival assay\". The closest standard term in the Target Schema is \"cell viability assay\". Therefore, \"cell survival assay\" should be translated to \"cell viability assay\".\n\n3. **TumorType**: The input value is \"dermal neurofibroma\". The standard term for this in the Target Schema is \"Cutaneous Neurofibroma\". Thus, \"dermal neurofibroma\" should be translated to \"Cutaneous Neurofibroma\".\n\nThe corrected metadata in JSON format with the same structure as the input is as follows:\n\n```json\n{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"cell viability assay\",\n  \"tumorType\": \"Cutaneous Neurofibroma\"\n}\n```\n\nThis corrected metadata adheres to the controlled terminology specified in the Target Schema."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 2308,
+              "outputTokens": 264,
+              "totalTokens": 2572
+            },
+            "metrics": {
+              "latencyMs": 1715
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "diagnosis": "Neurofibromatosis type 1",
+          "assay": "cell viability assay",
+          "tumorType": "Cutaneous Neurofibroma"
+        },
+        "token_usage": {
+          "input_tokens": 2308,
+          "output_tokens": 264,
+          "total_tokens": 2572
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 6,
+        "input": {
+          "diagnosis": "neurofibromatosis 1",
+          "assay": "ICC",
+          "tumorType": "localized neurofibroma"
+        },
+        "response": {
+          "success": true,
+          "content": "To correct the given metadata, we need to translate the (near) exact synonyms into the standard, preferred terminology as specified in the Target Schema.\n\n1. For the \"diagnosis\" field, the input value is \"neurofibromatosis 1\". The Target Schema provides an enum value \"Neurofibromatosis type 1\" which is the standard terminology for \"neurofibromatosis 1\". Therefore, we will replace \"neurofibromatosis 1\" with \"Neurofibromatosis type 1\".\n\n2. For the \"assay\" field, the input value is \"ICC\". The Target Schema includes \"immunocytochemistry\" as an enum value, which is the standard terminology for \"ICC\". Hence, we will replace \"ICC\" with \"immunocytochemistry\".\n\n3. For the \"tumorType\" field, the input value is \"localized neurofibroma\". The Target Schema has \"Localized Neurofibroma\" as an enum value. We will replace \"localized neurofibroma\" with \"Localized Neurofibroma\" to match the case sensitivity of the enum value.\n\nHere is the corrected metadata in JSON format with the same structure as the input:\n\n```json\n{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"immunocytochemistry\",\n  \"tumorType\": \"Localized Neurofibroma\"\n}\n```\n\nThis corrected metadata adheres to the controlled terminology specified in the Target Schema.",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 2309,
+            "outputTokens": 295,
+            "totalTokens": 2604
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "37f0682f-abe4-4d43-ad32-cd2aa20ed4b9",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:15:05 GMT",
+                "content-type": "application/json",
+                "content-length": "1506",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "37f0682f-abe4-4d43-ad32-cd2aa20ed4b9"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To correct the given metadata, we need to translate the (near) exact synonyms into the standard, preferred terminology as specified in the Target Schema.\n\n1. For the \"diagnosis\" field, the input value is \"neurofibromatosis 1\". The Target Schema provides an enum value \"Neurofibromatosis type 1\" which is the standard terminology for \"neurofibromatosis 1\". Therefore, we will replace \"neurofibromatosis 1\" with \"Neurofibromatosis type 1\".\n\n2. For the \"assay\" field, the input value is \"ICC\". The Target Schema includes \"immunocytochemistry\" as an enum value, which is the standard terminology for \"ICC\". Hence, we will replace \"ICC\" with \"immunocytochemistry\".\n\n3. For the \"tumorType\" field, the input value is \"localized neurofibroma\". The Target Schema has \"Localized Neurofibroma\" as an enum value. We will replace \"localized neurofibroma\" with \"Localized Neurofibroma\" to match the case sensitivity of the enum value.\n\nHere is the corrected metadata in JSON format with the same structure as the input:\n\n```json\n{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"immunocytochemistry\",\n  \"tumorType\": \"Localized Neurofibroma\"\n}\n```\n\nThis corrected metadata adheres to the controlled terminology specified in the Target Schema."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 2309,
+              "outputTokens": 295,
+              "totalTokens": 2604
+            },
+            "metrics": {
+              "latencyMs": 1638
+            }
+          }
+        },
+        "score": 0.6666666666666666,
+        "ground_truth": {
+          "diagnosis": "Neurofibromatosis type 1",
+          "assay": "immunocytochemistry",
+          "tumorType": "Cutaneous Neurofibroma"
+        },
+        "token_usage": {
+          "input_tokens": 2309,
+          "output_tokens": 295,
+          "total_tokens": 2604
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 7,
+        "input": {
+          "diagnosis": "Neurofibromatosis-1",
+          "assay": "magnetic resonance imaging",
+          "tumorType": "not determined"
+        },
+        "response": {
+          "success": true,
+          "content": "To correct the given metadata, we need to translate the (near) exact synonyms in the provided metadata to the standard, preferred terminology as specified in the Target Schema.\n\n1. For the \"diagnosis\" field, the input value is \"Neurofibromatosis-1\". The closest match in the Target Schema is \"Neurofibromatosis type 1\". Therefore, \"Neurofibromatosis-1\" should be translated to \"Neurofibromatosis type 1\".\n\n2. For the \"assay\" field, the input value is \"magnetic resonance imaging\". The Target Schema contains \"conventional MRI\", \"functional MRI\", \"resting state functional MRI\", and \"structural MRI\", all of which relate to MRI. However, \"magnetic resonance imaging\" is not explicitly listed. The most general and appropriate match would be considered as \"conventional MRI\" if we are to choose one of the provided enum values, assuming it is the most general form of MRI.\n\n3. For the \"tumorType\" field, the input value is \"not determined\". The closest match in the Target Schema is \"Unknown\". Therefore, \"not determined\" should be translated to \"Unknown\".\n\nHere is the corrected metadata in JSON format with the same structure as the input:\n\n```json\n{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"conventional MRI\",\n  \"tumorType\": \"Unknown\"\n}\n```\n\nThis correction ensures that the metadata uses the standard, preferred terminology as specified in the Target Schema.",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 2309,
+            "outputTokens": 313,
+            "totalTokens": 2622
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "b1e8f601-da79-4c25-a118-6ef5d64b49c3",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:15:07 GMT",
+                "content-type": "application/json",
+                "content-length": "1648",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "b1e8f601-da79-4c25-a118-6ef5d64b49c3"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To correct the given metadata, we need to translate the (near) exact synonyms in the provided metadata to the standard, preferred terminology as specified in the Target Schema.\n\n1. For the \"diagnosis\" field, the input value is \"Neurofibromatosis-1\". The closest match in the Target Schema is \"Neurofibromatosis type 1\". Therefore, \"Neurofibromatosis-1\" should be translated to \"Neurofibromatosis type 1\".\n\n2. For the \"assay\" field, the input value is \"magnetic resonance imaging\". The Target Schema contains \"conventional MRI\", \"functional MRI\", \"resting state functional MRI\", and \"structural MRI\", all of which relate to MRI. However, \"magnetic resonance imaging\" is not explicitly listed. The most general and appropriate match would be considered as \"conventional MRI\" if we are to choose one of the provided enum values, assuming it is the most general form of MRI.\n\n3. For the \"tumorType\" field, the input value is \"not determined\". The closest match in the Target Schema is \"Unknown\". Therefore, \"not determined\" should be translated to \"Unknown\".\n\nHere is the corrected metadata in JSON format with the same structure as the input:\n\n```json\n{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"conventional MRI\",\n  \"tumorType\": \"Unknown\"\n}\n```\n\nThis correction ensures that the metadata uses the standard, preferred terminology as specified in the Target Schema."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 2309,
+              "outputTokens": 313,
+              "totalTokens": 2622
+            },
+            "metrics": {
+              "latencyMs": 1902
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "diagnosis": "Neurofibromatosis type 1",
+          "assay": "conventional MRI",
+          "tumorType": "Unknown"
+        },
+        "token_usage": {
+          "input_tokens": 2309,
+          "output_tokens": 313,
+          "total_tokens": 2622
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 8,
+        "input": {
+          "diagnosis": "NF2",
+          "assay": "RNA sequencing",
+          "tumorType": "benign neurilemmoma"
+        },
+        "response": {
+          "success": true,
+          "content": "To correct the given metadata, we need to translate the (near) exact synonyms in the provided metadata entries to standard, preferred terminology as specified in the Target Schema.\n\n1. For the \"diagnosis\" field, the input value is \"NF2\". The Target Schema provides a list of acceptable enum values for \"diagnosis\". \"NF2-related schwannomatosis\" is the most relevant standard term related to \"NF2\". Therefore, we will replace \"NF2\" with \"NF2-related schwannomatosis\".\n\n2. For the \"assay\" field, the input value is \"RNA sequencing\". The Target Schema includes \"RNA-seq\" as an acceptable enum value, which is a standard term for \"RNA sequencing\". Thus, we will replace \"RNA sequencing\" with \"RNA-seq\".\n\n3. For the \"tumorType\" field, the input value is \"benign neurilemmoma\". \"Neurilemmoma\" is another term for \"Schwannoma\", which is a type of tumor. The Target Schema lists \"Schwannoma\" as an acceptable enum value for \"tumorType\". Therefore, we will replace \"benign neurilemmoma\" with \"Schwannoma\".\n\nHere is the corrected metadata in JSON format with the same structure as the input:\n\n```json\n{\n  \"diagnosis\": \"NF2-related schwannomatosis\",\n  \"assay\": \"RNA-seq\",\n  \"tumorType\": \"Schwannoma\"\n}\n```\n\nThis corrected metadata adheres to the controlled terminology specified in the Target Schema.",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 2307,
+            "outputTokens": 316,
+            "totalTokens": 2623
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "98b4efd5-b961-4413-9be0-b48a699e5184",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:15:09 GMT",
+                "content-type": "application/json",
+                "content-length": "1569",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "98b4efd5-b961-4413-9be0-b48a699e5184"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To correct the given metadata, we need to translate the (near) exact synonyms in the provided metadata entries to standard, preferred terminology as specified in the Target Schema.\n\n1. For the \"diagnosis\" field, the input value is \"NF2\". The Target Schema provides a list of acceptable enum values for \"diagnosis\". \"NF2-related schwannomatosis\" is the most relevant standard term related to \"NF2\". Therefore, we will replace \"NF2\" with \"NF2-related schwannomatosis\".\n\n2. For the \"assay\" field, the input value is \"RNA sequencing\". The Target Schema includes \"RNA-seq\" as an acceptable enum value, which is a standard term for \"RNA sequencing\". Thus, we will replace \"RNA sequencing\" with \"RNA-seq\".\n\n3. For the \"tumorType\" field, the input value is \"benign neurilemmoma\". \"Neurilemmoma\" is another term for \"Schwannoma\", which is a type of tumor. The Target Schema lists \"Schwannoma\" as an acceptable enum value for \"tumorType\". Therefore, we will replace \"benign neurilemmoma\" with \"Schwannoma\".\n\nHere is the corrected metadata in JSON format with the same structure as the input:\n\n```json\n{\n  \"diagnosis\": \"NF2-related schwannomatosis\",\n  \"assay\": \"RNA-seq\",\n  \"tumorType\": \"Schwannoma\"\n}\n```\n\nThis corrected metadata adheres to the controlled terminology specified in the Target Schema."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 2307,
+              "outputTokens": 316,
+              "totalTokens": 2623
+            },
+            "metrics": {
+              "latencyMs": 1422
+            }
+          }
+        },
+        "score": 0.6666666666666666,
+        "ground_truth": {
+          "diagnosis": "NF2-related schwannomatosis",
+          "assay": "RNA-seq",
+          "tumorType": "schwannoma"
+        },
+        "token_usage": {
+          "input_tokens": 2307,
+          "output_tokens": 316,
+          "total_tokens": 2623
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 9,
+        "input": {
+          "diagnosis": "Nonmosaic NF1",
+          "assay": "3D microtissue survival assay",
+          "tumorType": "neurofibrosarcoma"
+        },
+        "response": {
+          "success": true,
+          "content": "To correct the given metadata, we need to translate the (near) exact synonyms in the provided metadata to the standard, preferred terminology as specified in the Target Schema.\n\n1. **Diagnosis**: The input value is \"Nonmosaic NF1\". The standard term for this condition in the Target Schema is \"Neurofibromatosis type 1\". Therefore, \"Nonmosaic NF1\" should be translated to \"Neurofibromatosis type 1\".\n\n2. **Assay**: The input value is \"3D microtissue survival assay\". The closest standard term in the Target Schema is \"3D microtissue viability\". Although \"survival assay\" and \"viability\" are related, they are not exactly the same. However, given the options in the Target Schema, \"3D microtissue viability\" is the most appropriate match. Therefore, \"3D microtissue survival assay\" should be translated to \"3D microtissue viability\".\n\n3. **TumorType**: The input value is \"neurofibrosarcoma\". The term \"neurofibrosarcoma\" is an older term that has been largely replaced by \"Malignant Peripheral Nerve Sheath Tumor\" (MPNST) in modern medical terminology. The Target Schema includes \"Malignant Peripheral Nerve Sheath Tumor\" as a valid term. Therefore, \"neurofibrosarcoma\" should be translated to \"Malignant Peripheral Nerve Sheath Tumor\".\n\nThe corrected metadata in JSON format, using the standard, preferred terminology from the Target Schema, is as follows:\n\n```json\n{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"3D microtissue viability\",\n  \"tumorType\": \"Malignant Peripheral Nerve Sheath Tumor\"\n}\n```\n\nThis corrected metadata adheres to the controlled terminology specified in the Target Schema.",
+          "model_id": "us.meta.llama4-maverick-17b-instruct-v1:0",
+          "usage": {
+            "inputTokens": 2316,
+            "outputTokens": 388,
+            "totalTokens": 2704
+          },
+          "attempt": 1,
+          "raw_response": {
+            "ResponseMetadata": {
+              "RequestId": "78acdeb9-1c90-44a9-948e-ab2fc5dc516e",
+              "HTTPStatusCode": 200,
+              "HTTPHeaders": {
+                "date": "Sat, 15 Nov 2025 04:15:11 GMT",
+                "content-type": "application/json",
+                "content-length": "1880",
+                "connection": "keep-alive",
+                "x-amzn-requestid": "78acdeb9-1c90-44a9-948e-ab2fc5dc516e"
+              },
+              "RetryAttempts": 0
+            },
+            "output": {
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "text": "To correct the given metadata, we need to translate the (near) exact synonyms in the provided metadata to the standard, preferred terminology as specified in the Target Schema.\n\n1. **Diagnosis**: The input value is \"Nonmosaic NF1\". The standard term for this condition in the Target Schema is \"Neurofibromatosis type 1\". Therefore, \"Nonmosaic NF1\" should be translated to \"Neurofibromatosis type 1\".\n\n2. **Assay**: The input value is \"3D microtissue survival assay\". The closest standard term in the Target Schema is \"3D microtissue viability\". Although \"survival assay\" and \"viability\" are related, they are not exactly the same. However, given the options in the Target Schema, \"3D microtissue viability\" is the most appropriate match. Therefore, \"3D microtissue survival assay\" should be translated to \"3D microtissue viability\".\n\n3. **TumorType**: The input value is \"neurofibrosarcoma\". The term \"neurofibrosarcoma\" is an older term that has been largely replaced by \"Malignant Peripheral Nerve Sheath Tumor\" (MPNST) in modern medical terminology. The Target Schema includes \"Malignant Peripheral Nerve Sheath Tumor\" as a valid term. Therefore, \"neurofibrosarcoma\" should be translated to \"Malignant Peripheral Nerve Sheath Tumor\".\n\nThe corrected metadata in JSON format, using the standard, preferred terminology from the Target Schema, is as follows:\n\n```json\n{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"3D microtissue viability\",\n  \"tumorType\": \"Malignant Peripheral Nerve Sheath Tumor\"\n}\n```\n\nThis corrected metadata adheres to the controlled terminology specified in the Target Schema."
+                  }
+                ]
+              }
+            },
+            "stopReason": "end_turn",
+            "usage": {
+              "inputTokens": 2316,
+              "outputTokens": 388,
+              "totalTokens": 2704
+            },
+            "metrics": {
+              "latencyMs": 2000
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "diagnosis": "Neurofibromatosis type 1",
+          "assay": "3D microtissue viability",
+          "tumorType": "Malignant Peripheral Nerve Sheath Tumor"
+        },
+        "token_usage": {
+          "input_tokens": 2316,
+          "output_tokens": 388,
+          "total_tokens": 2704
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      }
+    ],
+    "metrics": {
+      "total_samples": 10,
+      "successful_runs": 10,
+      "failed_runs": 0,
+      "success_rate": 1.0,
+      "average_score": 0.7666666666666667,
+      "min_score": 0.0,
+      "max_score": 1.0,
+      "num_scored": 10
+    },
+    "duration_seconds": 21.817328929901123,
+    "token_usage": {
+      "input_tokens": 23080,
+      "output_tokens": 3713,
+      "total_tokens": 26793
+    }
+  }
+}
