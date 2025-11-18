@@ -5,7 +5,7 @@ import time
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-from .bedrock_client import BedrockClient
+from .model_client import ModelClient
 from .task import Task
 from .scorer import Scorer
 from .config import Config
@@ -90,7 +90,7 @@ class Experiment:
                     self.tool_registry.register(tool)
         self.tool_executor = ToolExecutor(self.tool_registry) if self.tools else None
         
-        self.bedrock_client = BedrockClient(self.config)
+        self.model_client = ModelClient(self.config)
         self.scorer = Scorer()
         
         # Generate experiment ID (include tools in hash)
@@ -209,7 +209,7 @@ class Experiment:
             )
             
             # Invoke model
-            response = self.bedrock_client.invoke_model(
+            response = self.model_client.invoke_model(
                 model_id=self.model_id,
                 prompt=formatted_prompt,
                 system_instructions=self.system_instructions,

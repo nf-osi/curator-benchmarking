@@ -177,9 +177,12 @@ Experiments test LLM models on one or more tasks with specific configurations (m
 
 2. **Fill out the form**:
    - **Model Endpoint**: Select from dropdown or choose "Other" to specify a custom model
+     - **AWS Bedrock models**: Default options including Claude, Nova, DeepSeek, and more
+     - **OpenRouter models**: GPT-4, Claude, Gemini, Llama, and other models via OpenRouter API
      - Default: `global.anthropic.claude-sonnet-4-5-20250929-v1:0`
-     - Other options include Claude Haiku, Claude Sonnet variants, Amazon Nova, DeepSeek, and OpenAI models
    - **Custom Model Endpoint**: If you selected "Other", enter your model endpoint here
+     - For AWS Bedrock: e.g., `us.deepseek.r1-v1:0`
+     - For OpenRouter: e.g., `openai/gpt-4`, `anthropic/claude-3-opus`, `google/gemini-pro`
    - **System Instructions**: Optional custom system instructions
      - Reference a file: `file:path/to/instructions.txt`
      - Or paste instructions directly
@@ -208,8 +211,9 @@ file:instructions/metadata_curation_v2.txt
 
 Paths are relative to the repository root.
 
-### Example Issue
+### Example Issues
 
+**Using AWS Bedrock:**
 ```
 ### Model Endpoint
 global.anthropic.claude-3-5-sonnet-20241022-v2:0
@@ -227,11 +231,30 @@ false
 Testing Claude 3.5 Sonnet on metadata correction with custom instructions and lower temperature.
 ```
 
+**Using OpenRouter (GPT-4):**
+```
+### Model Endpoint
+openai/gpt-4-turbo
+
+### System Instructions
+_No response_
+
+### Temperature
+0.0
+
+### Thinking Mode
+false
+
+### Experiment Description
+Testing GPT-4 Turbo via OpenRouter on metadata curation tasks.
+```
+
 ### Important Notes
 
 - **Experiments run on ALL tasks**: When you submit an experiment, it will automatically run across all available tasks in the `tasks/` directory
 - **GitHub Actions setup**: For GitHub Actions to work, you need:
-  - Repository secrets: `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
+  - **For AWS Bedrock models**: Repository secrets `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` (or `AWS_BEARER_TOKEN_BEDROCK`)
+  - **For OpenRouter models**: Repository secret `OPENROUTER_API_KEY` (get your key from https://openrouter.ai/keys)
   - GitHub Actions enabled with permissions to write comments and close issues
 - **Updating task list**: When new tasks are added, update the issue template:
   ```bash
@@ -255,8 +278,8 @@ See the [Experiment Results](#experiment-results) section below for more details
 ### Prerequisites
 
 - Python 3.9 or higher
-- AWS account with Bedrock access
-- AWS credentials configured
+- **For AWS Bedrock models**: AWS account with Bedrock access and AWS credentials
+- **For OpenRouter models**: OpenRouter API key (get one at https://openrouter.ai/keys)
 
 ### Installation
 
@@ -282,7 +305,9 @@ See the [Experiment Results](#experiment-results) section below for more details
    ./setup.sh
    ```
 
-4. **Configure AWS credentials**:
+4. **Configure credentials**:
+   
+   **For AWS Bedrock models:**
    - Set environment variables:
      ```bash
      export AWS_ACCESS_KEY_ID=your_key
@@ -290,6 +315,16 @@ See the [Experiment Results](#experiment-results) section below for more details
      ```
    - Or use AWS CLI: `aws configure`
    - Ensure your AWS account has access to the Bedrock models you want to use
+   
+   **For OpenRouter models:**
+   - Set environment variable:
+     ```bash
+     export OPENROUTER_API_KEY=your_openrouter_api_key
+     ```
+   - Or add to `.aws/creds.yaml` (create if it doesn't exist):
+     ```yaml
+     OPENROUTER_API_KEY: your_openrouter_api_key
+     ```
 
 5. **Review configuration** (optional):
    - Edit `config/defaults.yaml` to change:
@@ -317,10 +352,17 @@ python -m src.cli run <task_name>
 
 Run with custom parameters:
 ```bash
+# Using AWS Bedrock
 python -m src.cli run <task_name> \
     --model global.anthropic.claude-sonnet-4-5-20250929-v1:0 \
     --system-instructions custom_instructions.txt \
     --prompt custom_prompt.txt \
+    --temperature 0.1
+
+# Using OpenRouter
+python -m src.cli run <task_name> \
+    --model openai/gpt-4-turbo \
+    --system-instructions custom_instructions.txt \
     --temperature 0.1
 ```
 

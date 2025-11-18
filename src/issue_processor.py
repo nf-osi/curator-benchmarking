@@ -37,8 +37,11 @@ class IssueProcessor:
         model_match = re.search(r'### Model(?: Endpoint)?\s*\n\n([^\n]+)', issue_body)
         if model_match:
             model = model_match.group(1).strip()
+            # Skip separator lines in the dropdown
+            if model.startswith('---'):
+                model = None
             # Handle "Default" option from dropdown
-            if model and model not in ['', '-', 'Default (global.anthropic.claude-sonnet-4-5-20250929-v1:0)', 'Default']:
+            elif model and model not in ['', '-', 'Default (global.anthropic.claude-sonnet-4-5-20250929-v1:0)', 'Default']:
                 # Extract model ID if it's in the format "Default (model_id)"
                 if model.startswith('Default'):
                     # Use default from config

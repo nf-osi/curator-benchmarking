@@ -31,6 +31,7 @@ jobs:
         id: run-experiment
         env:
           AWS_BEARER_TOKEN_BEDROCK: ${{ secrets.AWS_BEARER_TOKEN_BEDROCK }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
           python -m src.issue_processor_github "${{ github.event.issue.body }}" "${{ github.event.issue.number }}"
           # The script will exit with code 1 if success rate < 100%, causing the workflow to fail
