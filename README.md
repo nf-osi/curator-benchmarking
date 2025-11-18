@@ -1,14 +1,17 @@
 # LLM Metadata Curation Benchmarking Framework
 
-A framework for benchmarking different LLMs on metadata curation tasks using AWS Bedrock.
+A framework for benchmarking different LLMs on metadata curation tasks using AWS Bedrock and OpenRouter.
 
 ## Overview
 
 This framework allows you to:
 - Test different LLM models on metadata curation tasks
+- Support for **AWS Bedrock** (Claude, Nova, DeepSeek) and **OpenRouter** (GPT-4, Gemini, Llama, etc.)
 - Permute key variables: model endpoint, system instructions, temperature, and thinking mode
 - Run experiments and automatically score results against ground truth
 - Track experiment results over time via GitHub Issues and a web dashboard
+
+> 📘 **New**: See [OpenRouter Integration Guide](docs/OPENROUTER.md) for testing GPT-4, Gemini, and other non-Bedrock models.
 
 ---
 
@@ -484,6 +487,8 @@ The framework automatically scores predictions against ground truth when availab
 ├── src/                        # Framework source code
 │   ├── config.py
 │   ├── bedrock_client.py
+│   ├── openrouter_client.py    # OpenRouter API client
+│   ├── model_client.py         # Unified client (routes to Bedrock/OpenRouter)
 │   ├── task.py
 │   ├── experiment.py
 │   ├── scorer.py
@@ -506,6 +511,7 @@ The framework automatically scores predictions against ground truth when availab
 
 ## Additional Resources
 
+- **OpenRouter Integration Guide**: See [docs/OPENROUTER.md](docs/OPENROUTER.md) for using GPT-4, Gemini, and other non-Bedrock models
 - **Quick Start Guide**: See `QUICKSTART.md` for a condensed setup and usage guide
 - **Experiment Workflow**: See `EXPERIMENT_WORKFLOW.md` for detailed GitHub issue workflow documentation
 - **Example Task**: See `tasks/example_task/README.md` for task structure examples
