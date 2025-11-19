@@ -1,0 +1,775 @@
+{
+  "experiment_id": "c9f94db040b0cd9db68e95335c291b95",
+  "task_name": "narrowing_of_broad_synonyms",
+  "task_hash": "9dc5c284f909400a12e111d9ec8ba4e5",
+  "model_id": "openai/gpt-5-mini",
+  "system_instructions": "You are a metadata curation assistant. Your task is to help improve and correct metadata \naccording to the specific instructions provided for each task. Be precise, accurate, and \nfollow the guidelines carefully.\n",
+  "temperature": 0.0,
+  "thinking": false,
+  "tools": [],
+  "timestamp": "2025-11-19T20:34:31.867909",
+  "task_result": {
+    "task_name": "narrowing_of_broad_synonyms",
+    "num_samples": 10,
+    "results": [
+      {
+        "sample_index": 0,
+        "input": {
+          "diagnosis": "Neurofibromatosis",
+          "assay": "DNA sequencing",
+          "tumorType": "Neurofibroma"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"Sanger sequencing\",\n  \"tumorType\": \"Neurofibroma\"\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 2404,
+            "outputTokens": 430,
+            "totalTokens": 2834
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584350-iUXHCqWSUx3M87Oo8F0N",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584350,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"Sanger sequencing\",\n  \"tumorType\": \"Neurofibroma\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Narrowing medical terms**\n\nI need to narrow down broad synonyms to exact terms from the Target Schema. The input diagnosis \"Neurofibromatosis\" isn't listed, but \"Neurofibromatosis type 1\" is. It seems \"Neurofibromatosis\" generally refers to type 1, so I'll choose that. For \"DNA sequencing,\" the controlled list includes options like \"Sanger sequencing\" and \"whole genome sequencing.\" Since there's no specific context, I think \"Sanger sequencing\" might be the best choice as it\u2019s a recognized method, though it's older.**Finalizing JSON structure**\n\nI\u2019ve decided to go with \"Sanger sequencing\" for the assay. The tumor type \"Neurofibroma\" exists in the enum, so I\u2019ll keep that as is. I must ensure the JSON structure is correct with controlled terms. It looks like:\n\n{\n \"diagnosis\": \"Neurofibromatosis type 1\",\n \"assay\": \"Sanger sequencing\",\n \"tumorType\": \"Neurofibroma\"\n}\n\nI double-checked, and it\u2019s fine to change the diagnosis to \"Neurofibromatosis type 1.\" Since \"Sanger sequencing\" fits the criteria too, I'm ready to return this JSON.",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "**Narrowing medical terms**\n\nI need to narrow down broad synonyms to exact terms from the Target Schema. The input diagnosis \"Neurofibromatosis\" isn't listed, but \"Neurofibromatosis type 1\" is. It seems \"Neurofibromatosis\" generally refers to type 1, so I'll choose that. For \"DNA sequencing,\" the controlled list includes options like \"Sanger sequencing\" and \"whole genome sequencing.\" Since there's no specific context, I think \"Sanger sequencing\" might be the best choice as it\u2019s a recognized method, though it's older.**Finalizing JSON structure**\n\nI\u2019ve decided to go with \"Sanger sequencing\" for the assay. The tumor type \"Neurofibroma\" exists in the enum, so I\u2019ll keep that as is. I must ensure the JSON structure is correct with controlled terms. It looks like:\n\n{\n \"diagnosis\": \"Neurofibromatosis type 1\",\n \"assay\": \"Sanger sequencing\",\n \"tumorType\": \"Neurofibroma\"\n}\n\nI double-checked, and it\u2019s fine to change the diagnosis to \"Neurofibromatosis type 1.\" Since \"Sanger sequencing\" fits the criteria too, I'm ready to return this JSON."
+                    },
+                    {
+                      "id": "rs_052ac648e14ec09f01691e295e794c81959c8f58949b07f590",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHilolD_eFiW55U64EKbVZk9tnDSCb2EyBdsk32SdzXS8pLSmXJ6FFKKLO2xEnfQV0PlxDf5mpAWFw-T2vlytKDlXU1ct1l_79aHTT5Tuu54OncLaQTuepVlnBEQFWX5bj3THZ9MY3gv4Pp2SVCb6k2DicWEOi6_oGes1kkCFwzKMiXlxQFCsucoGGlJd4mD2sRLAXAgk8SjdNSTek4poEbSgQE8o-ovQniHh7yL5V4JJC_ctvBaKGV5u-eYzaf-zJgSy27ICfwUNPD3IQj62AxwwKQmtorflQfPOX2vGK-l5iC5ckZaz6FO8NqhDNGTJdiOYw8my3bxBDClKfqHx5t8a8bpweQtx1qQJ-ByP151tmuHPaxyFo1ih6cVEuIjgEQqQGEPiovrO6MwfLmWEBaLbP7Fs3T-d-WJmdZRexePvzWL6tA3JSAPWC6RdwGvJy38i6RKdKxLkzdvSYlveT7xt1VPC993N5vHG1nJFZ75gqowa6GhahRyO43jr4rnsZmmH2SA-aQNt4bbpXB9YUYuI_ktBk20-FauKYc69UeZpm5TMd2PDeaudLmZ-OB8wZikOyrYeJe_YJ3aYAFS0SF6_CklE4q0I_pGnmGjH4fW6gFCOocDF-GFQkugm2OQwq9aliOpL_8fIbsPGoxauV4vau9cZ_kybXa_1PbotqegN4M-WxBsECaoVp0oymUvpV1-5_sTaOXuZ3v9epDUWoHV-XE6OiTc1O9jn34r9O0BmJNmO3NZAMYRjH61VYxVMQ1ZjbtiqjMwIRRhL6EMufFYgojSKdIuTfWLm55NMlWnV5cUEuTLClHNu3blGcW1SOz6XRHRKZU1npuD7QoNtZJLsmOD5N2WjpIvdLTYbHl0VQm5MBRHgSNWkiojgGrkLZCzPjZcBCft2DCm7wo2hQchJrLmljGRpyP8xmX9SxDbYgtMt2YKWWeNgW3LsRKGpsgeuDQLY8CN_EjQw5LVFpSzQZdZXcHiiE6wbuXOQNoXk4xdJ-guJ03YLZ2Yf1wS1LDRwteEm81auAIaHnfFOlSArCySanMmOIMBqSiCHYhRld-hbDSDQrG8d7TLNWfww0nRCtazHKhhd9NndWNqiavwwfqgMQgAmz4uvEq54gcVYoKrEYpkrU7pfyvzaNn0HZqC_6QuPDBb2n8X9WN_SkQ2nvzcx_CpUbK-hlrcJTKsVGclRggcEQ1ffTzZK8f7D9ZkE_P-XbwWrsCw0wqnF4-NCtS7-RQqrulEu6lvvmcyutv7DHEqfWBN4tH7JdYqw2H7o-xT7xpA8_l5cL1oLskgZ4-_mLBhSteQPw7T0-nmXS544kUvsb_UP3ShT-kpRa36ekpHNaMl1ImphAqXV1RTI1EFOkFB-sfp4qwVns0p9bBgK85UvxOoWNv9WoV4IUr6qUBDqZbNUSsJNiHs160ik5JVXewX_q6P8TEbuHsAuTHYTTnQA1TtT2gYUyZ29O17Nndqi3yL0QAGuOR5MbzucSgPrFQs3jCHaqHVxrgJ4EHK02-K1WO-gy2E1C6eIbloNalzDuRnZ5bv_FofqgKyHGvuQKfB03wdF0C-zf9O5xOW_rXiG2GqXxFJgf4IDlcqeeP_QPckqRYF2yrnzmY4_-SpZ4ruPbqFrAXNDfzvPcU_93a5k57FjDz4J-oDFU3S3K6A77cbN3EXqqmjCx2J7EI5OmSvYkjWIqud3iF8G7pvD-1Teb9nJZ55gVKwNUuyIcHmCPAiR1bPftagG50t2uOSh1oiMeU2PKHshDBqAAXU4xAvbInTDVniA-6rXwo4oEF0UIvs4Pvjw2CuYMIwO4R7-MgOxRDf62pD2zMhpOhLXqzlv9n7sQ7X-Oc5UnQuBaVZr9xzosrj9sg3hgDnbjOwyaG87RpoCwWYPDPfW-OZEQ7t-q0-TydUH5LYxDbTzh-vE4moZ1CehDqKM4bJQFBu9sp_dkfzRpJQ8m_l3HXWut4KV7Aa5SoqTMafHeiVjVepW7JKUuTGsTEXUsgyQfrzyW7qbSpmsY-gRNtxOfOn3VfmgOxlPL4QhuANZOnOTADM4RDiUelGRq2bh758ffZqccc-IhYIuQS0Waye6gQNyKL8kn-jD9i26G0FcaxukCbeM3HvZnf3WJkJIM5HCrZ5Y3IGlkFaAXbSSEU-rhXrXF-l2ieRGCjL0BODk6mKCJdjFq-HwGyGvu4oTCEgftESDi_z2S9Zl9lTM8EOfqs16lwyMJAhUejcFXMfUN9WOVAZa2y4Z6WXd8tB_I8N5BG9j30qwN7HFHXjrWSAas2r2W8PzoT-5Om1Hc63VvIZFenrI5aXR_MwDmwd2cM2EIOk9QqcUD6L6fmXY2cbNVBddVxXtObdm5xmKt5DKhkzfTgwzfrInTwDrb1LuYSR9RSNOuJ1XzlbQ6I457N5j-wjrOcq6DqEHOlXL6eBPB3OTacYjTroJz7UGNJ6QjnlCMKPNaAJlWIXwMg_yAn4VgAoHh5plXDktU-rBfrKpKfGJkQhdoXtLlTdcGy0oFbcizDCYQwFnr0CMtHk3Ly7hA1JbVt1poF3GdGWpRF0mWMw0wNAu9H-80R23OVc9i4wB8xfqZub6yeT8m7zSHOtEuKXUZvSBc2T-kqiLR9Xky28U0Gr0Bvrpl_j3foVxr7-lMFZFID7Nk4dcI_EsElJhhJmwNc1O-1KqoGkyKnIdsq901XjL0YVP2DAteBWZMr4duBwmdULgBP_xz4NK7x1aCo8TRuLVC7ye4Dq6naJPmD-XALYW46ElYwbToahfjqtpCapqywaUQC50evmKRo-2LaYsOS8QARUlmOrpRFfAwc9jcd3Tb02Mg3abFs3AGY6Sp7wR8G_6Ec58DCB-EFuhgTxMxCcz5EpV-lbYI_o5LWVB-5QRg_4jMiLEe2_GpxtrL_jmHrnOBJ7iSTHPcq3zRA-Si6Ok0uzWiaSkkOVy8VnH9rxVcE4evvZ6bTZtzkiKtk2KPjlAWBQgQ5P7DaNkgxtef5V48wy_-UoU3CJQwdx9ySU7q4B2UMc403PYz1hDkcY3dJ5m2-nx54eUxtlPlnm3_6i3p4pA_Q78cstuoGTJ_8qDaFRrJp2bNeA60al-eLYwAC9-wJTQZi-xiwlTRlX5j4GGi9GlzuyIskTEOI051J4FI7lRxHARiI8mCVOYVW1SOvMS3KzhDMlRAO4QqUMCuIMVJzsjSfyec5NvnckEhWs0rnIkF4XzNrd1aKXjKWuf8jOvBUiDrCxh3fx1zRweK1G2BJn0oBtZnN1a_2T1T0-gZ2ByEl7Xx971vOKw3A=="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2404,
+              "completion_tokens": 430,
+              "total_tokens": 2834,
+              "completion_tokens_details": {
+                "reasoning_tokens": 384
+              }
+            }
+          }
+        },
+        "score": 0.3333333333333333,
+        "ground_truth": {
+          "diagnosis": "Neurofibromatosis type 1",
+          "assay": "whole exome sequencing",
+          "tumorType": "Plexiform Neurofibroma"
+        },
+        "token_usage": {
+          "input_tokens": 2404,
+          "output_tokens": 430,
+          "total_tokens": 2834
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 1,
+        "input": {
+          "diagnosis": "NF",
+          "assay": "exome sequencing",
+          "tumorType": "sarcoma"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"whole exome sequencing\",\n  \"tumorType\": \"Sarcoma\"\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 2398,
+            "outputTokens": 173,
+            "totalTokens": 2571
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584361-5ljxfqOzBkOL3BAHnCkZ",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584361,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"whole exome sequencing\",\n  \"tumorType\": \"Sarcoma\"\n}",
+                  "refusal": null,
+                  "reasoning": null,
+                  "reasoning_details": [
+                    {
+                      "id": "rs_03eebac8d95fdc8101691e29698bd88196a53773a2e5efaec3",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHilsi2bedCw2QI_0vz_yIYWiZLPvKsFHMn-nUeGVOHDcMC-RGMyZ5IfRL135H-TT44p1djG1C4i4A9TPtRaUZm8-uNkAMOLx7Y-xAT-TvRvAIYW9bmwbPxTUxZYg3QIRKr_btdtRykEgpBgnECU-1WifSs5ftuz_1JudQT8FfCeG-FkTrnRBhFMCRiacz7_YvbR0-FXxv9X5AO2T6Bw8WHUF5whfjjq7DN9I0QCzpqW8daM4QsfmFTxsymk8QQ4UcVk7_ZI-MiR-DFUu0pGi0DXwAPFYfnwps6aPx6swdg296NJgbThMTM01I_LJIYdovpakfnflJqSX4Jvr9KuBTRzPGGZ-VQdEWvTxslOMbWqDSUVN-fw5dTJnuAYc_2ycQFOF0PDCsoDoHJDvS4D_KJXiA8bHCvlKWPdiZ3CvdUkZPGjXyPfS090In3iadaBkeBp4W7RBXnqa62LSkyiIg3raafvcu3pExu8cXiOgGXg-pUICdcbPOEhfB-LknkxDhfJqTifo6nrIWaUIFoUm6mkOBIZDfPwnXdsoVB5E-KXAUVT8hMIERbIJqGhRLV1CZgJW25Wt8jQ3DTnEn38jKxqH8pI2StLWg733gw7Tz5BUrNX6WPid9XXf4O8RgyaEi92Pf1nZEEEVNOuZqkcJSVweO7jsguYEduoS_XLwuRKNMTa8bn6O3hhQMJgaA1dS7lpj-P2tJPr3cdvYQ0AjacK7xCcZa-VPoWxzlsZejIL2-Iyk7yfLs3Rtiwmsy33WzTYuFjIN-CFj0cP39DdWz9R_A_P1RzwUONM_J1lt5WsD2es3oSdCOLckqJDm_9lze49CA5yoN2QcXANFwYLfCvEYbNlv1BY0qE1VgZ1r-kE_BkyE9_C32fdTc8180HNUnCBHe3_U3lEO3rYCPrURGc5PaWSyx-TYQmpJ52xxp-jkdgzq_Uth0B1Kg1u1r8OA_LV1pXpvkn09tIcLX1KnqJzqoxOMhvzqgcpzpd1xCzuhFs8BVg-mmUYs1Nd85niNEl4Gcu4fS6GRx-oyNOOEzplN_YklTXVmSvf43mY30_6SxwLTIFLKv6b3eZgu5_TLGh5s243csn6Pzsez6glGObd_HDBsqppW-PQCiBls4Kuouhpa7bpMMurYCbfWUZVgrcknyyY3YEZQzbrdkMcZWkwqc69sW7lt565DU8kx4DTatyP0BdhMvfQbphaGtfTas53hbaZ33_xGbWaVKhswho19GFqi2GiF4vKij32sWZ5IJKzbPnZbdKy0oiZDljBrw2ebXetG8nWWjBkXsf0av9TYYr7hXCERqurKPpz1psnjPAxFm2QAv3N9t43hBH7mK9dvjzgqx6ItmSxdzh7r6z2D7-sSjh4VaC28j2vSb_OQ9LI0fWzwTGj3FU858Xal_ZnlpyYV-bhHTBYR8x91gPER_EuQwFca-S_BfT5PKe5rKbAajRn1Wt1vHmkSiVKbektb6P6lOGP_z_8MuUoSNDSisWIlCE5m9DLDkSU-6wcg2zEsJHu1DHy2iQofEEBzzaiQtviO-l0hBJ6scwrYeBTF6etLPvySbc35wdcsokHG3anUMUbo7K2DAiCh-z_pBZOSl-h0eJJ5x59cTlug24iS_0HZfhd2bwuAsMcpHlzjEHPcQRQ84tutIqM0XP3v2koOkS9Q9j2s5I6XPcdwE8kkNWdmEwrEJeNgCrK-edtjTiptKo1KlrNNlFcRjzVjb-bTKsrFSor-lHhBCWlQsPldMQ=="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2398,
+              "completion_tokens": 173,
+              "total_tokens": 2571,
+              "completion_tokens_details": {
+                "reasoning_tokens": 128
+              }
+            }
+          }
+        },
+        "score": 0.6666666666666666,
+        "ground_truth": {
+          "diagnosis": "Neurofibromatosis type 1",
+          "assay": "whole exome sequencing",
+          "tumorType": "Malignant Peripheral Nerve Sheath Tumor"
+        },
+        "token_usage": {
+          "input_tokens": 2398,
+          "output_tokens": 173,
+          "total_tokens": 2571
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 2,
+        "input": {
+          "diagnosis": "Neurofibromatoses",
+          "assay": "assay by high throughput sequencer",
+          "tumorType": "Nerve Sheath Neoplasm"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"next generation targeted sequencing\",\n  \"tumorType\": \"Schwannoma\"\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 2411,
+            "outputTokens": 622,
+            "totalTokens": 3033
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584364-pabymq0B8BmaQuoSu527",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584364,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"next generation targeted sequencing\",\n  \"tumorType\": \"Schwannoma\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Narrowing terminology**\n\nI need to map broad synonyms to specific controlled terminology values. For example, with the diagnosis \"Neurofibromatoses,\" the target schema includes terms like \"Neurofibromatosis type 1,\" \"Schwannomatosis,\" and \"NF2-related schwannomatosis.\" The plural term likely refers to \"Neurofibromatosis type 1,\" but it must be narrowed down. Since \"Neurofibromatoses\" can encompass various types, the best fit might be \"Neurofibromatosis type 1\" due to its commonality. However, I should also watch out for the possibility of \"Unknown\" as a potential option.**Mapping assay and tumor type**\n\nI need to specify the term \"assay by high throughput sequencer\" into an exact assay from a list. It could map to \"next generation targeted sequencing\" or \"whole genome sequencing,\" but the best choice seems to be \"next generation targeted sequencing\" since it's a general NGS assay. The phrase \"high throughput sequencer\" is vague, reinforcing this choice. \n\nFor \"Nerve Sheath Neoplasm,\" I have options like \"Schwannoma\" or \"Neurofibroma.\" Since \"Nerve Sheath Neoplasm\" is broad, I might go with \"Schwannoma\" because it\u2019s a typical nerve sheath tumor, but \"MPNST\" could also fit. It\u2019s a tricky choice!**Selecting terms for mapping**\n\nI think \"Schwannoma\" might be the better choice since \"nerve sheath neoplasm\" typically points to peripheral nerve sheath tumors, which include schwannoma and neurofibroma. Since the input doesn\u2019t specify malignancy, \"Schwannoma\" seems safer than \"Malignant Peripheral Nerve Sheath Tumor.\" I need to ensure that exact strings match the case and spaces correctly.\n\nFor the diagnosis, I'll choose \"Neurofibromatosis type 1\" and for the assay, it\u2019s \"next generation targeted sequencing.\" So, for tumorType, I\u2019ll go with \"Schwannoma.\" I'll produce the corrected JSON structure and stick to that, without additional notes.",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "**Narrowing terminology**\n\nI need to map broad synonyms to specific controlled terminology values. For example, with the diagnosis \"Neurofibromatoses,\" the target schema includes terms like \"Neurofibromatosis type 1,\" \"Schwannomatosis,\" and \"NF2-related schwannomatosis.\" The plural term likely refers to \"Neurofibromatosis type 1,\" but it must be narrowed down. Since \"Neurofibromatoses\" can encompass various types, the best fit might be \"Neurofibromatosis type 1\" due to its commonality. However, I should also watch out for the possibility of \"Unknown\" as a potential option.**Mapping assay and tumor type**\n\nI need to specify the term \"assay by high throughput sequencer\" into an exact assay from a list. It could map to \"next generation targeted sequencing\" or \"whole genome sequencing,\" but the best choice seems to be \"next generation targeted sequencing\" since it's a general NGS assay. The phrase \"high throughput sequencer\" is vague, reinforcing this choice. \n\nFor \"Nerve Sheath Neoplasm,\" I have options like \"Schwannoma\" or \"Neurofibroma.\" Since \"Nerve Sheath Neoplasm\" is broad, I might go with \"Schwannoma\" because it\u2019s a typical nerve sheath tumor, but \"MPNST\" could also fit. It\u2019s a tricky choice!**Selecting terms for mapping**\n\nI think \"Schwannoma\" might be the better choice since \"nerve sheath neoplasm\" typically points to peripheral nerve sheath tumors, which include schwannoma and neurofibroma. Since the input doesn\u2019t specify malignancy, \"Schwannoma\" seems safer than \"Malignant Peripheral Nerve Sheath Tumor.\" I need to ensure that exact strings match the case and spaces correctly.\n\nFor the diagnosis, I'll choose \"Neurofibromatosis type 1\" and for the assay, it\u2019s \"next generation targeted sequencing.\" So, for tumorType, I\u2019ll go with \"Schwannoma.\" I'll produce the corrected JSON structure and stick to that, without additional notes."
+                    },
+                    {
+                      "id": "rs_00050c7cd80c65b701691e296cade48196b83040811e41fa8b",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHil59TPtpgJsKicUjr-5B6jXyDYYQLp18shWc7-FGhYkbKrvKhVR5Eoyip9oeR8tuYyvQ3FKd52oxvm-iZ7Fjk9wrtzIitEhjHC0isIqL1k_lGQUQQm5CfKokVl0S8pkvewzF48dmr15GOnM7w68h5InJXcjC0F2ohIrmzl1FrYw_YVib8_vEwMboBkXXy8S9WDIImMAAtcPNqUneWrl8nH06jZKtZqIrXlmEeDs4xmDIwZwXSxY9NigrV4rELN50-T2vkcmuzcQIrYoV8Az1uUCOzG_qHaMuT-Nb2EWHQNS-ev3kapPsBxxkKy3t9ACWfFmA6Hq-8eVvtEWgJ7eWMVA-bOT5D_DguXtyy0HdIizbYQiJyzXaLl6Ame-C4qcFFBslnHS4eKpyYOtJvjijPH7c7EztJ8CdoRey8uodHjIR7hVq-JKljhSU4SrS4TXKYGAkmSdPOvjcHaw7D1t8hTwabB7KMWpyjXy9CJChBGHGyeTMjji4cFZGf6R1I5AcSBGfuGc_4Qbhxr1tFuMR8-vgZ7vnmupYwE_6-n-Zf4XGfMg_TumKhNvXDha9Fc7CTlHAiRRBLtTYA02QiPindY2UmAKtcuIa9_fDHV5h57p4hcauErdvyjNVB8RsQYFRaPaqgmGWbMyxguRFAPD5tFU3bUWNL_KzzMVnq9jnK6VjbKXkCYVTSnNQ4NtdSk3z6U003ydCpAeBubFThOZMOPEgvj-PKXO07PluK9L4Oh8ycJHkI8fucNsE94CJ4OexcxaAkJZ59NOFqtTEDT32oJDFt3eisJCdfrnnXtmWoc48ZMNK8yZtZ3pZVhRLtjcnIy4uyDkJQ5TgIBZvm9Yvtj08TULyCIUGYrFtJ1Ngo_XRynVMxuCDcvuaQLkE5PLLW7JKBt6V6ymIuHlvZaqswCdzp7TWAhqjtFsYdzmrEp9tq5nWjXQ4EUgyYjBSSBvwmlFtJqOAIMoDB1Ei-7gssyEw1QXzQLjRyREvlDY6a7t-AhCQDjXh3hRcyjtJWDurR-5m8igbDsFY_X5BjdPMRaal9bl_G9orDHIZj1jDYzxAlbbDQztbn1of5n6CIF-iikdsFwNZKAJF6OK-q57uxVJLPiQwjEAPwZcoYv5blY2Lj6XY5WzpZfqjkP7MhGPNv32peFCo4fPqQSkexbhtl-c_nYtxfgwkIQ95ITdlEQn4NFoairrrtn_Z0wgrUr5sXG8ENZnflyPaQc36Z5_RzTanbZhZlr4gZvbF4FTRq1eRIe56eJog8_5u31a0PSOKIEPVz6Vqd9KeIXPXyguc58PX8hA4gix5zXKuTmPsPuJnuhbczn6TBlra9Bx1vW21JuUpTh3DKC-HmKGP2vAQFGbqEmAJ7-NgQlSwG5Acub5F4NEXlrBMWKhKbhM_SEHRVxoFIHUUi5-XTm5bGDpTMqTZk2HO2c40YviD3GVxmtru0gLh0ZsD2h2fMIEUAQWRWdNWiiuzwYYplIgqljJcGqeRtPdV6oMMCUj3yoTLVNjNPPJpeufR83qtcE9yeQyTvFt8gXNbHDQm883_kWVGx-ZWYq4SFy3CFXYCijReaWs7f7q_63VFiK7w3DqKTvbeeId4EvTtftrNN6RsMpFfP0BNlUnXqq4jW4w6H7NyTYb-kTP8F2mQ59keIPlm5FihmerBnDt3yhV_rR2VcejjpKp6YsPYOiRyZbSQx4lMNk4V_Eq4NySFIdaC5D6bLtjfu9-kqL8YCnSIJRz2KAx5VvTJzYsaTSZREmQCEiebYbL9y4dsI32eOgHt98a4vX9FKOgPJKiyWBtNz2UkGfmeOdyP5pDRUboUil-5egFcwObQHayke2n2Z2pufhfhXfNlF53CN4qZIbOjb9EAsqSePHG5g29Fkx1-0urknd1gFsBrvK6BUbeREi4v4pFPHiWIspx0MkzO_fkaW-EJPOR57DQ-z-fF4sqrajbz26SK-dwKM9tdXqodbjuHgXsoJdAtLAWvWQ4lapfDzN6fVbA74VbY1rc9n5CVnikcrE0RbONI4o3z8Ukzsuub2IgKVo-gkcNdGmnvBKUcMaXlXlUOGA5a4NWBwgHQnJyS3FaxP6gchzwpuDnYksxJZgLjKFpHqXYzxZiVdm55pozyANG9NzwxNAJ6i_VuZ9LpYG-EQrGx5QlWKXP4n3bh2dwxXDRU-2eORWSG4_bKbVUffa2xV7ERjGjJLNhNQ1k__GentYB5RuIygJ0NDcMFG4ygtdqibmMTRQ30MEAySWbVYX4liZN0dXLZky13FAujvhHaICCf57YN7EXAML8Fgtqf-xiP_Enc6ndQHsKP2cYfnHo_MeCUucUD5bTgEn1M34gZtEOMBZFfxEVE6wqhJHsH0hTHZ-__mWDnNjnZ20pDlD2GY5MGQoLr32CCud1PEhQ-SV-9VebsfHkFhUZj4pNx-G_IVsPcIxr4cLP3g3OEwZ1caFbDCMlA1pPSnmduamaq-OCYEJpc2EtR2J5whEIleOmfkUngh2tb9xn6UiquypMiqDAUFlDjvkt7nCUsy6R13igXU0ZXxXDyLXgr-QDcVy8nh1yeoFvq2NfVTfVtaminm0T1BoEw36HsFzMY6uS7E-uCi5cVRgoogGji1KQN2NX8CUONbWSbxKaE4XSErSQwZ05_plxrT8i94FEfoi6bvJJirAgJ3dIByfrMJiGmiiwGBQ6NlKJ8j4OIYrGJRA9JrYmqyqzIJaF4WuFXqdG1rFo9luLHFm9xCLrRcs1SnrnZtm8eUjJwYyWLfin3N9mJK1fnOr6lNmTg-rVrJaO97c4i8wbQCfgQUN2lrPl17gE1aoi5Uj2PMcjKP6lkytu3tsYcCHKs-jMZptisLgedwBWiNox5eRa-eTRg24dlnkSfk3gN9T6lS39UtoaSs7owbaOHofTr7O5C94SjwHciKROp0LHrz_PnTN0-ZcElOuruhKJBPpSnlT0R71gV31R0EWaC2TatoGtyZk_kUQq-0pSxkwUTCvnMmUJ0Ok0fuT_36DKzEXg412wJhsdF2VRnnGdx84PldYbm2S2BXxu1krVeVQeu33hdFIQvyiDzrU3GXC5pYv_bhe7Rq5r3a7F5gTc8C8rPRrXr2o01IuhfIDvY7dRigYHJkUtNa1r6aweOgEOGj7TWJB3wkResQz1aIAHrgSQr2NczXX4Ry0Mh2YePX92vVWc8klT6YlYPRm3Ha-YeQgeZc4mltdBZe9xbQO4YG-opLpaP15ivgIk8SG6w3z70hF017thGq4qYeK4EN2AO0i2GqVHOu79nXd7j9LPwS1abeDCrQzXLBzHhxgUy7w5nk0fiKjbtkFkRfwGL8xuDBpz91mcAREikyIoxq7ZHwZ1Zxkw09vaZEIGOhvXifmj_mNpK6xsoOZ3CmuDsT7MLENzZG8iNMRbcIoOH-Z6RccbnuUBC7utxpBY_2jb9-NsTCqNzjyIr0w5bpdhxAxDZRcO2fJ7PljuI2ppY67xosPviMUrotTpHlhPMySppwVP1ERiQL941VdMIsuPgQy1MaYOp_ZqJTmw9bRaDPVwt_5nGB9jqgrpAaJ-ZB73lMY0AsWzRed9kmFoQcH6W49ZmkqdjZEbhNqarlB1iRpbiN2xO_xauvnG4akRedRPEnr7I1OusEVwfEqthwFBqxBa__AATw1oqt77n89MI46vcUF_VIDjOldZ2cagQsLiSzu3aRk6q1PMs1HJhlXn1d_7KwHmj0dB3vxRuBY6jryOwBpRKrePhmzYi1x5_kMcnylOClNmFYPYH2-j9mj64gGTd8xqsQZGgFCSWZdCoh1lFa3e6P1GFFCDCy8ZPpviXr9YRTdF50DHk4KF_6UGXBU-m95_UVwCKUs8Z7_FQXJ-Q4QzZrwPefdWrH1ZqjOjRTTXzGE-LH5AGnXzkvfFayErNN9eEBn4N8DuRIqLuqD8kFJBWRCUdUEW7bOoTUZ_7BWZMiKB9-P-2MxOi03dudcEQt7CKBf0VCZrtkXuda5TrL6gz9UrBhedE9FZ6qrdKKbkARbtNa0GLl3vN9cNE0eHECT9F4NnbKCU1P4uuZRzgF_lFNn84NhM1nazEDBbaK8rsJUCN9hbWgon1NdF23bN7w8DfF3TJikHt-Hwiw6ZzCsHKYADD1d6wckPwC-yBYDnj_d503dyrczG7M7TRSoTsbmgXPFPc8iJr3GCARF1KX8bhiinjR9oFSv1ty2z7Q9Q6KwmsOWst7FN0tuvfLtGO2psbycGKuQIkQXOJBQDKEAhxkO3BxtCXMrIuQYTNPb_xiydI7tI2ZGoWQzE4ahMEO-nN2_hXtVmYJhgoW158yvKKjXbkhezZSCJq8DJI4Lruhbi9sKG5dgWOvJJgrcB7B1zXrmiuMOeV3kSyd9F79xsTcNlNtxdN-oqgMB96FQHHICunENKQGi1v4Zhw0Hf"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2411,
+              "completion_tokens": 622,
+              "total_tokens": 3033,
+              "completion_tokens_details": {
+                "reasoning_tokens": 576
+              }
+            }
+          }
+        },
+        "score": 0.3333333333333333,
+        "ground_truth": {
+          "diagnosis": "Neurofibromatosis type 1",
+          "assay": "whole genome sequencing",
+          "tumorType": "Malignant Peripheral Nerve Sheath Tumor"
+        },
+        "token_usage": {
+          "input_tokens": 2411,
+          "output_tokens": 622,
+          "total_tokens": 3033
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 3,
+        "input": {
+          "diagnosis": "neurocutaneous syndrome",
+          "assay": "spectroscopy",
+          "tumorType": "unknown"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"diagnosis\": \"Unknown\",\n  \"assay\": \"magnetic resonance spectroscopy\",\n  \"tumorType\": \"Unknown\"\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 2399,
+            "outputTokens": 740,
+            "totalTokens": 3139
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584377-4MnvJnWWvMGKjQJIk2BC",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584377,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"diagnosis\": \"Unknown\",\n  \"assay\": \"magnetic resonance spectroscopy\",\n  \"tumorType\": \"Unknown\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Narrowing diagnosis terms**\n\nI need to replace broad synonyms with specific terms from the schema. For example, \"neurocutaneous syndrome\" isn\u2019t in the enum, and I have to choose something like \"Neurofibromatosis type 1\" if that fits. However, if I can\u2019t determine a more specific diagnosis, maybe I should go with \"Unknown.\" I want to ensure I'm using exact terminology values, and I see entries for various assays like \"FTIR spectroscopy\" too. It\u2019s just tricky to map these correctly!**Choosing spectroscopy terms**\n\nI\u2019m trying to decide between \"FTIR spectroscopy\" and \"magnetic resonance spectroscopy.\" While magnetic resonance spectroscopy is common in medical imaging, I'm not sure which is better here. I see that \"unknown\" is an option for TumorType, so I can map it to \"Unknown\" if details are lacking. Since \"spectroscopy\" is broad, it feels prudent to choose controlled values, but I need to be careful. I wonder if \"magnetic resonance spectroscopy\" might still be the safest option for tumor studies.**Mapping controlled terminology**\n\nI need to be precise with terminology and follow the instructions closely. For diagnosis, I can map \"neurocutaneous syndrome\" to \"Unknown,\" but I could also consider \"Neurofibromatosis type 1,\" as it often relates to NF1. However, that feels like a risky assumption. I think a conservative approach is better, using \"Unknown\" for ambiguous terms. For assays, \"FTIR spectroscopy\" could fit, but \"magnetic resonance spectroscopy\" is more common in tumor settings. Given the lack of context, \"Unknown\" might be the safest choice overall.**Finalizing assay choices**\n\nI'm deciding on the assay value. Should I choose \"FTIR spectroscopy\"? I'm not entirely convinced it's better than \"magnetic resonance spectroscopy,\" which is commonly used in medical imaging. I think I'll go with \"magnetic resonance spectroscopy\" for this case. So, my final JSON will look like this:\n\n{\n \"diagnosis\": \"Unknown\",\n \"assay\": \"magnetic resonance spectroscopy\",\n \"tumorType\": \"Unknown\"\n}\n\nI just need to ensure the capitalization matches the exact requirements of the enum. Alright, I\u2019m done!",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "**Narrowing diagnosis terms**\n\nI need to replace broad synonyms with specific terms from the schema. For example, \"neurocutaneous syndrome\" isn\u2019t in the enum, and I have to choose something like \"Neurofibromatosis type 1\" if that fits. However, if I can\u2019t determine a more specific diagnosis, maybe I should go with \"Unknown.\" I want to ensure I'm using exact terminology values, and I see entries for various assays like \"FTIR spectroscopy\" too. It\u2019s just tricky to map these correctly!**Choosing spectroscopy terms**\n\nI\u2019m trying to decide between \"FTIR spectroscopy\" and \"magnetic resonance spectroscopy.\" While magnetic resonance spectroscopy is common in medical imaging, I'm not sure which is better here. I see that \"unknown\" is an option for TumorType, so I can map it to \"Unknown\" if details are lacking. Since \"spectroscopy\" is broad, it feels prudent to choose controlled values, but I need to be careful. I wonder if \"magnetic resonance spectroscopy\" might still be the safest option for tumor studies.**Mapping controlled terminology**\n\nI need to be precise with terminology and follow the instructions closely. For diagnosis, I can map \"neurocutaneous syndrome\" to \"Unknown,\" but I could also consider \"Neurofibromatosis type 1,\" as it often relates to NF1. However, that feels like a risky assumption. I think a conservative approach is better, using \"Unknown\" for ambiguous terms. For assays, \"FTIR spectroscopy\" could fit, but \"magnetic resonance spectroscopy\" is more common in tumor settings. Given the lack of context, \"Unknown\" might be the safest choice overall.**Finalizing assay choices**\n\nI'm deciding on the assay value. Should I choose \"FTIR spectroscopy\"? I'm not entirely convinced it's better than \"magnetic resonance spectroscopy,\" which is commonly used in medical imaging. I think I'll go with \"magnetic resonance spectroscopy\" for this case. So, my final JSON will look like this:\n\n{\n \"diagnosis\": \"Unknown\",\n \"assay\": \"magnetic resonance spectroscopy\",\n \"tumorType\": \"Unknown\"\n}\n\nI just need to ensure the capitalization matches the exact requirements of the enum. Alright, I\u2019m done!"
+                    },
+                    {
+                      "id": "rs_0df002897c40f82f01691e297a37088197aa0e58a0c34bf96e",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHimJBIK5eNq8XaTJ6yLj3-f0nrAtemKs3bi0bPOtG6x8IcpQlS2mcsbeuot1EnPcgMvyS9MmFvGkqDzFavnJPjYnJbkc-eb691hoBUk5zCz-EJLAUIGvcvRr3oCdk0HH56fEL18atGI01fkVho_qGQ9oZonRnVjWQ8F9SHBFGbbeGhiSOfn2r9Va8ZhfHEmjToD6hP4iMJeTbF3GoyduOvUdfxCUuIZjHg4by9-tyg64EGM46854r7S9IRCy42F-C5Ffa6j1ciLnjK4IR9Tz5_celJhR1cAJNpfEsf1HjSvnGu1wAWYpE90MmkYRpho2mDiGSRDP-jNWqZAE0p6bcSz1Hyzx8Ju04J_WNyndHyx0RbS7fDmNmn1FDWQ7NtV05qdjh3Yn-urMuNQ-mGmw5W26Aj1LSbzXHxXWLeUu9yXIHs64aFQrTnQEF6rgnpYlx-KgjhJ1SkIm0p9Xb2yR1nfqzbiiovDmpEqxFPWb_ECPXqabz0qPjzY4mIYT3Uot10Q5drJ68mcgJlaQ1QCezI9zbpR8HMYYSHTfIwqrND77XXoBSRwXtt4_BxhVwOcZ-rJcoEnIe2rGvbIb2YojgnrOettpAVDwC-T0AA94AVAuM8I9Y8u4Y03SBhlrTdpVGdev3ZrJICfuF179HaxYYC6bRFQQl51fFLucmaqYOtY1WUmzOGdDOEddFZ1C2PMx4CVKhI6uluznVniwHf_-VdBFZpOIMmm-ET3mf01kfw1uI0liSBF5pgeGfwT0UwvywTTVEn6ZW0etAynGR5O0qo_A_E4--nrxfYEci4EHFoa3ulUNvPDg9jgGxbWQfwICO9qTJDAuQ-hzclq0ALDGP50wjxxhaCkups2QZCgHYJ0ck4gU0DRzkgu5al9D2xL6_2N9LxL8YKHNdziRyPQ07gdVDA6OuI-X6n7NapEqa5Ut27zu02ZzdfrLWU3jHDsc57IL7jok9NkDsw7df9A_e_0d2Q6dOIlHkEU_cN06rfa7FX84oWBOh77FMfc8gTpskhH021Ga7logzX4EzTwaz-Rm6o3u-jCsyqIzYsDIjZ79Qf2bMJSW4v3_ItVKps5kAxladCUhtmZWHe7Jqz6O_aucEVE2KRepXezEyADOheumUmPlMfqe_QFXl3R7QeyS3-K2o7MT7qJhWbw2FWG8K1m1j2rYXeYAFqsgQ4P1VCgg6vEMjvj6fNX0cK9xF_2h0WOKhsFi6K1JtvELPcV9mjSPkoD-GkKlCU9hg2zeMnfcuA7S6qk0DAdVn166TNZ5kN8m2PjlQ7rB8b8EZWjlteKXDSSehkaUAmnxpY_t0jL5Pa8O0Y7CEzDWcb7BW-7Zy4baoH90L7pHuFCoElenMVCmLuDCcvlVg8IOzuUtDYmFMu1Usk2ALdkUg2b468Wc7ePhwTPc6uRH4biN9GQnpH7P7ZsVtLj-gdbKEm382eppTgB8AhUajiDxZn4RuDuB_23VOr-PKo3sVJqW9AW0FgUIPOTA-x5LG-5M8rRJm8Cox4kKzNBHBDT9uEgt2fhG-JxunJ0KDajnOK8ZIKYuUXlk-mClQuOkLGI81nluJ-PwCCrX-ezAMWSnUJOfEVTytudRKErtcQo-hhcFFjFJH4kDW0pz32Q7ibD2NSvHhxQVSVVAG55wtH8WiOXBjuSUWPtuyFpLodXLGqAGeBv4oWZ34G_gS0PRts3ktMIV2k8n6QvFmqjUSzrCGtKyUlnWtO-deotTpnU2Zin-AcEBpqwcJLMlqw5TWHdvz8Wqj0GSFQgjFJlUxjIjaA0M_W_TlzI3-iDLuq0iDzNliyjjb6uyCOG2Eie81UMk8j-kHrvt4QV9TynIJdeNkJcL3AK3pQaMaZjE_YK5lX7h9wYBQen4ewuA_XUWCKdm-5VGfUeLX4Su0HSRr7B90ahGK-g08z5KIvzgZCh7hTg2RBdlsnvca8pblYqvfg2KxpQy_ZPnKyCNSOUC-fLjNE2EVbxdT99LMiB88eo7AXkxhh9cb5LbN9lHws-BCLBlqABCt3mYN0VuZ3oH6_XUZPhJqVdQz6rsowmVP3Jd9uilThgnY2L_1yzTG4DkI0WXz09VZcTSM_JOCRmMHJeyJOKTm1tkPm6qJq62186ejAdUxheP7HIpsXUbyoQHsKpuT60mMwqVk5797TQ0bhmtpaVYq3kSEElSuN55t8H6rhmPlhzkPBRbEhJhldb2D7_-FhlBd0wjX5-f__vwl6ahzFmzdJy4sUJHZH6_e9sRF-oXe8Ez94DW7r1uGlQxLCLzWW5w8dXygMAyhsrC3HqJVMud_DKrdNlECiJugc0pAGvGIhXvYcqpXzFvMoRJlHlFaz94UXgvDPXUQVQgcHYKmc4wqQIEFrjG2PabsAqzkv2lPC_Qh0HIqBbSxy_U0djcDo6NyqNj66osapjMl7CDMlz-a_7a1l_z0Z5Vdk5MBl4zxgDcodoFiVbMZL8ftxI5phJPLqkflL3HrdnGMEsShRiBMS6Ql0Idz8FdPXXQoIgV10RO8SKlMxfoOtXl3urNpB52BunAyBhpmXeSzjl7zVbsxu4aLJtEcIHUt-XnUEIzAxvcRFrJGKFxaqQRuDOufTBnH7eFWhQR8w6rC2Gn-Zji2ZGxz6IdBltXjrh1QOaXZhGjbfycfr1omwNBxkNy8pFFCZJyJckTaf1cMbYQQCvJNAOfyv17cpAl45Hq6959fZh9JKy4Nt7ZLi9rdVtsMpWOvyJedAVT9J4_1pTRo32kuypErDPHUOUTONoIMfUv2xqsTHlJVawk4yM9VEPm1wZW25K1JludloWLcUWFZahaXYsxo3ta1I-XbYvgmBEoB6dsQF8bj3gx7JpvqmzKM9s05KZeQRRlc8jzRoPQB-meMsLP2_pOn22ub3Gv_jBRF7yf5p8wTEpWhdIIex066V9ZsETibqJaOFYI6K6WM0w-S7brV_S8QnaxRIgaZUHquVSEGwZ8c6tbY21_9ifKygdhU2ee9WzIgqdZYiW4EnGW8w3CyZTmH6fywhNwVHtuAd5AaV9P8KWQCLe52U2xJCb-GfrGD5N_Nj7OJO56HOxrG6dwmb0WW4H-m3k5NRTS5dp6P_RDiDi3DV2WosCcojQfZ8-Vvmo8NCnCoi0oAqp7MA_Er8E1jxvJUjJ-MiH0Hf3gd_UF66mkTslEBN3SheinUh6GkrCLLnVvSvehjghs9QVutEPyG9R-w14dOha1MfDr4iXXVgK0CifAISwBztk509Mc-ra9sqiT4Do_PXXLrDnc2Z2d9PnO60lSeNwi2AnNqo-fdMrXSNwnu6MOtLhoGTG4gi0eHYNjWNCnmHBbFEYScKY769xiowQZej6XH43icjGfAbk8T81fzhbmlvf9Vwm50CNoyyqs4aqHRwpN8JmPJmbhtnBYrH4Tmh0dN2ZpmZyVdgsoxtS9VynQwNWmPwE2KpNDDpWmHrCnbyOkpKnqab04t_gudIv92S7YjqI1XyvlFXIUu0z_sMs-5WMSFFP22kMQGXwXUKTMTe_Q3mPHDPGFBK_B-YCaE8J4xQDYQ9z3q7RtIfhKprJe42efs70ScnmKTM1Y6b1UdnV_n45BEMDYPjo4ibpgDPqn_xMZ-w6EH4m_y2h_IXvjwooRxllcM7f_FSgDMke2AiWpJu-gZIbhOahdDAJdqrWKUt-lYgmNhXuh6baqiAIIiA_Bt8vQLnx-27F9sqyDxdll5ZIXefbGsuTJw66MxNyLR1suXV7f1nJLqTQUtk9G7DokNo99xXa4FY11PfMXugHJx6COX1TqXufI_UsVNoOK43Wn3l81jp9yqT0khrwE8O80ho8aC2btqwSjgZ4ViE8UozPFEqcJqdWH6odHUqouNI7_RPMbSMuBIBRVqQuKcU2WAPSQprisYqYfougWr9OfwZe4KjP0yffQXBduyn8HDO4oeQ5ArlVZOygpaH_dnGvobCsiFKwCoqwp-xmsbuIBAu3dBqIc65QLemNNzEehEW03WjmIT2LMpVABaPjzvFhdrYRt6YntpT4gOye7OwWspq5tGP7aTV6cCl2wSOugZd_yVB4R-YG-te_kbsmBaMR4ouPV6p9u6n2g2lID70tkXD7tApZaZjcBYQC8pYJl3s0TOmg-v-Z5B6mjB3F3moca7zhbIOa1UIv5TuqtbZYPmYokBeRdBuG0Yzv-BK_dejVJRlWpFruWlowqPP6w_zoHTevlFP4In5bRa2v2aApHOgdlV6CSfmKHeSCCMSaE5ceYVgjYpOqbeTt3JZ4n_QTjZ7UrIZ315cwwYAoQrYTYCJTb3T-6yE2PlSNTwUSuIYRRvnNI2cGXlV2SswGTaVIly53ECoYT9qPcMSFE9OQWrr9UDr6uzof12pU018fu3ZfVcnjyoNQdl8azVoF044y6xBXc31tu9QLIevvfEItPv9Dj9OnLCmFO016mimkhOqcNciwI9wEJEtRuPLLmugLtqIdwfervfOK3j8F9mEXpCHhXbz4OK9pnH80DPLTLElNsjvrqSqzCTzC5o3xp_hT8meoq3vtMkvUw3_VHFsmVuRltRoW-YH1iZlkDDtXmEptP9DgMp3MhwrkDye63bpz_3PXL5-U5QwdsxGCHHbU3-SYUSd8LL_GYvegMfL7aBpW8-XRdph7DjnTInntmTNhxExB2hr80gv-cv8HGYWFT2Rf1n-5FMDbyD24KA163zrCRz_ufsOE3WxpFxJtbq5mZI6VQpVlfYImfvpdlxtdZZcM3LZ1pAClEP1M4F5EWuKDHdTlr5hdeNKPOv6a2u5yEt5tcQN5VauguCZ1vIofQv40KBVhKodSZlFRT2PCWfsvTjkLzHIf5a9QW8QJ_ms9Q3o2CaNhu5Hp_cFZyphgBqOkbruZeTODOjSp7AoFqrbQzQzklRDncBPYXzA5qkEx7f8XGiM6dcpl7bAUba6MBXNmQthVGmzqhYupoddS5fFITuz5YOfq96GHCWGUttnNs5NEwvc77-yJdxH8epP4jhR6pLeJDlsc7qdRDXJ0nQ7CIcDJHzgXfGPaUGKCDxQHpsuipkM8mpo_wCswCLc0o7jEZtAGWJq2c_0O1oQovQbmrisdxj2HCgOKtGhynYz7zeAfSIqvOgXGlEfWS1eWGFY0S30X3PIDpq4Zo4fgDE_UWSHHFz_DvJEN6YsLjr-Dj4Vnsg7NZWiNbGkW2ZNYsCFANYRM0-PluHAPEIFHYD25DdxRItkqB7wq13aPaSzZPUy_KvT5W1aoF8t9RUBC8BJlPrg6bjbDWZWD43_SlHR-HlnNLPWWyUGKOgJbK00P9o-C4tmww-rqi8cJxSxsJMfEb3v4cZ44oFmXTEhrpstWl_rCA9ZXuue6ulQHI3NCPS4ER4tZAKTB35p_3yFjSfSD01h3lixbWl9xWGyfPJEGboX7_LmrY0iz-YL0IHTkFceLwErR04oV27P1mkSmldiWlDn7_ltbxcuKAM9U2dqd-VZaF1gfAYQ537iFZNcJZ1uc0-GoAmdOqq9rgHN-ZQJCFn-F38ldXEZlnsH7Szgr6wVSQUrmyg_aIGBYhAnHsG1mFNhtLF5ZPTcPlZ_pyqYEV5X0bpj6zOWZIY8VxnnU9pdEMvoBYT8F2T6j_780k0to8yuMN3mbfbbxCmNc-9rUid41sGncoUfSmxdjlaOsYrV9Lt26V2r_ZCQeS74bXDiaPLsypBO27EM_94mpj-U8K9kQJ1ehrql7g5E_g51NLS35ZZ6vxJeBxQpQC3zIjskr1-_s="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2399,
+              "completion_tokens": 740,
+              "total_tokens": 3139,
+              "completion_tokens_details": {
+                "reasoning_tokens": 704
+              }
+            }
+          }
+        },
+        "score": 0.3333333333333333,
+        "ground_truth": {
+          "diagnosis": "Neurofibromatosis type 1",
+          "assay": "conventional MRI",
+          "tumorType": "Unknown"
+        },
+        "token_usage": {
+          "input_tokens": 2399,
+          "output_tokens": 740,
+          "total_tokens": 3139
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 4,
+        "input": {
+          "diagnosis": "Not Applicable",
+          "assay": "immunoassay",
+          "tumorType": "neurofibroma"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"diagnosis\": \"Not Applicable\",\n  \"assay\": \"immunoassay\",\n  \"tumorType\": \"Neurofibroma\"\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 2403,
+            "outputTokens": 233,
+            "totalTokens": 2636
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584393-er5v34s8DN5BpPTdOuxj",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584393,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"diagnosis\": \"Not Applicable\",\n  \"assay\": \"immunoassay\",\n  \"tumorType\": \"Neurofibroma\"\n}",
+                  "refusal": null,
+                  "reasoning": null,
+                  "reasoning_details": [
+                    {
+                      "id": "rs_08116c9b55f423b901691e298a1d0c8193bcec8f8f3b95021f",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHimNoTcJWcLABK3rJcZ4EJt53xFnbXhs_-Qrw3Kv6XMAnbruFfZzI20FB_yR1S6IwZn4eHQvgE-cyOkX2CM55R2mZ4ngFwkhYTwDOg3iMS3pcPREq9sLEU6UD8pkZtTqMccUEpbjDE_W-4YwkM3No6DLAYrcdI-sdhJvsLlY7Igc-A-JCq5H4SHtfz43K0H3l458Yh0KWnB23JjEQP6rjzgzcjYOA0v5CY5E2dkOOw3N2bH6pZMChdbBznwDGErBBAZLIMwKJnvcMlZloCR_Yl4zCL2jL7gZISoaUne3yEvFBbWoHamPg4brtVeyhRqDjsTZtvmWtDC4ShN6E7BrDlK8qNxsHqsFw6S5RT57Fj6QRpbK9islTIY9G0SwPHDabXxKCANc5bL6K_IXGyYxi0Cr7yuOAO1OMGGCBtBKEIYBkyiTIJNRyC_pPTt1HIhanFEClDMORPJ51vBkXNmhd0_pviC4ScVXg3RvOSNVrT5lZKPHC5gJ8MamvEs5XikAxLL6KSg7VnGCcsxDYW1dhGL4q9Fq1Q_si16PLPlksyXwU7SpMyPBfdzxHziVboVyKhmSGPGLdcIMWsbIl2H4ItjPfLvD_DRAkiByuPdLgEFr_Xtk9n5hyILundqc2pNbWs19AV9cbAzveW1yH5APZ6GAGSQrNIrS6qPRKIsY2apxPD3Qu2D1U6zmx60VIBBluP9OAXYi8A8o5tZGxChIpeylFF1Hvax2PTIiPMqdiGZJRpqkjVeQvHwZPU91blr6CANUdA7A-axpHiLkrf6-Adw4pS0bl6-oZMNyrmebn5WQ16_Qmm10EeQapGHUHDW9jH5RYpa50RqM4lA4SiViyO4k8c2pdZs94HW9vcNupB2GMrc8IX9Z3kFst5g-yHZJrNz3tN4QVbkWJCVbqwj_y38zX92Dc45Nja1MjMt5f9OmLORqvN3aQcFT1n9CV0Wgsi40xcmfcDD6q_BU_YkiQ5Qv9C3biReJopXYJXNZhAxTfR1Iq_Wx7FUwTeWdD7hvOGGTQAtnzVji9TDcWN0hDJCxNQt8TFszk0cfQQv9emKgzQp2-s2Q3tGGllUYJCRf-n4O7czhX3J8SkPnoOI7a4-edONIBsVPCD6gHPCzZd38po-yGczXHnxT118IkSCRT21RWU0BnYFwFgaZZCD1K8_IVYNHajZkvaAPWvFf6ReXK0Dc-FtuhhyPXBswfoh04NwKRnVh_EltRPo6Dy8qMG-znMSt-iijVRqbo8n9uWwgCipfEYVbMsKnxODQUZvrGyj_kpFifSwIn2B1dbf3jzCdJfCMPesQYL3V001OMCAyp7yZX1WkXs6m06vgsCDcHYnSX1PuG-260zjqTr9-WRq242yaSMnwnTJUEWnH-sC74Xt7OOKSMCDSESICULmc2G2N_UvainFJuPPYQ17ejukE-VbxuSgz2bdxwLKbdkUO6wjPEwelxMR3wnlnThLR90DygE83w_uFKutvvHJmYploKdPJGIESg35mWoaJzeVTuuyYweRNdD0UExq9d0nQICscBME23YOPx4aP1w3rVdNNZVpZzGteehf1miTuonucoLj6rPT2a2DwG5pI0rtGMyIKU8S5rd-TAX9hKuNfXZnPz2PQpoufhG-GriBL5HKb4Zed9z69zXuCfATQwlWxlldsLZXLplW6REmsV_XQkZc-YTWExHN07o5EWx31ylRRVo1zQ7pEmBD7chhqY9B1wr1_JDJqig6LtIJogKmk9bYFYTmkM1S9PJtxuUWrVSji7gsdfiZl82dFXNzCJBTcU50bjt9gkPeluiJESKYkYmThXr1OpFX5feDEOeKzLdH3R2REZaShFCG1SYQk057juDRWZbVboigLpCdt8XeM7qUVt-GM8zDG0T1AIVnzqCby_lJftudi-4m9uY8CDxiv9Xekh-vBuokq6l_uTMJ7NTBK26B5AZ5SkUJ7r6YxvTsPop80lh4kAXwnu87KcZkkdLXrUhDKu9pnXu-tvpuAk0AjCxxrBPiVujgHFYCb7wbnwM78GXMsh6MuVk2SWPpJmIVBTLvWmMVt5yameNcO3lJYO6Vtg9hvXueqM8jEHZd8QEo="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2403,
+              "completion_tokens": 233,
+              "total_tokens": 2636,
+              "completion_tokens_details": {
+                "reasoning_tokens": 192
+              }
+            }
+          }
+        },
+        "score": 0.3333333333333333,
+        "ground_truth": {
+          "diagnosis": "Not Applicable",
+          "assay": "immunohistochemistry",
+          "tumorType": "Cutaneous Neurofibroma"
+        },
+        "token_usage": {
+          "input_tokens": 2403,
+          "output_tokens": 233,
+          "total_tokens": 2636
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 5,
+        "input": {
+          "diagnosis": "neurofibromatosis",
+          "assay": "plate based reporter assay",
+          "tumorType": "benign neurofibroma"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"high content screen\",\n  \"tumorType\": \"Neurofibroma\"\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 2407,
+            "outputTokens": 814,
+            "totalTokens": 3221
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584397-iWJYFqaFrAT10S9Wkgiz",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584397,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"high content screen\",\n  \"tumorType\": \"Neurofibroma\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Mapping diagnosis to schema values**\n\nI need to establish broad synonyms for specific controlled values. For example, the diagnosis \"neurofibromatosis\" likely corresponds to \"Neurofibromatosis type 1,\" but it could also refer to NF1 or NF2. The default is typically NF1. Additionally, for tumor types like \"benign neurofibroma,\" I'll likely map it to \"Neurofibroma.\" As for the assay \"plate based reporter assay,\" I need to find a match in the schema. It might relate to \"FLIPR high-throughput cellular screening,\" given it's a plate-based fluorescence assay.**Narrowing down assay terminology**\n\nI need to focus on mapping broad synonyms to exact values. For the term \"reporter assay,\" it's often linked to luciferase, which can be measured using plate readers that provide \"2D AlamarBlue absorbance\" or \"2D AlamarBlue fluorescence.\" \n\nIt seems that \"plate-based reporter assay\" could relate to \"FLIPR high-throughput cellular screening,\" which is a fluorescence imaging tool typically used for calcium flux rather than just reporting. Another option might be \"high content screen,\" but since the user didn't specify imaging, I'll stick with the closest match, favoring luciferase readings for greater specificity.**Choosing specific assay terminology**\n\nI need to determine which term is more specific: \"FLIPR\" is a specific instrument, while \"plate-based reporter assay\" isn't just limited to FLIPR. \"High content screen,\" though more general, is a suitable choice. The user wants me to narrow down synonyms, so I\u2019ll go with \"high content screen\" since it\u2019s an acceptable match.\n\nFor the diagnosis \"neurofibromatosis,\" it maps precisely to \"Neurofibromatosis type 1.\" The JSON structure should look like this:\n\n{\n \"diagnosis\": \"Neurofibromatosis type 1\",\n \"assay\": \"high content screen\",\n \"tumorType\": \"Neurofibroma\"\n}\n\nI'll ensure the capitalization and terms are correct per the schema. Time to produce the JSON!**Producing final JSON**\n\nI just need to finalize the JSON format. Here\u2019s what it looks like:\n\n{\n \"diagnosis\": \"Neurofibromatosis type 1\",\n \"assay\": \"high content screen\",\n \"tumorType\": \"Neurofibroma\"\n}\n\nI\u2019ll ensure everything is correctly spelled and formatted according to the schema requirements. Once that's confirmed, I can present it to the user. Let's go ahead and finalize this output!",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "**Mapping diagnosis to schema values**\n\nI need to establish broad synonyms for specific controlled values. For example, the diagnosis \"neurofibromatosis\" likely corresponds to \"Neurofibromatosis type 1,\" but it could also refer to NF1 or NF2. The default is typically NF1. Additionally, for tumor types like \"benign neurofibroma,\" I'll likely map it to \"Neurofibroma.\" As for the assay \"plate based reporter assay,\" I need to find a match in the schema. It might relate to \"FLIPR high-throughput cellular screening,\" given it's a plate-based fluorescence assay.**Narrowing down assay terminology**\n\nI need to focus on mapping broad synonyms to exact values. For the term \"reporter assay,\" it's often linked to luciferase, which can be measured using plate readers that provide \"2D AlamarBlue absorbance\" or \"2D AlamarBlue fluorescence.\" \n\nIt seems that \"plate-based reporter assay\" could relate to \"FLIPR high-throughput cellular screening,\" which is a fluorescence imaging tool typically used for calcium flux rather than just reporting. Another option might be \"high content screen,\" but since the user didn't specify imaging, I'll stick with the closest match, favoring luciferase readings for greater specificity.**Choosing specific assay terminology**\n\nI need to determine which term is more specific: \"FLIPR\" is a specific instrument, while \"plate-based reporter assay\" isn't just limited to FLIPR. \"High content screen,\" though more general, is a suitable choice. The user wants me to narrow down synonyms, so I\u2019ll go with \"high content screen\" since it\u2019s an acceptable match.\n\nFor the diagnosis \"neurofibromatosis,\" it maps precisely to \"Neurofibromatosis type 1.\" The JSON structure should look like this:\n\n{\n \"diagnosis\": \"Neurofibromatosis type 1\",\n \"assay\": \"high content screen\",\n \"tumorType\": \"Neurofibroma\"\n}\n\nI'll ensure the capitalization and terms are correct per the schema. Time to produce the JSON!**Producing final JSON**\n\nI just need to finalize the JSON format. Here\u2019s what it looks like:\n\n{\n \"diagnosis\": \"Neurofibromatosis type 1\",\n \"assay\": \"high content screen\",\n \"tumorType\": \"Neurofibroma\"\n}\n\nI\u2019ll ensure everything is correctly spelled and formatted according to the schema requirements. Once that's confirmed, I can present it to the user. Let's go ahead and finalize this output!"
+                    },
+                    {
+                      "id": "rs_0f0dc3f1997e1ad401691e298dfb788197a64a2c637f9c9175",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHimjEnkkgqppKCpggCzMN1eSSBuO8fIH0VYV5Bcs9fxjILQfafRJT7g4WGHgHtwnILuaPmNKlpjsDzu_YHu3xtGqFZG2Ko1uZaRb9p_8u_BZX_lMbxmADLf4UPqkgz8c6DXzHZj3KK4yo0lpWBHCWyOASwXvm6ILyeK_Yr-7dk3kuSnOEuaKP1R-PBuQxPNCALr0961MLTIgXf7mrfAUie4Ej7pgNVlVMzKd8-WjniwJFLtrBtbvJBmspcQl-Z3N8eY3S1D8V7BnlGItDmpAgBcsgroiumZL4p1iEwUqT9aLrxjHY9dMKXK6_p0ETnPdhS-VX0hiYvNeQpYZRzSYUwm5acjqTscNqC-PHHC0uvjdSMPQm6Wkd-BSboHClDHq1YphS_8K1s4QVKeyC7eUOksAUCZqkAvmMsfrqY6A0g1SwbSQAOvbmSwLl_NPHhzFrks-wSSZY_shycCe_cNXxMuyB3d6uXbNRiWVBwlXoL9YABX39eUL-LIUkLzQ-3G4VgKasDifhhCKlxWHq43MQ46tGb-hqpkfTE4plUgrfLnZuMrqApqSZ9RKqIp8JtLc21Ra5m2o0DAkZEkuV1lwD2mMKw5nJUuQc7skGEf0G2ky92xCWcY7lEdM_WoI7YlsEj36dc4NjFn-6s8L03DrL3KV4Tzptm-RMXH5-o1iJV4jhBc1HiPLAfCT7CTUqCH3DLHr4WaBITJ57PS3mLXNklVIygM4rC9POg3a_7DKG3uDRamZ_At6qxFTG2BO5fo-wZ8zHRpgEJ1BUBwYe2Z_gdnKnKiq9ehJ79LUIUeD1E8R_cZS61KjVzHXOeBln6q4zrN13tIG76-BdhVug6bXW0wPjsNzH9poinM0NskwfK7puLldRB0jrIHvuSCIaRwtFeL56gc0EuJQc7GjeK2n1qQcbiCrlKxQ5ttDuWRPqemP0UpOQVCi_nKUKRLBQOQ4r6WyyTds3z8HXUiveSo3xZD4yQhPlpKH3gWnB1S4NO0YVyzmfb2yn6yg62fW2pb8EAL509_VjN6yMkBqbzgUQ_N7NpqvzAK8XEqqhi2ftF6TM2CCE-1vdq6WochZeYO2ce9216YQMOEPERK0XdR-U3MAM_c5KAm74ixLEYd-vJLG5b47EfhqnH0h7P0HD82nU9WTib7zEpqKC9cc-m0SPRHk3ggj4lwEXVqpPIH14nYGrYLZCtckzIbd75IVhW8DJ21-WiqfvyTy3FRYp1vn2ELvy0sMdgAIj5ZiZMJdx2Nm-qpaBjMHSHrapsp7Tg0ttjhQ8M3JEdGC6oowR25N0-nmRNYnjKc77G2yLBBN_IljLkmC4ycXUDAWRCG9ozzmUtJurljH9scTJg8wJJ2PM1YgkchfZelJFGk2OFBSiS4DbFgR0WNFlmrZ6wrQONlurzOSfDlsTQC3hdOGnaHUJ_FD3rmXvrqpr1ae_Ch_ZEcC68ZoV-mBIbf7YEeurpKKkLBFOVYE3S0tP8qNHXha6y8AAiHo7KxZqatP18NXQ26be2FnTiWvCxRrZU4YwJDkryA0T9BRbg_p2PWpU1sGIJiF5ztHrMWVplAE-Wqvsy-VQY0i4EBHJ-HBFaNHywyuLKlbFxJVRXu-lG534eTl6yiGs8-1-S7kTTKFoqiUS9udB1Fo7cAx3QRMOA2OXiExGHHMqoHJfTJk_lsqtlVUkZy5RK77D5oyyyfPuHI_ZEBrl2nVutT2-vW_TuaUAKwdA6GRrrS0yGbnN9q1-MG9GzHvG-hgwV2GLx1jsGzHT1KVgItsTcSRqZPB-0wb9b3mno1P1wpFmahVH7DA7_1-l1DhjSKy74lj6pTa7Pz42wv_uk83Tlp6dWT1mKf9Fn5HqXCE-tPmTaGwSSHP9RU0CO_-vFt40dMW8sjQW6QIuOk8gs7s5BMoe8xSJ96oHUBovpBNdg6qQI6wrUDOsUj99JBfBpxaNO_gb502S3LErJB2WBM9QEMtTpcg9a_BeHslEOjNK0hCd3z_pWhiV7avyl61D8ON_aPIk-xcz0Zru6kf6zyODq642e7vobdLu19vazb8asdXIWrVBNuCMvcJOYscyrS5qJf5UJ4C5wW-CQg-iF-m7-EYXg8lr9Py6yQfoAMK2hk-MPRIjgBtHPjcIYWRgluZJ2wMZYp5YjIF-uR8DpQdePZQe5oIkT-QJlUkgCzy-j9LRdiX77q3-rAxXE0clwXcsEazmsD1fQUBdLqDoQNyeaXiAdntPMXdNLL-TdV3A1H9Fr6T_FhMsTI7z9LNXOQD-jXLRuIyp8GdLT0pwmGWN6mSykoFusn0guGxHP24HinnVqrh0CCBwNqi8geF_4PS7svKCKqjtQmsd3M9H1NGFZNrs7FUd2MNz7dYOo1Vk3DsOri70S9XGYaywpaPPUEL8KOsIvatnRV22IMZtvhoB35aW244yHXt9bHaq_N7q7uOQnyhuAJeYaCqUnasLz59QhFReHIml-vHyX5g47SyYTYyOQXfwc94Br4M49aWz3ycHSAQzp5JfFoeUT6aC31ch4OcOJSGuQ2c-cGNRwrtfuBp8527tNNWIJtZ9G9Ou4_5P7aZqvgKog2Hi42yZcxLfB020_Bq3b6xd2ls58skQoy5pLDDN1ri-uQ-zBHaBDQ9q5bxGof_LGnZuLTz788u7hAft-PeCHXfl8gyMtNEHmUeUmYXg_RjSa6dP57YLAgV8MSyfktHLmspGr7O5lDxGCyptPEndMXtBO5BUS4QN7AKedQSvPyjN3qvX4CnMZZjFG5rKS3zLm0yqHOzuUsrpzlsfdc8is-HJyVdWm8b4oUSdlcUuqdEcxPdsgRJy-4zsJfhUxMvkrzOI7Ts0WDpIYufGZvdn8uRMs3sHSH0K-bkMfJbBYjDZbLIXaXfzgX3UXUsVyEDsNfsB_rJNW-AWP8uv4Mk3Xz9nk7dcrnPfERvLH7oF1SPi9s6Hgjv7omrwCUxt9LcGpC7KoIBYxryKsHtrqWCqmr9YCXaKHO1usDmnSiCV0kSkXVlofWCvFpZlsbEEAa8zKTgdvEMY_5TLBXJmynfAif1cqR2YuBBR4SoXYYdL-Hl_lEcV9ydr2YfEYJptjCwCfbzGQ2aCHOB9wqN5VXbiHVZlRld0oDiqgvu5Jutwr7gFdPJPXuAR3Hht-hcOwtmcApE76FY6N8CToZlJOLORcLpYvUvN-TICB7Ln5BqIPvlMWLgd4ZwhyXXfjkIkSmdnWGYWg0TzGDRopdc2W-DNl6TpoWf6W5WyRVZCYMkd0JMP1kntMY7s7TUNe7fpkRYb3DE2jyg7ZwkdKnArdB0qxWXpyCG0yG2gA386gYPF0zHnYaKAaaOOcQieIILOPnfUV548Dhi4O3SUii4cExrZJVBraEZEBnVXYBOzWFkjyHS0OANq7p9De6CFBVoLcR3qKoxaqyamD9g4EA14hNIO0QFKTIQMHNWNUkhzne9QaK4tOAC3SR8XQIwTVFT0KLMz4y8pisqyCs2DPbIeVhQo7RPP-I1N0Oup8bb3UnuuR6CiroBZJCO8w0uw_llAZpxowmp-2WrKRHLAdqW0GXaDn2wK43HpN4C99DQiN3dgvz8vaVkxoUNyDKtdvdueVMm-lT5VuaBIa6r0X54ezfEbI_OpkrCf3qusxxeXjOh_LPDbCYqBRnDC20r0sGnP0HM-hbnIQT90A2uGZzrggycB6nh2JewZSy06VG_ZgyKmtBXhO1ZEZPI_bO-nyX9IrG_3QGjRqB0ixx3He0CYHktvHg50iFSHPtv2G-THJPSlhKWBh0ZrzyHr5Dk9D6JCk4hlCyDy_v1Be_EKyVwcrWO_q0_thzbtRMX7cOkfUy8HP5QHHSDFKhiNipBVvSN7LhU9VbVw-nlJAamQPtYpR0KgCcxL1B9Dm_RoagkabWsxib6jaEf17hrnO2Tt-yaoi-E1hw08DGfWhNu2c6cvXt4N7cbqw0LIaaD_tK-_YNycwzwT4rAiaTIJHsWUC-mFImQ69ZJT5yZMpP12M2pSMbnZE18m_dbrcfVxUr0vVFqr56DbJXtc-neD1v539pMZ4SGC6zVv8xv800DiJUKPT5-eCxuhyzjWuUbII-fAWEpsgLVqtakbboNsvhGh94vA9cq5cBTT7ni2dwtrlZou-Owj8UPxpjQ-FRjrKnb939Qurjt3kQKQIo-loj8t1qBrQcmmj4CuRoihXIEQABA9aUjH7-b8YlU6XDQ_tiVnfLih8f8M1tgPdLjrKN6o8rE3KJInEDdtrxuOkPnT_luEGzq4nNFh2Dph_d_J3ghF398ypaxNCBxMvws5yjJkfZzOvIaFT-iGUen0gS63uxWmifvE5a8SPIeLDfVEUW3cg7fRAYHPSrjxBVPVBBXCyp9I6dY3S8liJn5UE5gUqWR7aeWDr2SNG4k1Qce6qmKxeL9wNFnN0DRGOQhDEu2bWZ7qZDYsNXxCgITB95kgeHWNeQg9znSwBdOzNKvIACXQ4Il103NZodReVaXCy4noGcmQYwYMC9A2k8blBwV7TO38LeOwH6jsbKm54DAVi4YymzYElqvWvJ0oQW6ab73LdWmTRaPBPzWd_rIE-7lKyHMTcxgHyRATusU5p0WKwBs9cA-WFXvDe6-VGhBDT0Nez8r7LJrSko8vPamXxSDYjeEgGWUA3VTeF2-R5WzghYR2YIBKqF4P4zvsYS8KTXzoxP_ShFHnR0rOvZy6MAL29J3RG29DaRN5wcOgk-4O1dty3h_EAut3cOnDkNnFk9vptyoRG_YK6kHTjKUH0ZBaDRcDEYZwoRImSSPqBPTPbanPMrkD2LKY681wjyStMAbnzqrZgWmNFZhIsIyHJwPMg1wQdqVQYOkyf38oZO5ZT1IYBD-HW0BpLD8nlFmdJ8kYZuo6cVx2ArOYWBJrSuN_wPgzO3Xj2WCNTd__gWFvAA3SeBpQFrQ3o6r7EPVcQP5sKpPQ7HEte8VjmOlmQCUbXXomzYX9xXU8H7mfDsc0Rbjd8FGdr7WFZhZMYL_HZts_LJF4iamrG8pN-sbCtXHYISjKLnf5fMqor27MYP1SdhsaC5zllwMjp-xmsElR0sRk-m15SrKr7ipfnEKWzVr4rFMceLr5zZFRHsPItTFhdB50XxlO_OKNdz0K633_3dbjca0Big7wUZ_bet0ZzDURX8i6f-jXrBHe3rR738uLb35UtxWvbpA7Mhcn_rvRIppfJTQ4Vz8-i37V4FRUQm1S0wfnbGKiG8P03wrMVj14SxUSrlw7qg43QXmYJhUFUmhWH6TcwJkkBfOVo3TNADNzo7TMjRswrhxLWrVVdFwslo25w4nonsWLZDdWOp5eJ45O16YLIRRTPX5OxtO_xqXKApRBeWpYypWry-UWhfQqEtoeGa60HZmUp8puAmnx2ZLcYkyIZZpQPbNWLMCOU1--TTcepIijXjF9erGtbk6AZlpZWp1UfqNqdQ1OaS3JzXQNWnZVc7hAKlAixjRLFwgFERRWN63ddp4RTyJc9Ta8yhUovRi-btDY14J-z5CwSWNDsec7b2XfroppauOGCOb9HPaMiuqvBDRo-Bv2EHmRquQKmT_V0akaIgYGAd_wje4z_LyxID25qDV-ubm2WeHiBFprnsTL96GacQCclhSCUmGf2s5i8THlKehp9Af"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2407,
+              "completion_tokens": 814,
+              "total_tokens": 3221,
+              "completion_tokens_details": {
+                "reasoning_tokens": 768
+              }
+            }
+          }
+        },
+        "score": 0.3333333333333333,
+        "ground_truth": {
+          "diagnosis": "Neurofibromatosis type 1",
+          "assay": "cell viability assay",
+          "tumorType": "Cutaneous Neurofibroma"
+        },
+        "token_usage": {
+          "input_tokens": 2407,
+          "output_tokens": 814,
+          "total_tokens": 3221
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 6,
+        "input": {
+          "diagnosis": "RASopathy",
+          "assay": "immunoassay",
+          "tumorType": "NFIB"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"diagnosis\": \"Noonan Syndrome\",\n  \"assay\": \"immunoassay\",\n  \"tumorType\": \"Unknown\"\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 2401,
+            "outputTokens": 807,
+            "totalTokens": 3208
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584419-IoADNvJRRInU4cx6JWE1",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584419,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"diagnosis\": \"Noonan Syndrome\",\n  \"assay\": \"immunoassay\",\n  \"tumorType\": \"Unknown\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Narrowing terminology**\n\nI need to replace broad synonyms with specific controlled terminology. For the diagnosis \"RASopathy,\" I should narrow it down to an enum value; likely \"Noonan Syndrome\" fits, but NF1, also a RASopathy, complicates things. Which term is more generic? The user wants to match terms appropriately based on context. For the tumorType \"NFIB,\" I'll find the correct enum match since NFIB is associated with specific tumors, and \"immunoassay\" fits perfectly as it already matches.**Choosing the correct diagnosis**\n\nI need to decide between \"Noonan Syndrome\" or \"Neurofibromatosis type 1\" for the diagnosis \"RASopathy.\" The input also includes the tumorType \"NFIB,\" which doesn't map well since NFIB refers to a transcription factor linked to tumors like pleomorphic adenoma and isn't a neurofibromatosis gene. It's tough to determine which term is more appropriate within context, but mapping to \"Noonan Syndrome\" seems better because it's a canonical term. The input might indicate an error, as \"NFIB\" could mistakenly refer to \"NF1B.\"**Mapping schema values**\n\nI need to ensure I'm using exact values from the schema. For the tumorType \"NFIB,\" I might map it to \"Unknown\" or \"tumor.\" Since \"NFIB\" is a broad gene rather than a tumor type, it needs to be narrowed down appropriately. \"Unknown\" is safer than using \"tumor\" because it doesn\u2019t apply. For the diagnosis, I'll choose \"Noonan Syndrome\" as it's commonly recognized as a RASopathy. The assay matches \"immunoassay\" exactly, making my final choices: diagnosis as \"Noonan Syndrome,\" assay as \"immunoassay,\" and tumorType as \"Unknown.\"**Producing JSON structure**\n\nI need to ensure the JSON structure matches the input exactly. I'll double-check that \"immunoassay\" exists in the assay enum, and yes, it does! The user has requested corrected metadata, so I'll focus on returning just the JSON output without additional explanations. Keeping it clear and straightforward is essential here, so I\u2019ll go ahead and output the corrected metadata strictly in JSON format. Let\u2019s do this!",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "**Narrowing terminology**\n\nI need to replace broad synonyms with specific controlled terminology. For the diagnosis \"RASopathy,\" I should narrow it down to an enum value; likely \"Noonan Syndrome\" fits, but NF1, also a RASopathy, complicates things. Which term is more generic? The user wants to match terms appropriately based on context. For the tumorType \"NFIB,\" I'll find the correct enum match since NFIB is associated with specific tumors, and \"immunoassay\" fits perfectly as it already matches.**Choosing the correct diagnosis**\n\nI need to decide between \"Noonan Syndrome\" or \"Neurofibromatosis type 1\" for the diagnosis \"RASopathy.\" The input also includes the tumorType \"NFIB,\" which doesn't map well since NFIB refers to a transcription factor linked to tumors like pleomorphic adenoma and isn't a neurofibromatosis gene. It's tough to determine which term is more appropriate within context, but mapping to \"Noonan Syndrome\" seems better because it's a canonical term. The input might indicate an error, as \"NFIB\" could mistakenly refer to \"NF1B.\"**Mapping schema values**\n\nI need to ensure I'm using exact values from the schema. For the tumorType \"NFIB,\" I might map it to \"Unknown\" or \"tumor.\" Since \"NFIB\" is a broad gene rather than a tumor type, it needs to be narrowed down appropriately. \"Unknown\" is safer than using \"tumor\" because it doesn\u2019t apply. For the diagnosis, I'll choose \"Noonan Syndrome\" as it's commonly recognized as a RASopathy. The assay matches \"immunoassay\" exactly, making my final choices: diagnosis as \"Noonan Syndrome,\" assay as \"immunoassay,\" and tumorType as \"Unknown.\"**Producing JSON structure**\n\nI need to ensure the JSON structure matches the input exactly. I'll double-check that \"immunoassay\" exists in the assay enum, and yes, it does! The user has requested corrected metadata, so I'll focus on returning just the JSON output without additional explanations. Keeping it clear and straightforward is essential here, so I\u2019ll go ahead and output the corrected metadata strictly in JSON format. Let\u2019s do this!"
+                    },
+                    {
+                      "id": "rs_04369680a9ba8e7e01691e29a3cac081939dbf7345a2115caf",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHimy4Ozv-6DXeZ0LtEJdubvpVkaIuHwI8A26Li4_-fN3llKl-ReksNzSa-t42-l5uarJY-PctKenD1PGgGUoJ6q5Pko8_SM5T9JEmeDVq66hR9jjqPHDGI4IUECZ2Qy00GthHrsRv_d3VzhpMr4ERGDtV-YlKgfF5isErmwNUZ2BVaKdprIgpmF2P8SYT4HgDnCw4ETh-PxKbl6bfx-S44_YiElzLbuUUfgJC5lFQLXQ4tigIw6faTGwHAmAjZfQAr1iSqdvebIHBH0M6AxP2CiKLtD1_iGny5c1d7iGmJjqOSCqjS3_2gAGz7N_OQADrxqw0RFyM-oIRoof2wr5glsdRQgaVeHwdDhbSA3D0m1xnypYj4fblRWwfvCx_4D2Mc-_iBDfupM8UC0FmBqzS2eYzklStxhxygawbTYPcPn_p1wuDTLRZ6r6S1p5mbStHHepNyxEOLOp1KpPxBiUyHpEwh2UlR9qJhNUbki3-7IGNUGbM1ogDySmmFQf10ezcE9jT6JiH9XeDRb-kp4W3fOHNlM2IAv0FLCJ-f0KbzhQ8GQELt-63cch6n5ODul9IOdEb6pxntEI-MCBDwTjqa8mtXWIaRNXDeXDaQWtuX4b4T3UtL87AiH8axRJRPR4mvOhD5Esf20W7cTRZwX4vtki5brIuA3rSuGoGZ585iT3m3Iuga348ALd0xPEsP9dI1IQy74D6rTjXa26fbxHjbYdkmGHbmC1d5NDeQBiSy1q2PrLZCQSx8G5wgWJuGn_3hzbfnqsrqJYP-oNaPjqujqz_JJACalkgFCC__zv6Ul2enru0DJxhDKZtdNSuEog9yLIeXOU16dCHQzqDLrrDyTgTTV6vuNvHKTSYiTqNkrCXZYR0koqBbKPIwoSyq_bGSO_BiTL1NHq7AxzKXX6IdRlpNwfpJN6IyX53oOItupb5GyHri4Jq4Rj6tFubuI_T7hzrkTVTcT6gi9I7qJXes93P6FP855y6heMwN_4nUaD-M19PKbk4cnjDg9rxF7DQfEIc0j9lEI6SD3cU6BxmWxx3hnsP9qQ4-9ka3iYkdUDSXsJzKRexK4vWZwFrm76gHG0G5f3xJ5CFf1-Wvb3bjnAS_jJWD1OIPfzsLw-sOLOR5PY7phQdNU03Yzrhdd0-i4bJZrOPeo3GasH1hGdEPzBThKCNIVwznPFZah0ucZzo3NYRbl2-QA6f5p0wAIKUQGyWoCvZin5HBiKqD-Q-KLF2EsMw92pQB6JeK_Yx_OvPBNxfdQ-qC5Yi1L1j-w0lA5tXB_FWMSfMQVJ3E3R4L7Wfh5FrJzs9Hlt7wxJErjKV7d2Xyg48I8yCLsPDUJ021LCOATzRrHlUZjdhIZRK7s2vwgK9nc74QHb9JuT_6W9z4E8lQVSGBAwvm0ysT3kZFea7XvMVeTVmJteMC43PC-FfP8qO-41fK3gGlZqziaWg8y9pQOAUr4zzt0dFsRJ21aluvDXQ10VPif4wdsV_wdbYOhA3tk2-Pu6ZgYTVBk_6fEDRPgY6uqEx7nFY0eFsvgebgXomOHP8-OtErYZZkVRL4f9b3aVpgGyvdJfkgDDh5lF7YaCjaLBupqOZwAxWEUqRCpmRo4yJN6cevQIT4PwnMY7Lc5imZLvLmbdKg6tX1wfjL-xgbefjEIOWHCsMZ35FyKncSfW_Hd4Ib4U3nyPoWeRWL5fNGuzB0-qzBl7B8ufRzbRdflyYDKbcvDc2gw58lGyOzUdCP0d1z37flwqpbj4BCL2csuVTOtRPOQISS6JuAB3S5bGqmRBtarEHUqRSWrrVI6449poVH5eydrGhrBmlwyqGdFdE7lLvuKXRs1VmvHNDbPVVLSTy9njcqFm83Ud-il59AM11R6rdWPXvMjWV_0ziXFUIucKgwfU4DlGTOIJNQaJD1NB4D9FsoRQickJ-Iyaznn5SuiCs8nCMMXpDP8s9vXwn0SsBzDL06V1Jbi1pLBRevGmrqjdVFzv22fqGAlJ4aUIinyfVl6mGH2jBaq1PouIL0XCjSRnnezbVKFtElWKxgNmbmnPMwuj__KOCcw4UNCZUfX6L2Fy4MdjOXsm4fX4SJ1jUYRUuMJ_cILkbasVzPAg299ocfXkAo7WOGwgpv5sUMiFVQw-08uzTkH5DCu1DIBHk2MdNBFWaOqsAtrGd3wKvLKpBONR_zl-7Yz2CwG7ig8NiLzaRWumJpoDjLBwrY4ox6qBVzw22zHr4MA6ggn9TGnPav4L4tHy9WBT2jYagbb420O6oVgOoDZlkUGT-2HU1Bc2Fz_vkpWeAZhCAiBpLqB9I-38XXj3Y32cK9fQbkLRnezQJmNfY5fhjPQ86ZNY5k1ID9r63AbclBcEJiQYFY89ixqXc_XtahflfKVp71xryel8z1xf5d6GgeO-n5wWUFxyUcIN6NubrguqknZbg92UjsINEvDwU7QofGt4c3lRRlMphNuQeO2im4oNWZnhR0AoMIVNX0LjkYl9hNFpAEUTV8Mt8jVtbczl3W5vO-lo-RmU061k7BAS8BuJmzGe5nQE6pPVZnTsynTEtuSFq8XOjJncnQ7CCpiu_3s77IQzD0efFJv3Vayxou2RK-a8XTZE5MDrR0I8CTR3QPb-rsz6Ym75vpnywOFRvSIENnL_eQOvLMRYX6ulR3w7oe-NvKi-FWVkqQ-FhNPvxCEoUSH-H3uMmQaI5UIPXlST53-1re84G7FnbPgjv4U-UTKBqQvpcD0v3rXTNBydm8qB9s7nUl2GPOd4Y9egxWZn9cZ9W1CZmJ44kjxsdzf8wLwPZp086UGr1Bh6rvTibCtviNHYGxljZwQUuoFEK8Aln2r0s_HjrALLqipBlcQTYF2X3GwO5w9jvLt9Tgl1QCn7iqtBdAMG-g5vOXWbQ-oDFKx0KqvbmPIgmp2FCs5qRIHwSxZccbqHMV9TBJmPHzVSpb2QIA4IrSJO0K2KieQC-mqj946MviLrQ1fyF9p0GimsCKUEMKMbXoS5zmvf9qTeVeQv-nvmEgL4TZYEZeDQswiNHDQhwUI6fC9GP2La6BqtUc7wXgSVZLLJSo00tldVDRjD5Hew551FOkK0XyS932ufTYUa6jSoZ6CpQpi4p9368lUoSxAMt5zUoqVvLmorFHDfMoD11GpbAJNsB3njnZFdtVK9NLLqTL1loXJv9h-J0Qzs9uoZMqwjJxi3-JlV53f7tHGhkTpFnPignWW9MCTNISDuHv1bkETBJbRuZHkNjF4tBnWrBaP48bcv6607cLSAN1qLWz34jQtWgx_bnhPUlsr_fTmJO84lwejiOhO99zz7mYLV3ZNPYNRBE2bv89Nk31cP25QKUni9Anopn0ZH06tcXrYWHEQ36bdA76sP90ij9-hEV2YNV9EZJ9xTSZhB7opuB816R0qepV_hhZgNUN0B2h9bfxpGOYYP1sHGalKyzoG7tuQ2jnvauzc-98G27Ku1Wc6hvMKhbsyz0vlbnc6buDwn0W07s0Sl_iugqdDcuCdsNhs9GPl9txYM5vYR58iAKF23tZkVb0reN40aDghtUkylt8l5tI5t-P4e7Zc-nwwIM-9mT4O8-s4rHwaHCC_qQaKK0RWL_euVkkgLbZ6_VCyUseIGrBAmgyKale8-i3DjPGssOwWiyHGcK0Agfir76S83Wheiojb9FtF1LNsoaIAbk0FqAnQvvEraYztn2PCNauf3tSDaI3TNojAIDzl3YZyOYW12qn9D8VKLEK9GRkIt7dGRRLagN9F2UysoH8MpXXHd2Wfk2p6v0iRURXdRzmVVDqFQwrTCduNOliSa-StjXqiGRzdvvd92DfS5EarGJe5z-_M2NuHGRIomrYPPwiJeGtzTv2FTyus6ALzBCg1dPJlVnAPP4PmWrymLbunkuHA5GzNnAJV7MtjlZCbA-8t0YceNs0eiF5g_a3hElwv25imN2Xv2O3jp19mVRkuyxXEQC-KeodeTC3zpUxT1sPUgLyo9oIdcrZtlQCaZ2boA4PYMwBHqLk_oZdD_nQN9d4e5FD1VCGW03AbBl8XUkIqg6K4nYKL4TwyMFUdxU_EvwgZBouncohJpswPR9Agg38sD5dtJqMSAxyt2RuGxwDRZyTXzUZfeNgWqlV-AZV6OwWcCZPc7IzVyijagE2_qadx5SR6iQW5B6XF1w_Zc2YsEKdG-Dm3GoL1epqsxVenWjln-qXuXL0ns10RNCJtQR7Y-OWzG6c6CAkwPOq9q0EVebG-GsnFSCWTBBSZwQDwTsaNcvSNhqZg6yZZTiqBTKHPdPnZuo2gDMPVUkJPONL2NiJ3Wl58-DXHq_8YhLhCCVsrilyu6UciPo6mTG0T1nEUCJqaBadT_QWp5MbwrmtJqeuVvQ7stvc9yO3Tz_vWAaZmidIirVY0EH37O72Mf6QfchC8vkTXNZhypZS1ZY9cVuGzIR6eFXe24B3cIZBQaA4PI7MlM7i17PtWKhuzV1HRJddPHPMj3i0AryB5l7LZaQb2hLNlhRtF48NFfiXZ_Tx_ra6_-vPoZR99b_YIp1cxeULvhzSOeQltIY5sd2DsX8wR1jrZ1ycaodJNkWfqFEYNUohuNU04onI5d0WAeq11JQS2y9IizeXZ6v4kvEOB-0GW_Mo0BCmVTPY20Zg2f4QXojc1k6_M_nLIxDQoQytGILuGn_SMogThB4dvmNi6GkWQqTg6lGWQ0XD737wUjRPXqMr62OluydKI2Zbd6hQGVgHo2j2dyTYbnJk3BSl3D_f0_z-TRp6IFSbVxelLMMfo5Ed2ijyKGP2dESYb_y4klIb8zz5fuKjq2FvCgoBHTqA4SyvNMcCaIw0jDA6xnMDC3MteWvb0obJDUOo7V-cSRb8cmgX5PeHbrIHRWQxZ1RTehgK7XzV_NnhQ1ZddGv1Vjd9UDeYigZnSMyKLWTRWX-OObqdGmf4nP8u-64u5O4SvKEHpCdCHjW2UGcKF7yKKA6EyuANQWAnA9wIv2m365JXb5oZ7fS-R-MIlAFRknvtziufPP250tELIIM8vf5-ZQVUEmklaCbi9y0GLG--wsGAq0jben7yTRuVbZIjFwTlEwaoHkm1Cnpd_9qNXZMOy3Ee6FpXLvFAiPcyg4yd13fPSDAYoC08TBOI8h2-f2AWwK5gbpOmTVAtFpgIg_eOJXQEU4-KtgCjDIzPaURL4uN8vEVZu9co4n4r0mW1oBk3SJSmq5vIwBqlZmkrTQ9FSeBSsRwKvnWSf0EKXSC3KwgrBfMf_oba3Vwik_go1Ymfr2hFXgEqUWMZm1s55nHhdYYidXjqkF5peeIoD1cPAhfxNHy2Z5xMM5Xr12PIlXLdYVi7fwN8SznfDTyPRXowzGJdGISafh9dGAMbM="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2401,
+              "completion_tokens": 807,
+              "total_tokens": 3208,
+              "completion_tokens_details": {
+                "reasoning_tokens": 768
+              }
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "diagnosis": "Neurofibromatosis type 1",
+          "assay": "immunocytochemistry",
+          "tumorType": "Cutaneous Neurofibroma"
+        },
+        "token_usage": {
+          "input_tokens": 2401,
+          "output_tokens": 807,
+          "total_tokens": 3208
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 7,
+        "input": {
+          "diagnosis": "NF",
+          "assay": "medical imaging",
+          "tumorType": "unknown"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"conventional MRI\",\n  \"tumorType\": \"Unknown\"\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 2396,
+            "outputTokens": 363,
+            "totalTokens": 2759
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584435-5tXtrTpOsha5wkfDD4If",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584435,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"diagnosis\": \"Neurofibromatosis type 1\",\n  \"assay\": \"conventional MRI\",\n  \"tumorType\": \"Unknown\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Formatting JSON data**\n\nI need to make sure I\u2019m selecting \"conventional MRI\" from a list, which is good. The TumorType should be capitalized as \"Unknown,\" matching the schema. I\u2019ll update that. The Diagnosis string \"Neurofibromatosis type 1\" needs to be exact, along with the Assay string \"conventional MRI.\" I\u2019ll set tumorType to \"Unknown.\" It\u2019s all about ensuring the JSON structure is consistent and follows the exact string requirements.",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "**Formatting JSON data**\n\nI need to make sure I\u2019m selecting \"conventional MRI\" from a list, which is good. The TumorType should be capitalized as \"Unknown,\" matching the schema. I\u2019ll update that. The Diagnosis string \"Neurofibromatosis type 1\" needs to be exact, along with the Assay string \"conventional MRI.\" I\u2019ll set tumorType to \"Unknown.\" It\u2019s all about ensuring the JSON structure is consistent and follows the exact string requirements."
+                    },
+                    {
+                      "id": "rs_0b0bbde6a61f37c301691e29b3acc08190ae4c7a3ab6bd56cf",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHim7HuJONf9YWKrwGdX5ZyF0HOSnG33EtMMbFKaShS8A9BhahqoooklTlpMAyWdhJ0NfmwGMBrD_SIo_H5-BZLBigdCxZ2QOsl4S-ZVwjbsCu-dCxgKPApIAh4Ly9_D1ozAhv9f_LAhFOFXNgdeZ7WF4GVrkRhOOmHpfJSfbiSG5rK0ccx6w5cqreY5ioDASvMAr3HUkePiIs5rN7S_qO8TLYxaDQDPnrnUyYHQtZXsLd28TMoYcgm-iThOig-pYERdm6wsd5yBiXG2XfMGQiZPmlNNddv4rSWJyL53glxEBm_iy7gPGhU0LVm7sSYK2yXG1bVJb47VWr3PF4-oJZOapfQxQ-evWg4tZuwuVCMo2LBmZ51ErylWZlFF_9M2MaL15rL4wXU5RQmFlvBSzonjjlfgSgp0r96Uc0sdWkdsaUixMyMSne_QewAcQyUvZ8o4Iz5aXrBMy8hZp4YkHbYFfG6mMYuagYQtVnGKlq8QUQn4nsGmDTJEIJAdW9gLb8j9qi8qRVHyg4DO1QacLFmxgdWOWgQk0rRITm6K8Uw-W-yTMzqX6VWz6odfPuA5UWRfWGni8Ya0wF35_hxHzAvGB4M9qDlpLvcJ1Z5wKF6xVDsAiwKZt-aXlrZlHgi9lU6jvo1tuFFjyceWZ_MXXWD5ilMRbMF-vm-iSLHLWJPPSg6jukbUH9tjtTrvT1JbEnI-072RLgPq67nm7S98jgl5fHuYkqRb7A4nwUe1AeyWzommuPTi6UGLdZ8DkKZnyZCvjqaGv8S6cJan9YM4rxaKZUJFp3arYU31fSQRAIhqXTO-48oJ-9c2u__sD6hzNt5NFkv48K243OPzXH-X_sxbD9ux1zSj1zHPbClzaFTMd9DQgwNdoq0PeZYHxdpDrlYYYeqAROQe9NCX2IqGUhhGRs3MiY4P4KkDKl_7Wr-Mc41mjY45ms5doDXbqg6OYNeobpVFs7PHfR1S4mkjIDJjX1t-aN7TyaxXGJIw4TVdn2dekIZw0mP3e1Jl6x7H_nSRYt7CWKdcfTVyZFpnx61Fz0Kpd4L3ejdftFzPbOsJUJA5WXULs9_BvbLPIAis4aZRKLLPDZmhQDVfALQ4lLMs-0_1q6CBcTxRurfW9P7x-w6mKjxNooBGteWhHnkvra0f3ZiQqYCuNM9zQ1C6hEBQgbBOBJ59K7N4qW2de3dEzLIri-ulYHuVkEmRcat-InqTUQsnBmH0_U5h8g2M820j-7Vp037LwWFjx_jRHMK1sKNfpOSejHnaCnUH-biKHf_c-SU4sbroeIXX7slOwfUpwxjFgI2OWS4M8KERCKRuunLu4renXNdy3S8hw69c0quvIU9BUa2-N__UE61upOtJ27Dms6PwDkWtvwo1sUfK93ABY_aSE68bsGez2fkxBAIJ2lOxnEkoT5e1f-Vv5GX8bXHthC7tuiLWN8HLEMtD8G4peLBrkyYNQ8dvdj1WKLs4yM-CNH47lEqwRWJMiGNXjxXAufpSltOmucOhFIPIlt9qrkejPSUw4hBTIa5rTuITV3dkdHDbi3SuWyGaQlLVDQIOS-RVVyR-CjvjqBKFE1ixWIO-XUYrS-00jGy7rL4ixlhStkYV34tsWmwbjxQjhQSrIlMo-NjU_05sYGsBUVDwxEcdJ_Ig3P5SWBvEB-0vQ8LKvX5srJkF5z15EqXpA44pcfCDbVJSFQXGafEMQlahwpX3c44rZRb96gcx9h9RadtJM4iDLOV84r9_1Oa9SiOOAWe3WbHQRzMNJo78AaTboEpP2GAOHgph2Tt3pYLMNoUGvYLLlp1t8XqWL-J_yJFVoU5g_HEz0mBYJh3gIBVpMf6hBvOFKTlDWD4hnCmNB95psriOyetwWfV8zabiuYSZ0sVWkGahRLBtXGi9yKrwLEL_qN0MW9FbVPpg1I3sePQgl9wRkqrLxMMkDfTmi1wLo3hPsgw0vZOOrqt_j65SX7tMtCaAO2s7lIceOR8v6eT0M9fuipb-yvabGFH74mVud-8_9NgKDCmBTlcAwiTpEW3cGjYix9VLuKrZPTGPjOLw_6t2OTJEVI7BzZOZVvJeRO1JBv5My3UJvNbB97n-vbdnJM2MBj04S4KiDEq5VebUbbKsGdIj33_2WxtdMGYJYm0f7XKODvdY4g7a25wK76y5DcEexOuo1ZX7Owg2cHx6JwhhhVMQhLC-s4DrNPcfSNOXTddqt89Fr7TuTQwnXGdbQkLSluiivkzjGxBCy58H5DVIyImJxy3u2t6CaRhgAFPebYPulBFufMJPa5qM9ICBLIRw1aCHJev0u-NtbdRP_hqebghz9rXrQofkL1hs6-QhOXhfxWlAr-nVVnCeio0bKAj1EunyjfxKEUS1fHXtDxoovuqdXfKZQVjPlbI7LaugLRawAf4XpQaTeLmUMegHVwoJ9npjqFP3tEZEWCk6-sAgl6wORdFF2o6qXfjp5ouCX7IEKvSZPyHiZg_0ALiG3BnxbqZU8XPYEBu8idvjYK6pupAYLXCLRRpr990mHj_LqB1HcLYpcdAKV3wiOEWGHwdmn18hg9UGtguP0qg-mywPyYYiaXmtMV7v9MZkHzasIY1D7lf0K5SV_7ac5UmSmxYj1I1HRrUnY8K2Kh8MsRmpKSm017aBsFf_L95AUfvQan-wXxvI-bAQTHyhzj9maf5r2y3HZfBKIOOjhl_HqdexU3sZu7kf_fwJwnDb4Vx1WUBW1P4oOxeZGsQG8-CJ33SOokX-wqFIPW2IGS_nGFfPIQrlC3b2Ys0mzwVzRS4383tv8HL0Jd87h2cjIDfJ6y1XTjCpe0qhEy5XMwqBqrA5DC0S0TSmSrVB8tFPnqHS2ZHbBmuQGfNiZCvCDcGji2-Q8UsBIYt46OzdgfXa44DKM8HICDVIjKdnQEYeLJmtUs7u3FYgy1d4Igcs="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2396,
+              "completion_tokens": 363,
+              "total_tokens": 2759,
+              "completion_tokens_details": {
+                "reasoning_tokens": 320
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "diagnosis": "Neurofibromatosis type 1",
+          "assay": "conventional MRI",
+          "tumorType": "Unknown"
+        },
+        "token_usage": {
+          "input_tokens": 2396,
+          "output_tokens": 363,
+          "total_tokens": 2759
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 8,
+        "input": {
+          "diagnosis": "neurocristopathy",
+          "assay": "transcriptomics",
+          "tumorType": "neurolemmoma"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"diagnosis\": \"Sporadic Schwannoma\",\n  \"assay\": \"transcriptomics\",\n  \"tumorType\": \"Schwannoma\"\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 2404,
+            "outputTokens": 1002,
+            "totalTokens": 3406
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584443-eu1MKTWBmC2oA5ylIfLZ",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584443,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"diagnosis\": \"Sporadic Schwannoma\",\n  \"assay\": \"transcriptomics\",\n  \"tumorType\": \"Schwannoma\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Mapping medical terminology**\n\nI need to map broad synonyms to exact controlled terminology values. For \"neurocristopathy,\" I'm thinking it could relate to several conditions like \"Neurofibromatosis type 1\" or \"Schwannomatosis.\" The safest mapping might be \"Schwannomatosis-NOS,\" since neurocristopathy often includes schwanomas/neurofibromas. \n\nFor \"transcriptomics,\" it corresponds directly to the term in my schema, while \"tumorType\" indicates \"Schwannoma.\" So, if the tumor type is Schwannoma, the likely diagnosis is \"Schwannomatosis.\"**Clarifying diagnosis mappings**\n\nSchwannoma is a benign peripheral nerve sheath tumor, and I see possible diagnoses like \"Sporadic Schwannoma\" or \"Vestibular Schwannoma.\" The input diagnosis \"neurocristopathy\" is broader, so I should consider mapping it to \"Schwannomatosis-NOS\" or \"Schwannomatosis.\"\n\nGiven that the tumor type is Schwannoma, the diagnosis might be \"Sporadic Schwannoma\" if it's not genetic. However, neurocristopathy can also link to NF1 and other conditions. Still, a safer mapping could be \"Schwannomatosis-NOS,\" but I should focus on narrower synonyms instead. Overall, \"Sporadic Schwannoma\" seems more direct if it's just one schwannoma.**Choosing specific diagnoses**\n\nThe tumor type suggests schwannoma, and indeed, NF2 causes schwannomas with NF2-related schwannomatosis present in the diagnosis enum. Neurocristopathy might relate to NF2, but it doesn't have to. Since I need to select the most specific matching term, mapping neurocristopathy to \"Schwannomatosis\" could work. However, since the user provided \"neurolemmoma,\" pairing it with \"Sporadic Schwannoma\" is the most accurate choice. This way, I'm sticking to the instruction of narrowing broad terms to more precise ones. I'll settle on mapping the diagnosis to \"Sporadic Schwannoma.\"**Formulating final output**\n\nI\u2019ve confirmed that the assay maps to \"transcriptomics\" exactly, and the tumor type is \"Schwannoma.\" I need to maintain the same structure for the JSON output with correct capitalization. The final JSON structure will be:\n\n{\n \"diagnosis\": \"Sporadic Schwannoma\",\n \"assay\": \"transcriptomics\",\n \"tumorType\": \"Schwannoma\"\n}\n\nIt seems like everything checks out just fine. I realize that I don't need to add any justification; I'll keep it straightforward with just the JSON.",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "**Mapping medical terminology**\n\nI need to map broad synonyms to exact controlled terminology values. For \"neurocristopathy,\" I'm thinking it could relate to several conditions like \"Neurofibromatosis type 1\" or \"Schwannomatosis.\" The safest mapping might be \"Schwannomatosis-NOS,\" since neurocristopathy often includes schwanomas/neurofibromas. \n\nFor \"transcriptomics,\" it corresponds directly to the term in my schema, while \"tumorType\" indicates \"Schwannoma.\" So, if the tumor type is Schwannoma, the likely diagnosis is \"Schwannomatosis.\"**Clarifying diagnosis mappings**\n\nSchwannoma is a benign peripheral nerve sheath tumor, and I see possible diagnoses like \"Sporadic Schwannoma\" or \"Vestibular Schwannoma.\" The input diagnosis \"neurocristopathy\" is broader, so I should consider mapping it to \"Schwannomatosis-NOS\" or \"Schwannomatosis.\"\n\nGiven that the tumor type is Schwannoma, the diagnosis might be \"Sporadic Schwannoma\" if it's not genetic. However, neurocristopathy can also link to NF1 and other conditions. Still, a safer mapping could be \"Schwannomatosis-NOS,\" but I should focus on narrower synonyms instead. Overall, \"Sporadic Schwannoma\" seems more direct if it's just one schwannoma.**Choosing specific diagnoses**\n\nThe tumor type suggests schwannoma, and indeed, NF2 causes schwannomas with NF2-related schwannomatosis present in the diagnosis enum. Neurocristopathy might relate to NF2, but it doesn't have to. Since I need to select the most specific matching term, mapping neurocristopathy to \"Schwannomatosis\" could work. However, since the user provided \"neurolemmoma,\" pairing it with \"Sporadic Schwannoma\" is the most accurate choice. This way, I'm sticking to the instruction of narrowing broad terms to more precise ones. I'll settle on mapping the diagnosis to \"Sporadic Schwannoma.\"**Formulating final output**\n\nI\u2019ve confirmed that the assay maps to \"transcriptomics\" exactly, and the tumor type is \"Schwannoma.\" I need to maintain the same structure for the JSON output with correct capitalization. The final JSON structure will be:\n\n{\n \"diagnosis\": \"Sporadic Schwannoma\",\n \"assay\": \"transcriptomics\",\n \"tumorType\": \"Schwannoma\"\n}\n\nIt seems like everything checks out just fine. I realize that I don't need to add any justification; I'll keep it straightforward with just the JSON."
+                    },
+                    {
+                      "id": "rs_08c2df8416fc5bcd01691e29bc86ec81979f0e7564a399346c",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHinPYncVjndQRQ8uQHYySwU0G0Fn5o58eq-zAdg24FwXRUlfD6tLkyd69ZTbmfPV8RKyQJJuCTbEJVWyQEn6Rk-hlM6wBMnN7kgQKBzhbn_AfoKS9xBSdfthxUAXOiqzrz7El80G1-m3aEXWxcPQL5r4-BkVkC_T1KVIKx7vL9bZAChuUAWkFqKyLMzu3Hpwd1lQ6b29oD6SI4kx8Kk52so5m3TDL_DkQE2ACOvFj9FMs3CoVrRxgYIabJCRh1fMS_1o2ZmAnFr7u9C5C7x_miO1CNexAzaVuPx3tz6owfb5zrtkyJmdCrciHthmd0QkNk-6MTaiIKxsl26zlpKT_kUyfxrsqfDTXMu6qYpxpYY91oGrPhY_k2iNJ8DeiUxK_4Aj2IAJafEv-Qb0CAJKksRtyAeEsQ2B_WkxyU9gJ2ZCbVPnp1P9S1fhOQyn9swzRcNPUt3RhGQJYWXGvejJc6rMx9jbnsq0KhX6B0r9u2CSjUYl8nPuE40on0t6WnkjSd9XNWp8Z3ToDYmYwobO0wQYhFfAuD2tYI_6y474ZYJPK3GaHE8T3Gkp7H7v1ZA1iofpjJ8HQQazqxNOQNBzY_QzvmUwOS4k0pCOP2Q_xzJZyvc3zA1jWs2lGJLIVoCGN6DXACJvQwrkAczLktf_m2AvkguaC2O96W1KAyP9inp8acgXoTHhE616B9SL6yOKa3mSoacCjwH_KRp0Yk6dJndUUaAgD24hv5BbeEsmV29EAhPKasPTKiU9lGu6FM9QsZDV_ZfE0usU6GcKHyN99oIDFyichm4Mygwah7LwlCmV4khC8IVrccfKIr7iypMEmJmCUyMahmfdOiWAlQG7810elVeovrDGMHTFlfFs8uidIhK1y56rM5IBjdb3f4ZnYCsJ4YIaiBoShKML3fbsxsDGL2C7aK4tvAba8-QmqaxhSOEzNYJFHeBxU8mqAjZCDuYUE3g-dH_38ja6WugWYztvViVV6pLN8eUS-io2GJndavf4ibanunpFKNIYWlQcV0D27HpopvPssavlOXgQzSCtYdxI68c7tt1-SoVWFNqUcYBkdoJUqyQeNUtOVHkXqt-5KPoORGX0rSTA1Y0e_2EOeGHRNSRd9zNYLqI4MNCGuICCiCYNEMI-4UDbVWFUKcIPooB87ZHpzXGIqUy_kYxxRuDcoIw8HB5ZC3CyR3WoUce_hZ4rsp6KBUm4C2kKzj10zquNq4U0zcsALlHslYi00EV0RA_zBWyFOqS2i8swk09UDy7-Ba3Suw7nHHfGFbnm9xIap0Xn2W3PGtDbaBQl_Z-Ttz7Dmus0USOVWhJgiSHmN3nRbaHHXqWIkY-tY6E4lR706Om6tOUpBxTvtjWGT25X4hW4_Q2isPg-FBETu6XQafDzi6-yR3XMuw6aJoOjX6957M4POGwVv5yTh8b4KZMK9s1uTQbno_XxD51P2Rg8hS_VjPThVdhkCgRQtPTmHgRPp7FWggu0YPnvVARbi-bev5AjxUzoDDe8I-icxsxxHHpt8CMYRlf0hk_oepSpt4NCiB-MWu_roNc8x3sT-qIfzux5vJgmfxgYeNG5-4Zfsv5eKS78L90kzLM0ltb1yhHQGcznwVUZ9AEqMZbE_9UcAyHiHZIkiKrYp-T5lPFi4IPtYdePTF0U9JSxJwv8a7H-FY8Fkao1-7G4cWb3Q2UrlWuqkhPg5zNpS_DdBYNv34CDziyUu6qN3c4aHsy0WJlz_ZLSrEcv0oI93h6iO2bMn8EIw9vBg7A58tjl2G7Djow5PVGkOYjkdgD2O1QxyTTlQwyL_h--aq5Ql1I13epI3dXzIWYSOYHCE_G3YUeB8gVJMEJsmYeC-4NCPEWGMcaeLPmHPxccfJ4cGSoiktUOCeRoxnQdWSpt1HRreonwGz-Eg0IxrErHP9Pbax677ixSnkgSMohPvwIO_YpOBiQeWWESqfm3JRDVZTX9FNNzUpDIUGpP_jh9rrz_KsLMcN6FNquUQV41yghAXiTC1_sH7dxx-h0D-Ly5pOS7cQMA2OuKQm9JnbB5HGkc2RWCKPRfhJLTxLDpOOtmsNkip86xZKph0Q23EFyNec1K8WnjIkw3yJQlPls4K6uJwpV_s3uFk2EKVCGbTmUVXV67ELTKsY3REkEA-rTWCC8RU58ouYBcGUedM3VzyupIW6iCr7GCMOJwaYCAmki-xrh1r4aXfILCKF4QHi5E5tl1Tj_sRkOabjz1ImIBD1auzSThHUALUg5wIZGj6WXD7FW2WQ65dLPKlvuvXWysg6o4qRV1znUf51jJj0i-P3aEyY4JjxUK5bWiyIBo3Yi7N-grdwfbNb307Ealdp4QFgnuRAeist4q9v-1AE3TUG0NGAgm9ChffGqRyfAFd2mTT4ce7sSKM6h1swdymkOu_tpipcgbLD3ec88Jion2Fl_gKT1cJyjmmsukPDqSmLpSnYTVb_PtO-redBwgVORakZVv_HzD8SNWqCxg_r8GW-qIg0hJqHz1py3qbbwrTiAxniU7xiRG-LPV6dr10q-MqZssLKVmWJ5g9RJ6i7F9vhkxrnbUxGhsx73Zdj9ZE37jXTloJWX8QtMOy4O9oxoF8cORQgs3TD2ejg1nGXiOSba4JcVwhXrwY6dYNtj0i8vmE7JKpA8zklkawdZH4EPmzlPZznZqTDZsc_Pr__9_8LB-NRmX5Vj50jZtKwEpxaB175bTUDyLlmcJMAsVR2unqa9FSCnOqVKhxPHcsgraHoUgIbSeTz87KZtzQMgRHwNbmeDhcCyp9EQyKm9ID9dia2jqiLz58zMxYfOGNYT_iaOPkujLNZtxPeA7KQkthkRXeRr9MK5eWQhTXxG1yv4W0USVaVvOrABmxkujKkyMpfx_lC1aI5XW5HJo7PmTztJu30U7GBNKlpWu4THnizuvbufGMJ3VGIdGFiaejr-xS4Tyw38RtCi2fV8_tHnx9heg8Rz9gp6trdvsf0Eu4TnQ7xkGY-CVSJ8VdTKWaou4EC2H8HOG0i7k88gG5u_6YbKzLSt2Gqz9MBW2BSnuawMoP1PFipwONQNIgepLIGhzcY5_B7axwFcEWtGGQqXbZvh--ec5QH0cXjQ8S9EzPwsMSmDhZi0JRGA0KmdTsIxrQtzIinxHywkYLcaCkO9cYlQ_jaNNg1cBn3i9C5eehS_tgDk_zrUi0bemgDNbUBZOEac4-67ZwQj3TDwNaFWrFGiPincVDcrqu9vZJgQd5FWRCndeEhknYPw1zTBu7jtqt1ZJohFb_RQH7TL3hKWj3qdXykRiz0_fnPy6-ds20WpPEoJqqXRaeBjI-ZX3P-hAOU1mxYWoxRBvtSmK6DU826DbMHE7NN6lqBgLPRKoxCAnjw_WMu8f2drL3bQNhumjeZGb5LxlTmuaz4AelGuqf098GfNufiNRZPIDlKtl4TAW7bc18BwRWc6Ku1NoZOo4mIKa01FNu77bh-fZZRF58jf50eCY7wx5YZnnUhrBJOQahTjHAr8-Mx8ezMHiIH0BPqm_yQIvBEARD1EugMZIcmAzTvqyFShMjRLu2u2r-Bm8B5k1fFgkj56aOi4OT3rJEtd4tsan0t_9DjQhbHcC1zwAtKWOR9iO08Uvr8-CNNzoosaOrwViOjqilieoxiZrNcRintHKfNTGwxNZcBvqL1Qh9N5mmKZ04nO_KGgaFiTlNFTmrUkzj0rsQeqKeDqLX_gs5B7LPpd6v3pzj8WhzParYHb11BPf9WpzFKrZBpFzL5JOPEGq_-8PUjE7zX92G8H7PumRdnKRVWDxGd6SikYQtDsm_5PQF037xKIMVJB5STd5czppTl4IvrL0L7Lb65LUK0gxkRRfb50F7wXenmBbthR4WJqoSIqpfMF_tTORcwCiudchAj0vK0sqfpbpgM_r07CPTUUWDlh7-tcAXBca7nXuEk4bG_w3K82HgfqFKg1CbZt0mh9-yg6wsQGEqkIdC-Mf6WWrFKc2Ywq0twhMaXAtNGOGFRYZUd3ewLbR26rT1l4kdKiyiUQmEwJk4rNkZddiiJd5XGUbXM5NlBwiWG2XQ8xMavXkVOCK3MFiUVchYAxqvSg6U4shJK_mOr24ZZmElmMhtUbmjv3sBlK5hmX1DEbtNy47jBefCaHme6AKyCuw00j-5h4AQ3mug9taHk45k9cgc_iRYCghFMxZrgIn-YxoJZRGEcCVsbvV6s75_1wnKvywDu701__EgPeUAdzFqzANIYMCewTHjCdxuCYh2_pSOf2lS9HQCQM2aPFTEdGvf8kGBbOXq__jmPopa5pjW5DDexwnLrzoOTcd7QTHP2SO6vDEGLrLaU6TubrGqhVEisx_5sLS0YKVGEDCeAeryh7bvh7CrEHnxujha4Yn6ETdm264xqfgOdjYAfUOKVUoXs1d9KOMYmyaw4Km7VoBArZYalImWnJ-QrrFs1u1-V0NeTc9ginkoWKzPMqasbsgPQE4G_ddYzWegx8cBKGK5XLMn1I8xrcsNr3dhE6FBGVQQAdjvYNZGEFgy2PGxbhVhDrY1lxWqUuT9NmIyOM8QzY2LtqKqezTLCC3sa4UMoQ8ir-VZ4SGYtSqTX-25iYr5LPDgV8IX_7kPIt0h4a_jH1l--xGNFOxA2b6fFCM1xeLstGDizxFcl8Hzh0cSXTqvSEWwbiVKtUKzQEI348hVd-cOjZ_-7lY3aS9QGPNaSfvsq3vIc7DO9g6ichFwyeaSaRYT9DaUIkCZw6WisGzDglxuSIrcD7Ww7XMtsOLDYcHMIZxYIbhdH3EZwgoooQH2w-qcvrvfyFwwtLoDnPGJH1Vty9Nqc5uP26JdqYMqtBs-IZ0nwMnBF2C96P7TCfAfZA3QkuaB8KdztF50LyUEF_0nmbI_ngdOrU_3IKalmCJQ4KXJ-ZhnLrxG32IB4xqX4qGIhkq4WzGiG78j85WDg1Lva53BKZlJ7VcR5gqCP-nymOSfotcj7nm3bSMvrzBC8R6yrgOy5YOlLNF14Ko_3YC-lY2WYfEx2Ux7EEGOykXKohq9wTNH6FHv8_MmnnDUgxgy4eNqDUn3rI9APsV3Yg5BQzYk9eGDO_N3zbktSkU93b7Tlpl4lD9UhOuZixInWy8vpNTy10x1Vce36_QKeFHSrPHYhwvR_7W692BDwzZbropRZbDObTodNgyYEWol-AyoOsrnN-eAcK9EYhGJXZHEOhEmwGYMe8G370lU-wK5L2540TdIIIlpTlFdbHILDao12FTxD96jtJy9Hh6PZdhQydhgLmWQtKZDQ7FOS6qT0LZyvyfAK0IXCl9-0xjnc_0J975nVg2tqGuEh3AMn97Z4kR7_dCqFpiX__wgCK7_NWG9VJnvaMusziBz7oX1PxWyi3zWBFKtAojyA1Ri6B5NlTx12mOMyIfRyEdtv8LjgGrWlTYG3T4uRkchcRBlPiJqdzIh83O61UTyHuU0Uxw8L2Mvmb7JidYThvwP3P5G2nKsgqzXK4_k_8J2nCpgcbOxraHG2gAQWM6Wpxb5finaJxD7BHpHL1_gkvroR4g3Jf12ric9YAolCyDl4R9ExJ_ez1ZCpf5duJm2Rdi7XFP75T0x3KYaT_zFy2Ukim7OBuTTzA4wvGDyn40HG7JFGpS8m5dTmqJzf8X8UX-7kVCq_BxMbMDF3cf4J4TuEZOAgl64Jg9s017NVxeo1X_DhMoAL8GrE-91V8B9omSnY3zr9fcwppQ4Amcic7KXLZeM9QazVDeecLEoWGNAh0zHpG8eWEpbSSjn1Y9fhAP0rAyqHvFpdFbU97xg0F-7FK2S4MEbvSylxlmlv_RGKO6RD8K8_cRBaBpqyQNxXC9yF8ggjx8Ep1SxNV9Zk1EYuY0B72obgh81TTyZfVkm8M1esMIqtF-i10iTCoMn7JzXEGd4Pcoo5xepLbHOkV2ga42VYfekuYLDT9Au6RoZ5tuFXxomo_NDmUyU-aypD2DCpY27wMiZPQ2FnDqnSBpgb_aoR3sKX8cVGqIlBu2eLljyJbObdFoA5jtDPyhou9Z8HxpJEdqiHIIRAmRpF3qqe5FjkS8b2TenWPunCkNfmSs8h4nX5UNNKfdQtjJnWK3OKkPKXmZBUl3wWr-10a5_d9Dl_in7moO7a1BOSYNRkVyXHRIrj-MjkacccF2BAfZ"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2404,
+              "completion_tokens": 1002,
+              "total_tokens": 3406,
+              "completion_tokens_details": {
+                "reasoning_tokens": 960
+              }
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "diagnosis": "NF2-related schwannomatosis",
+          "assay": "RNA-seq",
+          "tumorType": "schwannoma"
+        },
+        "token_usage": {
+          "input_tokens": 2404,
+          "output_tokens": 1002,
+          "total_tokens": 3406
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 9,
+        "input": {
+          "diagnosis": "phakomatosis",
+          "assay": "viability assay",
+          "tumorType": "tumor of cranial and spinal nerves"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"diagnosis\": \"Unknown\",\n  \"assay\": \"cell viability assay\",\n  \"tumorType\": \"Schwannoma\"\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 2407,
+            "outputTokens": 549,
+            "totalTokens": 2956
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584463-8xurThBXm0uLzAV2Tskm",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584463,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"diagnosis\": \"Unknown\",\n  \"assay\": \"cell viability assay\",\n  \"tumorType\": \"Schwannoma\"\n}",
+                  "refusal": null,
+                  "reasoning": null,
+                  "reasoning_details": [
+                    {
+                      "id": "rs_05ec141bf23eedc201691e29cffef8819691f9a9f07b708d7e",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHinX1ZzgXfyVRB7hXGGNmQmqSFaHC5KLZS7OL5HPE5BxI-i3mfyqHcO0_QeVWae2mUwF79r9908wkxfDuY83nYaLmply3bJkRj0yTHKYAYv1lNhbU8vNP1it7luSMEj2KqlfrVep3FUDX8_LK_aSYpdXaGgDLya_DmMtlB7OE3ulVhNsvKHlwxX4wKPzsnZxiNzhm01rtmrPdheFpGJQzEkNk-o0ry8-P4uTOyD4Xb-_MW7NowqhR1nikSVetrACA5qQI8xfn1g74yKrfpeMjgC4EACoQiz1Q0FnMFtdmi5_Qikn5gHbGOoSduQcz4jXeo6U2VrMk6TUs21CxZMkHHqA5a6w315Ks4KG6Hoxnn6bejrTmGYYSWOhNXyQ2JcGOiIl--geSKACvJ544CUc5hu1s2fwzEDxsoCNpKWsxBrR_vvc8yOOk4p5qZAqTdhRwy_FSGtOe7Bhy3vS69JsIdNBv2zQS5Sr2aVsBq8ySY6cjF35qD9rP8UVzB6JRPjB6Eb-4R37mlxx9g_hAvoNbHm2MCk-XEdOgsB32lAlCC18dBjgBcnOFX130glo6LIDFV-TELvg4dW3MFkXdBVkzGszw7hl4jaIi1XZSH1_iKx9qEOB8hSzDm5x9hViQExrG7tA4iFgGHlBNPOihln5dsB_OHrBirFwpYqEUuooS5X5oeZT3TratZn_ntkOnA36Y6R_Jf0RXUUUiuEXQrii-06liuYy_JoAslSVZ4wwJGUYmeZ5pr3-NLjRXhVkIXrEw6tYdO5wLoSKdU0vdH3wknAfQsyPNYzGhXDC3z-a-lVLkvcMLhICUYzP491DAncTRflmj0szbh6CkPHWgs7LlqB7LevNuvrMyTSApr0pPVao2AtXY1dEeWoCi2w9YgH3rcDJtKQz1Lrmhzq-jxdBDj_J6GvJsIz19BiNkRd8ph4JGgHIyojf_Pi8gGAZJ1p_kSLIF1ysWDq6VhHCAX5nZkDgocNjcmMm11k86Kojp1et0TZmtm0rL3Dr1oTmNpoWwe2OB0wb33itOfoLZ0v1O43z7QFgRJVUEJJXA-qZAGqyoMI49mEVBwf91AU2KkZ9S0tzv_XnxcM9roTvg0MHAEewtIQikC_f02R0dt_FstKhVb0RKV2y5owprHZ0k8K9OmoQaIbpNHkcXu267Zyd1i6r_1cQzWl778V91yOfA5lKOwCnOp_JU_YfHVyFt4H0BMxPSXMMhNhb6hucxO6cjv9Bh4WiCbswg-caIY0AJydp7t7FylWYW97vMRGvFJa_AiJzSuPsjaZjGUc2isyYY2Dos0f4NSublh5jUJBQHgsLs5yTOja4D6gnX-LcLNrcJykAB--8UfY87Z3SipYlUThNzhCdljPQooxOpfZ46y6l9CLkGsvo-CwVgXs-5QYYX9vmqXYoMCDhoHscWkbft6UNdpa9sj4imIQV4c6MTl58xzToZkIzE6ygJl7FSgUa5Q-Djbo9zCqWufhRgosHQ9U7QvOIp9ikDdZcu_GgRHJOU5fR-LERk86F4qG0mPGAyvM5jYdAdGxt-JROjwKEtxaL0AK9jOy2R8kgF1QyCADUFh1V6lRA5GlmpOzgh-aeQGLpyd2XMzuWC749BhU90xYUvxhxadsIgvz9VsT0lIDtXRysDKJkNG5W8nOV8zZpTE9oOerpxswXpK-jtu-R3OVH9lKqOSWx8xFIVpQ69z5RXIo-k5tfzzxkkLkn0xf35Tm13HC29hJPJvIlILgGGMbRNFF-D6I9btjgvNNL1c7VPJGPga4O1Wu-Bj0Kn5H6qp5k8eatp96VMeRLC-3qgYIjVw-5fYo26TzPz5jNNzBKIXFhdrgOYwIvKNPwscOjIRHuvyQB_Oa5hvxCdU8U7gknkLTNGnzYWSwGi3o9vISX5RB2p1yTbLAUygUEEBr0c_SUKZBXI1tLEbJWvr-ll6_y4-gTKhFLXGV-tq4t3goGF8-QhvgrOOlD4Lc0KUIAzsFGaiDU1K-_w336dKHj4XcEMTc4lM_GJVLYF54agG5j8341FcmyFQr5F448xVeieqlztH311wDIvRehcqFsCUu05jLNsvfdJk3yeSaP5iQBJ5HEv-_cXchBM-zyfItqrZxKm7aEOP6KIrqpEXfGwdwhqt8PjV7suqa502FhYEjAtP_pyY-VG5lAAmMFY_KEjXez4QGf4bxP2qWjHRXKTMRxLjyhqzSBfSdgucfsXE2g0yCs6swHMsBCHdLxbGQbXIdDPJH86X_1z32m_e-LzXPt_dWYFYs9bRnd0CZ1qPzx2AL49wL0SVwU50eQvBPTlDFm4ETTOeTfn25qaZfazSJPHkJ3dvHl_C7M7Zx7IoHLGFMs7dB16zXFbDqokD-ChiuRJyOvquxKckjpRYpjBq-3PDAs99HbxnTKikJuPzp0IN4ICsefSi7BlTOtz3bFsisNCHO04nyxZ-W2-0LJUB6gGo2OlwnRTruGc4nr5VzrCEyck3DPyQ-w-zdIblDD-MMwneY5dTH_k1LM7lav0V9j8GkjUj8kXjKUB8qaohvgvzjF9u4pKT8tkyf1ch_LtXOY39WnOvEHLkfxo95AvuTs-HHJ7GaRY1oYfbfOigMqEWrcGOscwLPHBF72nHTnRFCmY7WXfIVQTUzwrXtnbUzaYD3ubXOFx-szuWFxckqYC6NKECpD3ICx8Z61KgHuSUXQhTzHuhBP1cNQv3CmS8xdSOKcYfVu03wwfh_uDS2Wy9ZhObhS6F1ihhkqCXfwuS5YlZNyi2ihbuw_FgMFOwL8M7Rn1-1d-trYsd3oK7lHattKnNe640X32ja-GWW-DObSmOiq4_HZz1DtRyioX1PY4YtdadeYHRHRSQYx6tUjFgD_iK3kjqmzHmSbywpCLTIzzQj4VlvXX2BeR4nPDhMi3QU9Mr5DzPmIohQ6twa8vhh4g4pLIIulNGsMMgUUuQkBzRfHzsXSdNKhcjOE5P-v9b-qjD31fcgmdpEkdNUErH4c56tJDDYgd4Aypm_qcy8yizzgy5fm4zl-bDgVRANitHLpcoqBls5DBbvH5lyFfbPITQR3vMT6zR_ANBRekgLeeZQp-gh5iyE_sTfazIKx3HygdPE2eBi4kZKT1NwdJO1fck3fwhzy0crG-wEA1S5D-GHQNjCmgluRdEiwgEW5dEBw9qjwR4wXr4TwcN0O4cevaguEsr8qTRsmWaYiSs_-VNcyUyNLlpTtfo__YlYeiUR22_hz7xqYYU_lPmzFbR1g-rPab54Bso-b3OwgkBViCtEVD_r7SN4-vvw8ikmZIzJu1kL1bT_u-QIzh9tWgeVnHjLNi7Mq59BXf1jtGn3Oq_5OpCbzPfquefeQFapIzz3OKOOILUO3ZJkL5DO4mQmUZTzLA4WuOCZPvUAKdVe4nq7mZNP2oH2O5Eh2hACmlqKqZ24dPR87QdncspBXYDRcEEHxkKRVSciHEwSVg7MqircJHxkuRJh0llpZpbkXUr0b1p4hMOTx5mVeyPhViyxB2S1Y16pYP6n6d21oIV3V28oaKSUf7tBm5U71BdHkarBnn6Nf8cdfd9wuPViUloSKCb8V3zi5XsPGfnxw-VWyCU9UkfCRFeZI_STc8SX9IEqyhmfeCJbSsJyA9i0E1PK3lgQuRw9uLRwyybGKUUROmiHWVzUQiK1f73d247YHqb-6ZjA6L-uxmbH8fbbwR9Um6_CUsN_AZNuKO0NguRIjTkt2jVgQ2vU-pvazGf66eYc11VRiWvZQN94ZLl9RBw5kCdlv0P7gFLuV7EvMMO8AqRsJuz2vzBpZV2luYh5PDm6KHyTB9AEKOIbwIVevjgIh-saUn5wsxF98rca0R22eTjtZrTaoBkASY9fCAUVqaZ9-hWEzuCqk4BllQ0qz5XiukUy4AaCfvrQ6yjgoVlN5u89TfDVwUohl77nSGufUxrMU6dcaSja_nbLufkGEhwLsknVwxu0wCpVtCTPlNKaHOfeR7TldWsdaEQn6pvpuFPAyd8ROc_iJ7UEw1fn3h9yZO_t2eB8qznCg869E4kuIqJY8ta_VXstAo07aLLLSjvPjSXbG-678z8D5TyFJNblcgW7m1J7wqUjgD-J8Ha5HFBQz0oQ5nq-FNfM6vMmhUni0_qWaxWiucXmvebSL_hQz-iWv4mBcL2npeHM_S9Wd"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2407,
+              "completion_tokens": 549,
+              "total_tokens": 2956,
+              "completion_tokens_details": {
+                "reasoning_tokens": 512
+              }
+            }
+          }
+        },
+        "score": 0.0,
+        "ground_truth": {
+          "diagnosis": "Neurofibromatosis type 1",
+          "assay": "3D microtissue viability",
+          "tumorType": "Malignant Peripheral Nerve Sheath Tumor"
+        },
+        "token_usage": {
+          "input_tokens": 2407,
+          "output_tokens": 549,
+          "total_tokens": 2956
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      }
+    ],
+    "metrics": {
+      "total_samples": 10,
+      "successful_runs": 10,
+      "failed_runs": 0,
+      "success_rate": 1.0,
+      "average_score": 0.3333333333333333,
+      "min_score": 0.0,
+      "max_score": 1.0,
+      "num_scored": 10
+    },
+    "duration_seconds": 121.80868291854858,
+    "token_usage": {
+      "input_tokens": 24030,
+      "output_tokens": 5733,
+      "total_tokens": 29763
+    }
+  }
+}

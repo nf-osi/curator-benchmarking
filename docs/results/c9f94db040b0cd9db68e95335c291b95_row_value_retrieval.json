@@ -1,0 +1,743 @@
+{
+  "experiment_id": "c9f94db040b0cd9db68e95335c291b95",
+  "task_name": "row_value_retrieval",
+  "task_hash": "5d06d9cc2228d8e7b0a3ae03a72c29a9",
+  "model_id": "openai/gpt-5-mini",
+  "system_instructions": "You are a metadata curation assistant. Your task is to help improve and correct metadata \naccording to the specific instructions provided for each task. Be precise, accurate, and \nfollow the guidelines carefully.\n",
+  "temperature": 0.0,
+  "thinking": false,
+  "tools": [],
+  "timestamp": "2025-11-19T20:37:41.265741",
+  "task_result": {
+    "task_name": "row_value_retrieval",
+    "num_samples": 10,
+    "results": [
+      {
+        "sample_index": 0,
+        "input": {
+          "row_data": "{\"row_id\": 1, \"columns\": {\"a\": 1, \"b\": \"one\"}}",
+          "selected_columns": "[\"a\", \"b\"]",
+          "question": "Can you now provide the values for the first row for the columns that the user selected?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"a\": 1,\n  \"b\": \"one\"\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 256,
+            "outputTokens": 150,
+            "totalTokens": 406
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584618-fHUlaj1nRgITldOvfmiU",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584618,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"a\": 1,\n  \"b\": \"one\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Parsing JSON data**\n\nI'm thinking about how to parse JSON strings. I've got `row_data`, a JSON string that includes an ID and columns, as well as `selected_columns`, which is a JSON array. I need to ensure that I output a JSON object containing the keys \"a\" and \"b\" with their values in the correct types: 1 as a number and \"one\" as a string. I need it to be accurate and minimal, with no extra text.",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "**Parsing JSON data**\n\nI'm thinking about how to parse JSON strings. I've got `row_data`, a JSON string that includes an ID and columns, as well as `selected_columns`, which is a JSON array. I need to ensure that I output a JSON object containing the keys \"a\" and \"b\" with their values in the correct types: 1 as a number and \"one\" as a string. I need it to be accurate and minimal, with no extra text."
+                    },
+                    {
+                      "id": "rs_04b9ffafe0452f8a01691e2a6b5a948190b2a311a4baa187de",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHipv0aTWV3w8jfcKHAACufoX0HZBBeYh951dXq7qcM5dW5WCc14oqlwHOCMtMTf3msmTBLGXVZjdp5vUkAbW0LNJErd67qYGf08qOOkmsmhW2ii9sqpiShHIhgofJeQi3W4adsYqT82CeZ1YXBtxbEAcUV_VI6_sHvomTRUK5a7slRvjsSiJuFXp_8pXxl5pGQ1HoQLF1-Uh0uwunyi7vvIvAW2B0pEoZonVobXyR4QwlPVQZthZXNNx8PvZwWL1FO40ytUp7zVWWfF5bDUanckz_41DtSUBZcb_ewax8C0k6V_ISzvqt4Z_05FNAZ_MVdDm92xmgdC6B0pqR-j4W6Z0xgT9Dh6as4yOsHmJsrZKsE4BObv_HDgyRBjrZZ23pB7mdED5wDIit5BHvKYp5R_46FO5R2P7MADf0a6v3-A3z4kN9KTWYtKRZSbtPqn0Xd06SIstHz7yheQIN7oz8hDCjFZC4jJ9zF82QZLN6vw4bcfpLrMySat43Rr544MjIQeg39gYfwGBvRJzMZN4Hu5VipjRCzq93kP2zXBqWgkQidZ9ItAtJ7gUGmTwMaMIOLyToHjbekWC8g9UTcPHpAElJhI6HOwUbDttI4hf1X8y3d38tcHpTGMwDRt3nruImLBQ1zonP_AN0S67mZ1FckNUYHtn32LdTyscYj4BFBrZTRD2eVOVNVMGCQ8gOD4dyBwg-XEEli_L3t3mPh1y4HaWLmQdlqUuwmx6Lt6Vtx9MUamqxI_7bAAueu4LmI5KHhsDxzJX0CxGTaJUhoIME9sRDlk2h7h-nEdG7zd78S9Hj8qg6ko1F0EkFJljfQuhxDm0ziio1gY-aHAGLxDk52i8NFmiNQkDATOQ35H84At6trFCMIPKSElaTN7l_VdU8wmPqO9sbn-cZNunOTnVmnha-Po2dLwJ5jNVINprIbfzMNxYqPXPwrwQMBj66uje6hFq0SVkZCbuyebZ0ESPtx_fALyqq45X5EaM6Ew_oSWxZ38II_aSw0E_A3W3UfhvJhiCFKonwvZsUhBbvOdd8WgBXylQHyy_MrV_AkPZzdjTUB49EkaswVYKHHYhMtKEazHdNcnu-PyNFA1vGq-ZkOJzGqedl_moeE9BAeEljXhCSwqOTM3ddwskwoP0Kr5xr68SwH-rib8jnBosdaENyiC3O4lQFlvOdXhNfO6TW8xgmmxFZLpsh3cgHHEfm4LqpDwfkRNL2DglKUAKI8L1K2wiwFFlMod3RV_qjwe4P8MURjPgKGSmwZZ6U2B53zAk6l6h5hgVQ5k6-duP9tU5XSWBP6PmVROuhUk_GYbmf1RDYfyBZCFRFjfppwjud5IxuYZ6sXnxPTYVXJBgpqSxslHhxGpkl5HiRymk17mvMyl_GFeb731qlc0b9x5obhXsxjPNRy0r9GgfAVAonav4BiiskmpYJ_2U5lgHEIHyrWhYgp00mlnjKsSVcQSidxsnKzrHdVyElop18BlCpmkxYJ9aDxGz5ACLrjA_6Mm9atzbKFo="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 256,
+              "completion_tokens": 150,
+              "total_tokens": 406,
+              "completion_tokens_details": {
+                "reasoning_tokens": 128
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_values": "{\"a\": 1, \"b\": \"one\"}"
+        },
+        "token_usage": {
+          "input_tokens": 256,
+          "output_tokens": 150,
+          "total_tokens": 406
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 1,
+        "input": {
+          "row_data": "{\"row_id\": 2, \"columns\": {\"patient_id\": \"P001\", \"diagnosis\": \"NF1\", \"age\": 25}}",
+          "selected_columns": "[\"patient_id\", \"diagnosis\"]",
+          "question": "Can you now provide the values for the first row for the columns that the user selected?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\"patient_id\":\"P001\",\"diagnosis\":\"NF1\"}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 267,
+            "outputTokens": 83,
+            "totalTokens": 350
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584624-bOkhYoWxuFPPMmTo5H8F",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584624,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"patient_id\":\"P001\",\"diagnosis\":\"NF1\"}",
+                  "refusal": null,
+                  "reasoning": "**Processing JSON data**\n\nI need to parse the row_data string, which is in JSON format. It has a row_id and a columns map. Then I have a selected_columns string that represents a JSON array of the names I want. The goal is to return a JSON object that maps the selected column names to their values from the row while preserving data types. For instance, patient_id is a string \"P001\" and diagnosis is \"NF1.\" I need to ensure that my output is formatted correctly as {\"patient_id\":\"P001\",\"diagnosis\":\"NF1\"}.",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "**Processing JSON data**\n\nI need to parse the row_data string, which is in JSON format. It has a row_id and a columns map. Then I have a selected_columns string that represents a JSON array of the names I want. The goal is to return a JSON object that maps the selected column names to their values from the row while preserving data types. For instance, patient_id is a string \"P001\" and diagnosis is \"NF1.\" I need to ensure that my output is formatted correctly as {\"patient_id\":\"P001\",\"diagnosis\":\"NF1\"}."
+                    },
+                    {
+                      "id": "rs_0efb1d979e413c3001691e2a7081fc81948cc78ac6f4372d56",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHipzfW9UXl5Xg8DvRa07yz2XJanBdu3icETHkU8vPOifDx59VXpIvXCSEbliJODeohfxGmxEv9FNN6QScq4e2MJxsjzsrxL7Rf1JDFrc9KoCntd697aXnVZKY5T1h7nxes3I92DUA2QiYcDlSpegKBRaKIFOFcGX3BtyMP7a8gykiLhQb-wN8smi9F66BhpKPwjinZg--bq91T5ipYqFqAY4YS249qC6Wo2dCsJbCpyk8vBPGOyo24giox2aulkLqCC8WTQwK4_366xeAOhbDRtVRo3ZH8S6XlkCPMaZxNnuSeD3J3tv9XeH8xl_C72dxhc8O2N0kqaV7V-TUFXZ7z8K7nkbBhs3Zi6KTo8ENI2-bSt74oayYXetoIT2VdpYNLF3OGBgnlayZcyNeC4CaH49VvtNGKGH_39eAQqapj2aprAfxcyERCvXgxThr26xyZZ5KohKR4V3PQDYIv9_x0Q-QYFOEsGD2GBbfTYsJ-Xmn0J1UJ9c0Vq8-eRi72QBIRqIgNFJVtH6jKgo0MpRdqQFNLhHZ5axOHkh3ncIMPYKvubvEzl_hHpbLGaF4sWfNSGVsqOrjwaDM6a7E24kM5cwRcTvO0DpsDjQNC8LQfQlq9cJqtE1YMSRjiPdkBQ3U028GM8Bg4DgpSNb-gut2rYHUW8YiuaqLtTnJ9pZeCXQeWcyibQw7bDvwiPCYGcu3U47YssRDZ-9PAJ10D-NFLekEX69g0_chmspjYCPpI03jggrpysa7i8q5fvVUlUPYkh6nyq2A3wxfEdTEUe6t-Tt4ge6U_ZyAyFN3HQ3wmmuvAJynHf_ZVdJ56uBjevxa9dbFmOJa5O4qlcuV1rfp1bmfIR46wwT6Yg2fniuIv9bMiToFXh116saxHZHQXlacbwfYPV_GSEOj358p_tAp9PQ_hyNOsh3e_rt4mpugEbsdm330I5BxLgaMqY4tu09y9HzXqd8fIQki8wSkHjdwhIjf64lFxxRgRmTkLjhWp5qhK6N2ojn9FBwpXijofcYKZYnFDxArtIhjlJNU6NN-jOVSBTbhospwz5REE9Ka25BaJrUaj3Dw0kjnxLQTU0wRzkgcGqXKduWtMyFqOVa3Fcq3atRF3ODHJ_IX1miusGaL_hdIXCNoR6cVugHMHO1W6dh8saKWAWA0KQGTc7t-5QO0tw97zW0AHrk_7EiqBbyAzk-rBQNPQGfEJ15oDlrnulQtQPnQi_T5rxgV-jNJ4Ec2XdqFEJSEqrd3GSGYVHBQmfnoBAANdo8BkR-PZehshWZvUfJn8Hzti9S8hZC8wEBOADw5q6b0VJ0D3VgQaFO7Urb5lqxTF1E1ldu9o4nXtCOP9eS1wEEIjHO4YhVvsTKSrNtJuRJAD7A_qzj-RYruG0Oxk3JNDc5-apYyminx9LQqrZNlUO_hIvmlzheDh8w1yrm8dUIu4pPfcxZso6VLo6lSDlmlC_lvV2j08mKuxQCqG5_-urBWOgPp8UwEYbBtNYrlDyIBRaBwqmt7On-WvPp7i1XLrw6eZ3bnteySyFY"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 267,
+              "completion_tokens": 83,
+              "total_tokens": 350,
+              "completion_tokens_details": {
+                "reasoning_tokens": 64
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_values": "{\"patient_id\": \"P001\", \"diagnosis\": \"NF1\"}"
+        },
+        "token_usage": {
+          "input_tokens": 267,
+          "output_tokens": 83,
+          "total_tokens": 350
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 2,
+        "input": {
+          "row_data": "{\"row_id\": 3, \"columns\": {\"sample_id\": \"S123\", \"assay\": \"RNA-seq\", \"tumor_type\": \"GBM\", \"date\": \"2024-01-01\"}}",
+          "selected_columns": "[\"assay\", \"tumor_type\", \"date\"]",
+          "question": "Can you now provide the values for the first row for the columns that the user selected?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"assay\": \"RNA-seq\",\n  \"tumor_type\": \"GBM\",\n  \"date\": \"2024-01-01\"\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 287,
+            "outputTokens": 168,
+            "totalTokens": 455
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584628-rwUIvyqckxluDdd7DciO",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584628,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"assay\": \"RNA-seq\",\n  \"tumor_type\": \"GBM\",\n  \"date\": \"2024-01-01\"\n}",
+                  "refusal": null,
+                  "reasoning": null,
+                  "reasoning_details": [
+                    {
+                      "id": "rs_0397956d030420c601691e2a7480088195822e0865a28053d1",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHip2oP4SU53bUgjZj84LpdKvyGoZZ_rWSs1RqC3OF_AkVNutsBvaqpABeX4pPA-Ti2tYCHqpYPE6w6y1zCD6cX6sq51XkgAhmwf9exNh33L8it1NEgzjwiKYD8oOKssT1Z9JE05X77V-IPp8sr_RE2l8dn2DuETqqm07xqq_XixuhPg43Oa3SKs0HvbLQZ6KBnuAeter0SI6bslDcpcKBkmo2Lfjx1wWcN6kWSGW9w-q9Z0OVBago-iU3MqqSQO3VKI6jC51Wd9dlN3OLGNErP5RY6eIHHSUy4JjxjpoWlUldWvj6Y4mGA9iZ8e3atOVBOzpp7sv3iOw8g61XdAAhsAwW6soINuZK8tf9Mjt3ow-LCzGGDrHVw4yK5dhCBII5DIPJ8hVVTW6kynWoc9iDukj9YlKFuuPZ_UU0qUNBztJ5LvcYsPxDVawoT4f6wFDyAKadG9S1UIu0an2-9KMt1kv917tnM9hijo0DLEtpgXmIk_H-WjQEz1TlHReq1Y91quO7xLYLRbrRORSYJffqAilDoaTHJthmq0QvVi2mE6q9SQu6-PhTucHcbhjV1SszmlAaMNbYj2qfQ2F58AUDHL6_bM9SHI9VuorSIrpVKXQ7b2moiM_iVXQiEmD5b_Ctc33u2wbnKdoY-z0Q7tVBkqZ6gQQwoj0mOaizBdHDTORum8yfugj3GYiREOLTc69w7kVJn2LssNtH4cjIrjrwv92WHYfKuZqRAW-Ao8hmdXrVcoufPm1kqLGVa901zUjTyxxNFej8MgYtl91YXDBmd9DIikWPwZppeWDDe8L4bKQ40IyeNo8OrjeFcZIqbXUsVNp2LJUahTxa9SAi9nCVg0qREL1y1KLhmucuD8guLLlvDFCXg-n-JVmkpsjcZQw0Kxz-qZ3uz6Nbxlk4wl5Wwyxo-JZ-cOhxi4ik9u1fS-7dmdb2hRlIb1yDnljQbAAYacvEZycnk-d23PJ8Nx5TIcFQ0nnMjj0CL84x08NqqjLTtfKH_H6xJh9KS4gnc5MFvSb5CPy-wEszgqe0uj67Pp2L1Y4_8LBvEiftcffLTwepkqQLLjELNaxskE6jIg7pK9gYLVOu_w6xwi04zLBkZ7OHyBbBPO7OtgBZw2CPAvmAq8FJijWYWx7jVc1gtDRyUHD77a7sC1K9KENxjI6-DUBWc8wswoOxE2s5X-sv5IbhI285sqpwRudHALzqAUAOBDgh92I045kPsJ-e67bCQ_1RioPlw6YbsboYxo5LmxJ_DjYSY_pQEecEtRCimRbjlBIO1sxxUfu2xEw-Ov1oa3q_dKZn2qhQZbUvBMWpRAnVckgF_1tFYuGqNZTDwb4k1mXJHJ3V0JZDCMwuyHN00-pbQYYJVOb-OGQTGkAw51C9nFxLIxq2c1xi4M3W7xXKjIvlF282ekubMVZJETMHo7783b2vc2hpQSSjMzCQ3k9_Tu_hVsL-hhLaxotehzGbxMoVdgFDUEWExpbQzUDMB85srddDVvBW0d_wuAiNVKPk7-8lN8Y4sKoUlwYk-f0NIoYBCtj-a4sp3xrBmVwNyyVkfcrR1yMg4SZRmAE7T1LnWg="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 287,
+              "completion_tokens": 168,
+              "total_tokens": 455,
+              "completion_tokens_details": {
+                "reasoning_tokens": 128
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_values": "{\"assay\": \"RNA-seq\", \"tumor_type\": \"GBM\", \"date\": \"2024-01-01\"}"
+        },
+        "token_usage": {
+          "input_tokens": 287,
+          "output_tokens": 168,
+          "total_tokens": 455
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 3,
+        "input": {
+          "row_data": "{\"row_id\": 4, \"columns\": {\"id\": 42, \"name\": \"Test\", \"value\": 3.14}}",
+          "selected_columns": "[\"name\", \"value\"]",
+          "question": "Can you now provide the values for the first row for the columns that the user selected?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"name\": \"Test\",\n  \"value\": 3.14\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 263,
+            "outputTokens": 216,
+            "totalTokens": 479
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584631-x7z5xN2j2vpWXK1a5Uhe",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584631,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"name\": \"Test\",\n  \"value\": 3.14\n}",
+                  "refusal": null,
+                  "reasoning": "**Parsing JSON fields**\n\nI'm working with a string that contains a JSON object with fields like \"row_id\" and \"columns.\" The \"selected_columns\" string tells me which keys to include, specifically \"name\" and \"value.\" I need to make sure the returned JSON maintains the original types, with \"name\" as a string and \"value\" as a number. It's essential to keep the keys identical to the selected column names. Finally, I'll produce a valid JSON object with these two properties and no extra text.",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "**Parsing JSON fields**\n\nI'm working with a string that contains a JSON object with fields like \"row_id\" and \"columns.\" The \"selected_columns\" string tells me which keys to include, specifically \"name\" and \"value.\" I need to make sure the returned JSON maintains the original types, with \"name\" as a string and \"value\" as a number. It's essential to keep the keys identical to the selected column names. Finally, I'll produce a valid JSON object with these two properties and no extra text."
+                    },
+                    {
+                      "id": "rs_0b4d34e08fa9be8d01691e2a776e48819788cf0dfb27e5de49",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHip8hqDwf_iAqE-SM8QdwFiia1RAdoDWI-AR9ZrCCW4XiOWp4XC6AljIsuCq0LYaFhgPcErQvcm9htFRBU3vtAFXmWTFJmX7PqEK0gg3t7VNyXguay-bcLpFvVIgal2osdzrne4LXXXjG37Ec_-duvzBNQBTdrispziRtgD6AywwYT4q1DFsWSYYDSQFUCLGVPPyoIBuZYfSPFits9mYZYrwtP_Y7rsc8GuYTynp5FygdNiX4eXS73Bjnd83Fb2SE6xZyc3YjQWnUitYxShEiLTGEWH9eVjawOVTm3RRmT436_ISSThjUYuW54DuzfV3knynrAecPv9YDDIJt9GfWNDL3JJqd4F743Bu3RmBe4JlH4Qcg36OzygcLNd5Mgd1gn2_etpqG5oEK-10ZWte1BX62J3yAtZoQ3BJMnucuIvlQDueTseP-SneeZ0B1iZxgw6FD9XHPNiNqbOX1LhhuUzqlvZY2A3wBcFYdX-pQW37omCLI8hErtl83Cjo01NaaPAeBx-BJy6ubG1aVPgCyB5re6qTaNCz1ehgQneuM4uX-sktIZ-6oOfcTZD0YzM_hN3IgVkRlo2KFdkFEH1k78HIz2u6YUC-yms0iJyx4oVSU396cZzYJZCyDl8Ewt5rysSinM57CehSt84KrrPmU5uazF9VrJ5l_tBKg37e44bCcTrmUJR5mr1ikw4BaB_SgDmMBN-yq9oFPowW-rjAhsxe1PnEaC_xGVkhoY9EysRbG_vTg-9tckoFrviDSe51qeMaczjZcl9d1DpH3YJEytBXFNnuzFcFjDuayEAUcugDcZivn7xibxSA-OxHqBtYiAWAWCsOleNDXXrfcAs21jMdF4VU5nZwaRble9uNX_8WZyECCucKWncx_sS7z5k8Bt6Tybe4nETlULj7lS-vkTl1uaH2c46pqYsjooPBsLHiGw-cYaH1OL8NjwzqwVh6rnWI-jXN6_RQn6AR40e6LXqRvuJ7bQgsUwuA4ver0_32kegPHdcawJS8z6UwCkDa7AG9ltuxs9kEt3lrH0sont07FrPnrSUOrPK7_MKDtfs_Xa1eZevaC3PW-fMaP7F9ykfW4EKh_yhaqVS6IJ5C5C3__cEukE34FKsjfNSL2EXgdDfXz6BI1O0N8W0V5xxiuiriKMy8s7JRJxL_FUxcyHwGhApT87DZ-c2621ZbXdbCcjnFv_OEt3NPXOeOi3ylJ1yNEGJw_CW4goid32BAiL9NqwPlFsDYSjr0_uVEabWvctxQZ98WZBnpIEL3i8FrR43tIJv96wG_STMuZ7UpSFEXTxA_1n97in9wfQUdfXN1rDY9NhlHu2HSmxBnmSyhJT0x2R1CMrTMYjALm-GHOX9t_s6kJOY5FDMDoMJw1kzznD3oI2A2b8U0KT4E_sw44727De6u9FzRRd2dKbGP3VudVIE_gwflIy_2v66S28eEObueMlzY0GZoEABZG411RqcekMINfTAjo5g--wvgIWQ_GX3XAQ7a1uOt4pWxcJxaQ--MEi4Ej7MgG5zxCeh6VMNo7wG2a5qpgyfkrsuVZpvfm2eWCUuZhVkAIFcc3Rrx9Pra1_DI8hSuZVucDDBiq_ttwJ-d6uDK6f7Aj2lI_bXTJ67GRUsF-pkD8DPgvzCiObyUXiMseNWZ-BucxYiCjJwMEj1DV_Q_-IdemKgRQ8KX_lS7sXHhRU0WFVWpdUD_RsGETkVUOyIJQVtvnIDf5n11PMUqnjpDX1VxN9zQkNNk6xgeqt_82eU8nGRtaGmkeXJWqUICP-lD0bTyO8JKJAyOWvOFdOwpXJUX_EaUGJkQHKCTZ0rS7NdaKzJW4Qsv_Z7gNxrV469Z5EmMxMR_-F5I15OwaftlsAH2I-Szn4MYyWMneA6hLmtfJFUpikRfS1fRSt0wuj2kBygbitct7PLY"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 263,
+              "completion_tokens": 216,
+              "total_tokens": 479,
+              "completion_tokens_details": {
+                "reasoning_tokens": 192
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_values": "{\"name\": \"Test\", \"value\": 3.14}"
+        },
+        "token_usage": {
+          "input_tokens": 263,
+          "output_tokens": 216,
+          "total_tokens": 479
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 4,
+        "input": {
+          "row_data": "{\"row_id\": 5, \"columns\": {\"gene\": \"TP53\", \"expression\": 2.5, \"p_value\": 0.001}}",
+          "selected_columns": "[\"gene\", \"expression\"]",
+          "question": "Can you now provide the values for the first row for the columns that the user selected?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"gene\": \"TP53\",\n  \"expression\": 2.5\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 267,
+            "outputTokens": 89,
+            "totalTokens": 356
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584636-11YG1Ye27ln3zNOj0DHp",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584636,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"gene\": \"TP53\",\n  \"expression\": 2.5\n}",
+                  "refusal": null,
+                  "reasoning": null,
+                  "reasoning_details": [
+                    {
+                      "id": "rs_0cc65a5e740a1d0601691e2a7d248881978aa66fbc5ca76b3a",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHip-5s1rAaAf3r1Gk2U2AEIB3FTcP65Evesy3Ea6yS7oCUfgxRNQIItoNZuDrrxibVLVy2zE2yMTB9L3ukI9y_wAUaPIKlmi6-30gz1sjKkOKMmx9Y2NSyov_ZeAOkgNypB13X7Jd7Mk06qbfnS2LqcF1zkYe4CdgGyN1xNQzOiSYVmrwM4G_DEqusmWkFx69sKFnql5rTNTBNjMiSJjBe0nPnMLmptdQP5fpvuMd7CYsdODE1YNpypi-ERXZU4q1rZXtc-mj_UB1Lp88JSWpDIkP-cQDMClfcw9uRwjBGDBUBNQimxM4pLYCjecUoCgriC8GP1iPTOi2lkuKjPyCWeVF_OMGSrOnFIfuGUvzpJuD-3slHz4m12sSygnka6HoPkC3kyNrMbaANmDlPhnEUS_a2FB8J5wou9fXurrXh8uINKFMKyJrb8YkrVf_zQvdjlGhO4KEfMOJJGx57xJsAAX0FHezme3LjsrGD0oWozIfQiaI-BWazt_ZSnN1-Yw4SvYFuOKAJpxKWj94spHl-KXjvLuj9BSX_qv51DwQ-F6bmO0D4uM6Cwv5BkJo_e3wkX0SnTfs-dWNssWVlVpfIoNy6HnohtxXAdENOF72VwfBAP4SH3LKJFRbaWFDZbq6Hc5px1jhBNQj332bF-pExZyGjhZt3-8JU4UMf3sUHtnZo8mNH54PWYMD5lrh7X1do4Y3iQOvLAz0oG2OlFBruLQMK5JS1TI92U3dtFST3dYZ3YrxxUgaoI_EejlEETbZYFhAUX4hTqXsAb40ngqq5JG266NkZQoD2Ye1H75XXSPtk5T2W3mBWrb5mn0lcEutsmtXUt6WBuPNtWUzm6QYj-giFsSNARj_d2CZps3-w3f4LIgSmMKqmuKxX9bt5ZaCSiJ1eo63xlyzmIL_c4YeMQpcJ1W1NORCUO2yhwdWwf54IJ_UDEwtxysUeKOxx8GIHiOmqznUUOk32fNGrOiRFnUB7agurLV_SEyu2faoPK9RDzzk3rbpR3ywnIS6SERzOY6x9GpJG9zxvaiyG1o3yRa4z6EvFTn0DV5ZFjnFMzfAXrzNr1ABCocg8xl4OrbjxRMCHz_nwNeTz0yWavoUer-DP9GNK7b8UEecUSmPXtoFjfLrI5zN0W0-wl61w8ObjEswO0BuXMk0BM18SNAAfPUGdY9NovGGrmk8J8OnMdEU6CIrCPvmadPRQdRoO6eiU6yIyn0WQHHfBfnIgoId4MUS84cgcDgGOiVdQuN4z6wOUwCuvGtbL6bstOfKcCEf4z6Gw64rVBv4jiQkr_aesR11t7sneAqROi6aMoPNHAJVdfofnRKdPtPljpadeRet_kKlKp1oBiQQlI1F8zA03D72zxjT9EbSjgEZkgvFLTdfl_fBc_yO1iPc1UNRJ8VTNhCfAYA22-FbNUDGyauUN9QoBzc8pDAt2_Sh-ZWZjvM6fZHFubBESsOK1yVF2yAqE97EI20WTcHT70uBWRwpv9gkPipIYcZIoJe7mEA45CVAe2JSInWVx-RGcmoEVTaAmEZ"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 267,
+              "completion_tokens": 89,
+              "total_tokens": 356,
+              "completion_tokens_details": {
+                "reasoning_tokens": 64
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_values": "{\"gene\": \"TP53\", \"expression\": 2.5}"
+        },
+        "token_usage": {
+          "input_tokens": 267,
+          "output_tokens": 89,
+          "total_tokens": 356
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 5,
+        "input": {
+          "row_data": "{\"row_id\": 6, \"columns\": {\"file_name\": \"data.csv\", \"file_size\": 1024, \"file_type\": \"CSV\"}}",
+          "selected_columns": "[\"file_name\", \"file_type\"]",
+          "question": "Can you now provide the values for the first row for the columns that the user selected?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"file_name\": \"data.csv\",\n  \"file_type\": \"CSV\"\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 269,
+            "outputTokens": 153,
+            "totalTokens": 422
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584639-JTLYbYsWgv0ZRUjHDf6s",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584639,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"file_name\": \"data.csv\",\n  \"file_type\": \"CSV\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Parsing JSON data**\n\nI'm looking to parse a JSON string from row_data, which contains details about a CSV file. The selected_columns string is another JSON that specifies which fields I want to extract. I need to return a JSON object that maps the selected column names to their corresponding values while keeping everything in the correct data types, which are both strings here. The final output should just be the pure JSON object without any extra text. Alright, let\u2019s do this!",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "**Parsing JSON data**\n\nI'm looking to parse a JSON string from row_data, which contains details about a CSV file. The selected_columns string is another JSON that specifies which fields I want to extract. I need to return a JSON object that maps the selected column names to their corresponding values while keeping everything in the correct data types, which are both strings here. The final output should just be the pure JSON object without any extra text. Alright, let\u2019s do this!"
+                    },
+                    {
+                      "id": "rs_01bc0fffc87e3ead01691e2a7f99c08194918cc9dfa3fa26fa",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHiqEXrUwxa9Kauh-j-fAkKj2ZKZ41WrkBxoZ25tSx_cQKvHyqGiLPymKSGBFoQqJrhvGMgMYusIfaokEiNthCjmoTWnBieJxN-ERh7c0WWF-fUBuxV_P1QY8OdZ4Ona6LxiN06_UiL1aBHHVDOZM7sRAB5Y38L-Z5u6jeNW_jQB6SSnVWaUbxSYux8WGOvrEDUtagLoucvoTLHwpSnRT1TVuP0mWVBPYMYW5a6t_H5LRAo2RWUx4mVb8oZaDy5_dow0Wrrrt21Qu9J9kFTR5BfVHtXPqMOWDINWzQKmXyUG9XknjCucTq0SUz_jtAC67mGCKzYO2ktAgbj0iJoWBwsGwNqMi5eC1TQvS2y-f1jCEGo5Nu_61lLdJjIEaAeyIS1LEoAsnQj1qQGFyZZj7bRFIc0GVnzL3mBxQKnUzkKxNMR7bQ21Fe9vw9ZnmLDVP4PVVsRMnvEX61Wtso7nVxU5Z2wDl_luKsIZwIMPeKVIz6Mn_5fpFdCEEYM5rZf9k2cg-BZ7nZldqVWvAlJsTt02GrmWZ5-56OBlxAHYk2rwqQe9Bzlk6j-WOQ96Qj1Mg7SqOc_jqu2SGW3qsv0S7bwPQ0Hw8dTzfOOCRW8V1bgw7EOfQNSRDnAEWjknMuHhMi8nTBJ0TTNP5dBEyeYStCfCstFeuh9gZKzyGbuFMvkwW4SQLGZGzcoEFNK6c5A_gLkCfWwQxpJ4dhu2_s-P4sMF6JiJdmnGSonXt__3mDbTUPDSy4D6igXR1DMBaookMa6yzlhGlj4nPVU5BMRJ0QI0YW_AFMH57k_2d53YHDtTuwDEbMdnwjATDF_83IV4RtxGICenMbx6KMbqxUnATfHPSP_CiT1N37s_Nq_tFWmxw0FSJ-XuG_ejJpJomTx6WFyANtFISvSIgML2vU3EdBFf1zBCqJNohiN7yRVDnaLTLtjXRgGTyhGzZajTyupCex7PTYUCd_QgUwppfCHpefr8y_p0d5BRdkK9OPsCxvgJHD16t3UwG6b7ZxPs4PPHrZa0MeTSxiv2vajVqUSkkGHadJUWGV4RWDb5Q2qxu8vw4P4sxQA7V_OC5nv17xW75PEKP0kQirm7SgLv54llJy-pR0zumIihYjSjf-IveB5QabGzDFi1eG3ZLpIKTPvno6cbBz5YM5P7MF_uoeuwcpWrVPeDOjHIHR2m2PDPh_YPlAvXqBIMGB0WZZZyd2fIqJSPPX3hG1nx3t527OBXdrL7qn_gY3YTEdD4hdRRq22dpdxOM___udpT1hRBMgGmokzw-sWa8kM9xgfcsrISNwkO6BBCBkSntoE57H1Y8C1116Kb8nHYLoWYa4jb6bVfCPeE4HH76eQnX-TcEsa5pMTEW-G9n_2IdDlWJ7VVE03ZyJ-cbZ7S0VuD8Ii8nujaJrYMR2VUnrwwaXhm1Z7hlEp49ghqTG4Czrj20LzMhpI1VOc_PFJJGtZiEmG1p_oTqKJtJbaj2Iht63hOlO-iG3sr3JYVDTBxAqqZxEG-N-R1vaMinrRyfEEvR0fbRdTy1jEWYg1ZTJpzOfN6jmauXe5ZrTVkEQJXJYCx40YS0O7Cn8RMqbFzTR5xmYrr9IagjyACPWFnpkilTXxWZ9EVjfs5uPzN5YfwPzN6TQhdPBrCELb3dOOQFjeKQe3uNgO3mDesaWeJmBVvydi0EAi_tLsMkaRhdoWbA_asgigp6Vy61f9w="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 269,
+              "completion_tokens": 153,
+              "total_tokens": 422,
+              "completion_tokens_details": {
+                "reasoning_tokens": 128
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_values": "{\"file_name\": \"data.csv\", \"file_type\": \"CSV\"}"
+        },
+        "token_usage": {
+          "input_tokens": 269,
+          "output_tokens": 153,
+          "total_tokens": 422
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 6,
+        "input": {
+          "row_data": "{\"row_id\": 7, \"columns\": {\"experiment_id\": \"EXP001\", \"replicate\": 3, \"condition\": \"control\"}}",
+          "selected_columns": "[\"experiment_id\", \"condition\"]",
+          "question": "Can you now provide the values for the first row for the columns that the user selected?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"experiment_id\": \"EXP001\",\n  \"condition\": \"control\"\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 266,
+            "outputTokens": 152,
+            "totalTokens": 418
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584644-tNKK2i5LD4MEW7BXf2ih",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584644,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"experiment_id\": \"EXP001\",\n  \"condition\": \"control\"\n}",
+                  "refusal": null,
+                  "reasoning": null,
+                  "reasoning_details": [
+                    {
+                      "id": "rs_0dd14f9b71450b9001691e2a84b1a08196b62a0c268d01bc7a",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHiqGdH2ye-y2Lf2WWXm-SNpQkSXBw5dh5t_IEW1YGAzjrBdOqd9JlBbJ0UfiNttTvIbEVsi3bQc1V2ABkHFeUqRgaWa1aEzpWsbeVq3-U4h15OzdVJjXxKvCee_lNckFjTDxq3NuQq8VsgdTxOye-_SNX5LtKq99dwpoX19UfGCk9GXVQuZ9UQzHN7iRwq_crWGQshnApJDh2iUww1Rmiysq4LoOMsdUjUQnsbeWOcSAFH4enSSmXdpZm3_XjEkFwV-egCAx10w2of22a0v40X_SMPIoSAy2sZnnTp8uHwRAVko1626t3FalbUP6ltRFdf392TmvInc0Sm2d2bLJCAMRCzpPeL4of-rvD-txcM6WzNkm31vZNZfnB5GPG-nki8xUkdlvQEEdZZoAz5_k1SyYzuoOb6IIvRitt2xZ4JokqzL2kkUR6XxEHg3SLar9516WQjjqDmF2bONfqClw403EwoifGAx46srVL5g0_duOKE5ReAuKltqumTLZXdETUZcGobUl7a4MgTBgtpvlDCjrCam1zJDbrKls45eYVXs7q0ZXC5FS8FME892DzhCHurc4CgztBqi4m6aytteNHHFlLKC05dF51N5PjaQ3we2hMN7SyPl8dDWD_WVms1UOhKZhcHSJ1seh3hOmRwkLX9ylqZjavGv4QDVjnqr7yFnR-XNXbBHA8KkvkVjaHjRBUVkujgU7rMg7DZH126els1hq7rB1HZz64n_BMsKMDzcW3uyUBhHgVNaf_YX__cInIyFt11dBDYOWoLMAbOw6NUpVY714OsNnUywA3NIpdD-UEeOH0cfmql3x7cfncJ5ETy05-PDc3uChHf-0o-5WGIO7C0WwTtwqcVSi0C8TIcLKTPtRTFdmhcPpqsJlk5DpS4iWNO3NoWKkRZmG5GO_rm5pL-0YC02BeBSnBvAMpTfd2Vxt6S3WSbGv1Rj4Yx0hfobP83CuM0ddSURDT1N2BHuLs5hhAtqAq3Ae_MJTsLWzNG9iZ5wNKqktet-O_h8Sx8_5ET7rBP2dHPZQJxVxE-oq_Igq8KFz0CmL7m6YJLvzobtqpRkg8Ys3aWHkTqBTUnrD-pjnLmx9drygCAJvh0EU7486f1MiTPijdOMN84RFHnwZAYbLj__UwmUdUCCkRDJysH4cFZz10j_i85uKWNKp32H_qUW2mv9xOy4tPU14jwgi0BqFJkX7Lc-Nj73G67p6EItLsxHe_cFReKdMT5reNlu3jSdh8fiESq4mIu9XvQb5VSk10Lg7xn5D0csCKMSTPUojg5f7OqhWZJvZXNErxWmCpBbQmktLJ0XI4_n4hQReT2IDce07N0AJxJuy0gRHz8zD5GMWWXBqFtEeZPrArr-bkMEw0MIjg0D9hTCMbFZ7xdt8NQn-Rj2aYsieLkqE50jbKjR1Mmuh2iDrPSNg20hPGcBV5uc1OcuHKd7mtcFehGIcksawuRhJ4elo1t2st5OtDqMXy2_s3LXIgEowvvNGQ9sdz4EtCXTULojE8edDmrBmeAuABNJwH9qukM2LC7gDnU8rjaCGb2oXG5u2FLyDz5ggW1SrPMtXPd283cnRxcvkKNQxfpc-dFXVT9FR0imvUYW-f02dVhP6Azhm6TaeuCVvSKnfA_4TZVyN2u_0ZPRruW_oqih5E43G1xSiLOQzqw2j3v_26_ILgqPZCRPb4CdAsK9bZgBk0OWwJ1XhSOszTQiGsqUvrZiZv3wg"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 266,
+              "completion_tokens": 152,
+              "total_tokens": 418,
+              "completion_tokens_details": {
+                "reasoning_tokens": 128
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_values": "{\"experiment_id\": \"EXP001\", \"condition\": \"control\"}"
+        },
+        "token_usage": {
+          "input_tokens": 266,
+          "output_tokens": 152,
+          "total_tokens": 418
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 7,
+        "input": {
+          "row_data": "{\"row_id\": 8, \"columns\": {\"subject\": \"SUB001\", \"treatment\": \"A\", \"outcome\": \"success\", \"score\": 85}}",
+          "selected_columns": "[\"treatment\", \"outcome\", \"score\"]",
+          "question": "Can you now provide the values for the first row for the columns that the user selected?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"treatment\": \"A\",\n  \"outcome\": \"success\",\n  \"score\": 85\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 275,
+            "outputTokens": 95,
+            "totalTokens": 370
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584647-D8R9cm6cC0MWU0EFjE0E",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584647,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"treatment\": \"A\",\n  \"outcome\": \"success\",\n  \"score\": 85\n}",
+                  "refusal": null,
+                  "reasoning": "**Formatting output JSON**\n\nI need to parse `row_data`, which is a JSON string, and `selected_columns`, which is a list of JSON strings. I\u2019m focusing on extracting values for the first row, specifically for `row_id 8`. I should only include keys that match the selected column names, maintaining their types, and using null if any values are missing. So, the resulting output should be a plain JSON structure like:  \n{\"treatment\": \"A\", \"outcome\": \"success\", \"score\": 85}.  \nLet's keep it clean and precise!",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "**Formatting output JSON**\n\nI need to parse `row_data`, which is a JSON string, and `selected_columns`, which is a list of JSON strings. I\u2019m focusing on extracting values for the first row, specifically for `row_id 8`. I should only include keys that match the selected column names, maintaining their types, and using null if any values are missing. So, the resulting output should be a plain JSON structure like:  \n{\"treatment\": \"A\", \"outcome\": \"success\", \"score\": 85}.  \nLet's keep it clean and precise!"
+                    },
+                    {
+                      "id": "rs_02e35aa8ebaeb0e701691e2a87751081909e5e51e40f8f3e1f",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHiqNZPNxXDhpu0MPZqDxRXrk4j3fqt1MXBYuRT486trmIPHtH0DYWQ0Fpqfor_LGTvWQh4L-hj5nsvrduOHWw2BvDIwzjUfxI857xJ6MnhPm86LhdFhfU1T-dsdmJ4eGHZGZvxvMZ4MRTTwLNLJqhb2rREnzyX2PwQ9alEavbx-zP9TVNMW5p1Vi_U-GS0VU4xONqr4ri-yahZNlsPxIAeoOc6QQRmaFBHvFHFFsWcG3_2q8AYp6j8KcBVcyd2tP0o5HX-HhZoSmn0Ys5GWICvHA7WG1rWO9VzALEyM-dWw4ni3C3Hms1-qCf2DXIP8MlPntZYQpslmZ7wb4vVI76F8ND9PPWG0nE-2NWs89xYcFG7z0sKz44xtBHUqJKlDiE6ibAtaUKeNx02ZU_WGlHFSa5EpjF8lWgP2-vRkpuW8b0mWmZuOsWj5CruftLrv9_PX5tAcphA2BsOVwGCyN8A6_IQyIPpuqTQ0SxqXZyLLxppTAW3HOox8U6mGw7d6JGqeZ63FsWaswKJfL73rGmZwG8xMSVnqTSUIpp4rKj7AKvwcHHh2HsD_sK-UZfG6TLo4PR5iCQpWRzjYxMNnTGznkHMGxfYkKnFGCU6R1Ywlnl0aS1Kx6ZB26ABtXj_0yqESOl75zrbz1QznhfAR4k0tMTwCxxUc0ljgLG05NrFv-dXXUTR2eUxMjR6RHQROQbzSfUJ7DFBRoV7_ilOuQLBi5kdRZEg6YxIyvKj550DchxEraFJoiCbVFvYPW5N-j3Wu4soadDdwq0MZETSy3QzGAx9a8CuwQR6f-DUQ1AZBJAua44EIm6_Hbk8UbtC031FAEdlPt54HkvULJN5i_cRTymY0H11-BNt13i3rF-68ph3cLYZLTUThm52BIBne8G-tbumxyOLvgp7e9X8lJbn-Vczw-VVL3OdgFsCCyBG2Y7HdMtzFBIpRqNrHf247CwWSURgzHzqcQvf-WGwW4MMfCv84repZt4LnKT_B3xxhlW5PXfg-IpmeDWZpCvzAfzRMABBuSD_catYPftrCMlf7whQciTNMEGjo5CgJi7Qjbn61A_4oM8FsjExPqq7Sl6kU_e-9nOT18i4xQgelMtQ68kfOBc84IOlHG6m7mygFmFnR-YrX2i9UbtIqMu-NHbh8GQ09V1VNUt4hVHkz1bUrufp62L-W_g2gDHzfASK2kp_N1JqqWkUeQmQHjEpl5yxOiDYgH6EkR3gT9XeuivCqo6ZemBQi_5hz-K9voOYkeHWRlasEYQFOZa-BVbjoJyeKHRCpOD4LMpVnP3qAY6sS7sBfPqdr5gw0ARaV_RESQRv7XyHrWHCaAO33IVowwDhpftXGigHzp3h-iRSITHJQ7nIphv7470vTWKKiSsVAaE1nOEQMX2jnPCELF4dW7-jh4k6WLoI4febms03SgcoSq1T9SiiyUiyHnq61rfXjeSTmddOCimnmZAXYVSvkA6NZD2d8vVLVBGFQcRc2oA0FS22HJejFZIsV59ZZYBXOj7BIgJtmq9ixVguSeB4C16FQTN3kOdCx7dfp9l01lAlfT8g=="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 275,
+              "completion_tokens": 95,
+              "total_tokens": 370,
+              "completion_tokens_details": {
+                "reasoning_tokens": 64
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_values": "{\"treatment\": \"A\", \"outcome\": \"success\", \"score\": 85}"
+        },
+        "token_usage": {
+          "input_tokens": 275,
+          "output_tokens": 95,
+          "total_tokens": 370
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 8,
+        "input": {
+          "row_data": "{\"row_id\": 9, \"columns\": {\"timestamp\": \"2024-01-01T10:00:00\", \"event\": \"start\", \"severity\": \"low\"}}",
+          "selected_columns": "[\"event\", \"severity\"]",
+          "question": "Can you now provide the values for the first row for the columns that the user selected?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"event\": \"start\",\n  \"severity\": \"low\"\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 273,
+            "outputTokens": 86,
+            "totalTokens": 359
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584653-krBOgwbciWWnR6MHTbYN",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584653,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"event\": \"start\",\n  \"severity\": \"low\"\n}",
+                  "refusal": null,
+                  "reasoning": null,
+                  "reasoning_details": [
+                    {
+                      "id": "rs_077552a3d0ec4c7d01691e2a8e4c2c8196bb5dfadbce4cb8ed",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHiqQVoF1bUibBcXz6v6CpQ0SEpdV0hpKVUn5gYYLorllMnI1u61bb3Cb6-gQw0Kzq2uKK6_PKobKFERNgukELAF67r0CoHKWWz6egRTRHJU2NcrjkacpHliAAWb4URazTXIITcb_GWTqrpyIVFBm7MINSIs9g1O4TLRqaoO7_zrJtaZ_9yAdzJZAo_asu4lbV0s1NumuY9E04uFwPb81YpiCHQVPknVw29KpQwFU6cGbYgwXA_ER1oIB1D4K2OM3yNl0eeLvzpHsIyG08Qjs45IV1vDaXZWcYkmX-MSF_Ex-aW85TQMGPv4fBH6soIWwGHPQBfwD8_QpW8sygsvqD0cjSk5Lkd8kE6W39Tme3g3TgBk1NJ8cZr35gciJGUMx3w-yr7MvObnS5mHqvraxvfRc5R1iN70LDsHZe-xF58eNXtWKRrJsAaUfwuE5J2JSdvtqvbWj-x3qIQ94RFMUy-QK7qW41IWSlL4QTRCJRijRZwFqjgn9DXf2jaguMuHi76HBofdDJlyqumjRTXixs8IYhnDxTCQmSiNglvqFvAa_-9W-iMbM-wYjb8uk9UwjC4LE0bjkhwSdnpEj258MbttbUpMxuY615zFAzgIIBI70Yx9VLiLYHUvDDTmQaYxSOUt7XaoHZZk_8qA1mBbdwlB8-ebRCVT36j5xHbFfa0aE48_VPNtmdP_7cSjWaQbu3UjfE0Kll_fCD9XzCQyBxgER-gsh4D7ANHWEOlXyTD4aJI3xdgAfX6xHBNv0FOlUhwAHshbflZ1cF4-SN6jneC0csE7RxspFynFk2gnLz0j46LLePffhQovByuCfxtvyfte04NPejwE9_vh64GQZxMwcnJiF1_NU0PzJBClC4UKhUQz9rS-ng1H4D0t4EBJwKOIpgwg9JwUBdAw_HB81RsEUOwQk2HUgUMHecAOFuZ-6Gx2SyNDv_g9sIOHjsIuQooGjcJoPnMFcbJ_s84K8FhF4bTxq3XyeNqHtL5xpN8jG8nMi3cZOIKQaGuG_SKTWc4YrDM3CYZVLTsv3iiI_b8yr_rEf0buVxSmN7I4oc0QMp41sX9ZqjOn8QMgeNpuJhcwTwf8sr8XAtaQLm_RiZQkr_D-yeZSX_dZLTYPdGJvzmIoA2Q1DEP6m5jrae1xix4FOqMcLy_Ml1iMT7qQH3M6gdlD6YDgwtpFQjr9dNF1eqgX8dcmT8BBHSCkN4mTPEgnADRXpseYNIFr2P9kcoAVmoquzNohyLPx4F1uvtjwtXEnKNB7wKj0VByKRrv_Zs5Fe1DyNqkwWSYRRmQ_EF1vZNrskO8JFNf8YD9bv5S656zhXyGtc7dL95ITsmJzFUFqKEUhOxMFcHJor4mXx9kCVldo9UKq6QHuzceg-g1-Uv4dxZZdqIHhGk-DwfkHt6z2-vrGv9qWMN0MrT7HZJxGrPhTalaKDbQ-PCOjI-H8osTUbxWq2ZAj50GmEBuNktTT41THzaM19dKJoKc8W1VQu_J5PozaGNYswKrnynAvnhQ_IOJGxNaS3vpoV2uRjTulGD-AjSQ6XHo1TaN0TDjjaKLVqtT0ecXZhTpd7Ljl8kCc="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 273,
+              "completion_tokens": 86,
+              "total_tokens": 359,
+              "completion_tokens_details": {
+                "reasoning_tokens": 64
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_values": "{\"event\": \"start\", \"severity\": \"low\"}"
+        },
+        "token_usage": {
+          "input_tokens": 273,
+          "output_tokens": 86,
+          "total_tokens": 359
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 9,
+        "input": {
+          "row_data": "{\"row_id\": 10, \"columns\": {\"location\": \"Lab A\", \"temperature\": 22.5, \"humidity\": 45.0}}",
+          "selected_columns": "[\"location\", \"temperature\", \"humidity\"]",
+          "question": "Can you now provide the values for the first row for the columns that the user selected?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"location\": \"Lab A\",\n  \"temperature\": 22.5,\n  \"humidity\": 45.0\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 269,
+            "outputTokens": 162,
+            "totalTokens": 431
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584656-N41Y3mN4PCivjIc0PpWz",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584656,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"location\": \"Lab A\",\n  \"temperature\": 22.5,\n  \"humidity\": 45.0\n}",
+                  "refusal": null,
+                  "reasoning": null,
+                  "reasoning_details": [
+                    {
+                      "id": "rs_03d2d91c92571b7c01691e2a90b4208196b930ec676cc2e5e9",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHiqTzdRgDIpF7zg05rYq2DKPm-u_3tsDynAbjyzXoR_7sSMRHYM0gyuQmTe3HipsqvjSrbZda83Z9fvR10qAkKtTA7WaUCTflRJGGSiG-s3lWy8WawyvfQAJTG2DD8401FlAgWlZ5lHcoBYqXP_lWn4I8thg6NXNdzSvQI4w9c85x4nGrLM0VAhvGFOIwDCwg7Ari_ogWa7qdyKC-SIaw94hex8JnVaHdHa3cZOGH0CcSuRJyBZ3YaDG3sZnrc_NTQODaKpOWoTeAmSsSEmisMkbzl4ZMr_Gq5lb3Pb--d_6cMkNkoHIIuPh9540uYcbKkSou3mJzbA8eFY_TAw_M16HLen9yDj1lSespVKQqGUu5g86KiuS0m1bTerG6SozzEHpc0G2XBuEQIfroicO7UY0RfoNFf-gaJAwY5tXmw-9qhp421E5MqNcrYfNE0etvB2kUwvd_UHGorEVtqCovm0b8NHnm60Jd14iA_r1DVCBLN8MAosmJsik-8iuxYcN-s2U1Z_kgVbjr0MU67YXAcjuBe5971DtgNpeL8-y4p9FMUY8sMEktpxQng92nlSb-SL7nPDg9AEA0mCMfAd5NqurdesKCGM95Fh6QA1buTxlIgFhvrB40v2O25PCdwl9CKiBqwIsZIYNpYvxldXsSpwPs1dyNjtAyb9S0ss2t32MRzoBTMZlkmEJOnQpLWzpEK6kSgIyeS11nfzUZjA7QXD7cMDzdVFM0FH2X2LxDz2dk_tsuEXNArNZ27LY6bMUwjjHywv1n6kj97HUtXK_njE2ty5vM5Uy0RanljC4MJycorrbeqCLUr_jcYz401CB7rSfyhKNkWj4WUUEA1cztCz2BjHjTvo1aqe7o3ga_zyXmkwUUVnz7prNjGHoX2K-5S7p-_ca4sRrTBpeBO2c5MVO7qtxek6DPeIct9osdvLHyQdcdtKEngyOQFVRhf4lKrsgct6_aKdWnfkAGQYYQxLWg_BoLNR-MwbYK5NM4F0EDIg5YL6MzlAQz_g_3DJyX6vyMKuCtQBMvVw_cVImLT1hP6kW7fX6fvEQUMaV-15YmxtrC-8DJPoJPPmG4C6w4t-N4jsO1gMLtMYmF-UMURikg_mDKUxUY98vz01GloP6pU5MbvpOOndQ3RTtO08v0EOaQH5V8nVh2QYrjD8w6ifOxoN5nNwAsFkBd7KlXF1nM6ZreLlJW_bBxORLPd1aQ1VaMIuhClRP-_ULc-CgUewfaOhU9N-2Z0zieK8oUmBQF09VKesDgI50o8clx7jyoN4ZAj3seiy6sSmg5A7pEA-1gv-7Za4wY9Fgywog6l170fQuvxTWJSST87wRH-94CQh36b2i6gME_ahMVT5S_7nt9bTg5TV0HnRIWx2FCAD39lPC9-R8kcgBSDh4T-dQCsFuLPdv1LpUhNndqKRRiNWpuP5vnK39J5L32QeaOvAFfeBk-LsiJiGaWXSGLmPD9McnTH1pHgDHV23eqwXRqBs9qNyLS0EMS2Fm0DXRTLAwCKr-UPer3quibR27TOcnuDcnNMYbGXWdRvpAyo8C7V1ZHtVeY4D-08SpWnnziFsFjKxuJiLnfcMdejcukGl-J3F3Zw7etV03xjCcco2-Xt3V-ET65sUbHXKwsDncqWfUEGLvZXORtWcuc2KUB5K_eaZu_q0C2o3phK4oB_seVDUcZmCTH_f1dYSpsHmFnqtZtLkSMrmpRvbHW0Cx8nwWMEnd"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 269,
+              "completion_tokens": 162,
+              "total_tokens": 431,
+              "completion_tokens_details": {
+                "reasoning_tokens": 128
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_values": "{\"location\": \"Lab A\", \"temperature\": 22.5, \"humidity\": 45.0}"
+        },
+        "token_usage": {
+          "input_tokens": 269,
+          "output_tokens": 162,
+          "total_tokens": 431
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      }
+    ],
+    "metrics": {
+      "total_samples": 10,
+      "successful_runs": 10,
+      "failed_runs": 0,
+      "success_rate": 1.0,
+      "average_score": 1.0,
+      "min_score": 1.0,
+      "max_score": 1.0,
+      "num_scored": 10
+    },
+    "duration_seconds": 42.40696144104004,
+    "token_usage": {
+      "input_tokens": 2692,
+      "output_tokens": 1354,
+      "total_tokens": 4046
+    }
+  }
+}

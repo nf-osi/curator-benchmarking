@@ -1,0 +1,761 @@
+{
+  "experiment_id": "c9f94db040b0cd9db68e95335c291b95",
+  "task_name": "column_value_retrieval",
+  "task_hash": "bb01f4acb026623565c00cbb92a62e11",
+  "model_id": "openai/gpt-5-mini",
+  "system_instructions": "You are a metadata curation assistant. Your task is to help improve and correct metadata \naccording to the specific instructions provided for each task. Be precise, accurate, and \nfollow the guidelines carefully.\n",
+  "temperature": 0.0,
+  "thinking": false,
+  "tools": [],
+  "timestamp": "2025-11-19T20:31:37.394141",
+  "task_result": {
+    "task_name": "column_value_retrieval",
+    "num_samples": 10,
+    "results": [
+      {
+        "sample_index": 0,
+        "input": {
+          "row_data": "{\"row_id\": 1, \"columns\": {\"a\": 1, \"b\": \"one\"}}",
+          "column_name": "b",
+          "question": "Can you provide the value of column b for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"value\": \"one\"\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 226,
+            "outputTokens": 79,
+            "totalTokens": 305
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584257-smsgDfjLxpW9mC9oUWYW",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584257,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"value\": \"one\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Parsing JSON data**\n\nI need to decode the row_data, which is a JSON string. When I decode it, I get an object that has a row_id and a map of columns. Specifically, I want the value associated with the column named \"b.\" That value is the string \"one.\" My output needs to be formatted correctly as JSON: {\"value\": \"one\"}. I'll make sure there\u2019s no extra commentary and that it\u2019s done properly.",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "**Parsing JSON data**\n\nI need to decode the row_data, which is a JSON string. When I decode it, I get an object that has a row_id and a map of columns. Specifically, I want the value associated with the column named \"b.\" That value is the string \"one.\" My output needs to be formatted correctly as JSON: {\"value\": \"one\"}. I'll make sure there\u2019s no extra commentary and that it\u2019s done properly."
+                    },
+                    {
+                      "id": "rs_05032f652564736001691e2901c5b8819088af251467a169f3",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHikHu5plemTehKpuijEQ6fJNJJPHH6s8HM2mfHbXFVBwvf-1c_zQ76PZ8cskX4DIyFvFVyWOYsy5_X0C6NP_vCGo9mmKjOjpW-GMQIJVI-ylEH4HUfTq3PZVRaflLNb_iZj9sz1lpdaJodSRKUSt3hkY7YJ7oCFyfKvXItMR6gIEUzFbugopqyBXw5xfRyxcEnTDncE-RuAzLqddaRFqS-zXCVeBAZm4XCGa0heWE2BnKtegnPkaR1uwPWCREjBXbIM4oOKRYAHv9Jzx3KVPOZE3mA_aIgA-WXTIKf-qLIf65e79XlvNn2HN19oFa1D6HfuUNdxGFd6ZOPlUrqLeEuxZds4Wkm6s3O63g26A-hfMXyYxIuu8fsI3bQHtMf2_mIRopnk9m2ZZJcCttHwS0vLu3ra1ht1mO7NgJYKzvxIpx0PCKH7T7aOAI_DQ9cNwn0yrY5PjpCnpAh03KVM7nweZy60Tyvb-OpA_pEj2ZTXDy5BCKRdfGqV7XW9UR1MtI27rR1vyMNCrlRUJhRQ3cH0XfS3V4JJHCQrUbfK5UR9DlH6ebxHSSJe8biOP6DVaDzlSy2PUUUZJ2vv4LMu9drz7mwjLp5ZAt-8g4uZ_IjW_SR8zqVPi5ZOOdlht6ZmjTl3Jknl2UXFxoRxm0tukYfA2c_F2wbhAgmVchU86rtGZmNJVCHwL8aSRfqHMFTSi-J7kDJ9OP6xa1BAVq5xr8iIS32gVREC_-Ta-FOMLeWl7MDglfxNTg-wg42eGK_SE7xdOL17R09SH8uCWYjRbwazFRKcXKgDQx_OX75nT2dMwrdq9OBLMpZsIewUCsmgYQQ_DeFsx6UH0Kx9V2uBElTc3NTfoVWIE5ajfAXA7RMmdjSi7guZ6rv5XBrpek4J-rgBcvGdiyytNPD3c-rdPPbwoRnyUizXRSrKbgqQGRj_5CKsadMiqe8kwoPm0rWNwka7FlOtmonwn-QLCzuu4HMLQ_Tdws7YXCCMGVY3-rRkOMieRdxFDUGfEVhsFSvlztcvMZ0tJvC48fRjP5Vm7xzJMseumzd8Z-ssW9_3x54R4Mt9rYet5FCW6g6fojWgGXC5U5xfwz9PS-8jiPGOVsUZdn5y7-jAHQGNGkyLJAHh79v9zgT5aIk0BIwK0MkBXsf7y1SDMumIYR-lNKMAcFLyKg4iiC4WmCS88dlRklqjEsdA1LAfmcyK3dATuUzGviUhT9z-YknI4ww4uTOaF6ptJiUTgNrm2hriHNJLLD6eZ09YBBLBgDmzD5ReJc-zYeiimlqjEfNrY0ZbsdIKJvtn9mGBZhTxNleU6rbMIjuk0wZxilO8Ad9CCq7bQL-IDeBx7u0bUWLC3MnceJdmkNz0mkfKXcIjKGWovibCUeuaKThc="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 226,
+              "completion_tokens": 79,
+              "total_tokens": 305,
+              "completion_tokens_details": {
+                "reasoning_tokens": 64
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "one"
+        },
+        "token_usage": {
+          "input_tokens": 226,
+          "output_tokens": 79,
+          "total_tokens": 305
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 1,
+        "input": {
+          "row_data": "{\"row_id\": 2, \"columns\": {\"patient_id\": \"P001\", \"diagnosis\": \"NF1\", \"age\": 25}}",
+          "column_name": "diagnosis",
+          "question": "Can you provide the value of column diagnosis for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"value\": \"NF1\"\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 236,
+            "outputTokens": 80,
+            "totalTokens": 316
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584263-jc7XYybhKxIkrPRii2gU",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584263,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"value\": \"NF1\"\n}",
+                  "refusal": null,
+                  "reasoning": "{\"value\":\"NF1\"}",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "{\"value\":\"NF1\"}"
+                    },
+                    {
+                      "id": "rs_0a6e9776bef1defe01691e290799008190800443a1aa133696",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHikJ3imJ3rVo6C2SMol_38d9bUPQcdDgXZj6TGrDqo3RqyiKxN3fgXjuzIvWtTGBRbH4yk3_2c8solc2SG61dIKZp_CdOC2O5m00x4p3f3bRM-1_kShMmA_0FVQ0-UnEW8z0WTwDyOIsPwk35a-klusU5TsiObbtq5Y6R68DMqEOus0rsfw8bQalCLKEIsRWsbkY5jeiXHSRnO8LR048V_HzhaBtLu_GtkhVDeDFdC5Mph-HcEhvF57aUePxHFClM9r94jCvYo-HWuAiir0AQ3knondgMo_ipUEkboMR_oNCWaKiLqpeb3ODs77i5VRvKMetwJGYx0aa1FOziyy8LMEuXrSn3kRsN_nIcAP6qLO3uNslQWoUnqlKEf0YLDiYA2BwBvOd8tubNbGM_rTOpH8UT87qy65NJVCON2GRFOx2Xg99-5Cc2rsNLHDz9M3p-uUsmjWrk-T4Yhp1D7CNjVLXn5NkDphI3a0DDMc_nlJL42v3AcEiwinwUAVIHKwLzMKxkC9hv_ceRbHqLCByOyo8IoUvY2R4IJIuwn1_QQnlorW1_HSjqRBzTDv-8PPTdHZIY4mY40Rz8DxtnQLuoRCmcHhtEPyMR7X3-KQEggYK96_azp5CanvEJD6a-bMastvXyxaRUBZM4UWy6MvxfvNKtSTDwFQNMmqS1RWvdT0Vt0pbQIV-LPF640Aq7xddGxASAsCZ0GpsDbzYBFTazE2DkfDWfIZ9mKePnA8ogCBcWYiY0O-jIZ_8ujOGCynxfm-YvSdiq-MZFLyR_CFhkB-PGaYCDeuKCEtL9tiIE7jjzY2TLo95czybbvJGJTX12jZDquTXC3l45ApBSamiYEzCBd9Z-DbAhZfjZAlsjOr171w_bjSeRgu7Za1SFj0726_ZTD2EoQQr2jec3KW-zCiDha1BAQcCERaMdyRo-m96gp_6xRh9Mlg9tp1ZiTDOY-X8U3CdwZ_FMxnJcza3m5QiWTOWTw5dQjeCLmZ1gQoIrBLTO2WzXDszrRxJRuoMCtQNWWitNZtvG93QdZN-Tj0Undavvu6ilZLFH9tbmujVYhi49mv8F4bBhWRYULfs2_1mqzu9qGbXhDlm9_ImvhHjhxwDOPtao_cRlRjdOOMJLLSGvdVbZ_zGIjEVTmuXls-HWE6lGtmjku-Mq2AHzPw_MtFSkhzb2aUwTMSvw7SvzJZ3jeaK3m5x-DknGQdsh4rj9VtUVOrqj71jMtQnwic73OrFVvDxllNYszvaAjpdtDiKCDH6tCAUSsqPD9lQZdqmz50aN7EKRJ8qP9bmL19FnJMYQGSg-QEuZ8JVnTdaKOuCZi3iMT-_E6JA9tlFWIqgCia2hIMPCgSQHFBAug5fAw=="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 236,
+              "completion_tokens": 80,
+              "total_tokens": 316,
+              "completion_tokens_details": {
+                "reasoning_tokens": 64
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "NF1"
+        },
+        "token_usage": {
+          "input_tokens": 236,
+          "output_tokens": 80,
+          "total_tokens": 316
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 2,
+        "input": {
+          "row_data": "{\"row_id\": 3, \"columns\": {\"sample_id\": \"S123\", \"assay\": \"RNA-seq\", \"tumor_type\": \"GBM\"}}",
+          "column_name": "assay",
+          "question": "Can you provide the value of column assay for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"value\": \"RNA-seq\"\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 241,
+            "outputTokens": 145,
+            "totalTokens": 386
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584265-HZZrSz7ctlJphQrdn5J3",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584265,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"value\": \"RNA-seq\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Parsing JSON data**\n\nI need to parse a JSON string from `row_data`, which includes details like `row_id`, `sample_id`, `assay`, and `tumor_type`. Specifically, I want to focus on the column name \"assay\" and return the value in plain JSON format. The output should be structured correctly, ensuring only necessary details, with no extra commentary. It's clear: the result should simply be { \"value\": \"RNA-seq\" }. Let's get this finalized!",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "**Parsing JSON data**\n\nI need to parse a JSON string from `row_data`, which includes details like `row_id`, `sample_id`, `assay`, and `tumor_type`. Specifically, I want to focus on the column name \"assay\" and return the value in plain JSON format. The output should be structured correctly, ensuring only necessary details, with no extra commentary. It's clear: the result should simply be { \"value\": \"RNA-seq\" }. Let's get this finalized!"
+                    },
+                    {
+                      "id": "rs_05432731d7f85bf601691e290a02248190b4300ba7449776d8",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHikOucahUCqh3UtfTAMmqe5tHaNW5Hyiwy2EcTnrndskX0FGWOO04H6PlAFegvXXBxVKBppfmk8ywFwNOvVHwKhj3rBEHXbp6HmbZnOgfJRUqXD34GRMzFIIQJHCcFcp1fzthMBcgiSznBaWosPVeqMSrbEkuKZSfej_EHnM_LXPPRuJZ_7k-FMeoxcc--LUe-Y4XUDZo3VP9fmon9tE-TdPsgnom4eedPz9cCk4KehWiPKI_mG_Bb31jdFoB0LJai9OjBRCnuOYVUdtHQbgqVyBC1xpJ_Y_tV99AxvR2yJJxGxdEiaBPEsUyyMBh9REsFBaGhc07KdbV8p7NaguckSu-D2ceDYvl54R_D76O2UPNrgqBC6iLV7xWgX5yFzk9HwlwZeQth_nE78o2nFA7U4wX8HEmtk6PZ2gzB0Jynu1bbolhFaQ443S6Dx1T8pKYsPUKcCkhuOYa7mDZZMY-jOLvyMmO8E_ItiShhr4Nt6tLmylzYQOF2Hd6Yf1d4BE7hcIdlGDXzN65zQwmQGp3sWxB76WZgEqV9kZYWCxnnVFBK0S8SyvzTCV_iP2_zbXT1B3x7jpoJa2wBGDfYHDYhCfaqHM0NUo_ppPSGnjxSG2OpGbg0ALyE4a3iNpyHNUlUxXZeuXZFpyLe0w_Ch5VlHG-coGkty0yTFFMO2s7wMJG7xM4Zf_Uw7fkgtgieml6e_MZzLZw67v8ZC9LDK8-q0FNhDIrOZk2Q6aDQNcuqHCx2oL24FwyE2D4o0pXAYG3Hxu_BknYCydzkayyKou7S1UOUYkJEfFRLsnL-Zp48nmnsizjUh1HAhs_-fM_j4hvfMfCQBuoYsibwWdmwwZUTUWYrMMYL2gR7eAXfqKTmYYLmYm9uNJQjY5S9UAByUiq0OlZWvR4zOPeKRMb9BY_Tym7rp0L9BbEXhw1B4mSQW6Aby30qkYhYhpGniIw-cTvnF-TBvJy2Dwk47O_tGdGGD_8wHNb_MIUgXL31dduyYR-YiAMZTlvMoIaH9asaYgKPld7oLebaCzYxTTC2wbP8PMbu8Xo1yjelQ0lQGx7zcvaYBq4eAC9e8aBDH6OuEzblL9K-SFC3ldIjIe8JCtuk0HXDbgon73yJSYtrrfcsvM3fihU3YEtxYZJ1UjXpgpZHXDZktIyec3JTUGHDe9qCnvLMad2tGMTpj1yOR0JLCXl0DiuZ_BX8dRaPkv-2cQqYusUlb-maNOcfwVv9wiQce_8JfjAiU3b4jZaFt__pOLknIjcyEqmq8_Qv2CnOHVh9DN-Cr7MPOM2wB581qTHljpj8UW_8BAuQsT3LTVmIb4eyDwtXTCRwsfWpvz8OsNKuYCmPhk0-h2ApAYdxid3no-Rf7slBddSUZ5esCR7R5j94u6CvQvG4f1a97tp-SmLKM0KjNSDiIO1OJ4oNSxCIQqIhvht28yJG5B_ZMAK8NE_gYcg-JWp-NQWiObq3ok9z5SMNmrcPd6kiD6af--AzXYknf5ibhtrJLetddNXK0CifP659mc6JXjvP0gI37Lqy6NM1biHRjOEud0C6TcStPb1w=="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 241,
+              "completion_tokens": 145,
+              "total_tokens": 386,
+              "completion_tokens_details": {
+                "reasoning_tokens": 128
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "RNA-seq"
+        },
+        "token_usage": {
+          "input_tokens": 241,
+          "output_tokens": 145,
+          "total_tokens": 386
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 3,
+        "input": {
+          "row_data": "{\"row_id\": 4, \"columns\": {\"id\": 42, \"name\": \"Test\", \"value\": 3.14}}",
+          "column_name": "value",
+          "question": "Can you provide the value of column value for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"value\": 3.14\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 233,
+            "outputTokens": 81,
+            "totalTokens": 314
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584270-lPRBnak93pv6bf7Jqjsr",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584270,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"value\": 3.14\n}",
+                  "refusal": null,
+                  "reasoning": "**Parsing JSON data**\n\nI need to parse the `row_data` string, which is in JSON format. The string is: `{\"row_id\": 4, \"columns\": {\"id\": 42, \"name\": \"Test\", \"value\": 3.14}}`. My goal is to extract the value for the column named \"value,\" which is 3.14. I should return it as a JSON object, ensuring that it's formatted well and that the number isn\u2019t quoted. So, I\u2019ll return: `{ \"value\": 3.14 }`.",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "**Parsing JSON data**\n\nI need to parse the `row_data` string, which is in JSON format. The string is: `{\"row_id\": 4, \"columns\": {\"id\": 42, \"name\": \"Test\", \"value\": 3.14}}`. My goal is to extract the value for the column named \"value,\" which is 3.14. I should return it as a JSON object, ensuring that it's formatted well and that the number isn\u2019t quoted. So, I\u2019ll return: `{ \"value\": 3.14 }`."
+                    },
+                    {
+                      "id": "rs_0460fbfa386e41f101691e290ebe7881948ba45d0302e3d16d",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHikTd5swgFCJ3n_dOL5X7V8jYdHQmEamskw6LiJt_eLg0lTgfs4BjSqagAnnnVf0ZtQ3sBY2Fg1SR1abNJhG2vz3uhPZbYg6rnLjbuR8QOqdfCtccfYVzYEE-kuY2HbDauL2O8JbM8ofjAgVJYZkARctPkWCouqeBVRaSEcK3ZP7ebD-_ZCcLowpdJtMMTd4Cd5r_ZtkA82J6fzY2Ic4iGvnvbgu3ztQP1WoTpjKJW7BRZ7u2rn0CJA5B6clW5HwO0vYGo8uxhaByoJOyw4xJEPcPRdczyLn2lQcA9isEfBXOMlwYvuGdSbAI7pWv2JXBSVmnL1jU6mTQ6tcKtHjs_YVKcBAOnZr1uRe6jDvUSR9pJN_nJuw4r-01_teM30VAXW7LAt90Ur6OXA4U0-LQU4dkig4fQfEhT0pBIWHvGliVob8Rct0pHhBDECXYwLvN_wWl7GvN6XIbfi6a9mljtFcK5JW2pvAMGChfOAhzLy2nOM6CucpdMAawXOtjucxK-_lHuwULkU_s1YexWnl6dixgYmgsnRte9BpEO3s24kmvYfMX925YrM1iLvtvUzKc3_099dq4cunh7hnJiQyS2ZVhmXmutbjqWn83a0eFY-l7_rlrMy15LJy2yGPJ1lhXVIoXGS9gVCpinOwyrwlae8y07syWiblfu8ChAIRxadj3RnciG29yXXPT2NcBQjiO_puqVB2V6h_CBalOLPDqjyp_zqSRxnV_miSZlIlNS2yxXTSDh8_XtRoDen3BBwFjXgyekIqJSySJpwG8Q7-iF1Fct8l00JE_pAqeQozMOHhAwkBdr11uiHVAx1EPE3eR1toPHtidAh3IaxloACT6CgSm_OSp6XgOg6Ix2CsCYTz7JXY5Sf19PjDte7xlMlmoO18sXw2c-Ph0edVgqKybB7Lya_X6D-LLohwFKJ0_yMkCScz-WSefFDgwiyBulcAfXAP6x3lrO_-WZACiGvk9qmvDUgaFz6ouvnre1qGxdgS3tBuVnz3GsEMcak7_fUGriQHbgUbgg_5f7NmHGyhk6Q9xzPSleSHjbJkDmetTub2K3gBSQPPHVb6VtaddV8wlZSNrWd6pCa1pqMMCOUx-9jN7xia9thhJV_YVDRuqb7Ub5DicXeuTRxXqyO9uHd9kW0cTSwZbje8Pna-pSsFP66ot28ydSog4q8ptNBajtTGOcmE0fPUF4-CwkcWDQBLsPzPnvnI5cCQs4XfhtPm5M0nk4bNT8nBI2PPQQUROw_5YQMNE9yDWG4Rm3ZLtdER2vRooUBOUUTJSCFFORubdotKN7vdg7rnYo_pLPMLYWn5ySqmI6N5IT-3u3GSpBpJu7uLwyLnvOL1n-qe8Bd0cdOvW_2BvLmrdCHv_1pC0tCrvqy0p_w4SHMzdI4gcyb5VVXnxeB1zyZWvII87q6bp2sGY4I5A8zfsKC-2Rt5-ZEzeR7wvA5K89k_jeKuT_HPhITFd592J6lfrqxqTDcbv58mHPs0b09ondylMfeQSYD4JV4="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 233,
+              "completion_tokens": 81,
+              "total_tokens": 314,
+              "completion_tokens_details": {
+                "reasoning_tokens": 64
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "3.14"
+        },
+        "token_usage": {
+          "input_tokens": 233,
+          "output_tokens": 81,
+          "total_tokens": 314
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 4,
+        "input": {
+          "row_data": "{\"row_id\": 5, \"columns\": {\"gene\": \"TP53\", \"expression\": 2.5, \"p_value\": 0.001}}",
+          "column_name": "expression",
+          "question": "Can you provide the value of column expression for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"value\": 2.5\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 237,
+            "outputTokens": 81,
+            "totalTokens": 318
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584275-Iazjk2eZqqmJ4IBxrkGV",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584275,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"value\": 2.5\n}",
+                  "refusal": null,
+                  "reasoning": "{\n  \"value\": 2.5\n}",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "{\n  \"value\": 2.5\n}"
+                    },
+                    {
+                      "id": "rs_0ed58b3f36adb22601691e29143f708195ab17026e5459152e",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHikWueY4emonewfjlRGeO0IA-4YAe1BtvzrL0sB0w9IdGwMSNwH_EZJ99mtPSCk-J6tytVBKiCbk9SQHj5wCbQivIpYbF3NbPVC9JQ0JCcAWKanHhurj-F258DeCGmkvVA56keAwm-dTqd4SvnfmLZsXRtdElC53DBh-W3fdd70Noya0aGZLyDr0bQytMYTMbxdPqGBolvrQBY8oRjz1JB5q9GPKbcO0X9gmLug0vDUeRjmMm94Dnz91zAToTzEamPaEWgLZuZdsFTFy70kkVwOFsI73NZQEfzasRhd03uq3h9gQQr-5VcbCSuJyTxW4zWtXJtKpijuiRjYpLULtw9zIFVZ1RLSr9rOLvUPo9HPVOgOIlYskZfc7RApHO5mCQ56ngnRPAdbf1uy8jCT5shjt7FAOWyjZc6Iihj5p-pljVMkcslPIFjDieyc7JU0RNOMp0uoXHO4wVuu-5X57QjB_X8GIrl5EsFMrP_cwNoXqn_Ki7Bw35beFHTI9xHOxd1QVhJ2Hv347GJRnWLc_vc4gwFb8L3Uvdj8N6V8WgZMmJtF7qZZ55kff97rCi7yuux9WYTfy1CKKn7eJyzJ7X7xrQjgJPwGRe6UcBZIj0Y9jX6DUg_DaqWOCz2FOlxbx2k5v3O6facLXt9QwPFhQF5vqWcrqQe9eaTu9NjZee_MaSpZQqiT1DWl7QQkGq54ldoCKA-TUaKdUrVRlXuwwkXy_wTqDBJzVjXSJGjgtHv04WQ1CZTcC_ReHAaiuvVghtCGtQM5uZRER4Bvsm4BYcea5MxzarHfTWiB-6Euyb-Lw4kMDWzTRv-jwLiUsTfHV8VQv6sAD-ShypERuyHyWOybMaT0ZxgUdMXKsAIdGkO-cfV0_2dLch6dgUNiitzr-iJedcButTMMaCh3uIUi6MAWlw0-1NWj38C-cAloDnPGKii8XqvRhz35E58tWi65_noiEH-uYoeBwrajBAljaQI_kMBOzWMJ5xOXgnA2kpCdF6-RjnxEk1ui5NcmB8LhorEL4YWwD5bIUkgqL65XOI5fi8HAZykjUQY3MTaX_dkIA7_YMsvLdthp4HBssOdoDc5GbG9bdHO_JDCWYugNzN7K7DCouF1RIb4ky-PlVnnGARf6bMf_jTeWD2KlV7gJsfBnLbRsuRu-qXAak6nsc91_Kb4dqCQytQrQuJa1vV4bXVFKtRZX64C3jGpnBelzM_9AaJd6H7a-dZ59cuiwO9ljvd_6ySqrDO8bQWmvINZBtfa2vRDktBYiNZeC3YgkpdgshdLh-U8UKuagClLyiYWXbnrzzp_ObzjSmxXLMpV2VQEle-gBAX0OtnbQMBcShRtjIQfrxhB3uyewgchDzejGFQgj5_MQCxEHQ5lXmkH3VYqr7IHoBFju8QugGUP_JeXnA"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 237,
+              "completion_tokens": 81,
+              "total_tokens": 318,
+              "completion_tokens_details": {
+                "reasoning_tokens": 64
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "2.5"
+        },
+        "token_usage": {
+          "input_tokens": 237,
+          "output_tokens": 81,
+          "total_tokens": 318
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 5,
+        "input": {
+          "row_data": "{\"row_id\": 6, \"columns\": {\"a\": null, \"b\": \"no id\"}}",
+          "column_name": "b",
+          "question": "Can you provide the value of column b for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"value\": \"no id\"\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 226,
+            "outputTokens": 144,
+            "totalTokens": 370
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584278-FkBCJ5w1OusxGd7uwGeH",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584278,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"value\": \"no id\"\n}",
+                  "refusal": null,
+                  "reasoning": null,
+                  "reasoning_details": [
+                    {
+                      "id": "rs_0b67e9155306d24901691e2916a2ec819399a579962b99359f",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHikYkLCHf5w9FwTkxaOAD7CmkdRyNG5fuGVfjy4uWuz5PoK4XymOlYliPHRo8kuHa7PYfHwJxcjrZDPYl8b9jNwBVXMJQo5UaDbBduxagGfocM0TwqZZklfrOSBlkM4xsAslY4t_PdhDEOXI5LA7WlpncvdKZWsW2mRVfETBwAtuymbiRTz4jWlTrC7PsKSJQyo92Xc7ZQ1hxUbnXpX6fX6B1tajmUli_BawVZKXNBMRNcBuAJTlJHPWfIpdHGv35ZblZON8ig_Y_mdFnOi7hA76y093YVGy2hmA4yLsLrTygb1MaC4mtaEqTZ3ykXAfamGYfpNoOoz4mZe2KI9d0Ou6kFtaaHLelNMb5tO6F4E2oG3HtlvBkS1dl18T-WiPMtBvbyyed95rSD0_YpNUEo8GQ7PFbKEVStzSESL6X63fN9pMVYIuRqmMVJKHsyxgTyZSPtiU3h8y0M6c3HEbuAwFQ3OHfxYhRc1HyOh8zAR-8-yoz-_VE5k7oBXTp0OUxUAkhcgl_qt3m13AY2VXOxh1d7E3sFjsA5GZ-oiUKDS2-tTSSJ6NiEUUvvkx6FRw5BYqyajgRmAHc7tn008IISVMkTEOdvSevO08xZE3krZv_MtEW8Kvft-FIYve4o4Htem8ufJficCYL3fZLDhr5e1bcFlLKMykhtoxFvjBS6OAogkQMolK_x2zkPwzPklQDMzI-1M68jX_8ZjkxVe22Kdo-sriTWBNywhVZeZEtXbi9J5wYhBHy84u7BwmDgqQW-psN4_RpSIbiZD-Kprem8LiA5Z4RGeAR4oBT7hQH1wHLABhqkBuv-3LYZCN2ijQHz7lb9TWXXHNSFjt5utdwHKcXObYYmBMKC7ONBcryJ3-uvTD_4o-b7X1xsJ0dIhQymQfpcC583VLkwnI9esykd7Y6wAedKiaXTMX3eKy4-TfyHN8U07ejQRdTWseVhsYbXjZ40a0sEZNIrsmFb8s3aSD3DoF0KNNCsAffL7H7N8GHs4R93o5qZVy5ot7UeZaFDwBiyiM8DUEIwUkNWISFfXHF2J-Td4gINWie7aqYRNVU5SdhVB9f6Q_eKzybxojtzONkHZenW6xJvbcwR74p6aCLNKpFv3Ne4qlaV4EAtBCF1OrvSz6SW3Wt1yY3TWmQazhRyIgZ2SkGn3Rlrgt7oYH14XbojFfwGqqgzBgDJCQGtuUBYIrc-gB13FO6sL0ffs0lOg9n6vIEFUTaGkAoexOhgrJdBra_Nw1hAtBpEG_2xgX_xUS9bfiDoefgWMpdW36qtPyeuks5GK_YkM-eg-UD8P9wkHz2m3Tcdf3rex59aiA3vyaWWESFEPRzgFe_XVrxwjltxvruajsoc0SVe9qnH9UPF13wzlPSZSwlW-RTpM6Cnk_0vxVHXhS3xkJS8xA9THlOgHqaSb2nVH-Ew7wxrzOPpq8NRxYu6e7Hk1eBzvHjxuW3kOW5wDO7UK7R7pKeotkIuk6DTw78WBa57U1nqTBqETmU6kfjAquW6zX6P0="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 226,
+              "completion_tokens": 144,
+              "total_tokens": 370,
+              "completion_tokens_details": {
+                "reasoning_tokens": 128
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "no id"
+        },
+        "token_usage": {
+          "input_tokens": 226,
+          "output_tokens": 144,
+          "total_tokens": 370
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 6,
+        "input": {
+          "row_data": "{\"row_id\": 7, \"columns\": {\"file_name\": \"data.csv\", \"file_size\": 1024, \"file_type\": \"CSV\"}}",
+          "column_name": "file_size",
+          "question": "Can you provide the value of column file_size for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"value\": 1024\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 239,
+            "outputTokens": 80,
+            "totalTokens": 319
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584280-3BDdDDdgWJJDSRhdfAoN",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584280,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"value\": 1024\n}",
+                  "refusal": null,
+                  "reasoning": "**Parsing JSON data**\n\nI need to parse the row_data JSON string, which has a row_id of 7 and includes columns like file_name as \"data.csv\", file_size as 1024, and file_type as \"CSV\". For the column name request \"file_size\", I should output a JSON with the value set to the number 1024 (not a string). If the value happens to be null, I would simply return null. So the final output should be {\"value\": 1024}. It must be valid JSON without extra fields.",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "**Parsing JSON data**\n\nI need to parse the row_data JSON string, which has a row_id of 7 and includes columns like file_name as \"data.csv\", file_size as 1024, and file_type as \"CSV\". For the column name request \"file_size\", I should output a JSON with the value set to the number 1024 (not a string). If the value happens to be null, I would simply return null. So the final output should be {\"value\": 1024}. It must be valid JSON without extra fields."
+                    },
+                    {
+                      "id": "rs_0c05fe7472b253a201691e29190b2c8193bf3db1059a61802a",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHikdjiBUUMocUuJPCejh_E9AeQXSkBLrg7SF1LlnUCbIweQcJMQQpaQcxFyoY7GKPNW-vHGau9IeagHnEeO99f25GHWSG9-1YJ96ris0SZZsDwO23myPHbaFgSG59q4qm4Njtmq-Blsj1_sF5fAKb7iL9CTC7xrRT1Qfo5cOIMgGqQDJtH-ozndxBUSVBzUPXzS5DgonwSn-AGl6jWqZ8N_bfLfvsJo33VsT5nlcIPq38FVJ5ZVsjkP_B54M2AGtzW1F5RHh6JyxAwqBFSeurkH_pLhIcC6wdMNQk0gmeVdBqu-6mhmrQdPxfXiDtEkglGT6G6OnE4nUzGkI-RTOfORlvGRxwa_8OETunbx5I6EV6PXGfC-pkMYdXHDTx3eDfrZzMxYxlpZxZW5fjQo_7cTyztetszRjQoMc5A1GPSWCpvki-KcTnfo6bUBh82ZB_htslY-dIXy3YhV_THgThHTEyMS-r7ZWSQUVw8bYGkcF0ipgSLS1ZJok4N49jLtdyZba8vgNpbNasT_gtUYMAYO86VO77KO6KgswKxTwCtTPhNYtes7e4nXB_vAkSslMMsTPFfXhkkMqHGk8aessOrZjM6Ge1a2eLkzRqcZEPVcUUdr0hZCB3BSfqjP69CVZs9Jjq2WPEKmJhkphJfT14ZcXqhQ4F-cGey7KscThIS4k9zd8hdJkcn90SKusgiXc6955orSPWHeRpc8jeXhFBf9KuCi_Fu21l8ubzqRewpQKmN6x6zkgyieV6D4kJbw-A6ciedB8EkOghjGt0u31zhxO73h7HKPGJTmEPOPBigx318QpxU57CE38ygEbylGknL_oDy4YJSVHBmo-uMOZCd31S7Vw4ehC1nDt-LXBUGnLenc3JMjQ5rE9MWEEnb4LbAv-rbuoZWM0o7jDbttijq6dwsKcnby0VSfdTMeZsTOPMsRgcoQDfbEbHsl2h5w2qJegJnlt6_lAVQ6zkke2_JQCRIl2QnwoOLaclGxDKICFAHQvpCw0yi-bI2i3_TO2lWiRiC7rR3ha0ZoCyA4JL8stFqSnyfWZKKIlmLxfK-6qcYZUaglLBDJioAL5-9S4azNnDWGKwVOgVWTXNk2elTNDbW8P1huP5D613u-KoUb5MHv6bvcWpAKuRlNjrN_ZP0Cchtm-FagftTcNF7PqPRjJqWhN-wTbCC0epTGhUYA_qjzjN1C9hNxr-KkudUwrcQNBMSmNGIxO2xwNbi7h7Z9MYLutz5NR9GN5ynQsrsd6vSYw6GbuQZwlo4-sYuHHp-rqBhUyufg8-rovkGca8neLt2w3uqR8ZU6i-kW_LhbjGa8="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 239,
+              "completion_tokens": 80,
+              "total_tokens": 319,
+              "completion_tokens_details": {
+                "reasoning_tokens": 64
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "1024"
+        },
+        "token_usage": {
+          "input_tokens": 239,
+          "output_tokens": 80,
+          "total_tokens": 319
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 7,
+        "input": {
+          "row_data": "{\"row_id\": 8, \"columns\": {\"experiment_id\": \"EXP001\", \"replicate\": 3, \"condition\": \"control\"}}",
+          "column_name": "replicate",
+          "question": "Can you provide the value of column replicate for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"value\": 3\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 236,
+            "outputTokens": 79,
+            "totalTokens": 315
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584285-Kr9rqNwwzZDfJtTmWE3w",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584285,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"value\": 3\n}",
+                  "refusal": null,
+                  "reasoning": "**Parsing JSON data**\n\nI need to process a JSON encoded string that contains some experimental data. My goal is to extract the value of the column named \"replicate\". In this case, the value is 3, which is a number, so I should return this in the correct JSON format. I have to ensure that the type is indeed a number, not a string. Since the value is present, I\u2019ll return a JSON object with \"value\": 3.",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "**Parsing JSON data**\n\nI need to process a JSON encoded string that contains some experimental data. My goal is to extract the value of the column named \"replicate\". In this case, the value is 3, which is a number, so I should return this in the correct JSON format. I have to ensure that the type is indeed a number, not a string. Since the value is present, I\u2019ll return a JSON object with \"value\": 3."
+                    },
+                    {
+                      "id": "rs_0ab96c1551ad220101691e291e0e8881938ee9aa03a173551f",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHikiKUqRo-fX6udiH8O8EyxdQuONw5kcRz8UjMUY9STaxRs1hqNqMzByHwfuK0axQWgd5Xpq-CVDyIsCZnwAxL3-CNtbYtcch4tXcpbB0hOkEkD9XYgkl3qU28uegonH5lJyQf3Trlu-Gs3tWaCCzhNhdlTQxKhkC-qBjj0tzxfvmvGwx8m_RG-GcAQmKVr_MW2PkOVqNqAUS6z8cv60uKK5xNvEgrFsID4s035wn4HWyCLw9yMVr1skQn_zXkLs7VlPuqSZ_vcYW8CQijxM9YMF46SvIjl3HosN_Do9nPy6ir0GMpiKm3johdQBJSETCyt9BhFYVhPn9ip-CygQs3ijEHwd2XXe3inRjbO6_Ql4INihr7e0bsAEVWmeHMT6Y-x5xAqKIC_JJuZWSQHhyjBfSD-Zljq61BCXW1ULyt9FosNz9Lw1PwBtU4WgBwH1HyXMl7PAN83F8rDDbbakOgD6Z4JgfzC3JKapHCny2x8bdBBv7pfIYWbe77ihhMrYE3VEIx_1SfoJ3O3bMX4-AD4s-anQMU4N0rzfkzHUAWmNsZ7s-f2mZz520rjzoi4XHrduGnheirltiGrmbF5OzW1p__TlNu-Iw3VKnT_ZrGZti738HwdJXSruH5sv9JVJA1GrvjuGoHsOz3gt4szibGCSQtxIz9DYL6CoVeMXOVq2tyKRcRbdAZ5CStF4ksjyHWj-EbXzpzCiWPU7wlYyra9LVRUr3o-5sTlY-P1j9jScinDbLnERYYcAxodTIi0KMdNtg9Ut3b00mR5Ud9jUQEZdLpEWmNfTbgfCEBYtQnWsQxHXZIbPv3JaR_8CzwJOOo6jeoXjibITanAq3vvPZMgckUCY0w1-flVLApb9gVxu8e02CYIwMHNk5RJFflE7RRRAcovIqQ1zU1bqL_svb-Gwe8deU3VUR6d2koQhelL1mHWMaBnb3JfEN1tVvRsm0dTHMW9H7ZyS_Dgldph543cSjGwr2f3hd6F1YzhuL0UgHRU5JvN91p7F65uD47M8sCwWs6o7eW8JjK5-SHXoXGPd9potp9GnvQAErQ5GM6fGqQrO-SfLXh5SGs8xEgRQIpwwpkOvmy8t9TElWxfWG6p6q3DTiLEzbL4bvzvbTFhSJB-LGSQn-eK5qj41sVmaS9_fdSSC9AcIjDPJH3jynJbRdR6andXs76Zq5NXRZ3VZfqQ3gwfyFrCOL6qZ8HCApLWo9HHb6ox5el-QED9dsIlrU9pou9TJQEZ81vzPQ4kc2dCPa7NQe5s5ga1821xjErQ7FijRr2Jb1RznKzEvtVf544VxU_FL2y26RLPqVAhYscIjH6N2aFLrlHcVfqqGZb8hZNertNyKTtnArYzcX3geMSc_SY9GSGtpsBSRSKYUpf6qdm_Dm_K9jxTHBhrvEFc5WKALhPftBQ25YpzEGUTRFoHsyofs6zErUvK_Iqjrjtlo4UBKUOX2X1ii0xg_JQKZP72ThBBkT8IAEEuaVCq2PMdfdJf5GnX7ZsjVNvAZCeo="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 236,
+              "completion_tokens": 79,
+              "total_tokens": 315,
+              "completion_tokens_details": {
+                "reasoning_tokens": 64
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "3"
+        },
+        "token_usage": {
+          "input_tokens": 236,
+          "output_tokens": 79,
+          "total_tokens": 315
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 8,
+        "input": {
+          "row_data": "{\"row_id\": 9, \"columns\": {\"subject\": \"SUB001\", \"treatment\": \"A\", \"outcome\": \"success\", \"score\": 85}}",
+          "column_name": "score",
+          "question": "Can you provide the value of column score for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"value\": 85\n}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 240,
+            "outputTokens": 79,
+            "totalTokens": 319
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584291-t0C157F9PwRJt97z8PNN",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584291,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"value\": 85\n}",
+                  "refusal": null,
+                  "reasoning": "**Parsing JSON for output**\n\nI need to parse the row_data JSON string, which has a row_id of 9 and includes a columns dictionary with subject, treatment, outcome, and a score of 85. The column name I'm focused on is \"score.\" I need to return a JSON with the value set to 85 as a number, ensuring there\u2019s no extra text in the output. So, the final output should simply be: {\"value\": 85}. Done!",
+                  "reasoning_details": [
+                    {
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.summary",
+                      "summary": "**Parsing JSON for output**\n\nI need to parse the row_data JSON string, which has a row_id of 9 and includes a columns dictionary with subject, treatment, outcome, and a score of 85. The column name I'm focused on is \"score.\" I need to return a JSON with the value set to 85 as a number, ensuring there\u2019s no extra text in the output. So, the final output should simply be: {\"value\": 85}. Done!"
+                    },
+                    {
+                      "id": "rs_0b810393b23c2df201691e292372a88195842b61082ece816d",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHikmcnj3wDQl_piuUFYWmut2ZDvL4VQlpwbubpfAV2xkZOkfpK1Jjr937nKsQntcu1jYMKrWjraFSfJKA7UBgXGU0PUTnRcNRuxeEV78-ghHnn-LCkg7ktFLeZD1yxiwjdC_5MMP5VW2XaR10dnL4WgoeijYY9OzdY9DyTeCqKLh858r1DHFaLTqQamBG0DXzWVYzgHupvWjG-OKlU6J0gnRiC-inRcIYpCagssbHu55ZofppCYZAdujXau58F20vq4TkGvBQj2ueZqB0fszrjOlsbpGT5WQyeLAmniECpUJ6WBr6ydp9g7q6Q9Lam0zpHTZKbF5tNEM2x4I2NQt6zGmAkyrjL7muAiX_897ey4lTTgb58aaFCC0dChVnKKd1IHL5c-7WHkJXFKJEKRRSUkWDgbPPd7sRzuK236owpVDoR5WUHjvQwORg_I91ig9uQ53sq87l-AGzAxLOcH_1zKx5Oio5JVzHn2wnokikIzpCWZFbYTkozWed7ho7z-WxE7tG1DyiruPL6wXtcflv74xQT1u95OrROi0-tM9VRuCvaqeA579kehJqaTlWbixIhdIGr5D2Z7Ca2kNK1wZzInTyo-mTCBNY1C970K2tqIl4zTMskw993lpt3tykoT0m-ar4SsklLtZbyNpwCnu_zF1fMo-QXuQ7Qu9YaCsWIK7EdRHZeE2exX3_3cj6JmyljmbFKwsX29moFQ3mLWArnbv87e2JOWJSdsmziCywOnwY5X2rK1BtzbBWF2Qlz_v8S64bdXoQOmrZdvls4RTQfzORoUNyX71hNsf3cT9LCN87qvQnRxkznHn8zo4QQnK-1mVDY3XE800d6_nUGrnSLKdu-72ZvV-UqXgWXVV4Ad-ceMC9-xK4ypVL7EXfGoenJijb-naUHE797hIEtLoOeG1hXK0tWVyWBYpNU6aA2_qi_M20mCipWOjj6lVpH9zWfKuB2c3Yfl0iD67hHCLS7SFQDvlYoutFsISlFobnRFkw5yizck9LloNoFauMy99XOZdL7S5g4Exhh2LIIiiODkmGaOVk3YTJyZDL87YltF-TPJHs-R0bJpf873YaAi_zm0hJUT9uf4-OvDzRebFlxQ7xnxgEgFfeR34xxyw5EwWP6HE53zgDFxIXZ5XSePjmYN065WUuasSrEPDNJHNe4iDwBLiFH9qmJUEf76DJyU6U73_aHXNGPr92biTmsrDN95AVbebOMIv4NGGeOO1lm86O258VgX3p-9hmjXZviq8HtWaBLsTf7ewqnp0QtHe1wvSOPdq0Tic_YQw83EHM3kdXQ=="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 240,
+              "completion_tokens": 79,
+              "total_tokens": 319,
+              "completion_tokens_details": {
+                "reasoning_tokens": 64
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "85"
+        },
+        "token_usage": {
+          "input_tokens": 240,
+          "output_tokens": 79,
+          "total_tokens": 319
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 9,
+        "input": {
+          "row_data": "{\"row_id\": 10, \"columns\": {\"timestamp\": \"2024-01-01T10:00:00\", \"event\": \"start\", \"severity\": \"low\"}}",
+          "column_name": "event",
+          "question": "Can you provide the value of column event for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "{\"value\":\"start\"}",
+          "model_id": "openai/gpt-5-mini",
+          "usage": {
+            "inputTokens": 243,
+            "outputTokens": 75,
+            "totalTokens": 318
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763584294-idR9FQnhjrLAp5GXE5R9",
+            "provider": "OpenAI",
+            "model": "openai/gpt-5-mini",
+            "object": "chat.completion",
+            "created": 1763584295,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\"value\":\"start\"}",
+                  "refusal": null,
+                  "reasoning": null,
+                  "reasoning_details": [
+                    {
+                      "id": "rs_0019712237bcc19601691e2927599c8196b0641bbc7938f6de",
+                      "format": "openai-responses-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABpHikpugxM2XWKjlMONCBnHeWNAt-UdJ9SfWIzj303druxQqVFDFV0BWfKJs3wZdvR1DrPe02Zqr6hRPCLN6dfjf1PYMsc-dcQ8KbguCN6o4owidcOonj4U6ukJdwCkNmOd2V19-cFXf8K4N5Lb9gUBGNpkTkYh1cJu15GJBfl3Twnq7kfAmDjFZxr8BH8mCH7mF2m3XDNpNNLwTPKX_-p83sCSqydWgTqc5xmuULZCxVO4CF6KHxKtadgueDWihrdpXD1jnOmLtBAaIQ5PL33laMWBZcYycE4YofSEvhHMv5hWOc8dc3IpEZqGwywD48xzzuHZ7BdROZ1JW0kmHCCpvFAjjTPqzP1aLIva0-U8sjF8faglzrC5Z9guamBqmC-1nfbRNQ8ahm9-GtJEMIRRNJ2H4QPbXDX3h1fSsiVRQqn3EAal9ikCb8UqKfIp3LYnKEonqZMazKjVTF7UgkWfbkDcHc3FTEs9_5ib2ekB-U79SpW5h4R1rRvOPebATNMoGV2L73Ewm9oQ1UwoQ61zCEfE4pRsYxfRAQ3EwOt8iy2SyJN6lcoUG-KY3zFnsqy44kk0azgd2bPmK4a30lwzrSm97g7VeKheupW2KrKXF0W7B9xpuXSlSS7mArbISOOX99YCYVvJO1oJVDF7IKB_oJgi9toiVp5CkI_Vhr_2U4QPcwiX8r8t9oP2XM3gmKd_T0ws9Xlx2tdXGl0gL2ZrUKhNayl5eUeBWjxiI-9COrx4oCvN8iRsnyQxOl-ovmuihALHSMuCV0iKKI-bLFqkdmNwgzWEUVpXrL_VmCSy6oFpqWhyxdnFM-GhS32tY8D_N-ZxHGJndjsB6ZperVkT5vQ54zC0n0OFOlHtFZiPB8qUBYq6wnZyi37Pfg3ZDqPUA6jRBZHEO-40aIvAAEe4a7iYnUhYu0IYzMi4BOTLYoqi4TYWUqRv_642Umdw2_J5bIfILUXlBL0EBSJa-nmsV29ALfFEo1xjQgoewuRZhpMR1AP319639tbvcCH_p6TQ2LW-T-4FqZiE7TBI14n0QGyUonfyI0E9XrfHhqHldeZooj8W53yrwrphCn4eJV4RURoF5GdVTdE3OHdM7RyhJRW_vFlyDozCpc1E2V30at2zWnbSiZBe-FDPOVBqWT_Rw82DoIc-NoGbPcUDAaS7c4ItmJGTxN34kAwjgsFRVpcvgfIaQN6PyxCNFfnj3DBdiun97mvZssYVxLvh6en6Qk0GKgOO0CK9QNCeXJtPqTzMgEhiRIdMLbcv8ytfSeWnKRnlDH3jSN9UdgShoL_vS5RD-1ib4hfzbNRjoiTqey1paktgXul7Xgx1CTc-y_5ir5OdM1qw8eZREGT6bbU0lz72MIxW_8tPbsh-agKiGFJYIJyR5BJu0T1z1SfVJ-lV7H3"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 243,
+              "completion_tokens": 75,
+              "total_tokens": 318,
+              "completion_tokens_details": {
+                "reasoning_tokens": 64
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "start"
+        },
+        "token_usage": {
+          "input_tokens": 243,
+          "output_tokens": 75,
+          "total_tokens": 318
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      }
+    ],
+    "metrics": {
+      "total_samples": 10,
+      "successful_runs": 10,
+      "failed_runs": 0,
+      "success_rate": 1.0,
+      "average_score": 1.0,
+      "min_score": 1.0,
+      "max_score": 1.0,
+      "num_scored": 10
+    },
+    "duration_seconds": 40.172987937927246,
+    "token_usage": {
+      "input_tokens": 2357,
+      "output_tokens": 923,
+      "total_tokens": 3280
+    }
+  }
+}
