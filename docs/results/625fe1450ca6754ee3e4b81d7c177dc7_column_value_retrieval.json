@@ -1,0 +1,803 @@
+{
+  "experiment_id": "625fe1450ca6754ee3e4b81d7c177dc7",
+  "task_name": "column_value_retrieval",
+  "task_hash": "bb01f4acb026623565c00cbb92a62e11",
+  "model_id": "google/gemini-3-pro-preview",
+  "system_instructions": "You are a metadata curation assistant. Your task is to help improve and correct metadata \naccording to the specific instructions provided for each task. Be precise, accurate, and \nfollow the guidelines carefully.\n",
+  "temperature": 0.0,
+  "thinking": false,
+  "tools": [],
+  "timestamp": "2025-11-19T20:19:08.930547",
+  "task_result": {
+    "task_name": "column_value_retrieval",
+    "num_samples": 10,
+    "results": [
+      {
+        "sample_index": 0,
+        "input": {
+          "row_data": "{\"row_id\": 1, \"columns\": {\"a\": 1, \"b\": \"one\"}}",
+          "column_name": "b",
+          "question": "Can you provide the value of column b for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"value\": \"one\"\n}\n```",
+          "model_id": "google/gemini-3-pro-preview",
+          "usage": {
+            "inputTokens": 238,
+            "outputTokens": 489,
+            "totalTokens": 727
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763583494-eOtLES9Rn8QeDmUXQDhn",
+            "provider": "Google AI Studio",
+            "model": "google/gemini-3-pro-preview",
+            "object": "chat.completion",
+            "created": 1763583494,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "STOP",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"value\": \"one\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "**Reviewing the Input**\n\nI'm currently reviewing the input to understand the structure of the data I need to parse. My focus is on the `row_data` element within the JSON object. I'm preparing to extract the relevant column value.\n\n\n**Refining the Logic**\n\nI've refined my approach to handle various data types correctly. I'm focusing on parsing the `row_data` string, extracting the target `column_name`'s value. I've considered handling nulls, numbers, and strings, ensuring I format the output as a valid JSON object with the \"value\" key. My current efforts involve crafting the JSON output and double-checking that type correctness will happen with each parsed value.\n\n\n**Finalizing Output Structure**\n\nI'm now putting the final touches on the JSON response. I've confirmed the column value \"one\" and checked the formatting and data type are all correct. My code will produce the following JSON: {\"value\": \"one\"} which should be consistent with the other examples I've reviewed.\n\n\n",
+                  "reasoning_details": [
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.text",
+                      "text": "**Reviewing the Input**\n\nI'm currently reviewing the input to understand the structure of the data I need to parse. My focus is on the `row_data` element within the JSON object. I'm preparing to extract the relevant column value.\n\n\n**Refining the Logic**\n\nI've refined my approach to handle various data types correctly. I'm focusing on parsing the `row_data` string, extracting the target `column_name`'s value. I've considered handling nulls, numbers, and strings, ensuring I format the output as a valid JSON object with the \"value\" key. My current efforts involve crafting the JSON output and double-checking that type correctness will happen with each parsed value.\n\n\n**Finalizing Output Structure**\n\nI'm now putting the final touches on the JSON response. I've confirmed the column value \"one\" and checked the formatting and data type are all correct. My code will produce the following JSON: {\"value\": \"one\"} which should be consistent with the other examples I've reviewed.\n\n\n"
+                    },
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "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"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 238,
+              "completion_tokens": 489,
+              "total_tokens": 727,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 473,
+                "image_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "one"
+        },
+        "token_usage": {
+          "input_tokens": 238,
+          "output_tokens": 489,
+          "total_tokens": 727
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 1,
+        "input": {
+          "row_data": "{\"row_id\": 2, \"columns\": {\"patient_id\": \"P001\", \"diagnosis\": \"NF1\", \"age\": 25}}",
+          "column_name": "diagnosis",
+          "question": "Can you provide the value of column diagnosis for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"value\": \"NF1\"\n}\n```",
+          "model_id": "google/gemini-3-pro-preview",
+          "usage": {
+            "inputTokens": 250,
+            "outputTokens": 482,
+            "totalTokens": 732
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763583499-ucqOJqRqlqwrtKR2ewHU",
+            "provider": "Google AI Studio",
+            "model": "google/gemini-3-pro-preview",
+            "object": "chat.completion",
+            "created": 1763583499,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "STOP",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"value\": \"NF1\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "**Evaluating the Data Structure**\n\nI'm currently focused on the structure of the incoming data, specifically the `row_data` element within the JSON input. My initial assessment indicates it's a stringified JSON object containing table/grid data. I'm working to correctly parse this data to a usable format.\n\n\n**Refining Data Extraction**\n\nI've further refined my process for handling the input. I'm focusing on efficiently parsing the `row_data` string into a structured JSON object. Successfully accessing the target value (\"NF1\" in this case) from within the nested `columns` object is critical. Now, I am ensuring the extraction of the value and formatting the output correctly.\n\n\n**Completing Response Formatting**\n\nI've finalized the response format. I've performed checks to ensure accurate extraction of the \"diagnosis\" column as \"NF1\". The output is correctly structured as a JSON object, ready for delivery.\n\n\n",
+                  "reasoning_details": [
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.text",
+                      "text": "**Evaluating the Data Structure**\n\nI'm currently focused on the structure of the incoming data, specifically the `row_data` element within the JSON input. My initial assessment indicates it's a stringified JSON object containing table/grid data. I'm working to correctly parse this data to a usable format.\n\n\n**Refining Data Extraction**\n\nI've further refined my process for handling the input. I'm focusing on efficiently parsing the `row_data` string into a structured JSON object. Successfully accessing the target value (\"NF1\" in this case) from within the nested `columns` object is critical. Now, I am ensuring the extraction of the value and formatting the output correctly.\n\n\n**Completing Response Formatting**\n\nI've finalized the response format. I've performed checks to ensure accurate extraction of the \"diagnosis\" column as \"NF1\". The output is correctly structured as a JSON object, ready for delivery.\n\n\n"
+                    },
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "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"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 250,
+              "completion_tokens": 482,
+              "total_tokens": 732,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 465,
+                "image_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "NF1"
+        },
+        "token_usage": {
+          "input_tokens": 250,
+          "output_tokens": 482,
+          "total_tokens": 732
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 2,
+        "input": {
+          "row_data": "{\"row_id\": 3, \"columns\": {\"sample_id\": \"S123\", \"assay\": \"RNA-seq\", \"tumor_type\": \"GBM\"}}",
+          "column_name": "assay",
+          "question": "Can you provide the value of column assay for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"value\": \"RNA-seq\"\n}\n```",
+          "model_id": "google/gemini-3-pro-preview",
+          "usage": {
+            "inputTokens": 254,
+            "outputTokens": 482,
+            "totalTokens": 736
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763583505-4JzaJPacFUYwY2ftKI75",
+            "provider": "Google AI Studio",
+            "model": "google/gemini-3-pro-preview",
+            "object": "chat.completion",
+            "created": 1763583505,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "STOP",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"value\": \"RNA-seq\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "**Evaluating the Task**\n\nI've been breaking down this request, focusing on how to extract a single column's data from structured JSON. The challenge lies in parsing the stringified JSON and then pinpointing the right data. I'm now exploring methods to ensure the column name is correctly handled.\n\n\n**Determining Data Extraction**\n\nI'm now fully immersed in the core logic. Specifically, I'm focusing on parsing the input JSON string. I have to ensure correct handling of any data types within, including null values. Then, the next task is the direct extraction of the requested value. I'm building out the steps to format the data into the appropriate JSON output structure.\n\n\n**Validating the Output**\n\nI'm checking that the value from the extraction is correct and that the output format adheres strictly to JSON standards. I've validated that data types are preserved and am making final adjustments to guarantee correct formatting. Finally, confirming data integrity before finalization of the thought process.\n\n\n",
+                  "reasoning_details": [
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.text",
+                      "text": "**Evaluating the Task**\n\nI've been breaking down this request, focusing on how to extract a single column's data from structured JSON. The challenge lies in parsing the stringified JSON and then pinpointing the right data. I'm now exploring methods to ensure the column name is correctly handled.\n\n\n**Determining Data Extraction**\n\nI'm now fully immersed in the core logic. Specifically, I'm focusing on parsing the input JSON string. I have to ensure correct handling of any data types within, including null values. Then, the next task is the direct extraction of the requested value. I'm building out the steps to format the data into the appropriate JSON output structure.\n\n\n**Validating the Output**\n\nI'm checking that the value from the extraction is correct and that the output format adheres strictly to JSON standards. I've validated that data types are preserved and am making final adjustments to guarantee correct formatting. Finally, confirming data integrity before finalization of the thought process.\n\n\n"
+                    },
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "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"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 254,
+              "completion_tokens": 482,
+              "total_tokens": 736,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 464,
+                "image_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "RNA-seq"
+        },
+        "token_usage": {
+          "input_tokens": 254,
+          "output_tokens": 482,
+          "total_tokens": 736
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 3,
+        "input": {
+          "row_data": "{\"row_id\": 4, \"columns\": {\"id\": 42, \"name\": \"Test\", \"value\": 3.14}}",
+          "column_name": "value",
+          "question": "Can you provide the value of column value for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"value\": 3.14\n}\n```",
+          "model_id": "google/gemini-3-pro-preview",
+          "usage": {
+            "inputTokens": 247,
+            "outputTokens": 496,
+            "totalTokens": 743
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763583510-plXKD1m6S1I5qNPQKqob",
+            "provider": "Google AI Studio",
+            "model": "google/gemini-3-pro-preview",
+            "object": "chat.completion",
+            "created": 1763583510,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "STOP",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"value\": 3.14\n}\n```",
+                  "refusal": null,
+                  "reasoning": "**Evaluating the Task**\n\nI've been dissecting the request, focusing on how to extract a single column's data from structured JSON. The `row_data` input, particularly its stringified JSON format, is the current focal point, along with the `column_name` parameter. I'm prioritizing efficient parsing to isolate the precise value. The `row_data` parameter is taking center stage in my thinking process right now.\n\n\n**Focusing Output Format**\n\nI'm now fully immersed in the output format. The focus is on the JSON structure: `{\"value\": ...}`. I've successfully isolated the target value, now I'm working on how to present it. The data type handling is crucial, ensuring the JSON format correctly reflects whether the value is a number, string, or null. The final step is crafting the JSON response with the extracted and appropriately formatted `value`.\n\n\n**Concluding the Process**\n\nI've reached the final verification stage and constructed the response. All checks are green: correct column extracted, data type preserved as a number, and the output format adheres to the specified JSON structure with the extracted `value`. The task's completion is now imminent.\n\n\n",
+                  "reasoning_details": [
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.text",
+                      "text": "**Evaluating the Task**\n\nI've been dissecting the request, focusing on how to extract a single column's data from structured JSON. The `row_data` input, particularly its stringified JSON format, is the current focal point, along with the `column_name` parameter. I'm prioritizing efficient parsing to isolate the precise value. The `row_data` parameter is taking center stage in my thinking process right now.\n\n\n**Focusing Output Format**\n\nI'm now fully immersed in the output format. The focus is on the JSON structure: `{\"value\": ...}`. I've successfully isolated the target value, now I'm working on how to present it. The data type handling is crucial, ensuring the JSON format correctly reflects whether the value is a number, string, or null. The final step is crafting the JSON response with the extracted and appropriately formatted `value`.\n\n\n**Concluding the Process**\n\nI've reached the final verification stage and constructed the response. All checks are green: correct column extracted, data type preserved as a number, and the output format adheres to the specified JSON structure with the extracted `value`. The task's completion is now imminent.\n\n\n"
+                    },
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "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"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 247,
+              "completion_tokens": 496,
+              "total_tokens": 743,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 478,
+                "image_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "3.14"
+        },
+        "token_usage": {
+          "input_tokens": 247,
+          "output_tokens": 496,
+          "total_tokens": 743
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 4,
+        "input": {
+          "row_data": "{\"row_id\": 5, \"columns\": {\"gene\": \"TP53\", \"expression\": 2.5, \"p_value\": 0.001}}",
+          "column_name": "expression",
+          "question": "Can you provide the value of column expression for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"value\": 2.5\n}\n```",
+          "model_id": "google/gemini-3-pro-preview",
+          "usage": {
+            "inputTokens": 253,
+            "outputTokens": 519,
+            "totalTokens": 772
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763583516-wywZsHDMk0sXEtCMp5I1",
+            "provider": "Google AI Studio",
+            "model": "google/gemini-3-pro-preview",
+            "object": "chat.completion",
+            "created": 1763583516,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "STOP",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"value\": 2.5\n}\n```",
+                  "refusal": null,
+                  "reasoning": "**Considering the Input**\n\nI've been meticulously analyzing the input JSON. Specifically, the \"row_data\" structure is under scrutiny. My goal is to extract the correct column value for a designated row. I'm focusing on the data format within the JSON, preparing to parse it and make the retrieval a breeze. I'm confident that this approach will be efficient and accurate, avoiding potential errors.\n\n\n**Determining Value Location**\n\nI've successfully parsed the `row_data` string into a usable JSON object.  Currently, I'm navigating the structure, drilling down into the \"columns\" object. My aim is to efficiently locate the specified `column_name`, which is \"expression\". I'm meticulously cross-referencing this name with the keys within the \"columns\" dictionary. The next step is to retrieve its associated value.\n\n\n**Validating the Result**\n\nI've confirmed that the retrieved value, `2.5`, is a number. I've formatted the output as JSON, creating `{\"value\": 2.5}`.  A final verification confirmed I extracted the correct column (\"expression\"), and the data format and type are preserved. My confidence is high. The response is constructed and ready.\n\n\n",
+                  "reasoning_details": [
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.text",
+                      "text": "**Considering the Input**\n\nI've been meticulously analyzing the input JSON. Specifically, the \"row_data\" structure is under scrutiny. My goal is to extract the correct column value for a designated row. I'm focusing on the data format within the JSON, preparing to parse it and make the retrieval a breeze. I'm confident that this approach will be efficient and accurate, avoiding potential errors.\n\n\n**Determining Value Location**\n\nI've successfully parsed the `row_data` string into a usable JSON object.  Currently, I'm navigating the structure, drilling down into the \"columns\" object. My aim is to efficiently locate the specified `column_name`, which is \"expression\". I'm meticulously cross-referencing this name with the keys within the \"columns\" dictionary. The next step is to retrieve its associated value.\n\n\n**Validating the Result**\n\nI've confirmed that the retrieved value, `2.5`, is a number. I've formatted the output as JSON, creating `{\"value\": 2.5}`.  A final verification confirmed I extracted the correct column (\"expression\"), and the data format and type are preserved. My confidence is high. The response is constructed and ready.\n\n\n"
+                    },
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "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"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 253,
+              "completion_tokens": 519,
+              "total_tokens": 772,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 502,
+                "image_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "2.5"
+        },
+        "token_usage": {
+          "input_tokens": 253,
+          "output_tokens": 519,
+          "total_tokens": 772
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 5,
+        "input": {
+          "row_data": "{\"row_id\": 6, \"columns\": {\"a\": null, \"b\": \"no id\"}}",
+          "column_name": "b",
+          "question": "Can you provide the value of column b for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"value\": \"no id\"\n}\n```",
+          "model_id": "google/gemini-3-pro-preview",
+          "usage": {
+            "inputTokens": 238,
+            "outputTokens": 489,
+            "totalTokens": 727
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763583521-z2Co9izVg6Qw9IxGkx8p",
+            "provider": "Google AI Studio",
+            "model": "google/gemini-3-pro-preview",
+            "object": "chat.completion",
+            "created": 1763583521,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "STOP",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"value\": \"no id\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "**Initiating Analysis Now**\n\nI'm currently dissecting the user's request, focusing on the role of a metadata curation assistant and the task of extracting a specific column value. I've successfully identified the input as a JSON object, now looking into the details of the 'row_data' field. My goal is to determine the optimal approach for extracting the required data.\n\n\n**Confirming Extraction Procedure**\n\nI've successfully identified the target column, and I'm now in the process of formulating the extraction logic. I've parsed the JSON data and navigated to the \"columns\" object. My approach involves a direct lookup based on the provided `column_name`.  I've considered handling different data types and null values. The planned output is a JSON object containing the extracted value.\n\n\n**Validate & Finalize Output**\n\nI've verified the extracted value (\"no id\") matches the expected result. The output format, as planned, is a JSON object. I've now constructed the final JSON response, ensuring it precisely reflects the extracted value. This completes the metadata extraction process.\n\n\n",
+                  "reasoning_details": [
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.text",
+                      "text": "**Initiating Analysis Now**\n\nI'm currently dissecting the user's request, focusing on the role of a metadata curation assistant and the task of extracting a specific column value. I've successfully identified the input as a JSON object, now looking into the details of the 'row_data' field. My goal is to determine the optimal approach for extracting the required data.\n\n\n**Confirming Extraction Procedure**\n\nI've successfully identified the target column, and I'm now in the process of formulating the extraction logic. I've parsed the JSON data and navigated to the \"columns\" object. My approach involves a direct lookup based on the provided `column_name`.  I've considered handling different data types and null values. The planned output is a JSON object containing the extracted value.\n\n\n**Validate & Finalize Output**\n\nI've verified the extracted value (\"no id\") matches the expected result. The output format, as planned, is a JSON object. I've now constructed the final JSON response, ensuring it precisely reflects the extracted value. This completes the metadata extraction process.\n\n\n"
+                    },
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "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"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 238,
+              "completion_tokens": 489,
+              "total_tokens": 727,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 472,
+                "image_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "no id"
+        },
+        "token_usage": {
+          "input_tokens": 238,
+          "output_tokens": 489,
+          "total_tokens": 727
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 6,
+        "input": {
+          "row_data": "{\"row_id\": 7, \"columns\": {\"file_name\": \"data.csv\", \"file_size\": 1024, \"file_type\": \"CSV\"}}",
+          "column_name": "file_size",
+          "question": "Can you provide the value of column file_size for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"value\": 1024\n}\n```",
+          "model_id": "google/gemini-3-pro-preview",
+          "usage": {
+            "inputTokens": 259,
+            "outputTokens": 379,
+            "totalTokens": 638
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763583527-dhOg5hELCGjnvqSGc6XM",
+            "provider": "Google AI Studio",
+            "model": "google/gemini-3-pro-preview",
+            "object": "chat.completion",
+            "created": 1763583527,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "STOP",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"value\": 1024\n}\n```",
+                  "refusal": null,
+                  "reasoning": "**Evaluating Data Extraction**\n\nI've been examining the problem of extracting a specific column's value from a row of data represented as a JSON string. My current focus centers on correctly identifying the target `column_name` within the structure. I'm considering how to handle potential data inconsistencies or missing columns.\n\n\n**Pinpointing Column Values**\n\nI'm now fully immersed in the process of extracting the desired value.  I've successfully parsed the `row_data` into a readily usable object, and honed in on the target column, `\"file_size\"`.  My code is currently retrieving the numeric value of `1024` from within the `columns` object. The next step involves ensuring the extracted value is correctly formatted within a JSON output structure, ready for delivery. I'm double-checking to ensure number formats are correct before finalizing the response.\n\n\n",
+                  "reasoning_details": [
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.text",
+                      "text": "**Evaluating Data Extraction**\n\nI've been examining the problem of extracting a specific column's value from a row of data represented as a JSON string. My current focus centers on correctly identifying the target `column_name` within the structure. I'm considering how to handle potential data inconsistencies or missing columns.\n\n\n**Pinpointing Column Values**\n\nI'm now fully immersed in the process of extracting the desired value.  I've successfully parsed the `row_data` into a readily usable object, and honed in on the target column, `\"file_size\"`.  My code is currently retrieving the numeric value of `1024` from within the `columns` object. The next step involves ensuring the extracted value is correctly formatted within a JSON output structure, ready for delivery. I'm double-checking to ensure number formats are correct before finalizing the response.\n\n\n"
+                    },
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "EpILCo8LAdHtim+UFAaWOSqLDRqdvGsymQkY86gQb5ud0NUm28BbdsbqYbUG6D9VwungR/7ECaMVQk8pA0N2QiR2tK5RDy8A8nQBEfO+z3nYnq5G3UbAS+SoDfH26TircK1q8sMDgt8dzxjkR87gyB4Y3W+tccoYB3pUi6SF7UN4jjlwx6+uyB+K17FjhKXSX41SYed40YFSGl7qXmZ1pXHbY47qdiAzDgVc3hIYstTSNl8dW0MCWcwcLJ/9yl81dqF9mMCCBWItkLZqWQ94Fyy4W4fgMheZ44S7x7NxivHCZl5ZCcQa1EoSSby7qYwtcoBERlhuc9fdio3rjp0KlXArAmcVCDyRoxNGoeCdTkJ3mRd5rWxwM0KIgV2rnW+1NlgZA+oXdmvwjIjEO3oJDROeiuK84dycHdTdZmVAzO97Ly49Bpfk6awWoKYqb04x/fMgUv5hHd21yRjty3c+uACkmyKCfVVpxVBy7JmcVg+B23f1imh0nTdU8VaNu4r2wwljyDffOAnDUJyW/NUZhs8NJwYtjcM7ZRdzirrM6kvCgbcDKSO8JRgaX807aqpRcVKaSh9eJAoPGyqpZVM1/RsKyFC/dqvd7JtbTP+xEPPaknesY+rcaqNoMprH+buYW51cCOlePpmRIZechR/oNk7514oM7rbngNnIoFw+0DpEyEuc5aUOeqbtAUErGLmBl1hyeSAxwmHR8ogEerKlaeff9QleYF9071RrLkoopAHQZW+S4+x+rOER7Ln/CJH5WQF5oAxsMSWsQ/Gk3ME8mZig/XX1+GiGf1IwmepxldimdkQRBbJSE7m94UErUb1En20B95p9/pB1NPhFY0b1Seua8f180zQTIYMvNt9Ob3i90hqZJnPoFfUc6AQxi+/SzEHyPyNfqtDcbXe/Badcx6juk4kDZMZjYcaOsIXMTONCiehTK2XSR+JVHPFPevbb6RXh8pN/OXho7WyIp/O81JIaAXGgSBzVwjiiOOq1/9vs3iFqcqaf77rtE4Uo7JAZyQVPm98nTXCQHia0f4Oz3pNLum81ixXdAwJQPQy67tpfO3lyTjDmTLEO4BOE+JqwIzTfGF+Op9OTkDqU7aJaHeAJaGkpdZHuXMGL3IFmwS2SAKDO8XR2q870xR6NKbQo0uf3JLxZvvZIy4PkTF2A3eYBIGG7Tj8oHfFbbBWNZCyLNQ49MPkIqBGqFosXmiFms2eWr1+NK4OCnpxSt6IQHeGkalwEb6g19mFTty2J9R6/7yhQ9CWivR1fgv/MKt+FBc4aeOclOQ8oJB1vqFSlvNsJmoTbF+AL/sW4GbvqDPi+ZoGv1vefGDbKF9YAG/kcTdwns1/m5kym6BFLg0YJfOc0OVGRctZ2SQLV8//hC5xqB5AqFfawOp1IhzG766mi7E0hTwkdez47GtsPZ6YY2eTffHxz8SBwNZ/YeRL4XzzXGgMPsmNDvSZ4+fGDmdLxw9Ek4AUe5icI2+k4gSvGX3D5ZuxCmYU0QKYuKf7gSoLRyJImJ1gAWJaE2FIgDTxCTHM2VpKZvv/tJaddF23S0Ks5n/KKOBzs8co6L7buj8zW2B5MMlHjbuyfAEL0DQ6ytwAJNgxOGi7zLmGweRzC1FHXzku9wkSmUS9g6EsuYp3rgh6LH2L31IV5voXKmFvXrnMLnxLMdLmdVInWJpWAKe7LRmHAitKSbQFYp+RPZEtseU7vt39MDQI1euT8RSTxgAqAEtWyW8Zgp8Pz1ZAvkRLjdpcpaDudsLFJ4m0xTCCvqU8j4LzDCYGt0Gq0oJTiRuyQUspG9cY/EvK9w2zDWnt2dT9192ugsvKDrMQDFsk2ZmLl+DGsMpWKgePpKsGDRTu9Nq69qnrQcDsA7qUL+0mf6xOZjE5vg7PhkIl3mnKo8uma7g=="
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 259,
+              "completion_tokens": 379,
+              "total_tokens": 638,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 361,
+                "image_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "1024"
+        },
+        "token_usage": {
+          "input_tokens": 259,
+          "output_tokens": 379,
+          "total_tokens": 638
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 7,
+        "input": {
+          "row_data": "{\"row_id\": 8, \"columns\": {\"experiment_id\": \"EXP001\", \"replicate\": 3, \"condition\": \"control\"}}",
+          "column_name": "replicate",
+          "question": "Can you provide the value of column replicate for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"value\": 3\n}\n```",
+          "model_id": "google/gemini-3-pro-preview",
+          "usage": {
+            "inputTokens": 251,
+            "outputTokens": 497,
+            "totalTokens": 748
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763583532-FOaaonjyAVTsQpgTHQ0N",
+            "provider": "Google AI Studio",
+            "model": "google/gemini-3-pro-preview",
+            "object": "chat.completion",
+            "created": 1763583532,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "STOP",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"value\": 3\n}\n```",
+                  "refusal": null,
+                  "reasoning": "**Evaluating the Task's Core**\n\nI'm currently dissecting the metadata curation task. The essence is retrieving a specific column's value from table data, based on a provided column name and row selection. I am focusing on the JSON input format and the implications of using stringified JSON for the row data.\n\n\n**Defining Output Structure**\n\nI've just solidified the output structure for this. It'll be a JSON object with a \"value\" key, holding the extracted data. This covers various data types I've identified: nulls, numbers, and strings. The primary focus now is ensuring the correct data retrieval based on column names from the stringified JSON row data.\n\n\n**Validating the Results**\n\nI've confirmed the output structure. The extracted value, a number '3', is accurately placed within the expected JSON format: `{\"value\": 3}`. Furthermore, I verified that the column extraction was correct. The data type (number) has been preserved. The construction of the response is complete, and it is ready to be returned.\n\n\n",
+                  "reasoning_details": [
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.text",
+                      "text": "**Evaluating the Task's Core**\n\nI'm currently dissecting the metadata curation task. The essence is retrieving a specific column's value from table data, based on a provided column name and row selection. I am focusing on the JSON input format and the implications of using stringified JSON for the row data.\n\n\n**Defining Output Structure**\n\nI've just solidified the output structure for this. It'll be a JSON object with a \"value\" key, holding the extracted data. This covers various data types I've identified: nulls, numbers, and strings. The primary focus now is ensuring the correct data retrieval based on column names from the stringified JSON row data.\n\n\n**Validating the Results**\n\nI've confirmed the output structure. The extracted value, a number '3', is accurately placed within the expected JSON format: `{\"value\": 3}`. Furthermore, I verified that the column extraction was correct. The data type (number) has been preserved. The construction of the response is complete, and it is ready to be returned.\n\n\n"
+                    },
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "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"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 251,
+              "completion_tokens": 497,
+              "total_tokens": 748,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 482,
+                "image_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "3"
+        },
+        "token_usage": {
+          "input_tokens": 251,
+          "output_tokens": 497,
+          "total_tokens": 748
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 8,
+        "input": {
+          "row_data": "{\"row_id\": 9, \"columns\": {\"subject\": \"SUB001\", \"treatment\": \"A\", \"outcome\": \"success\", \"score\": 85}}",
+          "column_name": "score",
+          "question": "Can you provide the value of column score for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"value\": 85\n}\n```",
+          "model_id": "google/gemini-3-pro-preview",
+          "usage": {
+            "inputTokens": 253,
+            "outputTokens": 509,
+            "totalTokens": 762
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763583538-ZKDJUYiyoqbFt4OyMxUL",
+            "provider": "Google AI Studio",
+            "model": "google/gemini-3-pro-preview",
+            "object": "chat.completion",
+            "created": 1763583538,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "STOP",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"value\": 85\n}\n```",
+                  "refusal": null,
+                  "reasoning": "**Initiating Analysis Now**\n\nI'm currently dissecting the user's request, focusing on the role of a metadata curation assistant and the task of extracting a specific column value. I've successfully identified the input as a JSON object, now meticulously examining the structure to understand how to access and retrieve the necessary data. I'm prioritizing efficient data access within the `row_data` structure.\n\n\n**Pinpointing Data Retrieval**\n\nI'm now fully immersed in the core logic, focusing on how to extract the target value. I've successfully parsed the `row_data` string into a usable JSON object.  My current focus is on pinpointing the `score` value within the parsed `columns` section.  I'm also considering potential data type variations for the target column.\n\n\n**Finalizing the Extraction**\n\nI've just successfully retrieved the correct numerical value and verified its data type, and ensured the JSON output structure adheres to the required specifications. The final step was formatting the data as a JSON object, specifically {\"value\": 85}. I've now completed the thought process.\n\n\n",
+                  "reasoning_details": [
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.text",
+                      "text": "**Initiating Analysis Now**\n\nI'm currently dissecting the user's request, focusing on the role of a metadata curation assistant and the task of extracting a specific column value. I've successfully identified the input as a JSON object, now meticulously examining the structure to understand how to access and retrieve the necessary data. I'm prioritizing efficient data access within the `row_data` structure.\n\n\n**Pinpointing Data Retrieval**\n\nI'm now fully immersed in the core logic, focusing on how to extract the target value. I've successfully parsed the `row_data` string into a usable JSON object.  My current focus is on pinpointing the `score` value within the parsed `columns` section.  I'm also considering potential data type variations for the target column.\n\n\n**Finalizing the Extraction**\n\nI've just successfully retrieved the correct numerical value and verified its data type, and ensured the JSON output structure adheres to the required specifications. The final step was formatting the data as a JSON object, specifically {\"value\": 85}. I've now completed the thought process.\n\n\n"
+                    },
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "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"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 253,
+              "completion_tokens": 509,
+              "total_tokens": 762,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 493,
+                "image_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "85"
+        },
+        "token_usage": {
+          "input_tokens": 253,
+          "output_tokens": 509,
+          "total_tokens": 762
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 9,
+        "input": {
+          "row_data": "{\"row_id\": 10, \"columns\": {\"timestamp\": \"2024-01-01T10:00:00\", \"event\": \"start\", \"severity\": \"low\"}}",
+          "column_name": "event",
+          "question": "Can you provide the value of column event for the currently selected row?"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"value\": \"start\"\n}\n```",
+          "model_id": "google/gemini-3-pro-preview",
+          "usage": {
+            "inputTokens": 263,
+            "outputTokens": 513,
+            "totalTokens": 776
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1763583543-PT3hmrfIhDu9wnxbrFMA",
+            "provider": "Google AI Studio",
+            "model": "google/gemini-3-pro-preview",
+            "object": "chat.completion",
+            "created": 1763583543,
+            "choices": [
+              {
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "STOP",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"value\": \"start\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "**Considering the Task**\n\nI've been analyzing the request, focusing on the core task. I'm zeroing in on how to extract the correct column value from the JSON data. The stringified nature of the `row_data` presents a slight hurdle, but I have a strategy for that. I'm also considering potential error handling for cases where the requested column doesn't exist.\n\n\n**Formulating a Response**\n\nI'm now fully immersed in crafting the response. I've successfully parsed the JSON, located the requested value (\"start\"), and am formatting the final output. The main focus is to keep the JSON structure clean and correct. I'm ensuring data types are maintained appropriately within the output. The response is almost ready.\n\n\n**Verifying the Output**\n\nI've just run a final, critical check, validating the response against the criteria. I confirmed the correct column (\"event\") was extracted. The JSON format is perfect, and I've preserved the data type (string). The output is now polished and ready.\n\n\n",
+                  "reasoning_details": [
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.text",
+                      "text": "**Considering the Task**\n\nI've been analyzing the request, focusing on the core task. I'm zeroing in on how to extract the correct column value from the JSON data. The stringified nature of the `row_data` presents a slight hurdle, but I have a strategy for that. I'm also considering potential error handling for cases where the requested column doesn't exist.\n\n\n**Formulating a Response**\n\nI'm now fully immersed in crafting the response. I've successfully parsed the JSON, located the requested value (\"start\"), and am formatting the final output. The main focus is to keep the JSON structure clean and correct. I'm ensuring data types are maintained appropriately within the output. The response is almost ready.\n\n\n**Verifying the Output**\n\nI've just run a final, critical check, validating the response against the criteria. I confirmed the correct column (\"event\") was extracted. The JSON format is perfect, and I've preserved the data type (string). The output is now polished and ready.\n\n\n"
+                    },
+                    {
+                      "format": "google-gemini-v1",
+                      "index": 0,
+                      "type": "reasoning.encrypted",
+                      "data": "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"
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 263,
+              "completion_tokens": 513,
+              "total_tokens": 776,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 497,
+                "image_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 1.0,
+        "ground_truth": {
+          "expected_value": "start"
+        },
+        "token_usage": {
+          "input_tokens": 263,
+          "output_tokens": 513,
+          "total_tokens": 776
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      }
+    ],
+    "metrics": {
+      "total_samples": 10,
+      "successful_runs": 10,
+      "failed_runs": 0,
+      "success_rate": 1.0,
+      "average_score": 1.0,
+      "min_score": 1.0,
+      "max_score": 1.0,
+      "num_scored": 10
+    },
+    "duration_seconds": 54.922067642211914,
+    "token_usage": {
+      "input_tokens": 2506,
+      "output_tokens": 4855,
+      "total_tokens": 7361
+    }
+  }
+}
