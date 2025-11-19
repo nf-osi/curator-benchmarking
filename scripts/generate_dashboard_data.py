@@ -60,7 +60,7 @@ def load_task_result(task_file: Path) -> Optional[Dict[str, Any]]:
         return None
 
 
-def generate_dashboard_data(results_dir: Path, output_file: Path):
+def generate_dashboard_data(results_dir: Path, output_file: Path, tasks_dir: Optional[Path] = None):
     """Generate minified dashboard data file."""
     log_file = results_dir / "experiments_log.jsonl"
     
@@ -68,33 +68,44 @@ def generate_dashboard_data(results_dir: Path, output_file: Path):
     experiments = load_experiments_log(log_file)
     print(f"Loaded {len(experiments)} experiments from log")
     
-    # Known task names - discover dynamically from existing files
+    # Get all valid task names from the tasks directory (source of truth)
+    # This ensures we count all tasks, even if some experiments don't have results for all tasks yet
     known_task_names = set()
-    for file in results_dir.glob('*.json'):
-        if '_' in file.stem:
-            # Extract task name from filename pattern: experiment_id_taskname.json
-            parts = file.stem.split('_', 1)
-            if len(parts) == 2:
-                known_task_names.add(parts[1])
     
-    # Fallback to known tasks if no files found
-    if not known_task_names:
-        known_task_names = {
-            'broadening_of_narrow_synonyms',
-            'correction_of_typos',
-            'narrowing_of_broad_synonyms',
-            'translation_of_exact_synonyms',
-            'regex_generation',
-            'column_enumeration',
-            'column_type_identification',
-            'validation_error_counting',
-            'row_validation_explanation',
-            'column_value_retrieval',
-            'row_value_retrieval',
-            'uppercase_conversion'
-        }
+    if tasks_dir and Path(tasks_dir).exists():
+        tasks_path = Path(tasks_dir)
+        for task_dir in sorted(tasks_path.iterdir()):
+            if task_dir.is_dir() and task_dir.name != 'example_task':
+                known_task_names.add(task_dir.name)
+        print(f"Found {len(known_task_names)} tasks in tasks directory")
     else:
-        known_task_names = sorted(known_task_names)
+        # Fallback: discover from result files
+        for file in results_dir.glob('*.json'):
+            if '_' in file.stem:
+                # Extract task name from filename pattern: experiment_id_taskname.json
+                parts = file.stem.split('_', 1)
+                if len(parts) == 2:
+                    known_task_names.add(parts[1])
+        
+        # Final fallback to hardcoded list if still empty
+        if not known_task_names:
+            known_task_names = {
+                'broadening_of_narrow_synonyms',
+                'correction_of_typos',
+                'narrowing_of_broad_synonyms',
+                'translation_of_exact_synonyms',
+                'regex_generation',
+                'column_enumeration',
+                'column_type_identification',
+                'validation_error_counting',
+                'row_validation_explanation',
+                'column_value_retrieval',
+                'row_value_retrieval',
+                'uppercase_conversion'
+            }
+    
+    known_task_names = sorted(known_task_names)
+    print(f"Using {len(known_task_names)} tasks: {', '.join(known_task_names)}")
     
     dashboard_data = []
     
@@ -165,6 +176,10 @@ def generate_dashboard_data(results_dir: Path, output_file: Path):
                 total_output_tokens += token_usage.get('output_tokens', 0)
                 total_tokens += token_usage.get('total_tokens', 0)
                 total_duration += task_result.get('duration_seconds', 0)
+            else:
+                # Task file doesn't exist - this is expected for older experiments
+                # Count it as failed if we're checking all known tasks
+                tasks_failed += 1
         
         # Calculate overall metrics
         if tasks_completed > 0:
@@ -210,7 +225,7 @@ def generate_dashboard_data(results_dir: Path, output_file: Path):
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print("Usage: python generate_dashboard_data.py <results_dir> [output_file]")
+        print("Usage: python generate_dashboard_data.py <results_dir> [output_file] [tasks_dir]")
         sys.exit(1)
     
     results_dir = Path(sys.argv[1])
@@ -219,5 +234,14 @@ if __name__ == '__main__':
     else:
         output_file = results_dir / "dashboard_data.json"
     
-    generate_dashboard_data(results_dir, output_file)
+    # Get tasks directory (default to 'tasks' relative to script location)
+    if len(sys.argv) > 3:
+        tasks_dir = Path(sys.argv[3])
+    else:
+        # Default to 'tasks' directory relative to repo root
+        script_dir = Path(__file__).parent
+        repo_root = script_dir.parent
+        tasks_dir = repo_root / "tasks"
+    
+    generate_dashboard_data(results_dir, output_file, tasks_dir)
 
