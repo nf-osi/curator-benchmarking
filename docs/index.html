@@ -424,7 +424,29 @@
                 try {
                     const dashboardResponse = await fetch('results/dashboard_data.json');
                     if (dashboardResponse.ok) {
-                        const dashboardData = await dashboardResponse.json();
+                        const text = await dashboardResponse.text();
+                        
+                        // Clean up any merge conflict markers that might be in the file
+                        const cleanedText = text
+                            .split('\n')
+                            .filter(line => {
+                                const trimmed = line.trim();
+                                return !trimmed.startsWith('<<<<<<<') && 
+                                       !trimmed.startsWith('=======') && 
+                                       !trimmed.startsWith('>>>>>>>');
+                            })
+                            .join('\n');
+                        
+                        // Try to find the JSON array if there's extra content
+                        const jsonStart = cleanedText.indexOf('[');
+                        const jsonEnd = cleanedText.lastIndexOf(']');
+                        
+                        let jsonText = cleanedText;
+                        if (jsonStart !== -1 && jsonEnd !== -1 && jsonEnd > jsonStart) {
+                            jsonText = cleanedText.substring(jsonStart, jsonEnd + 1);
+                        }
+                        
+                        const dashboardData = JSON.parse(jsonText);
                         console.log(`Loaded ${dashboardData.length} experiments from minified dashboard data`);
                         
                         // Convert to expected format
@@ -443,6 +465,7 @@
                     }
                 } catch (e) {
                     console.warn('Could not load minified dashboard data, falling back to individual files:', e);
+                    console.error('Error details:', e.message);
                 }
                 
                 if (!useMinified) {
