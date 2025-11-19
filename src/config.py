@@ -71,4 +71,17 @@ class Config:
             return self._creds['AWS_BEARER_TOKEN_BEDROCK']
         
         return None
+    
+    def get_openrouter_api_key(self) -> Optional[str]:
+        """Get OpenRouter API key from .aws/creds.yaml or environment."""
+        # First check environment variable
+        env_key = os.getenv('OPENROUTER_API_KEY')
+        if env_key:
+            return env_key
+        
+        # Then check creds file
+        if self._creds and 'OPENROUTER_API_KEY' in self._creds:
+            return self._creds['OPENROUTER_API_KEY']
+        
+        return None
 

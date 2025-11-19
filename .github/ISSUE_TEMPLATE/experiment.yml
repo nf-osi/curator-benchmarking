@@ -21,6 +21,7 @@ body:
     description: Select a model endpoint (or choose "Default" to use the default model, or "Other" to specify a custom model)
     options:
     - Default (global.anthropic.claude-sonnet-4-5-20250929-v1:0)
+    - '--- AWS Bedrock Models ---'
     - anthropic.claude-3-haiku-20240307-v1:0
     - us.anthropic.claude-haiku-4-5-20251001-v1:0
     - us.anthropic.claude-sonnet-4-20250514-v1:0
@@ -31,6 +32,19 @@ body:
     - us.deepseek.r1-v1:0
     - openai.gpt-oss-20b-1:0
     - openai.gpt-oss-120b-1:0
+    - '--- OpenRouter Models (requires OPENROUTER_API_KEY) ---'
+    - openai/gpt-4-turbo
+    - openai/gpt-4o
+    - openai/gpt-4o-mini
+    - openai/o1-preview
+    - openai/o1-mini
+    - anthropic/claude-3.5-sonnet
+    - anthropic/claude-3-opus
+    - anthropic/claude-3-sonnet
+    - anthropic/claude-3-haiku
+    - google/gemini-pro-1.5
+    - google/gemini-flash-1.5
+    - meta-llama/llama-3.3-70b-instruct
     - Other
   validations:
     required: false
@@ -38,8 +52,11 @@ body:
   id: custom_model
   attributes:
     label: Custom Model Endpoint
-    description: If you selected "Other" above, enter your custom model endpoint ID here (e.g., us.deepseek.r1-v1:0)
-    placeholder: 'us.deepseek.r1-v1:0'
+    description: |
+      If you selected "Other" above, enter your custom model endpoint ID here.
+      - For AWS Bedrock: e.g., us.deepseek.r1-v1:0
+      - For OpenRouter: e.g., openai/gpt-4, anthropic/claude-3-opus, google/gemini-pro
+    placeholder: 'openai/gpt-4 or us.deepseek.r1-v1:0'
   validations:
     required: false
 - type: textarea
