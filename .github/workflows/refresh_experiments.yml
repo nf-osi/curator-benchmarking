@@ -69,8 +69,12 @@ jobs:
           
           safe_pull
           
-          # Add all result files
+          # Ensure dashboard data is regenerated (in case it wasn't in the previous step)
+          python scripts/generate_dashboard_data.py docs/results docs/results/dashboard_data.json
+          
+          # Add all result files - explicitly include dashboard_data.json
           git add docs/results/
+          git add docs/results/dashboard_data.json
           
           # Check if there are changes to commit
           if git diff --staged --quiet; then
