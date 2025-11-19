@@ -447,7 +447,7 @@
                         }
                         
                         const dashboardData = JSON.parse(jsonText);
-                        console.log(`Loaded ${dashboardData.length} experiments from minified dashboard data`);
+                        console.log(`✅ Loaded ${dashboardData.length} experiments from minified dashboard data (${(text.length / 1024).toFixed(1)} KB)`);
                         
                         // Convert to expected format
                         allExperiments = dashboardData.map(exp => ({
@@ -462,10 +462,12 @@
                         }));
                         
                         useMinified = true;
+                        console.log('✅ Using minified dashboard data - fast loading mode');
                     }
                 } catch (e) {
-                    console.warn('Could not load minified dashboard data, falling back to individual files:', e);
+                    console.error('❌ Could not load minified dashboard data, falling back to individual files:', e);
                     console.error('Error details:', e.message);
+                    console.warn('⚠️ This will be SLOW - dashboard_data.json may be corrupted or missing');
                 }
                 
                 if (!useMinified) {
@@ -519,12 +521,24 @@
                     console.log(`Loaded detailed results. Experiments with task_results: ${allExperiments.filter(e => e.task_results).length}`);
                 }
 
+                console.time('Dashboard rendering');
+                
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('content').style.display = 'block';
                 
+                console.time('updateStats');
                 updateStats();
+                console.timeEnd('updateStats');
+                
+                console.time('populateFilters');
                 populateFilters();
+                console.timeEnd('populateFilters');
+                
+                console.time('filterAndDisplay');
                 filterAndDisplay();
+                console.timeEnd('filterAndDisplay');
+                
+                console.timeEnd('Dashboard rendering');
             } catch (error) {
                 console.error('Error loading experiments:', error);
                 document.getElementById('loading').style.display = 'none';
@@ -1016,6 +1030,7 @@
         }
 
         function displayExperiments() {
+            console.time('displayExperiments');
             const container = document.getElementById('taskTables');
             
             if (filteredExperiments.length === 0) {
@@ -1025,12 +1040,18 @@
                         <p>Try adjusting your filters</p>
                     </div>
                 `;
+                console.timeEnd('displayExperiments');
                 return;
             }
 
+            console.time('getBestExperimentPerModel');
             // Calculate best experiment per model
             const bestPerModel = getBestExperimentPerModel(filteredExperiments);
+            console.timeEnd('getBestExperimentPerModel');
+            
+            console.time('calculateOverallPerformance (model)');
             const bestPerModelPerformance = calculateOverallPerformance(bestPerModel);
+            console.timeEnd('calculateOverallPerformance (model)');
             
             // Display model leaderboard
             let modelLeaderboardHtml = '';
@@ -1105,6 +1126,7 @@
             // Initialize DataTables for model leaderboard
             if (bestPerModelPerformance.length > 0) {
                 setTimeout(() => {
+                    console.time('DataTable init (model leaderboard)');
                     if ($.fn.DataTable.isDataTable('#table-model-leaderboard')) {
                         $('#table-model-leaderboard').DataTable().destroy();
                     }
@@ -1113,13 +1135,18 @@
                         order: [[1, 'desc']], // Sort by accuracy descending
                         columnDefs: [
                             { type: 'num', targets: [0, 1, 4, 7, 8, 9] }
-                        ]
+                        ],
+                        deferRender: true, // Only render visible rows
+                        processing: false
                     });
+                    console.timeEnd('DataTable init (model leaderboard)');
                 }, 0);
             }
 
+            console.time('calculateOverallPerformance (all)');
             // Calculate overall performance (experiments ranked by average accuracy)
             const overallPerformance = calculateOverallPerformance(filteredExperiments);
+            console.timeEnd('calculateOverallPerformance (all)');
             
             // Generate overall performance table
             let overallHtml = '';
@@ -1194,6 +1221,7 @@
             // Initialize DataTables for overall performance table
             if (overallPerformance.length > 0) {
                 setTimeout(() => {
+                    console.time('DataTable init (overall)');
                     if ($.fn.DataTable.isDataTable('#table-overall')) {
                         $('#table-overall').DataTable().destroy();
                     }
@@ -1202,8 +1230,11 @@
                         order: [[1, 'desc']], // Sort by accuracy descending
                         columnDefs: [
                             { type: 'num', targets: [0, 1, 4, 7, 8, 9] }
-                        ]
+                        ],
+                        deferRender: true, // Only render visible rows
+                        processing: false
                     });
+                    console.timeEnd('DataTable init (overall)');
                 }, 0);
             }
 
@@ -1312,6 +1343,7 @@
             
             // Initialize DataTables for all task tables
             setTimeout(() => {
+                console.time('DataTable init (task tables)');
                 Array.from(allTasks).sort().forEach((taskName, taskIndex) => {
                     const tableId = `table-${taskIndex}`;
                     if ($.fn.DataTable.isDataTable(`#${tableId}`)) {
@@ -1322,10 +1354,15 @@
                         order: [[1, 'desc']], // Sort by accuracy descending
                         columnDefs: [
                             { type: 'num', targets: [0, 1, 4, 7, 8] }
-                        ]
+                        ],
+                        deferRender: true, // Only render visible rows
+                        processing: false
                     });
                 });
+                console.timeEnd('DataTable init (task tables)');
             }, 0);
+            
+            console.timeEnd('displayExperiments');
         }
 
 
