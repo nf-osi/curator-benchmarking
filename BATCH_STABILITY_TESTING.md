@@ -4,9 +4,28 @@ Run stability tests for multiple tasks with a single GitHub issue instead of cre
 
 ## Quick Start
 
-Create a GitHub issue with:
+### Option 1: Use Issue Template (Recommended)
+
+1. Go to [New Issue](https://github.com/sage-bdf/curator-benchmarking/issues/new/choose)
+2. Select **"Batch Stability Test"** template
+3. Fill in the form:
+   - Choose "Pattern Matching" or "Explicit Task List"
+   - Enter task pattern (e.g., `htan_*_typos`) OR list tasks
+   - Select model
+   - Enter number of runs (default: 10)
+4. Submit issue
+
+The template automatically:
+- ✅ Adds `batch-stability-test` label
+- ✅ Sets title prefix `[Batch Stability Test]`
+- ✅ Provides structured form with examples
+- ✅ Triggers workflow immediately
+
+### Option 2: Manual Issue (Legacy)
+
+Create a GitHub issue manually with:
 - **Title**: `[Batch Stability Test] <Description>`
-- **Label**: `batch-stability-test` or `stability-test`
+- **Label**: `batch-stability-test`
 - **Body**: Task specification (see formats below)
 
 ---

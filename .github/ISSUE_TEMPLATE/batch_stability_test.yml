@@ -1,0 +1,110 @@
+name: Batch Stability Test
+description: Run stability tests for multiple HTAN tasks with a single issue
+title: '[Batch Stability Test] '
+labels:
+  - batch-stability-test
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Run stability tests for multiple tasks using pattern matching or explicit task lists.
+
+        **Examples:**
+        - `htan_*_typos` - All typos tasks (13 tasks)
+        - `htan_demographics_*` - All demographics tasks (3 tasks)
+        - `htan_*` - ALL HTAN tasks (39 tasks)
+
+  - type: dropdown
+    id: pattern_or_list
+    attributes:
+      label: Task Selection Method
+      description: Choose how to specify tasks
+      options:
+        - Pattern Matching (Recommended)
+        - Explicit Task List
+    validations:
+      required: true
+
+  - type: input
+    id: task_pattern
+    attributes:
+      label: Task Pattern (if using Pattern Matching)
+      description: |
+        Glob-style pattern to match task directories.
+        Examples:
+        - `htan_*_typos` - All typos tasks
+        - `htan_demographics_*` - All demographics tasks
+        - `htan_*` - All HTAN tasks
+      placeholder: 'htan_*_typos'
+    validations:
+      required: false
+
+  - type: textarea
+    id: task_list
+    attributes:
+      label: Task List (if using Explicit List)
+      description: |
+        One task name per line. Example:
+        htan_demographics_typos
+        htan_demographics_synonyms
+        htan_biospecimen_typos
+      placeholder: |
+        htan_demographics_typos
+        htan_demographics_synonyms
+        htan_biospecimen_typos
+    validations:
+      required: false
+
+  - type: dropdown
+    id: model
+    attributes:
+      label: Model
+      description: Select a model to run stability tests
+      options:
+        - claude-sonnet-4-5-20250929 (Recommended)
+        - claude-opus-4-5-20251101
+        - global.anthropic.claude-sonnet-4-5-20250929-v1:0 (AWS Bedrock)
+        - global.anthropic.claude-opus-4-5-20251101-v1:0 (AWS Bedrock)
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: input
+    id: custom_model
+    attributes:
+      label: Custom Model (if selected "Other")
+      placeholder: 'e.g., claude-3-7-sonnet-20250219'
+    validations:
+      required: false
+
+  - type: input
+    id: num_runs
+    attributes:
+      label: Number of Runs per Task
+      description: How many times to run each task (default: 10)
+      placeholder: '10'
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+
+        ## Pattern Matching Examples
+
+        | Pattern | Matches | Task Count |
+        |---------|---------|------------|
+        | `htan_demographics_*` | All demographics tasks | 3 |
+        | `htan_*_typos` | All typos tasks | 13 |
+        | `htan_*_synonyms` | All synonyms tasks | 13 |
+        | `htan_*_imputation` | All imputation tasks | 13 |
+        | `htan_*` | ALL HTAN tasks | 39 |
+
+        ## Estimated Run Times
+
+        - 3 tasks × 10 runs = ~30-45 minutes
+        - 13 tasks × 10 runs = ~2-3 hours
+        - 39 tasks × 10 runs = ~6-8 hours
+
+        The workflow will automatically close this issue when complete and post results as a comment.

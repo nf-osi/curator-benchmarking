@@ -21,16 +21,53 @@ def extract_tasks(issue_body: str) -> List[str]:
     Extract task list from GitHub issue body.
 
     Supports:
-    - Single task: task: htan_demographics_typos
-    - Multiple tasks (list):
-        tasks:
-          - htan_demographics_typos
-          - htan_demographics_synonyms
-    - Pattern matching:
-        tasks: htan_demographics_*
+    - GitHub issue form format (from template):
+        ### Task Pattern (if using Pattern Matching)
+        htan_*_typos
+    - Raw YAML format (legacy):
         tasks: htan_*_typos
+        OR
+        tasks:
+          - task1
+          - task2
     """
     lines = issue_body.split('\n')
+
+    # Try GitHub form format first
+    in_pattern_section = False
+    in_list_section = False
+
+    for i, line in enumerate(lines):
+        line_stripped = line.strip()
+
+        # Check for form headers
+        if line_stripped == "### Task Pattern (if using Pattern Matching)":
+            in_pattern_section = True
+            in_list_section = False
+            continue
+        elif line_stripped == "### Task List (if using Explicit List)":
+            in_list_section = True
+            in_pattern_section = False
+            continue
+        elif line_stripped.startswith("###"):
+            # End of current section
+            in_pattern_section = False
+            in_list_section = False
+            continue
+
+        # Extract pattern from form
+        if in_pattern_section and line_stripped and not line_stripped.startswith("_") and not line_stripped == "No response":
+            pattern = line_stripped
+            return expand_task_pattern(pattern)
+
+        # Extract list from form
+        if in_list_section and line_stripped and not line_stripped.startswith("_") and not line_stripped == "No response":
+            # Split by newlines and filter empty
+            tasks = [t.strip() for t in line_stripped.split('\n') if t.strip()]
+            if tasks:
+                return tasks
+
+    # Fallback to legacy YAML parsing
     tasks = []
     in_task_list = False
 
@@ -114,20 +151,82 @@ def expand_task_pattern(pattern: str) -> List[str]:
 
 def extract_model(issue_body: str) -> str:
     """Extract model name from GitHub issue body."""
-    for line in issue_body.split('\n'):
+    lines = issue_body.split('\n')
+
+    # Try GitHub form format first
+    in_model_section = False
+    in_custom_model_section = False
+
+    for line in lines:
+        line_stripped = line.strip()
+
+        # Check for form headers
+        if line_stripped == "### Model":
+            in_model_section = True
+            in_custom_model_section = False
+            continue
+        elif line_stripped == "### Custom Model (if selected \"Other\")":
+            in_custom_model_section = True
+            in_model_section = False
+            continue
+        elif line_stripped.startswith("###"):
+            # End of current section
+            in_model_section = False
+            in_custom_model_section = False
+            continue
+
+        # Extract model from form
+        if in_model_section and line_stripped and not line_stripped.startswith("_") and not line_stripped == "No response":
+            # Handle dropdown format (may have description in parentheses)
+            model = line_stripped.split('(')[0].strip()
+            return model
+
+        # Extract custom model from form
+        if in_custom_model_section and line_stripped and not line_stripped.startswith("_") and not line_stripped == "No response":
+            return line_stripped
+
+    # Fallback to legacy YAML format
+    for line in lines:
         if line.startswith('model:'):
             return line.split('model:')[1].strip()
+
     raise ValueError("No model specified (expected 'model: <model_name>')")
 
 
 def extract_num_runs(issue_body: str, default: int = 10) -> int:
     """Extract number of runs from GitHub issue body."""
-    for line in issue_body.split('\n'):
+    lines = issue_body.split('\n')
+
+    # Try GitHub form format first
+    in_num_runs_section = False
+
+    for line in lines:
+        line_stripped = line.strip()
+
+        # Check for form header
+        if line_stripped == "### Number of Runs per Task":
+            in_num_runs_section = True
+            continue
+        elif line_stripped.startswith("###"):
+            # End of current section
+            in_num_runs_section = False
+            continue
+
+        # Extract num_runs from form
+        if in_num_runs_section and line_stripped and not line_stripped.startswith("_") and not line_stripped == "No response":
+            try:
+                return int(line_stripped)
+            except ValueError:
+                return default
+
+    # Fallback to legacy YAML format
+    for line in lines:
         if line.startswith('num_runs:') or line.startswith('runs:'):
             try:
                 return int(line.split(':')[1].strip())
             except (ValueError, IndexError):
                 return default
+
     return default
 
 
