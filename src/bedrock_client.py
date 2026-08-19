@@ -23,6 +23,29 @@ def _rejects_sampling_params(model_id: str) -> bool:
     return any(s in model_id for s in ADAPTIVE_THINKING_MODEL_SUBSTRINGS)
 
 
+# Model families invoked via the model-agnostic Converse API rather than
+# invoke_model with a provider-specific body.
+CONVERSE_API_FAMILIES = (
+    'amazon.', 'deepseek.', 'meta.', 'xai.', 'zai.', 'qwen.',
+    'minimax.', 'moonshot.', 'moonshotai.', 'nvidia.', 'mistral.',
+)
+
+
+def _use_converse_api(model_id: str) -> bool:
+    """Return True if this model should be called via the Converse API."""
+    base = model_id
+    for prefix in ('us.', 'global.', 'eu.', 'apac.'):
+        if base.startswith(prefix):
+            base = base[len(prefix):]
+            break
+    if base.startswith('openai.'):
+        # Bare openai.* IDs (gpt-oss) use the legacy OpenAI invoke format;
+        # region-prefixed OpenAI profiles (e.g. global.openai.gpt-5.6-sol)
+        # only support Converse.
+        return base != model_id
+    return base.startswith(CONVERSE_API_FAMILIES)
+
+
 class BedrockClient:
     """Client for interacting with AWS Bedrock."""
     
@@ -52,6 +75,18 @@ class BedrockClient:
         self.bedrock_runtime = boto3.client('bedrock-runtime', **client_kwargs)
         self.use_bearer_token = False  # We use boto3, which handles bearer token via env var
     
+    def _converse(self, converse_kwargs):
+        """Call the Converse API, retrying without sampling params the model rejects."""
+        try:
+            return self.bedrock_runtime.converse(**converse_kwargs)
+        except ClientError as e:
+            msg = e.response.get('Error', {}).get('Message', '')
+            inference_config = converse_kwargs.get('inferenceConfig', {})
+            if "doesn't support the temperature field" in msg and 'temperature' in inference_config:
+                inference_config = {k: v for k, v in inference_config.items() if k != 'temperature'}
+                return self.bedrock_runtime.converse(**{**converse_kwargs, 'inferenceConfig': inference_config})
+            raise
+
     def _convert_tools_to_bedrock_format(self, tools: List[Tool], model_id: str) -> List[Dict[str, Any]]:
         """
         Convert Tool objects to Bedrock API format.
@@ -64,11 +99,7 @@ class BedrockClient:
             List of tool definitions in appropriate format
         """
         is_openai = model_id.startswith('openai.')
-        use_converse_api = (
-            model_id.startswith('us.amazon.') or model_id.startswith('amazon.') or
-            model_id.startswith('us.deepseek.') or model_id.startswith('deepseek.') or
-            model_id.startswith('us.meta.') or model_id.startswith('meta.')
-        )
+        use_converse_api = _use_converse_api(model_id)
         
         if is_openai:
             # OpenAI format - uses "functions" instead of "tools"
@@ -170,11 +201,7 @@ class BedrockClient:
         
         # Determine model type and format
         is_openai = model_id.startswith('openai.')
-        use_converse_api = (
-            model_id.startswith('us.amazon.') or model_id.startswith('amazon.') or
-            model_id.startswith('us.deepseek.') or model_id.startswith('deepseek.') or
-            model_id.startswith('us.meta.') or model_id.startswith('meta.')
-        )
+        use_converse_api = _use_converse_api(model_id)
         
         if is_openai:
             # OpenAI format - build messages with system instruction
@@ -239,7 +266,7 @@ class BedrockClient:
                         if system_instructions:
                             converse_kwargs['system'] = [{"text": system_instructions}]
                         
-                        response = self.bedrock_runtime.converse(**converse_kwargs)
+                        response = self._converse(converse_kwargs)
                         response_body = response
                     else:
                         # Anthropic format
@@ -543,9 +570,9 @@ class BedrockClient:
                 ],
                 "inferenceConfig": inference_config
             }
-        elif model_id.startswith('us.deepseek.') or model_id.startswith('deepseek.'):
-            # DeepSeek format - use converse API format
-            # DeepSeek models support system instructions via the system parameter in Converse API
+        elif _use_converse_api(model_id):
+            # Generic Converse API format (DeepSeek, Meta, xAI, Z.AI, Qwen, region-prefixed OpenAI, etc.)
+            # These models support system instructions via the system parameter in Converse API
             inference_config = {
                 "maxTokens": max_tokens,
                 "temperature": temperature
@@ -561,26 +588,6 @@ class BedrockClient:
                 "inferenceConfig": inference_config
             }
             # Add system instructions if provided (DeepSeek supports system role in Converse API)
-            if system_instructions:
-                body["system"] = [{"text": system_instructions}]
-        elif model_id.startswith('us.meta.') or model_id.startswith('meta.'):
-            # Meta Llama format - use converse API format
-            # Meta Llama models support system instructions via the system parameter in Converse API
-            inference_config = {
-                "maxTokens": max_tokens,
-                "temperature": temperature
-            }
-            
-            body = {
-                "messages": [
-                    {
-                        "role": "user",
-                        "content": [{"text": prompt}]
-                    }
-                ],
-                "inferenceConfig": inference_config
-            }
-            # Add system instructions if provided (Meta Llama supports system role in Converse API)
             if system_instructions:
                 body["system"] = [{"text": system_instructions}]
         else:
@@ -627,7 +634,7 @@ class BedrockClient:
                 # if available, otherwise uses AWS credentials
                 
                 # For Amazon Nova, DeepSeek, and Meta models, use converse API directly
-                if model_id.startswith('us.amazon.') or model_id.startswith('amazon.') or model_id.startswith('us.deepseek.') or model_id.startswith('deepseek.') or model_id.startswith('us.meta.') or model_id.startswith('meta.'):
+                if _use_converse_api(model_id):
                     try:
                         # Debug: print the request structure
                         if model_id.startswith('us.amazon.') or model_id.startswith('amazon.'):
@@ -654,7 +661,7 @@ class BedrockClient:
                         if 'system' in body:
                             converse_kwargs['system'] = body['system']
                         
-                        response = self.bedrock_runtime.converse(**converse_kwargs)
+                        response = self._converse(converse_kwargs)
                         # Converse API returns response directly as a dict
                         response_body = response
                         
@@ -723,7 +730,7 @@ class BedrockClient:
                             if thinking:
                                 print(f"Warning: Thinking mode requested but falling back to converse API which may not support it")
                             
-                            response = self.bedrock_runtime.converse(**converse_kwargs)
+                            response = self._converse(converse_kwargs)
                             # Converse API returns response directly, not wrapped in 'body'
                             response_body = response
                         else:
