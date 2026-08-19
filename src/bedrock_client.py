@@ -9,6 +9,19 @@ from .config import Config
 from .tool import Tool
 from .tool_executor import ToolExecutor
 
+# Claude Opus 4.7+ / Claude 5 family models reject sampling parameters
+# (temperature is deprecated) and fixed thinking budgets (budget_tokens is
+# removed in favor of adaptive thinking).
+ADAPTIVE_THINKING_MODEL_SUBSTRINGS = (
+    'claude-opus-5', 'claude-sonnet-5', 'claude-fable-5',
+    'claude-opus-4-8', 'claude-opus-4-7',
+)
+
+
+def _rejects_sampling_params(model_id: str) -> bool:
+    """Return True for models that reject temperature and budget_tokens."""
+    return any(s in model_id for s in ADAPTIVE_THINKING_MODEL_SUBSTRINGS)
+
 
 class BedrockClient:
     """Client for interacting with AWS Bedrock."""
@@ -239,14 +252,17 @@ class BedrockClient:
                         if system_instructions:
                             body["system"] = system_instructions
                         if thinking:
-                            thinking_budget = min(4096, max_tokens - 100)
-                            if thinking_budget < 1024:
-                                thinking_budget = 1024
-                            body["thinking"] = {
-                                "type": "enabled",
-                                "budget_tokens": thinking_budget
-                            }
-                        else:
+                            if _rejects_sampling_params(model_id):
+                                body["thinking"] = {"type": "adaptive"}
+                            else:
+                                thinking_budget = min(4096, max_tokens - 100)
+                                if thinking_budget < 1024:
+                                    thinking_budget = 1024
+                                body["thinking"] = {
+                                    "type": "enabled",
+                                    "budget_tokens": thinking_budget
+                                }
+                        elif not _rejects_sampling_params(model_id):
                             body["temperature"] = temperature
                         
                         response = self.bedrock_runtime.invoke_model(
@@ -586,18 +602,23 @@ class BedrockClient:
             # Thinking mode requires a thinking object with type: "enabled" and budget_tokens
             # Note: temperature is not compatible with thinking mode, so we omit it when thinking is enabled
             if thinking:
-                # Set a reasonable thinking budget (minimum is 1024, we'll use 4096 as a default)
-                # The budget should be less than max_tokens
-                thinking_budget = min(4096, max_tokens - 100)  # Leave some room for text output
-                if thinking_budget < 1024:
-                    thinking_budget = 1024  # Minimum required
-                
-                body["thinking"] = {
-                    "type": "enabled",
-                    "budget_tokens": thinking_budget
-                }
-            else:
+                if _rejects_sampling_params(model_id):
+                    # Claude 4.7+/5 models use adaptive thinking (no budget_tokens)
+                    body["thinking"] = {"type": "adaptive"}
+                else:
+                    # Set a reasonable thinking budget (minimum is 1024, we'll use 4096 as a default)
+                    # The budget should be less than max_tokens
+                    thinking_budget = min(4096, max_tokens - 100)  # Leave some room for text output
+                    if thinking_budget < 1024:
+                        thinking_budget = 1024  # Minimum required
+
+                    body["thinking"] = {
+                        "type": "enabled",
+                        "budget_tokens": thinking_budget
+                    }
+            elif not _rejects_sampling_params(model_id):
                 # Only set temperature when thinking is NOT enabled (they're incompatible)
+                # and the model still supports sampling parameters
                 body["temperature"] = temperature
         
         for attempt in range(max_retries):
