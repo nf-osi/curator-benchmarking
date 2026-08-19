@@ -790,6 +790,7 @@
                     tokens: exp.overall_metrics.token_usage.total_tokens,
                     duration: exp.overall_metrics.duration_seconds,
                     temperature: exp.temperature !== null && exp.temperature !== undefined ? exp.temperature : null,
+                    tasksCompleted: exp.overall_metrics.tasks_completed || 0,
                     experiment_id: exp.experiment_id,
                     model_id: exp.model_id,
                     xLabel: xLabel
@@ -849,6 +850,7 @@
                             tokens: d.tokens,
                             duration: d.duration,
                             temperature: d.temperature,
+                            tasksCompleted: d.tasksCompleted,
                             xLabel: d.xLabel
                         })),
                         backgroundColor: colors,
@@ -875,6 +877,7 @@
                                         `Duration: ${point.duration.toFixed(1)}s`,
                                         `Tokens: ${point.tokens.toLocaleString()}`,
                                         `Temperature: ${point.temperature !== null ? point.temperature.toFixed(2) : 'N/A'}`,
+                                        `Tasks: ${point.tasksCompleted}`,
                                         `Model: ${point.model_id}`,
                                         `Experiment: ${point.experiment_id.substring(0, 8)}...`
                                     ];
@@ -1051,8 +1054,108 @@
                 const bAcc = b.overall_metrics?.average_accuracy || 0;
                 return bAcc - aAcc;
             });
-            
+
             return bestExperiments;
+        }
+
+        function taskCountCohorts(experiments) {
+            // Group experiments by the number of tasks they were tested against,
+            // so scores are only ranked against runs on the same benchmark size.
+            const groups = new Map();
+            experiments.forEach(exp => {
+                const n = exp.overall_metrics?.tasks_completed || 0;
+                if (n === 0) return;
+                if (!groups.has(n)) groups.set(n, []);
+                groups.get(n).push(exp);
+            });
+            return Array.from(groups.entries())
+                .sort((a, b) => b[0] - a[0])
+                .map(([count, exps]) => ({ count, experiments: exps }));
+        }
+
+        function renderPerfTable(perfList, tableId, headerText) {
+            return `
+                <div class="task-section">
+                    <div class="task-header">${headerText}</div>
+                    <table class="leaderboard-table" id="${tableId}">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Average Accuracy</th>
+                                <th>Model</th>
+                                <th>System Instructions</th>
+                                <th>Temperature</th>
+                                <th>Thinking</th>
+                                <th>Tools</th>
+                                <th>Tasks Completed</th>
+                                <th>Duration</th>
+                                <th>Total Tokens</th>
+                                <th>Experiment ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${perfList.map((perf, index) => {
+                                const rank = index + 1;
+                                const avgAccuracy = (perf.averageAccuracy * 100).toFixed(2);
+                                const sysInstPreview = perf.system_instructions.length > 50
+                                    ? perf.system_instructions.substring(0, 50) + '...'
+                                    : perf.system_instructions;
+                                const tempDisplay = perf.temperature !== null && perf.temperature !== undefined
+                                    ? perf.temperature.toFixed(2)
+                                    : 'N/A';
+                                const thinkingDisplay = perf.thinking ? 'Yes' : 'No';
+                                const tools = perf.tools || [];
+                                const toolsDisplay = tools.length > 0 ? tools.join(', ') : 'None';
+                                const durationSeconds = perf.durationSeconds || 0;
+                                const durationDisplay = durationSeconds > 0
+                                    ? durationSeconds < 60
+                                        ? `${durationSeconds.toFixed(1)}s`
+                                        : `${Math.floor(durationSeconds / 60)}m ${(durationSeconds % 60).toFixed(0)}s`
+                                    : 'N/A';
+                                const tokenUsage = perf.tokenUsage || {};
+                                const totalTokens = tokenUsage.total_tokens || 0;
+                                const tokensDisplay = totalTokens > 0
+                                    ? totalTokens.toLocaleString()
+                                    : 'N/A';
+                                return `
+                                    <tr>
+                                        <td class="rank ${getRankClass(rank)}" data-order="${rank}">${rank}</td>
+                                        <td class="accuracy-cell ${getScoreClass(perf.averageAccuracy)}" data-order="${perf.averageAccuracy}">${avgAccuracy}%</td>
+                                        <td class="model-cell">${perf.model_id}</td>
+                                        <td title="${perf.system_instructions}">${sysInstPreview}</td>
+                                        <td data-order="${perf.temperature !== null && perf.temperature !== undefined ? perf.temperature : -1}">${tempDisplay}</td>
+                                        <td data-order="${perf.thinking ? 1 : 0}">${thinkingDisplay}</td>
+                                        <td>${toolsDisplay}</td>
+                                        <td data-order="${perf.tasksCompleted}">${perf.tasksCompleted}</td>
+                                        <td data-order="${durationSeconds}">${durationDisplay}</td>
+                                        <td data-order="${totalTokens}">${tokensDisplay}</td>
+                                        <td class="experiment-id-cell">${perf.experiment_id}</td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function initPerfDataTables(tableIds, pageLength) {
+            setTimeout(() => {
+                tableIds.forEach(tableId => {
+                    if ($.fn.DataTable.isDataTable('#' + tableId)) {
+                        $('#' + tableId).DataTable().destroy();
+                    }
+                    $('#' + tableId).DataTable({
+                        pageLength: pageLength,
+                        order: [[1, 'desc']], // Sort by accuracy descending
+                        columnDefs: [
+                            { type: 'num', targets: [0, 1, 4, 7, 8, 9] }
+                        ],
+                        deferRender: true, // Only render visible rows
+                        processing: false
+                    });
+                });
+            }, 0);
         }
 
         function displayExperiments() {
@@ -1070,103 +1173,33 @@
                 return;
             }
 
-            console.time('getBestExperimentPerModel');
-            // Calculate best experiment per model
-            const bestPerModel = getBestExperimentPerModel(filteredExperiments);
-            console.timeEnd('getBestExperimentPerModel');
-            
-            console.time('calculateOverallPerformance (model)');
-            const bestPerModelPerformance = calculateOverallPerformance(bestPerModel);
-            console.timeEnd('calculateOverallPerformance (model)');
-            
-            // Display model leaderboard
+            console.time('model leaderboard (per task-count cohort)');
+            // Split experiments by benchmark size so rankings only compare
+            // runs tested against the same number of tasks.
+            const cohorts = taskCountCohorts(filteredExperiments);
+            const maxTaskCount = cohorts.length > 0 ? cohorts[0].count : 0;
+
             let modelLeaderboardHtml = '';
-            if (bestPerModelPerformance.length > 0) {
-                modelLeaderboardHtml = `
-                    <div class="task-section">
-                        <div class="task-header">Model Leaderboard (Best Experiment Per Model)</div>
-                        <table class="leaderboard-table" id="table-model-leaderboard">
-                            <thead>
-                                <tr>
-                                    <th>Rank</th>
-                                    <th>Average Accuracy</th>
-                                    <th>Model</th>
-                                    <th>System Instructions</th>
-                                    <th>Temperature</th>
-                                    <th>Thinking</th>
-                                    <th>Tools</th>
-                                    <th>Tasks Completed</th>
-                                    <th>Duration</th>
-                                    <th>Total Tokens</th>
-                                    <th>Experiment ID</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${bestPerModelPerformance.map((perf, index) => {
-                                    const rank = index + 1;
-                                    const avgAccuracy = (perf.averageAccuracy * 100).toFixed(2);
-                                    const sysInstPreview = perf.system_instructions.length > 50 
-                                        ? perf.system_instructions.substring(0, 50) + '...'
-                                        : perf.system_instructions;
-                                    const tempDisplay = perf.temperature !== null && perf.temperature !== undefined 
-                                        ? perf.temperature.toFixed(2) 
-                                        : 'N/A';
-                                    const thinkingDisplay = perf.thinking ? 'Yes' : 'No';
-                                    const tools = perf.tools || [];
-                                    const toolsDisplay = tools.length > 0 ? tools.join(', ') : 'None';
-                                    const durationSeconds = perf.durationSeconds || 0;
-                                    const durationDisplay = durationSeconds > 0 
-                                        ? durationSeconds < 60 
-                                            ? `${durationSeconds.toFixed(1)}s`
-                                            : `${Math.floor(durationSeconds / 60)}m ${(durationSeconds % 60).toFixed(0)}s`
-                                        : 'N/A';
-                                    const tokenUsage = perf.tokenUsage || {};
-                                    const totalTokens = tokenUsage.total_tokens || 0;
-                                    const tokensDisplay = totalTokens > 0 
-                                        ? totalTokens.toLocaleString() 
-                                        : 'N/A';
-                                    return `
-                                        <tr>
-                                            <td class="rank ${getRankClass(rank)}" data-order="${rank}">${rank}</td>
-                                            <td class="accuracy-cell ${getScoreClass(perf.averageAccuracy)}" data-order="${perf.averageAccuracy}">${avgAccuracy}%</td>
-                                            <td class="model-cell">${perf.model_id}</td>
-                                            <td title="${perf.system_instructions}">${sysInstPreview}</td>
-                                            <td data-order="${perf.temperature !== null && perf.temperature !== undefined ? perf.temperature : -1}">${tempDisplay}</td>
-                                            <td data-order="${perf.thinking ? 1 : 0}">${thinkingDisplay}</td>
-                                            <td>${toolsDisplay}</td>
-                                            <td data-order="${perf.tasksCompleted}">${perf.tasksCompleted}</td>
-                                            <td data-order="${durationSeconds}">${durationDisplay}</td>
-                                            <td data-order="${totalTokens}">${tokensDisplay}</td>
-                                            <td class="experiment-id-cell">${perf.experiment_id}</td>
-                                        </tr>
-                                    `;
-                                }).join('')}
-                            </tbody>
-                        </table>
-                    </div>
-                `;
-            }
-            
+            const modelTableIds = [];
+            cohorts.forEach(cohort => {
+                const bestPerModel = getBestExperimentPerModel(cohort.experiments);
+                const perf = calculateOverallPerformance(bestPerModel);
+                if (perf.length === 0) return;
+                const tableId = `table-model-leaderboard-${cohort.count}`;
+                const label = cohort.count === maxTaskCount ? ' — current benchmark' : ' — legacy benchmark';
+                modelLeaderboardHtml += renderPerfTable(
+                    perf, tableId,
+                    `Model Leaderboard: ${cohort.count} Tasks${label} (Best Experiment Per Model)`
+                );
+                modelTableIds.push(tableId);
+            });
+            console.timeEnd('model leaderboard (per task-count cohort)');
+
             document.getElementById('modelLeaderboard').innerHTML = modelLeaderboardHtml;
-            
-            // Initialize DataTables for model leaderboard
-            if (bestPerModelPerformance.length > 0) {
-                setTimeout(() => {
-                    console.time('DataTable init (model leaderboard)');
-                    if ($.fn.DataTable.isDataTable('#table-model-leaderboard')) {
-                        $('#table-model-leaderboard').DataTable().destroy();
-                    }
-                    $('#table-model-leaderboard').DataTable({
-                        pageLength: 10,
-                        order: [[1, 'desc']], // Sort by accuracy descending
-                        columnDefs: [
-                            { type: 'num', targets: [0, 1, 4, 7, 8, 9] }
-                        ],
-                        deferRender: true, // Only render visible rows
-                        processing: false
-                    });
-                    console.timeEnd('DataTable init (model leaderboard)');
-                }, 0);
+
+            // Initialize DataTables for model leaderboards
+            if (modelTableIds.length > 0) {
+                initPerfDataTables(modelTableIds, 10);
             }
 
             console.time('calculateOverallPerformance (all)');
@@ -1174,94 +1207,26 @@
             const overallPerformance = calculateOverallPerformance(filteredExperiments);
             console.timeEnd('calculateOverallPerformance (all)');
             
-            // Generate overall performance table
+            // Generate overall performance tables, one per task-count cohort
             let overallHtml = '';
-            if (overallPerformance.length > 0) {
-                overallHtml = `
-                    <div class="task-section">
-                        <div class="task-header">Overall Performance</div>
-                        <table class="leaderboard-table" id="table-overall">
-                            <thead>
-                                <tr>
-                                    <th>Rank</th>
-                                    <th>Average Accuracy</th>
-                                    <th>Model</th>
-                                    <th>System Instructions</th>
-                                    <th>Temperature</th>
-                                    <th>Thinking</th>
-                                    <th>Tools</th>
-                                    <th>Tasks Completed</th>
-                                    <th>Duration</th>
-                                    <th>Total Tokens</th>
-                                    <th>Experiment ID</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${overallPerformance.map((perf, index) => {
-                                    const rank = index + 1;
-                                    const avgAccuracy = (perf.averageAccuracy * 100).toFixed(2);
-                                    const sysInstPreview = perf.system_instructions.length > 50 
-                                        ? perf.system_instructions.substring(0, 50) + '...'
-                                        : perf.system_instructions;
-                                    const tempDisplay = perf.temperature !== null && perf.temperature !== undefined 
-                                        ? perf.temperature.toFixed(2) 
-                                        : 'N/A';
-                                    const thinkingDisplay = perf.thinking ? 'Yes' : 'No';
-                                    const tools = perf.tools || [];
-                                    const toolsDisplay = tools.length > 0 ? tools.join(', ') : 'None';
-                                    const durationSeconds = perf.durationSeconds || 0;
-                                    const durationDisplay = durationSeconds > 0 
-                                        ? durationSeconds < 60 
-                                            ? `${durationSeconds.toFixed(1)}s`
-                                            : `${Math.floor(durationSeconds / 60)}m ${(durationSeconds % 60).toFixed(0)}s`
-                                        : 'N/A';
-                                    const tokenUsage = perf.tokenUsage || {};
-                                    const totalTokens = tokenUsage.total_tokens || 0;
-                                    const tokensDisplay = totalTokens > 0 
-                                        ? totalTokens.toLocaleString() 
-                                        : 'N/A';
-                                    return `
-                                        <tr>
-                                            <td class="rank ${getRankClass(rank)}" data-order="${rank}">${rank}</td>
-                                            <td class="accuracy-cell ${getScoreClass(perf.averageAccuracy)}" data-order="${perf.averageAccuracy}">${avgAccuracy}%</td>
-                                            <td class="model-cell">${perf.model_id}</td>
-                                            <td title="${perf.system_instructions}">${sysInstPreview}</td>
-                                            <td data-order="${perf.temperature !== null && perf.temperature !== undefined ? perf.temperature : -1}">${tempDisplay}</td>
-                                            <td data-order="${perf.thinking ? 1 : 0}">${thinkingDisplay}</td>
-                                            <td>${toolsDisplay}</td>
-                                            <td data-order="${perf.tasksCompleted}">${perf.tasksCompleted}</td>
-                                            <td data-order="${durationSeconds}">${durationDisplay}</td>
-                                            <td data-order="${totalTokens}">${tokensDisplay}</td>
-                                            <td class="experiment-id-cell">${perf.experiment_id}</td>
-                                        </tr>
-                                    `;
-                                }).join('')}
-                            </tbody>
-                        </table>
-                    </div>
-                `;
-            }
-            
+            const overallTableIds = [];
+            cohorts.forEach(cohort => {
+                const perf = calculateOverallPerformance(cohort.experiments);
+                if (perf.length === 0) return;
+                const tableId = `table-overall-${cohort.count}`;
+                const label = cohort.count === maxTaskCount ? ' — current benchmark' : ' — legacy benchmark';
+                overallHtml += renderPerfTable(
+                    perf, tableId,
+                    `Overall Performance: ${cohort.count} Tasks${label} (All Experiments)`
+                );
+                overallTableIds.push(tableId);
+            });
+
             document.getElementById('overallPerformance').innerHTML = overallHtml;
-            
-            // Initialize DataTables for overall performance table
-            if (overallPerformance.length > 0) {
-                setTimeout(() => {
-                    console.time('DataTable init (overall)');
-                    if ($.fn.DataTable.isDataTable('#table-overall')) {
-                        $('#table-overall').DataTable().destroy();
-                    }
-                    $('#table-overall').DataTable({
-                        pageLength: 5,
-                        order: [[1, 'desc']], // Sort by accuracy descending
-                        columnDefs: [
-                            { type: 'num', targets: [0, 1, 4, 7, 8, 9] }
-                        ],
-                        deferRender: true, // Only render visible rows
-                        processing: false
-                    });
-                    console.timeEnd('DataTable init (overall)');
-                }, 0);
+
+            // Initialize DataTables for overall performance tables
+            if (overallTableIds.length > 0) {
+                initPerfDataTables(overallTableIds, 5);
             }
 
             // Generate task-wise breakdown tables
