@@ -1,0 +1,2395 @@
+{
+  "experiment_id": "7d34d0d02a76add0be0a744f1798eb68",
+  "task_name": "htan_diagnosis_synonyms",
+  "task_hash": "d8f6602def161635a18558336f810e6d",
+  "model_id": "openai/gpt-5.6-sol",
+  "system_instructions": "You are a metadata curation assistant. Your task is to help improve and correct metadata \naccording to the specific instructions provided for each task. Be precise, accurate, and \nfollow the guidelines carefully.\n",
+  "temperature": 0.0,
+  "thinking": false,
+  "tools": [],
+  "timestamp": "2026-08-19T21:11:58.119651",
+  "task_result": {
+    "task_name": "htan_diagnosis_synonyms",
+    "num_samples": 20,
+    "results": [
+      {
+        "sample_index": 0,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 18250,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 18615,
+          "AJCC_STAGING_SYSTEM_EDITION": "Seventh",
+          "CLINICAL_M_STAGE": "M0 (no distant metastasis)",
+          "CLINICAL_N_STAGE": "N0 (no regional lymph nodes)",
+          "CLINICAL_T_STAGE": "T1 (tumor 2cm or less)",
+          "LAST_KNOWN_DISEASE_STATUS": "Cancer-free",
+          "METASTASIS_AT_DIAGNOSIS": "No metastasis",
+          "METHOD_OF_DIAGNOSIS": "Tissue biopsy",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary tumor",
+          "TUMOR_GRADE": "Low grade"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"18250\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"18615\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"7th\",\n  \"CLINICAL_M_STAGE\": \"M0\",\n  \"CLINICAL_N_STAGE\": \"N0\",\n  \"CLINICAL_T_STAGE\": \"T1\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Tumor Free\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Non-metastatic (confirmed)\",\n  \"METHOD_OF_DIAGNOSIS\": \"Biopsy\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G1 Low Grade\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2434,
+            "outputTokens": 262,
+            "totalTokens": 2696
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173823-zcuiTJu7tPgYt8Ht7FIK",
+            "object": "chat.completion",
+            "created": 1787173823,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"18250\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"18615\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"7th\",\n  \"CLINICAL_M_STAGE\": \"M0\",\n  \"CLINICAL_N_STAGE\": \"N0\",\n  \"CLINICAL_T_STAGE\": \"T1\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Tumor Free\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Non-metastatic (confirmed)\",\n  \"METHOD_OF_DIAGNOSIS\": \"Biopsy\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G1 Low Grade\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Refining data output**\n\nI need to focus on preserving fields but ensure that the required missing IDs don\u2019t add anything extra. It\u2019s likely I should convert numbers to strings while keeping everything mapped correctly. For biopsies, I\u2019ll standardize terms like changing \"Tissue biopsy\" to just \"Biopsy.\" I want to clarify terms: \u201cCancer-free\u201d would simplify to \u201cTumor Free,\u201d and \u201cNo metastasis\u201d can be labeled as \u201cNon-metastatic.\u201d Also noting that the grade is G1 or Low Grade, and stages like N0 and T1 should remain straightforward. Finally, I\u2019ll ensure the output is in JSON format only.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.summary",
+                      "summary": "**Refining data output**\n\nI need to focus on preserving fields but ensure that the required missing IDs don\u2019t add anything extra. It\u2019s likely I should convert numbers to strings while keeping everything mapped correctly. For biopsies, I\u2019ll standardize terms like changing \"Tissue biopsy\" to just \"Biopsy.\" I want to clarify terms: \u201cCancer-free\u201d would simplify to \u201cTumor Free,\u201d and \u201cNo metastasis\u201d can be labeled as \u201cNon-metastatic.\u201d Also noting that the grade is G1 or Low Grade, and stages like N0 and T1 should remain straightforward. Finally, I\u2019ll ensure the output is in JSON format only.",
+                      "format": "openai-responses-v1",
+                      "index": 0
+                    },
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhvEYXIec8-EX2-3lEn0vaYk2Aw1DMoofB1JiB0L_kUlGGz5tpPPFllb7dgk5gzWUidXhXm8A7moO70dl997p2BTO_kgT8wQSfHyGx0EG1C46ms0tzs4M1iRQGzClkaS2SKUpUz2i30sq6oYmTSwz4kz7LZoYD5RIREJv1IxRuFxYSvd9AO-echExbGGzlcFb_nahJsU5r9qfBmGltl_AgWUMyqwueciHL-MONA3TVjDvZuY13_i5nvsV9HQexB6kSrg5gF7wHpMZQ7jJXGYkdsviQdCQWVOh744gshvGGLWoNbBLbRufH5wuFOMRWkpICvazLivlRRTNyZ6IY1n34ZDX6L_oDbd4mu2oTobOvr6dVzeP4GXUNS7N3FNy2MKVFTVY1w3pbxZ1V9eYwqDBzMYad5njJ6Yy2--IsNCkaRN5eYKRccCLXjtdgspFzCHWxiFr8tDkYq3eIFNRyh1g1-3VIbjYf8cqXtR3QSct28FQ9ocNJVhtl5TRkJ47cw6g7pt9QdieFDBXkjDY2tWvFydPOtL2w-10WVOAn4_kRhXdbvgTizCrvaiSMxEa9XZT-gJIXGlZthk6CyHgZf8pbDgB03KG7cmEobwXSaQqDGDbHMmOvuofUi361Ff7OtXoDVJ8xEIM_RznLdrwE5cgD3buOly7aqNX5_twbelaWSSligHLFrv3RA2FWfs6lm0AuLrhL3fub7dJOm8mJtljhWuJcFI-pc_bVweb3IFqnSdDIu6W3QU_scs97l__qfS6Hdz9s1fluKeaI3nuOm-IfWWkY60NMi0s9Fa8ZNM1WJaXOMQUh_nAX4Kqba-SvF5ZNgFTlnbBsfbvcoElug46az6iJqYmzD1llAPo9S9WE4R86ExCuWy7CM8E0zi4qk2T8sD9FqWrP11yxqbFihBEaopSc-LQhjwVROPdT3sGkkawKTg84voQeBFmIUGTAUgRNTHm7hggYLviMdG-Gr5PwT1eRvncSOl9Es6PC-fzvi8UTMKZfUnB0CarHt4DRuVUNm9nb8AkVBlJSlDxNn1QHgHjH7dUnkewD4u2puOFGLFYLDlwYfck64EZG5Crsj0dEadHDZ3Xf1rEaUCimgv20WF50hy0rpff8h7NhaKzIHg2Zh5kz2bv8ZBIK0RwDL-I5YmeuZ-qWT1yXNPmNoM5kp-WV8iMFn3vFr_ebw85SMA5RbaszTXefjLmJ2S26FGrznXOu0cCi4GQwwsMgJMesMmEPXuf7WkaqYV9v03s2DwpLaymfk5L7kDrTtB3A-w63k1XbPDslHa0L8n3hfwkUZ7drTQiBMTV60abMDbvVflDZVYYkHwALh0MISv46GjFB7GfDH7ygankMHNQYjRSUE-mg2DVj-H3Cx796wjLOH_tQSue9aNPp-92XA864xw39fYmf1CPTYVyk6E-XXY0mvqeSgWln9QXx_3MDDZMg4LuPP5abfQZizIszLcqQA8cYbekqOispbMvflBZJ-OVupEedauBnl0o9NSf5lFo8QYe-CoDCQWzvLmgGc2lIkylroosgFl4ODJroIiWiBeN2eKptwZLnhs7aaskKAszVWpxoQdZl8LRQiNOBeLvhErU0yVh2WLdYtq6iIrZCpJUU0lAwVgroe7lk5d5lep7_7_I66l4aFJSRAuE4OZMoq5892ZX334O7n8RAhqXLlvjpxKEGs8nERTb8p7MayT1r9gqOswr7uLUNachswblgeov5n4zUV_k_jmSPYdKRP1SB0jWHzgqebzXUJmDf8JAjMTTInT834NDnmvLRbzmoOeIHO2lXGiA0fPIWV9PXmqS-jr-Eb4GPUVkY9km2ZrzdbM3bV7QrFS3R1vQsqvUPYUvn0h_iYcbfRK06CamkggT5IMg3NVCY7x9rt9GmP-DYYOZqE=.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_038541c1f69afabf016a861bc139ac87d1a0eb0541038eed38",
+                      "index": 1
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2434,
+              "completion_tokens": 262,
+              "total_tokens": 2696,
+              "cost": 0.011534375,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2431,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.011534375,
+                "upstream_inference_prompt_cost": 0.007604375,
+                "upstream_inference_completions_cost": 0.00393
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 93,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.8181818181818182,
+        "metrics": {
+          "score": 0.8181818181818182,
+          "f1": 0.9,
+          "precision": 0.8181818181818182,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 9,
+          "fp": 2,
+          "tn": 0,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 18250,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 18615,
+          "AJCC_STAGING_SYSTEM_EDITION": "7th",
+          "CLINICAL_M_STAGE": "M0",
+          "CLINICAL_N_STAGE": "N0",
+          "CLINICAL_T_STAGE": "T1",
+          "LAST_KNOWN_DISEASE_STATUS": "Tumor Free",
+          "METASTASIS_AT_DIAGNOSIS": "Non-metastatic (confirmed)",
+          "METHOD_OF_DIAGNOSIS": "Biopsy",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "G1 Low Grade"
+        },
+        "token_usage": {
+          "input_tokens": 2434,
+          "output_tokens": 262,
+          "total_tokens": 2696
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 1,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 21900,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 22265,
+          "AJCC_STAGING_SYSTEM_EDITION": "Eighth",
+          "CLINICAL_M_STAGE": "M1 (distant metastasis)",
+          "CLINICAL_N_STAGE": "N1 (regional lymph node metastasis)",
+          "CLINICAL_T_STAGE": "T0 (no evidence of primary tumor)",
+          "LAST_KNOWN_DISEASE_STATUS": "Metastases",
+          "METASTASIS_AT_DIAGNOSIS": "Metastases present",
+          "METHOD_OF_DIAGNOSIS": "FNA",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Mets",
+          "TUMOR_GRADE": "High grade"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"21900\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"22265\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"8th\",\n  \"CLINICAL_M_STAGE\": \"M1\",\n  \"CLINICAL_N_STAGE\": \"N1\",\n  \"CLINICAL_T_STAGE\": \"T0\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Distant Metastasis\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Metastatic\",\n  \"METHOD_OF_DIAGNOSIS\": \"Fine Needle Aspiration\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Metastatic\",\n  \"TUMOR_GRADE\": \"G3 High Grade\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2434,
+            "outputTokens": 260,
+            "totalTokens": 2694
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173830-OMAbWC7D1zvk6qDiMbqv",
+            "object": "chat.completion",
+            "created": 1787173830,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"21900\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"22265\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"8th\",\n  \"CLINICAL_M_STAGE\": \"M1\",\n  \"CLINICAL_N_STAGE\": \"N1\",\n  \"CLINICAL_T_STAGE\": \"T0\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Distant Metastasis\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Metastatic\",\n  \"METHOD_OF_DIAGNOSIS\": \"Fine Needle Aspiration\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Metastatic\",\n  \"TUMOR_GRADE\": \"G3 High Grade\"\n}",
+                  "refusal": null,
+                  "reasoning": null,
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhvKHXhdtKReOolRmc9NC2uzy3RRMWfyWxQx8imoA6FtGoL1JxDcdO1HMq4dwdQOF0SxINY-Z-KO927T2GfdF9qDfa6WR9ZnXsWGLaGYvqZZzI_M27ORYrUAgtCKm8wrXNc-6Yv3xW-J_SrSUUdyTJGESj4QLUOtLm4vMy5OjCMe8ZPLXitU0-GVrYPwT1vU5hEGCxMNnnF1bm6depcLexN6ZcXCOqp9BZxOdCimxmSjezzxyl8dQMEgBkVSnqinGE47eIVOGv-zXTuJx76lUS6_CxUwcp7sdZd-9DsuFxIa029BLsVlMQy_lBVDf8AxsY_QaPIsPUUr-3-b_D2P5KuO8yw6lh520AcWTf-UI5IyUYv5XbZzePYKz84mCK-Z9Mn4pjZwA7x6WX_n3Bcc-31K5GCqlTDayPwpQWKqo7BmQ7rkF7fFc84juCxQ5ppdr3U2UHapj9-57pSymaikxC3hyE8O56DSo6Yfp28uJe_I82QnQAArfRt6DHvsnjuzcA73YlmqBewuLVgzYD8Sln-sW9RkFcu8GaHBM0lrI3RTMuIiaGDJ2J8KPsyU1CeUsUz5rXtvfOpHllmAuv_f4TWFKAXIuPG8JHxNoAKRAKJ8jIK4YWTX7Aqut8ZhJ32OLyg2BbyNFKvSHSBsvAMjJCT4eGIXNMd41UEBXnCmcp_B4dgN9OXZMTqIOdWpV8qhzlM-uIQrlnMLkXhLSCzCBzv_BaswenvecNgcxvEjNLZvrQ7zGsd4V_1s5Tc9hqKr3DVzmyCyu9tnuKsTjLU-eTQD7oxtNiQREOPzCpuLqzcyCqBHApAjw2KOr0l9rZBku4p1Grfkkvf0piVHx8eYeqtVLeyeA7TkrAduTP65FueJQ47Kbq_kS4eqEgUUlCLo5QphZrJYEmcZu1RTWWsuLTMc2geP83nNuyuJlm2X5SD_tG-6qTGKYOCfI9ijemkJPOGhIzVNCvMPYt6dTO16Eu4HbF1NPb9gJ-D2ZM4VFkIYykXFEaT9AnlrrbrUTWUo3QlyUMFyBn4e6Nlxl0Bq6HXXTOwC7AHWGo2JyHhTHP8fPtXf3ctjhnLWyiIQn5g44sHmNYnK9WLMupFIa3Jirvw9ePEieqVLLXVLjD7SkDze10HiAQNKbt8jD4DW-jtGwYWWqBASHBq8WhA7R7PCfHg9PlK918qWrjGFO-GRv4pTCKbXsLpOhHGPrJJkLMU_sZqJuxseCpUY9gfr1IMTohwoa2m_l3OGpmltMHp49IcIOKpij04Rf6f1JMg963vKbEa45WZSt8u0AcR49qh0XIN34aXL1eNXVJKeyBp_7qoTt7-cGZVGmoz-AmEp4VggZnD4dQTwqP0l1_EWhXAl8c8YxcEqPBql0-0ZuI7FTZy2FHxws_d1NR2O8K23mSObzfNnODg5zQgSh1LPnsNq5P0eX0x1XiSnIwrTLeHeVDdvn5VIZXSMNdSbR0w_sx6dcYZeYkP_SHN4MdyyUa--TVHRCFi1OsxDN-TNExj5vh9S6MXZOFoczarLgDFYYL0yqSSdRc0S6ixwKxbDvOVFqY7ykxvd12A1uigr6MP6oBADPBY5xMVKLBO_I1E7OEWBfBbe9NmO9j1E5UnYdMFsmmEjE94k0-mwkEfRGxZdfOjZwIAyJeGL_K5kHm02VxoKehW_pdfas0UUe2BR-NbzERrlfka8y2w2W30iUO5v1Tq04XnZq3UhpdqYs-vDJorymW6-zSOKHkgHq7oUHffAZhLE9qnTrw0gRDsXPTJLVgT9qmsohQYAb7ZRlQdZs0QKBGn02W-KnMnR4u7bObv_EcR-EqFPfsprkPSkcLLjs05rrJE=.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_0be42c36662039a3016a861bc75aa48193ad91fb4fa880cbf0",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2434,
+              "completion_tokens": 260,
+              "total_tokens": 2694,
+              "cost": 0.011504375,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2431,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.011504375,
+                "upstream_inference_prompt_cost": 0.007604375,
+                "upstream_inference_completions_cost": 0.0039
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 88,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.8181818181818182,
+        "metrics": {
+          "score": 0.8181818181818182,
+          "f1": 0.9,
+          "precision": 0.8181818181818182,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 9,
+          "fp": 2,
+          "tn": 0,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 21900,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 22265,
+          "AJCC_STAGING_SYSTEM_EDITION": "8th",
+          "CLINICAL_M_STAGE": "M1",
+          "CLINICAL_N_STAGE": "N1",
+          "CLINICAL_T_STAGE": "T0",
+          "LAST_KNOWN_DISEASE_STATUS": "Distant Metastasis",
+          "METASTASIS_AT_DIAGNOSIS": "Metastatic",
+          "METHOD_OF_DIAGNOSIS": "Fine Needle Aspiration",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Metastatic",
+          "TUMOR_GRADE": "G3 High Grade"
+        },
+        "token_usage": {
+          "input_tokens": 2434,
+          "output_tokens": 260,
+          "total_tokens": 2694
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 2,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 16425,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 16790,
+          "AJCC_STAGING_SYSTEM_EDITION": "6",
+          "CLINICAL_M_STAGE": "Metastasis absent",
+          "CLINICAL_N_STAGE": "No nodes",
+          "CLINICAL_T_STAGE": "Carcinoma in situ",
+          "LAST_KNOWN_DISEASE_STATUS": "NED",
+          "METASTASIS_AT_DIAGNOSIS": "Metastasis absent",
+          "METHOD_OF_DIAGNOSIS": "Needle biopsy",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Precancerous",
+          "TUMOR_GRADE": "G1"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"16425\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"16790\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"6th\",\n  \"CLINICAL_M_STAGE\": \"M0\",\n  \"CLINICAL_N_STAGE\": \"N0\",\n  \"CLINICAL_T_STAGE\": \"Tis\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Tumor Free\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Non-metastatic (confirmed)\",\n  \"METHOD_OF_DIAGNOSIS\": \"Core Biopsy\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Premalignant\",\n  \"TUMOR_GRADE\": \"G1 Low Grade\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2422,
+            "outputTokens": 328,
+            "totalTokens": 2750
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173834-MZLtMIKFUTTdF7AvGloH",
+            "object": "chat.completion",
+            "created": 1787173834,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"16425\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"16790\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"6th\",\n  \"CLINICAL_M_STAGE\": \"M0\",\n  \"CLINICAL_N_STAGE\": \"N0\",\n  \"CLINICAL_T_STAGE\": \"Tis\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Tumor Free\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Non-metastatic (confirmed)\",\n  \"METHOD_OF_DIAGNOSIS\": \"Core Biopsy\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Premalignant\",\n  \"TUMOR_GRADE\": \"G1 Low Grade\"\n}",
+                  "refusal": null,
+                  "reasoning": null,
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhvObvhoQ9oP_C2QcPLq7LWG94PSX6kAI9yooNdB2--dIt_9DA43_uEJPPJnbb3bWyJ05GPEXQc9IAzkqzOpHbW2zgwTwqWAOElW0JUouZnjIBm8MEjqj7sgwnmDsQ-jiGPeGhEJV86c4wwz8kgcNmg2N6nBzMPsgCEo34E_prEYTY-XVnZS-9vV1tf3WZwgbx1-lVugmEACxe8d0-vkmVY26pguf0zN5GhXSQ9HsBAirEKJMLhp79wA9iFygEAq4WX8QO8Wp8r-MjpolU2iVgj8jH3bBz1bdzLUbz7Mw_pRAB4lHGajrM3ziTzFkkdwNkBEf_4S70CVZpQvReiftTefBJxTb7Ufy4_PF6CEdL8XxVaerwQs1DsxdNACQb-sTbC3aNkUCuq4aJX8u5tgBVtrG8XOMmeSeay74ASeaulMpSYz_dlG7SdvB91SZpL-1DAYCa6NDzResAh4kJR6oJsM28XKLIM0VKvGoVenDQQa9tFAtRF51oVUntZyFxuqT9ApCexgMjWLQc4xNHdJToD2vaVDZILfXd3LVPm7oZmKlxqod_w4kZlgzvvVM8Bj7eDc9alYApqR6gKvIOkXAHRvw3f1QU2BIsc6bzN6CirZPUtEBemnp4xtfWICO5YTtqPfdyawQKsR-iQLF3nNV_30UZOPYyfTfbGeCCFtFbkfyaYVscYQ0lpxdGFZtn3aq_YSuYsFHLthx5gLcQNC5ZF4CBWN2Y_kfSRTOxOu47Mrb-CH58hrV8cJbjuU07nLg-eOrOchrjJv_eNklw6OyuoMWJmjr4ZVJGutmeWA-FJoI78AU-nrOaY96FgQ1SB_6DYLnKu3mDY5gklXHHjaF2mfSs8kBeCD1v_UGdkzHxfcrWiwJuogzKQyggWOS37Ms14yzc_hu5-9ynC85S9HYY4S3kmXgNmO8pAJpiIu-MqiAXJjOuR0f8KGOujUHhDkzg57x1uI8JCaD7hJ9ivDp5um36ZMpZE72b1AM3mwo7Gm6-jS_PKq07gHiQqC4Uw1EdsIJQzavvuZMRVHc59Ox5u8npe3dhWrq7a8YvBe3_LhqaxRkHEwHBs4bVTTHPx59J2LHmBm293f2juASRTdKOeMUxd144KoMn11cPejb_amOXIajDDsPAsOpdxjzqE9ipqfN8X2tjr5FiSDU2DqOhaULnmbtpPqkIbW2IMzvxfw1Q-_cKBGdovJ7WIRLHGsyU2-3lxENmn9KZevyQWkszSGEOny2uPehgEDPE-EreBR-ezQqa3Fv0wM-PBeTOHheGYBjjfqMENa3BbDyNMHY8PGZIR8GEWeNcdylBKB3V1KrlNt1mlg4FOVhodm4u9wImDni1UzKYmlFfdYzaNIt2XP8HVwd-AvfOzeFTwbHwQSF5xvraBK5GA6YDzPjJGkoSVok5zp6P44q1SRV7yYj5RBUCmh6H_uOxr1aOH_ePUj8pqj4RK7eS_zlBFBUVuwExxkBpTOgHG4hTS7ugaaB8JsdZNYslj0Uz9DWA1L-ad4gjwjXCsHcK_bd5ClCOMCYFGvse_KAxZEq_u_6jxjO9BNI42z3_jboa_kLXgpRZpfo2wjST_nO1eE3-D2L605XeLXfjQ2uCpnWVslllYeZci_PG_EuwX1WtA23hqYiw5oqzAVM1bKw_S7ASxtUbKE8iBjQ2ryoPAZ2uolesBzWUlmmEylsVQeEsRTmlIcxUoP0RIozXPv16SLq38oaxQAqPBvObJMIhFHJtDlrENqfAQXVUDqFOl8KL7TvPOdFxcFexv3cOPwfyGQf5gALdYedZF_HASpZ19UTb2SWLm1Rgq628TTmunqbg50_yBis4OXx0Wg3LZo14GmlFV3p-6IVvKYeTX-5Sja3qbu5JcCvbbbAM4O_6IGYv5muYkbHcsFdhcZufP8t76PuPmj9IdsYBwNgxcjtNtYDcf0MF3mpQ8VVUsf1Hr470CYvFwhY0MhTG9yw6NWKP_yUiHia4iAwmNvgAYYYZtSe5iBBnRILaetGXHu0LcOtzlhq86aXV6nJN2SXip0XY0K66_9HnODPOvm568uBxjQdMJYTcZNTWhaVJ9Qj5jSCdP_8ejIcno7RE-7Odhc9F_Bht5i2eWb-0RSwLcCtDHpnir3KpKTcidsAob8nl1n3JTK3gIlU6mCKkOXa41iTMVsgN6hJHh9QKtoiqPW-XVpCsjL20P5YJ_g5wjr6TmmTrd7tTCyjJXkRXM=.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_006496228886779c016a861bcbe2ec819387e04b42ec7802a9",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2422,
+              "completion_tokens": 328,
+              "total_tokens": 2750,
+              "cost": 0.012486875,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2419,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.012486875,
+                "upstream_inference_prompt_cost": 0.007566875,
+                "upstream_inference_completions_cost": 0.00492
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 156,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.8181818181818182,
+        "metrics": {
+          "score": 0.8181818181818182,
+          "f1": 0.9,
+          "precision": 0.8181818181818182,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 9,
+          "fp": 2,
+          "tn": 0,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 16425,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 16790,
+          "AJCC_STAGING_SYSTEM_EDITION": "6th",
+          "CLINICAL_M_STAGE": "M0",
+          "CLINICAL_N_STAGE": "N0",
+          "CLINICAL_T_STAGE": "Tis",
+          "LAST_KNOWN_DISEASE_STATUS": "Tumor Free",
+          "METASTASIS_AT_DIAGNOSIS": "Non-metastatic (confirmed)",
+          "METHOD_OF_DIAGNOSIS": "Core Biopsy",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Premalignant",
+          "TUMOR_GRADE": "G1 Low Grade"
+        },
+        "token_usage": {
+          "input_tokens": 2422,
+          "output_tokens": 328,
+          "total_tokens": 2750
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 3,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 25550,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 25915,
+          "AJCC_STAGING_SYSTEM_EDITION": "Fifth",
+          "CLINICAL_M_STAGE": "Cannot assess",
+          "CLINICAL_N_STAGE": "Cannot assess nodes",
+          "CLINICAL_T_STAGE": "Cannot assess tumor",
+          "LAST_KNOWN_DISEASE_STATUS": "Disease present",
+          "METASTASIS_AT_DIAGNOSIS": "Unknown",
+          "METHOD_OF_DIAGNOSIS": "Surgical removal",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "Intermediate grade"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"25550\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"25915\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"5th\",\n  \"CLINICAL_M_STAGE\": \"MX\",\n  \"CLINICAL_N_STAGE\": \"NX\",\n  \"CLINICAL_T_STAGE\": \"TX\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"With Tumor\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Unknown\",\n  \"METHOD_OF_DIAGNOSIS\": \"Surgical Resection\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G2 Intermediate Grade\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2415,
+            "outputTokens": 252,
+            "totalTokens": 2667
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173840-hormBkxxHLFQTngu5Wzi",
+            "object": "chat.completion",
+            "created": 1787173840,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"25550\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"25915\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"5th\",\n  \"CLINICAL_M_STAGE\": \"MX\",\n  \"CLINICAL_N_STAGE\": \"NX\",\n  \"CLINICAL_T_STAGE\": \"TX\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"With Tumor\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Unknown\",\n  \"METHOD_OF_DIAGNOSIS\": \"Surgical Resection\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G2 Intermediate Grade\"\n}",
+                  "refusal": null,
+                  "reasoning": null,
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhvTD5uv7ueCMsOZVNJ-3XQBTJAZvwTD4HKSLgqOID5yU4ciabP9NlewnUID6d748QLG-POOSnA6K2cD23RUzRDn281HaxcZsaas3IpdmFQ4ARfC7WhgZOhssU4uA4sgT6VsFpcwnqysUMkKnKnKeEWxmVH75WHOqPDIEKFlEtI0KreeuYYxCrP0jBdgGgEB4G9XKVvQ96jW800VZ8v-4qtvfBag8TciHAhC_9qFnBFuvfP3zJeGSOT_IdAD0OiQE7k38HLfqNotpnA9NNtw-_u3akOzJaBqfblMA6Lc2kSCeJ8t6Doyj0QxsFRzm08jhR3_eXJan2l-aqRef8tbC43tmnuebxFSyrUX7Yu3Owi2zML3IiXmHXIEnL7J9tooJGmg_OHuNpLnlMD4WaSmQ82TCuzo4GpN-c2TF58zUWFCxQlSEsh4NjBMkyPkpBFHTJfdoNwBjKru-oheq384bPn-r44u-EUp6OnPZuBR5I9ybxRpxssWYygNVXxl3hMEW2l-E9xZcldk7by1PkUB_gzqJne0JgP46614wFBioEFoVG7MxKXnWaExWwMKqy9cDrEuecBLYbMqDm8VCB0PcOMWO8yFsFNOkntUn1QdQOoW9E4aKSbqLgQCpfPSmHqJtdqBKV7wXSLcW881MDNYx6uXuy_iWEr1Hv00AbiFH1Gt2VsLY-XKvC6NTLaNAm-Q-tFHzcu_PuiljS1hvjaWn738DxG2cONHEQohjpfqeXYwaQJA5dU-Zv6nOJPtsjS4KmdfoYXcW2y-xfCJLjw-koGvuK4-QFCMYn1HVwRbNsYXoG6haRnTQ4WpfWH5XrfRttV0-0wOPJxnJSzacyZzTqq2C8O2m-6nNBmPQT9Kqr4STRCW-MjMawH4vtFKWIthhp1LBmy6OVKvfkH-Uxm508RQX3iArtn9YKq_D6BUWYkT6IHLdVet1HlgCyKgNaJWa9kgzBxvyayUV5ZbZ2vw7JLEevs9cFMmrLBSoiQaN_gEvLphpkcoe6vuPgCyrM4Wyndzxyjeugv2WMfsy3uj1v7u9Je4CTUUyJcw88uRyLKm1z98kX1AG_axOdSSPNbK4e-fvkboCPw-60pyM5uV_T-yPgRIDUaqnaS12Mr1qiIn9acaJaoCNMGKEK5kpVSzA-nb3K0EpTwiS3eAINrwwr0aPBJ5-Pfzee5LW9M8prLolegRJ62LnrGiTBXLeO7YTrljNT060HHNDERR0tpVI1t5ZCSxV_BJAcCUZe2gouvrRGUPBl3mUNiInS2sCKDkxDDD-DZQZNqqxEp6CM1QglIYz72XTTSN7zVdjEpV_YIaEvZ9o1tMk3lmAB9Hqkch6bZYGNVFGvzM2DDixiLkxd87cAIA9Gwyg2leRtJRE4JWSnJRJ-vvDtelxdRT6gXXA9ujdSshVCxwnsxOE7dw4ZE0bzrrqHRd8XbnG35e8lbiL9DB2YN36kxraEgofuP4yK7a9fTRN7nWiZ4-3PSCW-yqKux5ukiveH1FdiU-sMpQyXRv0Im0AmN_j9LjxdsILX5a95l-WcV07fYAMuILTH7IiozG5GP0Q8qOlUWIeclCc2W6f0O9a_CS1KCI-PCuq54NGQRTNzqVeSqwmpzyDFAWI6t9XgX7pYY7NJ33Flg3fBdVuUzqa0tZAja823AFHjn3fRRMM2vUahHKq6mKo-UR-jEiAiIszLVZ9l9KDB8bBUENy036bL9xQg5mV2lSLQCFLR9XVTMUwltgadO0TZeeFEbsg6EUQfdzE__lNIfjA_aKPtO__SdWZx1JwYaxKVWk0e5cOQFQx2vJRkqIPrIIfek1c3C3L63EOWvepaYtDvQLMHd39BpQtdVVcpIH7Hna.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_0630eacc471703b1016a861bd232a087d184c24a1cf0c0e8f6",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2415,
+              "completion_tokens": 252,
+              "total_tokens": 2667,
+              "cost": 0.011325,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2412,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.011325,
+                "upstream_inference_prompt_cost": 0.007545,
+                "upstream_inference_completions_cost": 0.00378
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 88,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.8181818181818182,
+        "metrics": {
+          "score": 0.8181818181818182,
+          "f1": 0.8750000000000001,
+          "precision": 0.7777777777777778,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 7,
+          "fp": 2,
+          "tn": 2,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 25550,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 25915,
+          "AJCC_STAGING_SYSTEM_EDITION": "5th",
+          "CLINICAL_M_STAGE": "MX",
+          "CLINICAL_N_STAGE": "NX",
+          "CLINICAL_T_STAGE": "TX",
+          "LAST_KNOWN_DISEASE_STATUS": "With Tumor",
+          "METASTASIS_AT_DIAGNOSIS": "Unknown",
+          "METHOD_OF_DIAGNOSIS": "Surgical Resection",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "G2 Intermediate Grade"
+        },
+        "token_usage": {
+          "input_tokens": 2415,
+          "output_tokens": 252,
+          "total_tokens": 2667
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 4,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 14600,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 14965,
+          "AJCC_STAGING_SYSTEM_EDITION": "7",
+          "CLINICAL_M_STAGE": "Metastasis present",
+          "CLINICAL_N_STAGE": "Node positive",
+          "CLINICAL_T_STAGE": "T2",
+          "LAST_KNOWN_DISEASE_STATUS": "Active disease",
+          "METASTASIS_AT_DIAGNOSIS": "Mets",
+          "METHOD_OF_DIAGNOSIS": "Imaging",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Secondary",
+          "TUMOR_GRADE": "Grade 3"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"14600\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"14965\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"7th\",\n  \"CLINICAL_M_STAGE\": \"M1\",\n  \"CLINICAL_N_STAGE\": \"N1\",\n  \"CLINICAL_T_STAGE\": \"T2\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"With Tumor\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Metastatic\",\n  \"METHOD_OF_DIAGNOSIS\": \"Imaging Technique\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Metastatic\",\n  \"TUMOR_GRADE\": \"G3 High Grade\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2415,
+            "outputTokens": 283,
+            "totalTokens": 2698
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173846-TQrDQQ2pWjw7yWG5Sfll",
+            "object": "chat.completion",
+            "created": 1787173846,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"14600\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"14965\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"7th\",\n  \"CLINICAL_M_STAGE\": \"M1\",\n  \"CLINICAL_N_STAGE\": \"N1\",\n  \"CLINICAL_T_STAGE\": \"T2\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"With Tumor\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Metastatic\",\n  \"METHOD_OF_DIAGNOSIS\": \"Imaging Technique\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Metastatic\",\n  \"TUMOR_GRADE\": \"G3 High Grade\"\n}",
+                  "refusal": null,
+                  "reasoning": null,
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhvZcAo-JUGAXO3gOdnEOEdL1nIJMh2ro1rCB5gmREO9xGfcwUDn2ENwh0RGhJh-NvUZNtbZ76bLCY_vhaxD75_BRL9kDvJ08uJBU-2M2_8oHT8WUCOJfiOiEanSE5qOsrTgowLHREN89jOIwamf3k2bzjeOh93BEe-sZTL8y1IgUJHoeKU1IvAO6O-XTRVY0eScFhfl-BW8NpNpMS5DNC75zR7z1D_W52679j4XRmFDevenlwfnOOU79LIgVCMKAf6L3mFylabkkUc_z6iBYkoPwm5pjF4O5P4M_UJn6Nu581kZJCjcbxvsvFO9VOYzsAiFerIhIe4L8NUE41ETBtshNCK8Eo-okgrXkICzuW2npJx8qGow5TPyO3X_fwDkV4slVRfbL8u7L9sFZyx15yKao5wpBUUFC5TQR1JrDQr6B4t-VSswAgrVfOwfoHbNdgXI2uZscG3R5HRSXoTCd5HCVt_SM1-CDsVNbmpJXWaaCOj5B1_L43CFAzCXZt31qRNyjYqjZNWMvyUEaulkDfd2TOqhxLXktZTd0cwuujDrs17rQYnEKPUOZ-H6N5VXo3j2ydJEHcj0tYjTdJM-46KcgMl9LgcgP7HoHA_ud6Sk0ZIRRq6HOGppDUORY0alUxNW0P2kxWpFpLAL85jCXbHgQrBAo8-fX0kN-LnZNmn6HPg1SoknnDWIkNZkbh8qb9tsfHA5y2InmpjDjfVSbG-TpEOBoCQucR6Bta0NOGnln48xesTE9cW2lJfVpJ81L1RKZneFYM4mzKv4WAddEEvK28zix_b5jJsBOnGcM_WJm-8AXUfwKcnKkmjURXpfcsuQt9xfqPYFdomZTtIjyDrQ3UPL-SbU88pUPVHKMKY4POSI5jcuIbIytQQXzAwpikMqyou5fitnwGnm5dmd_t4QYoHL9MwNz9qekYoSy4Y1ae7336fuNt9Sf96LX16_KtMqzcFtGjfOciNXt0UQltUsYMbAZqa721BQzfbe3XI4e_L_-J3QAJOJmhPTe9b83bcE3qYFpdfDDwocR9wgRxWCFcLkRMp5kR7yozMIzvQsy7OmGPjwz0p7VLM3YoaiH3p5iioioHTKKzBNw1AbLNRq1hjJb1z3w2JpVij_YIhK9en73fP7ze2n5fLapAr7n1IlRj0e8OOKDQV7HknrNfTNSpFtmI7FmC9OTET2ZBsluveH-_mDwI1Iu3VcVdCMBtomtaxYyrdgfBsiV-TfU2gYfvsmfsfS0IQpjvTSzxxzxP9S5nyipVFzNewGuuXOJhN3_vc3zOvEvYkuws72TikyzS34ex1CCJ2p_lwzMW4Y-7WRB_n9QUcgWJGv5k0w1us6vAZDQfd8PdNo_SgN9q714pC8u9dvhGl4m0ANWvco33oBENr0w-i6LVyOkC57EchMM6mrvnvDG395eMsyKlEajv7yTqCmEd4ptOisseiNQoOHGLSvYhXeyEsydXum1gChVDE1sQph3UstZ1cb5XKWoET7A194fgHWERkZx5_DQ2dO97n8zmSXXwZxPs9vGjPBNiZp8-f5agrJBjr2Zgp4Otef_aMB76AZ5e5nkj7jCdWZy2ZlP29meZx-DgJfkSWfXhwiuBIes_WhBINpVD3IwiXjAql9DW-u621zR9F-Ub6KxWbFCfbK9zV8jdc4bo5o1yrW8vHiywD6_N4dDYkuSkkX_dxzhMQ5p6TpXW8YaAnJ5Z2KvUqWEZ1e4Xvh8TPBi_G63Fo5sDnfxreJBxhxXpC1pqA3MOpvM7ogjlfdjfCjGJhXBldwU7c_MNifG1PjtDpTkzTj5t0pDEDzm_S_cnAJ7EvsjA3pmOKnVh1maDRrHHwbM-ihQVVzSq1FvXhu-tbYDTfpB7iTcyojnQAHH0JYeEradhU8q_LM4BZYGOucsp6X8cerTmWLSNtIiOzT85TaVXyl7KxmmXbtZHqVoeBcoSZIZopTLDpJ51LI6FFOjI249me6CNzKabtkgPRaR8KGT_46lsQEnR2OaomLovXFYUa0yBAwuLvvT1WTfUw=.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_03d42328f69c9d6d016a861bd785108194afcc05833dbd0a9f",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2415,
+              "completion_tokens": 283,
+              "total_tokens": 2698,
+              "cost": 0.01179,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2412,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.01179,
+                "upstream_inference_prompt_cost": 0.007545,
+                "upstream_inference_completions_cost": 0.004245
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 114,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.7272727272727273,
+        "metrics": {
+          "score": 0.7272727272727273,
+          "f1": 0.823529411764706,
+          "precision": 0.7777777777777778,
+          "recall": 0.875,
+          "confidence": 1.0,
+          "tp": 7,
+          "fp": 2,
+          "tn": 1,
+          "fn": 1
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 14600,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 14965,
+          "AJCC_STAGING_SYSTEM_EDITION": "7th",
+          "CLINICAL_M_STAGE": "M1",
+          "CLINICAL_N_STAGE": "N1",
+          "CLINICAL_T_STAGE": "T2",
+          "LAST_KNOWN_DISEASE_STATUS": "With Tumor",
+          "METASTASIS_AT_DIAGNOSIS": "Metastatic",
+          "METHOD_OF_DIAGNOSIS": "Diagnostic Imaging",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Metastatic",
+          "TUMOR_GRADE": "G3 High Grade"
+        },
+        "token_usage": {
+          "input_tokens": 2415,
+          "output_tokens": 283,
+          "total_tokens": 2698
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 5,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 19710,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 20075,
+          "AJCC_STAGING_SYSTEM_EDITION": "Fourth",
+          "CLINICAL_M_STAGE": "M0",
+          "CLINICAL_N_STAGE": "N2",
+          "CLINICAL_T_STAGE": "In situ",
+          "LAST_KNOWN_DISEASE_STATUS": "Local disease",
+          "METASTASIS_AT_DIAGNOSIS": "No mets",
+          "METHOD_OF_DIAGNOSIS": "Surgery",
+          "TUMOR_CLASSIFICATION_CATEGORY": "First tumor",
+          "TUMOR_GRADE": "G2"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"19710\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"20075\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"4th\",\n  \"CLINICAL_M_STAGE\": \"M0\",\n  \"CLINICAL_N_STAGE\": \"N2\",\n  \"CLINICAL_T_STAGE\": \"Tis\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Localized Disease\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Non-metastatic (confirmed)\",\n  \"METHOD_OF_DIAGNOSIS\": \"Surgical Resection\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G2 Intermediate Grade\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2413,
+            "outputTokens": 329,
+            "totalTokens": 2742
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173852-G1ZkpRhTAlhSqh75amPS",
+            "object": "chat.completion",
+            "created": 1787173852,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"19710\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"20075\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"4th\",\n  \"CLINICAL_M_STAGE\": \"M0\",\n  \"CLINICAL_N_STAGE\": \"N2\",\n  \"CLINICAL_T_STAGE\": \"Tis\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Localized Disease\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Non-metastatic (confirmed)\",\n  \"METHOD_OF_DIAGNOSIS\": \"Surgical Resection\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G2 Intermediate Grade\"\n}",
+                  "refusal": null,
+                  "reasoning": null,
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhvg_w82qgQTlBBp-IaeGVkiXYV8dwfcSxy9buiGJPfhAdLbm8H6CUgqa3uWxzLeUADpi3LLfQBkoonCFgamQoJC4hGxmUmzee9PHZW9_EJ_BwUwuiEPEmdTDVO0NCbw2wubBgE0AMF1CFE06XKLDdg5JLj4_3PQugpjM-rZRG5f10dYy8-rCDKmXzuhrta4_YMqi6Y-6DmBKTWQnZJ4Gi7ZbSkiNITTbz4T_gkdz64POzIqAFJatboVRXOHsQJdw3eLRpiPHIC35EBONdFys0Mb0ur-VSzIwLKmBhQPt-6O7lHyexpDHD4_w8OaVaYLevWf4t_ulSkuIYVk8iJtFZtyvmJ7toLBo6A-c4I9wU9aDiVKJtctKEjlzZ4IZcPtZahTvpF-htiCvp2D38fdfGEM2Fb_qqLk4tthPV00MDtwDBFETgItrV-urIApfM6bOKHNsjofIYap6IeKd0QnRpBITrNmzWjQoioN4DxPUrXtv6CQCKF_pPlimkDp_D6_kimokJ9ZA0hcifjus2oNKCeB0PuNeXOODY3CtjskLKl8d0pOBc1e1M8lSVk5cqfhwVMiwjcH5ZJlgSqwtTRQ3cKo_ZhhIj4gSaoBQoRBUu-aC6BQTQEzc89y65h4LwEvfC1Ut0zF4Rq0GHcdrsOn2aQGnLTsQa9Mtnv-JfZwl6s_haTWmYEjPt-8gl6NX_Lq064gR9hckO5V1tYAX6EbCuZD9Wp_0pk4VtJu7p6fpwXwoWStKW67ff1H6jG8u_Vi-DIQBIs_dxYnDIAf83w_EIjzS7aGWO2IwaaiDHaczYorK-1P_zpuIPUZJzJLp8BYp0stvlMJTEHRReHTLpjiJ_dAoGyIAGphUoFlaKNJS8FjAI0bC4_flpPO273dMqj7u-4IkfK98fwOXevFFEOedcOCTTew-QHv2u0gQ_0-H_Uvagjk46RZ3vz4kGP26XcZ9-yg_P3NBikke5tNeG0nDnjI7ML3vK-MR6u_m65SGCfU3qv8_b4sNjL00T0ZmzI_MPJGWvWfxZOkKjcK0c-AbbDuX-mXntZYrTsESPTuSXRoAB1tDTaFXxrG2W9L0OlFTJLMojW5w4r-QQApa6zUmXfqGD0mxv2gCp7mv0fX_swqz2q33Gt8n0PzaYrAlVMjH1ItBsRw4HKzpSqVb9YUMoh7M7bAbKYQIY4H4O7UAEG2KfAywDgnIV61MVnLadYUDfB3wFKwR79sy2BR3MZVKK3hqo3llttqRlLz6yrPwpQyI4TZJhoK9Oz0WGtOzfbkno23pBHBmVPHXTSd2OL7DLHinJuICjNiOBOhhnoeTK2Ni1FRxkfJp17egQIyK7Y0ljemsJ6YvGRdLR1TFf_b3xrcrXzR3tcn-PFBjuK05vsMcerSWPOhhUV1Pgjuta4GaEWJ7eU7g6rKt-iO9q0j0AntYEOebYEN5QLEiJlvyz5d4sJeyuC-AddHBzApErsuM529XrGhRxZ6-_hZbT93s0ejwjSBr4rDDnR0pfhx4bDbYE0wT3aAHWdJg1h-LGUiq220tdL636JilAcvmP_Z-xwQz-TLPrLLq1zIyI8PCBzZ4l81vSQUG3v65lfqg7-q9_JO9du7GUXBIjSZFmzDKnhKY5Qw5yHPhNUsETFK9uGu2U8MddBEZH5v3ZfbMYK5JkOlURG2yMHStpYQLG8R47_xWOLGGTXoULrN2iCYJxGSoKChwuM4dL8DlJUdIEqHrYeaEDrzmJN_0gV7mYoGTfyS0r_rv8HACqgNvdwuJaZ3jR0NHXsQh51ZmM51_vSeAznLO2mvnxDMcJmlhWr0OBv5FDQ6VpenUh9kqSTn45h14RC3Ukk-OpbQbJlQXRoWAIPB26Pq3WmbgHRJ3N3ub-0QvaaVl1NTVoek5K9sUZOHjODkCWJGdlXG-c1uWn3c2BBLuBuUryr8fZ0nYpyeI5CgSg6KM4YJS3QjFijNUs2fM_vIcjwdQvSdxs6WZuyzWQEO9bIYDEA6-nVtI2UXB3bqOa8lw9psWFyb1Z3A8WJ-aHSG5d8o8ee8qtGjulHtFdh7UzxIxF6fepcOGOlXTQZ8zyWJO2RBl9JkVTirNGRvCSFaTPmB63zK1EkTRZKF2bBisVh5stZtzDNWj1rPW8op9IEoQSXHX7YVYeiqsM9XDSmDZd6UflkMHRNThTBjxG0cTN45kk3taMStKjIuoM-TW95K2zt3RDwz3uL-nGM3vXl0yjHGAodPsCBVayCkF0PH.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_0999805f8e9367f3016a861bdcd4a481948b64b90fcc7d38ba",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2413,
+              "completion_tokens": 329,
+              "total_tokens": 2742,
+              "cost": 0.01247375,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2410,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.01247375,
+                "upstream_inference_prompt_cost": 0.00753875,
+                "upstream_inference_completions_cost": 0.004935
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 158,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.8181818181818182,
+        "metrics": {
+          "score": 0.8181818181818182,
+          "f1": 0.8750000000000001,
+          "precision": 0.7777777777777778,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 7,
+          "fp": 2,
+          "tn": 2,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 19710,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 20075,
+          "AJCC_STAGING_SYSTEM_EDITION": "4th",
+          "CLINICAL_M_STAGE": "M0",
+          "CLINICAL_N_STAGE": "N2",
+          "CLINICAL_T_STAGE": "Tis",
+          "LAST_KNOWN_DISEASE_STATUS": "Localized Disease",
+          "METASTASIS_AT_DIAGNOSIS": "Non-metastatic (confirmed)",
+          "METHOD_OF_DIAGNOSIS": "Surgical Resection",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "G2 Intermediate Grade"
+        },
+        "token_usage": {
+          "input_tokens": 2413,
+          "output_tokens": 329,
+          "total_tokens": 2742
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 6,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 22630,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 22995,
+          "AJCC_STAGING_SYSTEM_EDITION": "8",
+          "CLINICAL_M_STAGE": "Not assessed",
+          "CLINICAL_N_STAGE": "N3",
+          "CLINICAL_T_STAGE": "T3",
+          "LAST_KNOWN_DISEASE_STATUS": "Regional spread",
+          "METASTASIS_AT_DIAGNOSIS": "Unknown",
+          "METHOD_OF_DIAGNOSIS": "Radiology",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "Grade 2"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"22630\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"22995\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"8th\",\n  \"CLINICAL_M_STAGE\": \"MX\",\n  \"CLINICAL_N_STAGE\": \"N3\",\n  \"CLINICAL_T_STAGE\": \"T3\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Regional Disease\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Unknown\",\n  \"METHOD_OF_DIAGNOSIS\": \"Diagnostic Imaging\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G2 Intermediate Grade\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2412,
+            "outputTokens": 215,
+            "totalTokens": 2627
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173857-rJV96aa145l7laqcZlrr",
+            "object": "chat.completion",
+            "created": 1787173857,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"22630\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"22995\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"8th\",\n  \"CLINICAL_M_STAGE\": \"MX\",\n  \"CLINICAL_N_STAGE\": \"N3\",\n  \"CLINICAL_T_STAGE\": \"T3\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Regional Disease\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Unknown\",\n  \"METHOD_OF_DIAGNOSIS\": \"Diagnostic Imaging\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G2 Intermediate Grade\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Evaluating data requirements**\n\nI need to preserve fields, but it seems the required IDs are absent, so I can't add them. I should make sure the correct types for age are strings. It looks like it's for the 8th edition. I'm not assessing MX right now, but there's mention of regional disease. Also, I need to consider radiology as diagnostic imaging or imaging technique. So, I need Grade 2 exact info, and only JSON is needed.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.summary",
+                      "summary": "**Evaluating data requirements**\n\nI need to preserve fields, but it seems the required IDs are absent, so I can't add them. I should make sure the correct types for age are strings. It looks like it's for the 8th edition. I'm not assessing MX right now, but there's mention of regional disease. Also, I need to consider radiology as diagnostic imaging or imaging technique. So, I need Grade 2 exact info, and only JSON is needed.",
+                      "format": "openai-responses-v1",
+                      "index": 0
+                    },
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhvlu_7XTH4keePqne0DntRZS4t9DBn1DtkdhkjPCbG_orO7dBYVG6I0ON_Hn6n9w55IGTOgSA84YyVKlqkOE4mL71O5eV3L0XICKFvnfwMYwarQe--SWaa74q2csZ1ccr6xqt2sQoDxPT89FCL4lBXojoAn9-TNXKLtb1I6Wn8TSa-wmv6Sr3UdDe-qmdjkPeK_nlcmYyoEBlZQPtGOLl9wbaJHzYdq7bHF9-uYsDzmNVMVsQT2QfalIl6ARLhw1pQKS_r3dHPo6WpCx36P8M5kq6RschbHuA4ARsdIMkSvZ7CCHLx_1pqRUoARA5P4tgC90jxmN5eZ15RfhpncarCyMZwOBmFB5m0gWuK2qLpxQhsKYGqF7UlQpAlSgY5r8a3cGGUGT_4DAF8HK4Ztg882TIuxtQFVqAa5hYUEM-Am34-iuWIpWKavjbhrUFczjlBdjT25u97VpnWBotYAO6Py92UlBQi8FiIMRXFD2CXPG07TLEaIXB1JKAR7hf6GH5eNxoJbE5jQ4rc3KDY0KeULP0SFgBqzuzy3rVRJexz4YdltDffvHqW0cXfpnSt_wqTOoUMtMECSJoOKWe7E9_nq6uBXekRPIgo_zntySIJbyByeaT1HHP0amkzoGA0DdDA7Fx5_BXsRuwqpKi9ZAoVF3eX3ScpOD4qpf7w1q1uhfa24DlLdAk9eFofLUNQX1eztaus5FO1-FG8oB1o-qIf8I88iuoD0a8eltSYNOhHnIUHm3c6aV2ZoR9qVByu0Oy4totZNoJWrYLvQgV_ZBUk8_tzn0b71_-e1JSZ5n0KyeTztZp3SU2HRmtine00Dw7KuLTGGSFJy5NCST6ohwVZqerwPkyDc1Ar8OLcgZiepGfgQymBE6-YAb_CPUJY_FeKMc5kkN2-e_VI6efr5wYzyz2LDYuwyOLiNivisFfeY8Zv-K5pGH3MkZOE1-1VwnUo_FiNzCTllNOx4HS1WAJV3Spe6pW9zNeZ3zq5kQ4-ERnJ5m5-wX1x94K2p2Brqoj8RwUGdrEJoEcxa9PG9FhxCEAWc0_RTatMtCmhQYsL71L94IW_r5HDam9gT8TFkuCAxOKnJVhybGSr7GH4po3bVKLBnpnaT7ynBymZPTgD2ro1vtFI0qQWU2aW6WXcPXOuGQCvZA6lhcHJTF7sGi9CFgEZRzvMPI5UnllLz4YDMPDfx5j7WVob1QL691sHWQZhcqx6LlqPtVc_Ek_Oiof5VdiN2mO8YNGh_45621GewyAPqvf_TT-IfpTS_TnAC5tz4-F2TNvjlXfvQwXouitfq3g5HyuAy42K1vbqjY1zTfm27pmlcZwW9z4tpa69Sdz7eS4wd2DjsU5L69x7TO-1iWU7DBiW4LZVQZDjAvVmaneoC5d3OAArTf69T3zdwMhZ4eheC2mb0On0a5cu4CeVWnDjEBn6wyWiaX2xnvVkTrfDEdSm1fZOSJyv6OaIw7cC8bn8E_Q1Nayu3jC_Ss3wWe-Bhr11XEOpaVuW6BSZDhU0l0ffxxUx97dAXXDDhyVtFj4UBfg9S2GH8gYjcABqQVIFY35jV4GdmPu5ux8Scx7nJg-XGfxaWfi240Dunt7icoE_S4I1DHIOF60I6JxUFHuVb1d5wNTptlG77Bx2aa3M8xe6SmqLJOjx7x3gaOPBv.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_0211f6bb4e4d11ca016a861be36ddc87d19188329a4c2d0497",
+                      "index": 1
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2412,
+              "completion_tokens": 215,
+              "total_tokens": 2627,
+              "cost": 0.010760625,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2409,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.010760625,
+                "upstream_inference_prompt_cost": 0.007535625,
+                "upstream_inference_completions_cost": 0.003225
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 53,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.8181818181818182,
+        "metrics": {
+          "score": 0.8181818181818182,
+          "f1": 0.8333333333333333,
+          "precision": 0.7142857142857143,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 5,
+          "fp": 2,
+          "tn": 4,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 22630,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 22995,
+          "AJCC_STAGING_SYSTEM_EDITION": "8th",
+          "CLINICAL_M_STAGE": "MX",
+          "CLINICAL_N_STAGE": "N3",
+          "CLINICAL_T_STAGE": "T3",
+          "LAST_KNOWN_DISEASE_STATUS": "Regional Disease",
+          "METASTASIS_AT_DIAGNOSIS": "Unknown",
+          "METHOD_OF_DIAGNOSIS": "Diagnostic Imaging",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "G2 Intermediate Grade"
+        },
+        "token_usage": {
+          "input_tokens": 2412,
+          "output_tokens": 215,
+          "total_tokens": 2627
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 7,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 17885,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 18250,
+          "AJCC_STAGING_SYSTEM_EDITION": "Third",
+          "CLINICAL_M_STAGE": "M1a",
+          "CLINICAL_N_STAGE": "N1a",
+          "CLINICAL_T_STAGE": "T1a",
+          "LAST_KNOWN_DISEASE_STATUS": "Recurrence",
+          "METASTASIS_AT_DIAGNOSIS": "Metastatic",
+          "METHOD_OF_DIAGNOSIS": "MRI",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Recurrent tumor",
+          "TUMOR_GRADE": "Grade 4"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"17885\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"18250\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"3rd\",\n  \"CLINICAL_M_STAGE\": \"M1a\",\n  \"CLINICAL_N_STAGE\": \"N1a\",\n  \"CLINICAL_T_STAGE\": \"T1a\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"New Tumor Event\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Metastatic\",\n  \"METHOD_OF_DIAGNOSIS\": \"Magnetic Resonance Imaging Study File\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Recurrent\",\n  \"TUMOR_GRADE\": \"G4 Anaplastic\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2418,
+            "outputTokens": 248,
+            "totalTokens": 2666
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173862-8oIrgziXFMyEKLK5IzXQ",
+            "object": "chat.completion",
+            "created": 1787173862,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"17885\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"18250\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"3rd\",\n  \"CLINICAL_M_STAGE\": \"M1a\",\n  \"CLINICAL_N_STAGE\": \"N1a\",\n  \"CLINICAL_T_STAGE\": \"T1a\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"New Tumor Event\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Metastatic\",\n  \"METHOD_OF_DIAGNOSIS\": \"Magnetic Resonance Imaging Study File\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Recurrent\",\n  \"TUMOR_GRADE\": \"G4 Anaplastic\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Evaluating data fields**\n\nI need to focus on preserving only the required fields and check if any are missing. I shouldn't add anything unnecessary. It seems like the correct type for age should be strings. As for the status, it looks like \"Recurrence\" could change to \"New Tumor Event,\" and the tumor classification is labeled as \"Recurrent.\" I also note the grade is G4, and I'll specify \"Magnetic Resonance Imaging Study File\" instead of just MRI. I'll make sure to keep the NCI fields out if they're absent. JSON format is important here!",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.summary",
+                      "summary": "**Evaluating data fields**\n\nI need to focus on preserving only the required fields and check if any are missing. I shouldn't add anything unnecessary. It seems like the correct type for age should be strings. As for the status, it looks like \"Recurrence\" could change to \"New Tumor Event,\" and the tumor classification is labeled as \"Recurrent.\" I also note the grade is G4, and I'll specify \"Magnetic Resonance Imaging Study File\" instead of just MRI. I'll make sure to keep the NCI fields out if they're absent. JSON format is important here!",
+                      "format": "openai-responses-v1",
+                      "index": 0
+                    },
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhvpAYcyl8XBzonLqtW_U6i34e3J-lP9zY43lESskWDmC3VreQLpb4G0pV-mlc-qGR5RhfeLi14ShmfxJtfhQeVu6EBg-5e5aA6T_FWLs4iotwpVfisSZHrL_0AbNvLkCHIS9Z8scAEUdrXvClaUe-FHMFOarh8Kfup-o7yVXcmEgkYw0tk1M16rQHRsJOz3I8U0_QdHT1jWL1IcVPDr7I-FNxW1E7HozeGbFYeiYDLCo2CAgyfBA6fJKbFXbOert_UeVL6k1H3vsHEJmGwDQhy7RG8K6CWK7wbweHrR___c5_QMdCzD4qKaDYxUVpIrV72nVLQtr46WfYYJg8oaqPry0OqRpkw_S0o0hD-4vEuGsGVfpJiRFNT3dd-LpPioddz_FAQlKyXiLMztrWV0eu4wMVGsarCoc03XVmoKeIsX9afkVk_K7ZiayG3ADH6Btti0kuefTCpY4YixmefR10NpQbv5YMpnuxWkDEUvDWtqoTS3LFAC1pP9rPGon9NLKIwobpxEz6nJloS-VGRuRADjLWlxk4SL9kSO1zNPHXTMM9xGRL6yTU_JU8Kqb-NmkgPJOYB178wPyn-c-UhdZD8hDa1_4WYsirHDR2_cjteLRrUbZ9OxZOJVkRjoteYNukamYRZMujDHYbxZ1teMYtPbdYoQlOQ5qtpDmfmWkx8_5Owwchm_6TpWxyRsITUKRc0tymNVU4RRtBCcvguCGL-HrUpZ_SBK3bHltVhvDbKeNfswLM7AwboO5QWliLL9IgZIe4w5H9yB9zaiD8pmsIHCWMFyn2oTVmVDSTkqXLg08yoCSKdrbB1mttXXUZGrU_pehssHLSrAyNilneaFuoG4-PMD-TShB3QzczsMNWvEhzL3MC-AMCck2FDnxw7cwv4kvZGb46_fHvvhGr6TjD0uebEChB3eB4ESwJXOaZv-GWvK5qYOlieZPhCXX1HZZRpEAQW-dJ7OZAoAuNQAH3lHwcgfMb-bkn34Z2DLUSn5yNzFr922EZ2gFXD8dRt7SSih22v66BS8XLDbfdEXeaZmsgnMmLivsk_ifolGO9uC48LR4w1wDnY_wotUKIYKOU4OzaocEdX5sAuBThb4l-UZCDDeZN7Ynni_UPY_ZTkh3XyDfk1gGNwFk5rl1At02_fxsUZziuVmSNTFg0R9AfanwE7eRdUQxcBlgqm4RairAfpcbGInYJPI3e3IxRNvBn91wCIQg8rT4Ygud1b9V4Wrqgd-rcwzf7uAXgQbNpMZvxlznOYBl_svGJaqr0OH-6_SXNtSrdMUrAuYjRfuAPOf8_nojfYo-MGyNe9qiPbc26WeW5_XlYcF_2ZdFIC7AZedgNctUNAGXYCXUnUf9FJZIWtRtsyZDfXCN52obPfxCgTFKdyRuXW5Nd4yXKaZWiimt0mMdtGJvjGbjak8qIp8JrMmVw99S7EUMzlmK0pHj722hzy8c5qja8m9FBw_3yVXyOm3nMEU_pdu-rgM_rzQT4zxgst8endgo1X7IMrwI0fRdbqIlGEs9X3AWRVkKLukF7EgDo3LuwKCGwUk23VDU1ALo8Xsxp0TEXgfEFBtTXiqewfYCQ0-QHSS4L_XgZDCXzBhMFuKc-VcTSliJFRDlJOhJ8zx302SSrtcxpYF_tqtp0PvzFpOqzVGrK_TPF-_IKjO3M_W8e-tK2Cm7xe3OvVTJPZ676ttl5_3PQc_ra924WMPj6oTNkqGnIZa_YFDIJ9DFHxRMOa0E1_GBm9FpA==.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_08b9c2d5b9861b84016a861be7576c87d192a3f71c2195a9ed",
+                      "index": 1
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2418,
+              "completion_tokens": 248,
+              "total_tokens": 2666,
+              "cost": 0.011274375,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2415,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.011274375,
+                "upstream_inference_prompt_cost": 0.007554375,
+                "upstream_inference_completions_cost": 0.00372
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 71,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.7272727272727273,
+        "metrics": {
+          "score": 0.7272727272727273,
+          "f1": 0.7272727272727272,
+          "precision": 0.6666666666666666,
+          "recall": 0.8,
+          "confidence": 1.0,
+          "tp": 4,
+          "fp": 2,
+          "tn": 4,
+          "fn": 1
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 17885,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 18250,
+          "AJCC_STAGING_SYSTEM_EDITION": "3rd",
+          "CLINICAL_M_STAGE": "M1a",
+          "CLINICAL_N_STAGE": "N1a",
+          "CLINICAL_T_STAGE": "T1a",
+          "LAST_KNOWN_DISEASE_STATUS": "New Tumor Event",
+          "METASTASIS_AT_DIAGNOSIS": "Metastatic",
+          "METHOD_OF_DIAGNOSIS": "Magnetic Resonance Imaging Study File",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Recurrence",
+          "TUMOR_GRADE": "G4 Anaplastic"
+        },
+        "token_usage": {
+          "input_tokens": 2418,
+          "output_tokens": 248,
+          "total_tokens": 2666
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 8,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 20440,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 20805,
+          "AJCC_STAGING_SYSTEM_EDITION": "Second",
+          "CLINICAL_M_STAGE": "M0",
+          "CLINICAL_N_STAGE": "N0",
+          "CLINICAL_T_STAGE": "T1b",
+          "LAST_KNOWN_DISEASE_STATUS": "No evidence of disease",
+          "METASTASIS_AT_DIAGNOSIS": "Non-metastatic (confirmed)",
+          "METHOD_OF_DIAGNOSIS": "Physical exam",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "G3"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"20440\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"20805\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"2nd\",\n  \"CLINICAL_M_STAGE\": \"M0\",\n  \"CLINICAL_N_STAGE\": \"N0\",\n  \"CLINICAL_T_STAGE\": \"T1b\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Tumor Free\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Non-metastatic (confirmed)\",\n  \"METHOD_OF_DIAGNOSIS\": \"Physical Examination\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G3 High Grade\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2419,
+            "outputTokens": 259,
+            "totalTokens": 2678
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173866-POJ7myt5pQ70xfo7JcgJ",
+            "object": "chat.completion",
+            "created": 1787173866,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"20440\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"20805\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"2nd\",\n  \"CLINICAL_M_STAGE\": \"M0\",\n  \"CLINICAL_N_STAGE\": \"N0\",\n  \"CLINICAL_T_STAGE\": \"T1b\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Tumor Free\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Non-metastatic (confirmed)\",\n  \"METHOD_OF_DIAGNOSIS\": \"Physical Examination\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G3 High Grade\"\n}",
+                  "refusal": null,
+                  "reasoning": null,
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhvtUoHFopj5jPaD0zLPyHUXVDBFdaR4OPTzJldPNh3esCe4cGNHFDOG9_JBX1gJBEbSmd3nP1mKU4IzYu1q6WLkPY0-wtX7x9h8XHllHLYJIRO3RFe14XTqFX0DFtO92QEh4kNzqndC9HehBe8R5lhB-cretN1UyHu3hJ-YGhnd7FflDQGB6K5hOd7ODT7wTvFr4ZkaboD5mwxz3ooMf8H44hlPZ2NMoZPoqb3nKggzuCRlmQxLl_e3DYBmQCT4aC-nOK_QWbycDBInPosDTSx1qgoEGz00oI36GqeL9WXjAgIKatdM10BKHfAYes_IAdu5-Y43SH7rpgEYswqYwf61P3YDH1WyMP04OUTHO-uD6DQogHqulMaRBThkAhsYO_Fy3LQPy7apr9uiimXM6NUmojkcLodzMqW1uP6bKIC4O-TC8DVMyN1yK8CEo_gRcca_L17mk1MpidboauM4OR2lBMAP0IDPoatw4iM9kpAa_ieXaiGXJi-2ju94igqNZbBTQaEShZjaP-MHUCuy5i-4NTg2y-iPy2o7xZjJz9ppGLwr5YEubVD7HHg7lJJ9Wh6YRtL64WvrOG7wzvc88WA7FLsPmYfd8UTW0r9RbWmsSu-bsu-5E__mWVHcVgXFJP0zKiCXakCPoP1h5iujfhijwZsCh8k1LWrenXxoMqHB7PBJ47ikipSrG7UIk9QLsmXU0OquGN8kBzmk7dfAuU8adSylW2VVALGhpUcwOPsgaNzVoAIWdD3JtynmK_vRUNUQWdkiI9eDyc2xmGFALs8KfAuxN7jBYciiQZjVTtErzkM6Q4mNIRPWnBJS-sV0xrXSNKkYML7IrsAKJdjxltMgb170GvgsfERqzKCkMh3YeZ1EkFeD6B3estPYKwPdfSGmA1mlCVdTGMZymvqC9vhLtxAoG5_VB9j7kCZiZ6pAWx9jg0ZqS-htOs-119-avmaP8OeBYVvg_NZAzW96rEI1bElu3RsfANHIhVdT2vREAOKCBanfCjkPdQI0aEj-fFgGYUgYpCb8dM8GWHbylDGa8ZSDR2AF2HhKXWgDw4M3XSvznt3LfPXIer7Nt4wYejB4flZrKOcfMmeHld0bsbgGZygPO2d8XF4EvuORLdYFyIHA4d5-e2gWXV6-zSiqvld7fCZTGE6RFglI3gTozskK7vFso4J-i-a6LRd0w39vQtKEwj4EozlGrQwroZ4nIy2Wny8KYh5yaQA_4woM0DB6CGsiAUMCB-ttaQdb9Gfv83zhyYrMzUGDfij1eTufZIuGTmCsHaCvlkAE-QQ7ViUFBi2K77baBs-EfUkQFlysHFKAHIKYpz638Gn3bn58n4kSOLnBc1-krr_dbh5D0DDixkUIA8n3d48vgxGyzB1JsfdvRVMEsliCIIyb-_55qzNPS8tGkvGLDilD2RihxZvA7AE8MYEtifFD_BLQ_6zM66aSBfNjLqsN2bKblGB5YYBr3IbHPapyHGD20aOaNbHs4GroU_jlVSHLxZCG-DlWm4fHUOfUuHAxwuRFY5KCCXbQohxA4DWAySKzffbTUA-NI1HaME6JuXFhB8zsjEBDo1rExZgcHH5g0-uXMZrjvqdxfrFf4B72QQSaX-UwGNM9R_qFDZflKx4EbLL87LjiuBG3zrgJePdjUXu7TxEBrSBdVvZTuFDhJa37uOpQP167Odg0QuxiMWgJ8jLWsWnvxoxd_yINOz9xmsCirv3PK0pxvf4SXXscl3Po6GNYvdKRcQnEkz3wB2B5kPNp6j8S1zKJXuvAEf5u5tA1qg-IEp6GshQ6NPDC1V0Y2IzmEuFMZy_mX9WET5ZJIfzs5W7bhcbTN2v1bhB2W80csz6VGnNEs9SCo-y3OetcM9qPHz95mRXViEiyPQBOal2pzjsAWvg=.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_089294b3a9126a0d016a861beb064c81939ab7c4c4184c1a9b",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2419,
+              "completion_tokens": 259,
+              "total_tokens": 2678,
+              "cost": 0.0114425,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2416,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.0114425,
+                "upstream_inference_prompt_cost": 0.0075575,
+                "upstream_inference_completions_cost": 0.003885
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 89,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.8181818181818182,
+        "metrics": {
+          "score": 0.8181818181818182,
+          "f1": 0.8,
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 4,
+          "fp": 2,
+          "tn": 5,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 20440,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 20805,
+          "AJCC_STAGING_SYSTEM_EDITION": "2nd",
+          "CLINICAL_M_STAGE": "M0",
+          "CLINICAL_N_STAGE": "N0",
+          "CLINICAL_T_STAGE": "T1b",
+          "LAST_KNOWN_DISEASE_STATUS": "Tumor Free",
+          "METASTASIS_AT_DIAGNOSIS": "Non-metastatic (confirmed)",
+          "METHOD_OF_DIAGNOSIS": "Physical Examination",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "G3 High Grade"
+        },
+        "token_usage": {
+          "input_tokens": 2419,
+          "output_tokens": 259,
+          "total_tokens": 2678
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 9,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 23360,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 23725,
+          "AJCC_STAGING_SYSTEM_EDITION": "First",
+          "CLINICAL_M_STAGE": "M1b",
+          "CLINICAL_N_STAGE": "N2a",
+          "CLINICAL_T_STAGE": "T2a",
+          "LAST_KNOWN_DISEASE_STATUS": "Distant Metastasis",
+          "METASTASIS_AT_DIAGNOSIS": "Metastatic",
+          "METHOD_OF_DIAGNOSIS": "Pathology",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Metastatic",
+          "TUMOR_GRADE": "Cannot assess grade"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"23360\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"23725\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"1st\",\n  \"CLINICAL_M_STAGE\": \"M1b\",\n  \"CLINICAL_N_STAGE\": \"N2a\",\n  \"CLINICAL_T_STAGE\": \"T2a\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Distant Metastasis\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Metastatic\",\n  \"METHOD_OF_DIAGNOSIS\": \"Histopathology\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Metastatic\",\n  \"TUMOR_GRADE\": \"GX Grade Cannot Be Assessed\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2422,
+            "outputTokens": 257,
+            "totalTokens": 2679
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173870-KF18A3qoVj4fpBeqQ2dS",
+            "object": "chat.completion",
+            "created": 1787173870,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"23360\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"23725\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"1st\",\n  \"CLINICAL_M_STAGE\": \"M1b\",\n  \"CLINICAL_N_STAGE\": \"N2a\",\n  \"CLINICAL_T_STAGE\": \"T2a\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Distant Metastasis\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Metastatic\",\n  \"METHOD_OF_DIAGNOSIS\": \"Histopathology\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Metastatic\",\n  \"TUMOR_GRADE\": \"GX Grade Cannot Be Assessed\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Clarifying schema requirements**\n\nI'm focusing on needing only JSON while preserving existing fields and not adding any required missing ones. It seems that \"string\" is the right type for ages, and I'm considering whether the method should be Pathologic Review or Histopathology. Also, \"Pathology\" appears to be a broad synonym where \"Histopathology\" is the standard. I see that for tumor grade, I should use GX and avoid diagnosis fields as they're absent. Numeric to strings could be part of a correction schema, but they're asking for an exact schema type. I'll return with that!",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.summary",
+                      "summary": "**Clarifying schema requirements**\n\nI'm focusing on needing only JSON while preserving existing fields and not adding any required missing ones. It seems that \"string\" is the right type for ages, and I'm considering whether the method should be Pathologic Review or Histopathology. Also, \"Pathology\" appears to be a broad synonym where \"Histopathology\" is the standard. I see that for tumor grade, I should use GX and avoid diagnosis fields as they're absent. Numeric to strings could be part of a correction schema, but they're asking for an exact schema type. I'll return with that!",
+                      "format": "openai-responses-v1",
+                      "index": 0
+                    },
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhvy-I_XnZJCIQdyw95czHhVuYc9q38_OfkyNBOHm3vwPX0UHgcjeujOCTL6SZ_CUWNT0YFfwjIuDCu4SDSRQKhNcY7sNuKdRQZQ5Pv7IwtkjXWw24TYuMvGjbhKYV7HkhmsYMB-PWYkNdARdZ741bdEwJD86lwJs4LNV0zS9Ag2cVPTQAw5U1FaIqHHyA3i-0FEtyUd3v8EzxZltIq1a_J_LxMQt--ZnPhHU1hLNeMnrpOdCFKAcNIIiKYaex3vwgfCgmQAJk8P4C3diDROp0KPECCf1W1PL37dd5lpj6SBCcAZ8ATxVRsF4VAnxs4Y2UBttqP-Yi9kNui-f3dJfzZ70j2o-LNONLAUCdZA1erXlsdKGDS0xp5YTAlGFREYlfgIx1vO4Lwo89UraegpUvghGUB8oTrNUWEatRp-gknSePHeazCixgQ_f1c-Z0OmOaaNoxl3kgVzHCZE9EFCklDz4FwKt8U6NreklwgkPaDJwpgrT9gHBlaGXzN1P__XUkryj1BwxH_itBnBuYB4Pf-FCKCLQHKFX2Mad94uJsbTY3GBeKEsus5bPvMs3-bTnR-rMGmudaI3-S5EKrn0fxGUkjeIQrIhMPxKng8r70TLbTJ-L6JXd-Xx7DtgG8GE10lWYgCW4OyQh3C22DecCqEi3stID2gsdqSt8Ycr0jvPA1v62Squ6jRC4HUeNdzAbXq64LpP0jaWBiQHOziRvuT9jpmtF16arTLz5P6wxMB1cg5MGoQnzHii7exIc8Mak6AKeQaH58tE-lKekBckxqvs3-S727WOU2mgqJ4EniTbdGDKo2qNao-C8vLXA6XFgFfNup5Z-lJto9EvnVetPlZ2TXpnvcxYGS9pNmaZt6BIb0YmayHboV8zPf2WFbk6utT0HiSDiEYTcXw8zgXc4Ql9neveJL4h489q6yYzZEDQ40vCVaamzL8jAli8fBRRJoCRKMZI01XwDa7ZMX28urtzdm5-O9Oah4nF429z-mbiCFZ9KksyYU40C9kF60l5vLFRdOmU7RBUT6j4x_26e9lDvmjFL5jBwZDizFmia6qHEzLTv4w8tZ6v5UCPB3Arx2nh57tAX3T3vByaBDKjxrrdFzWZ1MFVt6bW7TNqyqetZgCmoWy0U7h8nbN1Hd0Xv9JdTSsF0fy-y-UIGYsZIpoiMMionwBs6Wvn0C9frZxOi0tDkCAjHJpaDeh1jyIC3J-bqeW46EmHjHhGWwD7oe5W-sU5R-vjDQut9QKQQkLcjmfbh7rl0sFtzDKuUlO3tJJB7vxcIPoExb3OgneNV0-qs7ylZvjla2waU2JEnrg6q6zjmj3JP3ssNfYA9g2_maYde56Rw1IFg1M9_0z0omYMTa36Sk5YFXqztqBhbLK-j2WXw1mwZRmtx8MSaSGJ0cqswKX_sQZkS_rt3FFg8ugt177bqk-gmbutHWBPKYOgb7w8GX3rGXZYOfBLM44BuU1t5KH6exlzu-GIm_fVNTkoHXGQDQjEJLxWvpd3hPbzu7_a08D2YQBGT57oHaEVAUzUg5B0s2K6ztQai8hL5J-O-1zPz3mfzXXxoLeXrbwCLltufjZUlRbVfXOB_5q7nqNCbaAhgX9RmF_U973gTeWDigubRZSNLkBVfmR7-4fwyxgostkvXV1dxpOc8Vslnjx5SdqVzZptQKYZpkr5EbGKx1njg-5CELpvglTGhOS-XvILkHdRz14mJVaA3ZcnRhHIasWcZ3aaDd-kiwe90UfizGso1QKeIx1P6ahyK_CWeSMXnNcOCSu-nQqwOtSQUTWwuHMlGWGWHbV-bpR75ENv8hmAwOxUDjym--dUJxT_hrJm2fAh6APxhQJKRTgTrLxw.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_0b371a60d40b6f68016a861bef4eb08196bfc9280def7fa5c0",
+                      "index": 1
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2422,
+              "completion_tokens": 257,
+              "total_tokens": 2679,
+              "cost": 0.011421875,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2419,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.011421875,
+                "upstream_inference_prompt_cost": 0.007566875,
+                "upstream_inference_completions_cost": 0.003855
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 81,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.7272727272727273,
+        "metrics": {
+          "score": 0.7272727272727273,
+          "f1": 0.5714285714285715,
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "confidence": 1.0,
+          "tp": 2,
+          "fp": 2,
+          "tn": 6,
+          "fn": 1
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 23360,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 23725,
+          "AJCC_STAGING_SYSTEM_EDITION": "1st",
+          "CLINICAL_M_STAGE": "M1b",
+          "CLINICAL_N_STAGE": "N2a",
+          "CLINICAL_T_STAGE": "T2a",
+          "LAST_KNOWN_DISEASE_STATUS": "Distant Metastasis",
+          "METASTASIS_AT_DIAGNOSIS": "Metastatic",
+          "METHOD_OF_DIAGNOSIS": "Pathologic Review",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Metastatic",
+          "TUMOR_GRADE": "GX Grade Cannot Be Assessed"
+        },
+        "token_usage": {
+          "input_tokens": 2422,
+          "output_tokens": 257,
+          "total_tokens": 2679
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 10,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 15330,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 15695,
+          "AJCC_STAGING_SYSTEM_EDITION": "5",
+          "CLINICAL_M_STAGE": "M0",
+          "CLINICAL_N_STAGE": "N1b",
+          "CLINICAL_T_STAGE": "No tumor found",
+          "LAST_KNOWN_DISEASE_STATUS": "Tumor Free",
+          "METASTASIS_AT_DIAGNOSIS": "Non-metastatic (unconfirmed)",
+          "METHOD_OF_DIAGNOSIS": "Histology",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "Grade 1"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"15330\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"15695\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"5th\",\n  \"CLINICAL_M_STAGE\": \"M0\",\n  \"CLINICAL_N_STAGE\": \"N1b\",\n  \"CLINICAL_T_STAGE\": \"T0\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Tumor Free\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Non-metastatic (unconfirmed)\",\n  \"METHOD_OF_DIAGNOSIS\": \"Histopathology\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G1 Low Grade\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2421,
+            "outputTokens": 238,
+            "totalTokens": 2659
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173874-semkilUzEAyvxg0oX9Yb",
+            "object": "chat.completion",
+            "created": 1787173874,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"15330\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"15695\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"5th\",\n  \"CLINICAL_M_STAGE\": \"M0\",\n  \"CLINICAL_N_STAGE\": \"N1b\",\n  \"CLINICAL_T_STAGE\": \"T0\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Tumor Free\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Non-metastatic (unconfirmed)\",\n  \"METHOD_OF_DIAGNOSIS\": \"Histopathology\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G1 Low Grade\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Converting fields to JSON**\n\nI need to make sure I preserve the required fields without adding any missing ones. Converting numbers to strings seems necessary based on the schema. This task seems pretty broad, so I\u2019ll consider synonyms too, ensuring I get the exact types right. For instance, AJCC 5th edition states that if no tumor is found, it should be marked as T0. Histology might be indicated as Histopathology, and Grade 1 equals G1 Low Grade. Finally, ages should be returned as strings in JSON format.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.summary",
+                      "summary": "**Converting fields to JSON**\n\nI need to make sure I preserve the required fields without adding any missing ones. Converting numbers to strings seems necessary based on the schema. This task seems pretty broad, so I\u2019ll consider synonyms too, ensuring I get the exact types right. For instance, AJCC 5th edition states that if no tumor is found, it should be marked as T0. Histology might be indicated as Histopathology, and Grade 1 equals G1 Low Grade. Finally, ages should be returned as strings in JSON format.",
+                      "format": "openai-responses-v1",
+                      "index": 0
+                    },
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhv1e24Ky0OH3fKy76XKSXRZmIaOYScinzWPNgrZ3rrJNUoTf4V_Hh6txkf6fNV_aIgrRw0wBRvOt-3BFl3fRoYnrgaeMd_9znzRVpVo2z-vUtvs7ZDakI4vwfu0Qdv9z6e5B-mAUahsDyiM2lfZhVpcRrWrs-M5I081HHBQYkFuFZDKQ2_PrOT4q4lGpdm9o-jPZgSJ8ewzrD8M9cnrRw92nxsx_ehgnoVCDzXyBfG-iLfMzVnhiQ9Bs6LJfMhVW35wh-Fcb7tj9pk5ME7Jfb962-2pzjbMslnqiilzRTISKi4COuKuq3Dg7Ap27GSV9EormOATXekMN7qiZNu9TWOsBtbpgvxGYxen-nYzo5iKR39T29D5tBVwpX1_8ufZo1GwA3gi2ql4r3w3TEPn-7RDDS0GtsLr3n0fY65Q_Ik_e_1Yq3dKge6FgAfl4obxMlIZOt6X6-ML-Zwyy_HGz84qT7UCLRR0sDFP2TAKssoPaf-ZKCAtUlvtUjFW43xtuc3cGa2-4LGYS5tH1F1_3Pv7khElvBJ787tHAqHExLEDx_9PLgAVOnfocjcXTS6dkcdSy25UHJgVGS3xvxU91DCKs62iMhjLklFi7p1zUdsF6eqSagqzhb0mzXhG2WGHVjUXmJ7AEYpBO2-DoO709CRX8Yqaq7gcQx03LoPGb4J-DBbksFKz2MXWf5Dlsfx7PK_YtZUQdtIgzefSOAx7MJpFbxvFMBBKCuJMQFeWQ_b9mdKDgIgpnxkT9wvFvcL5-FY23USuKasDJAAmBLeZ7uFX0QSkkMIgtnHSMTVhKKzShlk3nsN6xABDQzke1cwnp2sWj4reVYKVoC480tfR_Z0ivJB16CEOodH-YaFgvnM7JQLbmThUhu-KXSEbb9794GhxRrnJPu5ujBYhfO-Jv-b9NL9AFzoudNLnXAJ6vJXJ0p8EveTdaSA-i5TiYP4h48NA0TWDcSuVsw27WQ9aYhXeZ6gEd0lyEd5B_fwW5NRf48gvL1k0APedxJXZYN-XAHMU0KGsnnqqFdiWzMK32yXTu5Tx_6uw5MgJleHD-8jRTIqNjLwO6MMINceOftYPmnQAByFh2j06N27DQKXCbwBGNcbOSxorIzKzDYLPgpy-xq69hNKbYT8Ox8nS2D2m9NyCBItYUDG8z9TWykX9V4buFTsImgZOe9FtNoKG49tpV0It1wiwHbVAUSHHPlfRHNxIpvgvOqDryyw0aR9csme1E6It5nQe960adBJ4taMaM017CQ4Y2jx4Tx6jgB3JcQJuljfThx3jyne2ZAh0V0sCTsrnWuNWXg647Et3p8Lvak70CV15IV6wLROZvw9rFoH3T1aGz3dx9NutO46qywNw-Ju33-RNHvAlQQdrwyrZaTRyH5TSu92mqYwiEmjAdY81-cMfFou1ikZssuBc8KyLCmeS1L5vJWUS2fqjEIuWRu3EzZIbG14fmvIX6nUQ3ooPSuRtDlkQ55FYtilQZpVTdl3KqmLE9hKKyZu1RZmGBgfU4N0yXDdv3UuEnEh9liSaxjB0ohr5-m7jfGPLMVEbX3_TbsfH6jbCSget4rgDuiw4cNmEwsTklTgW1rfLZaplYqHcpgs8FZZ5k2NTlxVuY_InLvA6883aW_KRXaab7__6m5sFOkCZACkxPU1fFLIVUGwxyq4xvDLpV6oQrbjfhA==.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_0f60b2a4f38f8cc7016a861bf390a087d1a5da86e9cad3e434",
+                      "index": 1
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2421,
+              "completion_tokens": 238,
+              "total_tokens": 2659,
+              "cost": 0.01113375,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2418,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.01113375,
+                "upstream_inference_prompt_cost": 0.00756375,
+                "upstream_inference_completions_cost": 0.00357
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 66,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.8181818181818182,
+        "metrics": {
+          "score": 0.8181818181818182,
+          "f1": 0.8,
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 4,
+          "fp": 2,
+          "tn": 5,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 15330,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 15695,
+          "AJCC_STAGING_SYSTEM_EDITION": "5th",
+          "CLINICAL_M_STAGE": "M0",
+          "CLINICAL_N_STAGE": "N1b",
+          "CLINICAL_T_STAGE": "T0",
+          "LAST_KNOWN_DISEASE_STATUS": "Tumor Free",
+          "METASTASIS_AT_DIAGNOSIS": "Non-metastatic (unconfirmed)",
+          "METHOD_OF_DIAGNOSIS": "Histopathology",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "G1 Low Grade"
+        },
+        "token_usage": {
+          "input_tokens": 2421,
+          "output_tokens": 238,
+          "total_tokens": 2659
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 11,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 24090,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 24455,
+          "AJCC_STAGING_SYSTEM_EDITION": "4",
+          "CLINICAL_M_STAGE": "M1c",
+          "CLINICAL_N_STAGE": "N2b",
+          "CLINICAL_T_STAGE": "T3a",
+          "LAST_KNOWN_DISEASE_STATUS": "With Tumor",
+          "METASTASIS_AT_DIAGNOSIS": "Metastatic",
+          "METHOD_OF_DIAGNOSIS": "Blood test",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Metastatic",
+          "TUMOR_GRADE": "G4"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"24090\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"24455\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"4th\",\n  \"CLINICAL_M_STAGE\": \"M1c\",\n  \"CLINICAL_N_STAGE\": \"N2b\",\n  \"CLINICAL_T_STAGE\": \"T3a\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"With Tumor\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Metastatic\",\n  \"METHOD_OF_DIAGNOSIS\": \"Blood Sample\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Metastatic\",\n  \"TUMOR_GRADE\": \"G4 Anaplastic\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2419,
+            "outputTokens": 213,
+            "totalTokens": 2632
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173878-OCFLzUO3S31ccsBHyvHX",
+            "object": "chat.completion",
+            "created": 1787173878,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"24090\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"24455\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"4th\",\n  \"CLINICAL_M_STAGE\": \"M1c\",\n  \"CLINICAL_N_STAGE\": \"N2b\",\n  \"CLINICAL_T_STAGE\": \"T3a\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"With Tumor\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Metastatic\",\n  \"METHOD_OF_DIAGNOSIS\": \"Blood Sample\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Metastatic\",\n  \"TUMOR_GRADE\": \"G4 Anaplastic\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Reviewing data format**\n\nI need to focus on preserving only the necessary fields and avoid adding anything extra or missing out on required ones. I should convert age strings appropriately. It seems like I\u2019m dealing with the 4th edition here. The term \"Blood test\" probably needs to be adjusted to \"Blood Sample.\" Also, the data should reflect G4 Anaplastic, and I should only work with JSON formatting. Let\u2019s keep it concise and straightforward!",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.summary",
+                      "summary": "**Reviewing data format**\n\nI need to focus on preserving only the necessary fields and avoid adding anything extra or missing out on required ones. I should convert age strings appropriately. It seems like I\u2019m dealing with the 4th edition here. The term \"Blood test\" probably needs to be adjusted to \"Blood Sample.\" Also, the data should reflect G4 Anaplastic, and I should only work with JSON formatting. Let\u2019s keep it concise and straightforward!",
+                      "format": "openai-responses-v1",
+                      "index": 0
+                    },
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhv5BfCqUeLqFHM-h1hatkaOOEXVJZKG4HmyTeBpSRzmu8F6-JY0vcJJLCdq6FkPSWzKbtfWRfLhMzHtYoYvcbrVtcEP2TahEoBxlTgNt-pQPfWXSObcCkEexP5FHTslICGeZxEvVlTkyDCrjzCmx44wANASYyXPvgVcuK4ZELm6KaaxdEl5r3RxPxKgp8mXF99sJ7MG9vTgbG_ghPqIiA8wI77Z7QDayZ5PitPhbfkAAgCbKREUmgy_3a4QEcRTgO1r2Zyy2WPc38cHBTKOpuWlUoq3kq6z-6GZU9tCMCVd1w_mq6NqS2ogRGurEMvft_65r7Hh5pQRbfbkgMA5JyHCWcLvBtUYG30kQJnmDUJbIhNBH2tNZ6SU4Dz_CHIuGUj3Bjhb0CUGAQKSnAbzNYgrA_OAd3QVvoLrceKf5IyWlre8fFYkj_5eUNi8XLlcNHCF_4AM7Ud8zZ72DLpS5lVG0rnkOs3PWY23vObGjgJ-EDxDd-QOUcFxjDbWvRxdvd_h9OjdYSj-fHKnjKbMKoLCWkEo45aPRdMWKu4XFX7uv5DtuikPNpAlgmCDQufgX5eQ0RNf8iBEhrVQfHoapZAjX92MAu-gwhaoCeuZaHIZLAFcjRV__AYOcvmJiCdi04uA1GYZ2m0VjSx5vDJ4JVwOlvJ8oykSovjoc_-Tzx9kX9vNj92KLLfaLPx_bms7iGjjUxK6HK7KYjSNQKaXTM4qlHOWjMeNiYecjOI_KI3eCkBsKgCX00kb7xIlDYwEtYcPpcvZRkSPcrUF8O7pd3g-o94Oxv5PLWOmTEV5jDaIYdqBbF66zWydZAUccqeMh4QOkIZdvfzi_ICxIKbR-lonbaZX_9_xio5GEViu60DQQjjs_pO61cvNbzzIgbOLvSA2qn7yCrBLzz1db4xmamFy7WnwvAu-zTLQJtoVnHEtB7aBw_9Nni9aVBl5RWZehYeZkfF9o_VbM717oVYn6trRVEK7_CG7XAvBfJ-rL1CUgT4LLrjj-nNNd7rnliP5A8JfquEBb7qV4rE53JnnyuWxYpIOotCHdC3kcCVz0_hS1Jkb2chnogzsFqRBoo6pMmi2kfSG343u84jsNAY1p2ouyE2VzjGJo_P-LJvCXWygmXgEFNrIXceN1Av7ZvKeBptuGzfYFITKSA5AzFn6u_YCOf31McV2UuIeKTblOKo8p3VfcTxPTUZZ7GiFEu5fjPGmYyIIs7V3VsK5iLt6dGfv9KM6P0oteR_TVYrrnxFWEJoiUUMzBKkNcRVX7BARN54GQhvARRUdSmiMamch9FKnPHp4UdpIcdGWFUB1DHUMOFJsy-avd_NFViaLCFNA8oyfFOYyjk2luxz4QMO0upPo8kgozJEk6iCiEU7ruz24t6wkGkOwZvqY_KMMCD3I-9WV3on01VuvjfnyKzutyMfSq8dJ6qgDgUGLRMgJlIgohR1JPTdMwc_CEWGKjtYmadPvFwD46DDV8LPhvtLxtjsiga4xAXlyYWKxXcC6X3nv4ZK2uQ3WxwLMhXVobBtnNoFdpNSo2XyoaUzlCNr_BBwoew==.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_01838099a5b464df016a861bf74e5081978b567571923fdbfc",
+                      "index": 1
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2419,
+              "completion_tokens": 213,
+              "total_tokens": 2632,
+              "cost": 0.0107525,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2416,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.0107525,
+                "upstream_inference_prompt_cost": 0.0075575,
+                "upstream_inference_completions_cost": 0.003195
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 41,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.8181818181818182,
+        "metrics": {
+          "score": 0.8181818181818182,
+          "f1": 0.7499999999999999,
+          "precision": 0.6,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 3,
+          "fp": 2,
+          "tn": 6,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 24090,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 24455,
+          "AJCC_STAGING_SYSTEM_EDITION": "4th",
+          "CLINICAL_M_STAGE": "M1c",
+          "CLINICAL_N_STAGE": "N2b",
+          "CLINICAL_T_STAGE": "T3a",
+          "LAST_KNOWN_DISEASE_STATUS": "With Tumor",
+          "METASTASIS_AT_DIAGNOSIS": "Metastatic",
+          "METHOD_OF_DIAGNOSIS": "Blood Sample",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Metastatic",
+          "TUMOR_GRADE": "G4 Anaplastic"
+        },
+        "token_usage": {
+          "input_tokens": 2419,
+          "output_tokens": 213,
+          "total_tokens": 2632
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 12,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 18980,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 19345,
+          "AJCC_STAGING_SYSTEM_EDITION": "3",
+          "CLINICAL_M_STAGE": "M0",
+          "CLINICAL_N_STAGE": "N0",
+          "CLINICAL_T_STAGE": "T1c",
+          "LAST_KNOWN_DISEASE_STATUS": "Tumor Free",
+          "METASTASIS_AT_DIAGNOSIS": "Non-metastatic (confirmed)",
+          "METHOD_OF_DIAGNOSIS": "Bone marrow",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "Low grade"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"18980\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"19345\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"3rd\",\n  \"CLINICAL_M_STAGE\": \"M0\",\n  \"CLINICAL_N_STAGE\": \"N0\",\n  \"CLINICAL_T_STAGE\": \"T1c\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Tumor Free\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Non-metastatic (confirmed)\",\n  \"METHOD_OF_DIAGNOSIS\": \"Bone Marrow Aspirate\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G1 Low Grade\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2418,
+            "outputTokens": 223,
+            "totalTokens": 2641
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173881-tQ8Tg7SrO4FPCcqgulHo",
+            "object": "chat.completion",
+            "created": 1787173881,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"18980\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"19345\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"3rd\",\n  \"CLINICAL_M_STAGE\": \"M0\",\n  \"CLINICAL_N_STAGE\": \"N0\",\n  \"CLINICAL_T_STAGE\": \"T1c\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Tumor Free\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Non-metastatic (confirmed)\",\n  \"METHOD_OF_DIAGNOSIS\": \"Bone Marrow Aspirate\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G1 Low Grade\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Processing data requirements**\n\nI need to preserve only the essential fields without adding any unnecessary ones. The numbers should be converted to strings based on the schema for the 3rd edition. It looks like the method should specifically refer to Bone Marrow Aspirate. Also, I see that the tumor grade is G1, which is considered Low Grade. I want to stick to using JSON format only. Let's make sure everything is clear and organized!",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.summary",
+                      "summary": "**Processing data requirements**\n\nI need to preserve only the essential fields without adding any unnecessary ones. The numbers should be converted to strings based on the schema for the 3rd edition. It looks like the method should specifically refer to Bone Marrow Aspirate. Also, I see that the tumor grade is G1, which is considered Low Grade. I want to stick to using JSON format only. Let's make sure everything is clear and organized!",
+                      "format": "openai-responses-v1",
+                      "index": 0
+                    },
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhv96Q2-YEpHRcUCMDeD1A7P7U7Wp8vJIWXN3EbQLDVvCILC0p_byg8w5kIYWErNfMF00ESoag3uO6b8cGaJXsAIi-MGABOCRcOhJ1Aplru8Wur-ZL1JHN7H9IZHptfPczE2_w06K8-R9PROO0U28iJTKNklrTuLhfxXipHXrzTscjbEQg9NQIJySs8oY56oVRQA7sj_VvEDIp4Pw3EoWRNs6RHMd1lH2wDikiyVB7Y0-8HZYRHa1Zlv_dNtvaSeqUVD_-jYUIpDSZfNAK-UKGA32CRn-9kk_lb-J-8HOFmCmL7lVyEq2ihtbcjbyoi2ug6cpeYFns_GNyZMxPNHJsuHQ9LysNdsXRX9bW24bRaV-AzIeTK0CCxlOF10I2EyRvrchLE1ywXe1gkoZbp9JdcT9LRM1raaKXBSPyQOrerho61i8tmGRknKHOrPJoWoDvmJbH80MW4x1tslva7l410lnUUOEunUQ60RUJEErY3_wDDEwbwIhDsnJRdR9pCvKlxBz6bzyBHTxJ33L6giQVB4xP1CsgsuNvfPv0vm3GdMYLO2CjrmSj1ul6Z5GpteZCFOpPID_J4e2DVboL2iNr7WIeIk48IVfXwKXObn4VxwiETFAf8cIqNY6RDVQO9x3sDkGIIzqjpe48J_2_N2GfdL6mMx7bOJ54JWkeaKE-gtD_jwjZA3JspigRlVf68mqXxhwGqzyS5WlnUv3D7kFElmGbWR4IFMyhrOJCGwCp3EdK4eIXioUMXc7WG5TPn7cZhvmCy5qmSDAvC3ME8YKXjQ0HN09aJHAkTFRGnID-LC0bRa8ma_o_sakanvhWnOCopq1bTnbEMJnbK_CP_464ph4vzPUnwfjM9HZiKtkaMIv_9NHh0HXrXxWPm7RfbSmJUzNGS22-iWfp5JK209xHYuxNvB0a7QWmqVxvmezZmlDjBKynnRMS_145BmozPxpZxd_GAXo5wKTPeEa2_rg9y9CdEtoIE0LynykeztYbsiXgg_78HyXwObkBq7BlE9TtGC_LMIvZlBmXgmfpa6NSbpqvBCkw9pMlYwF-BHyf4XHKcvpnc_YnXUfbpP0gYMY-l3k0g2MS9VYkB__H4XqR5OUBvOX1o3OiDCNNFb1Ikl3ZvGhnKA-YOAdk9GMvI_T27fO2Vn8Ylsrg2lYtZB13NXu71FRuMsa-zxPUqqds0EQukZ9QMywzucaAXymKT7jtj0H-srF6VZZML0XA4K8iP-HGP3Rew_X1pgWogrCkUSsg2YpVNlQdRYE6_Tbl4soNvP8FJlnVt5BUAFQ7V1IhcmelHvcq9pfW0e1tC0VJWpSwqGKFqWQQuYbA0LFau8OpcwYMzLy3IccA1NTi_cA4OGxhbvANuFQ2O0zMoP8EiBOOZ9_sCMrgmwemG8qGo0u8wLwdm-4UaWzvSz8P3cxCtNJTwSwhPTfgG54zzlAdPSdDJdvOOFZqr2_-h0McRBUZIL7w5-8XIyeskThhtRwjq9WrrDhij8s41iU-OcDY1Ak2pL9cYA4ypZDlaXtba_15Q5_-6KrnrqllhVjF8fnhtjiMjxycKtRnq7P4O7OzaVS7L2hJKLZYXZfFRUtn-8lG9fKPDlp05XWN-UHq5CMaQePg==.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_0136ca2f1f5df547016a861bfad73487d1b5d199a7870b2953",
+                      "index": 1
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2418,
+              "completion_tokens": 223,
+              "total_tokens": 2641,
+              "cost": 0.010899375,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2415,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.010899375,
+                "upstream_inference_prompt_cost": 0.007554375,
+                "upstream_inference_completions_cost": 0.003345
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 50,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.8181818181818182,
+        "metrics": {
+          "score": 0.8181818181818182,
+          "f1": 0.7499999999999999,
+          "precision": 0.6,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 3,
+          "fp": 2,
+          "tn": 6,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 18980,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 19345,
+          "AJCC_STAGING_SYSTEM_EDITION": "3rd",
+          "CLINICAL_M_STAGE": "M0",
+          "CLINICAL_N_STAGE": "N0",
+          "CLINICAL_T_STAGE": "T1c",
+          "LAST_KNOWN_DISEASE_STATUS": "Tumor Free",
+          "METASTASIS_AT_DIAGNOSIS": "Non-metastatic (confirmed)",
+          "METHOD_OF_DIAGNOSIS": "Bone Marrow Aspirate",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "G1 Low Grade"
+        },
+        "token_usage": {
+          "input_tokens": 2418,
+          "output_tokens": 223,
+          "total_tokens": 2641
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 13,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 21170,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 21535,
+          "AJCC_STAGING_SYSTEM_EDITION": "2",
+          "CLINICAL_M_STAGE": "MX",
+          "CLINICAL_N_STAGE": "NX",
+          "CLINICAL_T_STAGE": "TX",
+          "LAST_KNOWN_DISEASE_STATUS": "Unknown",
+          "METASTASIS_AT_DIAGNOSIS": "Unknown",
+          "METHOD_OF_DIAGNOSIS": "Fine needle",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "Grade unknown"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"21170\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"21535\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"2nd\",\n  \"CLINICAL_M_STAGE\": \"MX\",\n  \"CLINICAL_N_STAGE\": \"NX\",\n  \"CLINICAL_T_STAGE\": \"TX\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Unknown\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Unknown\",\n  \"METHOD_OF_DIAGNOSIS\": \"Fine Needle Aspiration\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"Unknown\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2407,
+            "outputTokens": 205,
+            "totalTokens": 2612
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173887-s9vRyFIqF63fTJT8Ewkh",
+            "object": "chat.completion",
+            "created": 1787173887,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"21170\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"21535\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"2nd\",\n  \"CLINICAL_M_STAGE\": \"MX\",\n  \"CLINICAL_N_STAGE\": \"NX\",\n  \"CLINICAL_T_STAGE\": \"TX\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Unknown\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Unknown\",\n  \"METHOD_OF_DIAGNOSIS\": \"Fine Needle Aspiration\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"Unknown\"\n}",
+                  "refusal": null,
+                  "reasoning": null,
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhwCx-lze_4T2fajSjKw_m45BtP0IAZO1-evXG2U2X3KbIayFmXV-TMHsslFdJo8Vu9N4Vm_ENc340Wy9Mg2i0-EOiKbyhbb735cU3k29qCAOCwxXH0WXG6yg-77GqoE3J0aqoGG3itL0RNxVp9bKmac9KVuhaEwq4hrr6bWg8n9egL1OE6PggUDETmyu5X_fkC7t2fZa9_fTeKH2N_ZLICj89oGp6Za1JjTkPcmvD16kaKgAoUn1ikGZsPSUsnQlot2PlR-_hnEiwxGPHbaSTr2unSashtW7gdjuvMDQoR_7h1giU65IMHjR0Vu5-4pGFPQy9LVgvIALQAv561hVJGu1m3OtVDtieWYHy0QrAq9kE4gHObK3jE-PgWUjS7RCB3JOYiTn6j6N9jTEDi2aZjK2MF2A5TMLbwExqBUQR5OjydM94clx4DoAVsQV3CrDVAGdI2wA8a-jpp3WyhXu2C7ZIP9hxxLsRjgUzHDiC_JT9yDzlDTz1HA97LZEYJfe_VhCB4l9hnVzxKdL734CB35bgDI02Hpfq7LKz2kE5bZfLbFzp93wzU1GhfZPrLjzjtb-NiOGptyZ3TegXZwKG3VOyrEn9sugSSvXgpS-CMyZeYk4y0YuVXV9M-N3PW61Tqb5ukoQSMRxGjLVFYtd8oDkR5krBeyjaBumYwTXKWnTypeUJ-XNf04cTK3qfC3FuFOQM6gbvr_U3z84FDtG7BH5bckGe4LjhxkngXM8yKwXENdFEtHTIipkP5ONd3IEmqYhPSyYbRL6OSLW3p_OO5HFA9ekuou61oEbR0JedUR3MmBbiZY0njTviwHJ4I4TL3EUXZeHjGIl-y_z9yxSkDj69lb4IvZadjLPoDczf9BetZTp4Pw40PwXz8Zqd9pjMIEyJjBqcN33HKuO0xOxHsCo83Yr82MYAtXkJtyFGDyjDrmh7YHPRdQjE_o2KeAg9RbVY60t6iG-REx7wwtqmjJ4nhc2gKxoimDEqBUlRaBbTaP1VqAyZe_w4DpRN93s7_9pSgcVx9tejBZ95o3H8pIRCBc0tdNpj97C7rboFIrieMbv65GWbmSdDxO_-TeAzf6xPYspEUWQDfX-OGHRNQTstlssjg54xW9BPH9Nx4jmQJydbbBv7-FdVLqp7-w6a_vZxYwFVxScrC8DOMk7UP8sN6GQ8TI7PMWtwc6v7VwSn_3HgnfbsOT8EKbQMQAMbD2Y8XBUmQ3AGP_Fs4Wh1k1qRmHJNr_lz1KRQG_c-dahO1ja312aD-c5wuIkzF7Dd8bEmA9rljI2wjbLV0K_oPZA-ftN032QqFvBk9JCj2NmH5I-Gers5wmJW-nt_fojnlDvMdv7JKibt_jPMZw5q7RFh13n67B6zWD-69PrIjDUwzk51TD5MRPNCDF7MLJeAjgqMKW8bgUVhPxh_dKzFK0utmmRV5S7937MfIWjYdU3WNz_4S8Y5R1pJwweR6eEk8GDE_st1OdGkjmRGGWXivvEQxbegOEVCYIAokn-eMUC2UxJ-dSzegZspAqvqjkgDbrxSrApIOMkw_7bsZK1EsVGHwA1Usk5InbFgzn8gi61_JNtIhc_cUOolQszrE__rbEEjiaJL-Z1j7bqktddjwQ_w==.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_03580c198ea36b0d016a861c0054a487d1bd884a626d9e8a87",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2407,
+              "completion_tokens": 205,
+              "total_tokens": 2612,
+              "cost": 0.010595,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2404,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.010595,
+                "upstream_inference_prompt_cost": 0.00752,
+                "upstream_inference_completions_cost": 0.003075
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 47,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.7272727272727273,
+        "metrics": {
+          "score": 0.7272727272727273,
+          "f1": 0.5714285714285715,
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "confidence": 1.0,
+          "tp": 2,
+          "fp": 2,
+          "tn": 6,
+          "fn": 1
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 21170,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 21535,
+          "AJCC_STAGING_SYSTEM_EDITION": "2nd",
+          "CLINICAL_M_STAGE": "MX",
+          "CLINICAL_N_STAGE": "NX",
+          "CLINICAL_T_STAGE": "TX",
+          "LAST_KNOWN_DISEASE_STATUS": "Unknown",
+          "METASTASIS_AT_DIAGNOSIS": "Unknown",
+          "METHOD_OF_DIAGNOSIS": "Fine Needle Aspiration",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "GX Grade Cannot Be Assessed"
+        },
+        "token_usage": {
+          "input_tokens": 2407,
+          "output_tokens": 205,
+          "total_tokens": 2612
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 14,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 16790,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 17155,
+          "AJCC_STAGING_SYSTEM_EDITION": "1",
+          "CLINICAL_M_STAGE": "M0",
+          "CLINICAL_N_STAGE": "N1c",
+          "CLINICAL_T_STAGE": "T2b",
+          "LAST_KNOWN_DISEASE_STATUS": "Localized Disease",
+          "METASTASIS_AT_DIAGNOSIS": "Non-metastatic (confirmed)",
+          "METHOD_OF_DIAGNOSIS": "Ultrasound",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "Intermediate grade"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"16790\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"17155\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"1st\",\n  \"CLINICAL_M_STAGE\": \"M0\",\n  \"CLINICAL_N_STAGE\": \"N1c\",\n  \"CLINICAL_T_STAGE\": \"T2b\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Localized Disease\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Non-metastatic (confirmed)\",\n  \"METHOD_OF_DIAGNOSIS\": \"Ultrasound Imaging\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G2 Intermediate Grade\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2419,
+            "outputTokens": 294,
+            "totalTokens": 2713
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173891-vvJqQf81mdkZUeAym1Fh",
+            "object": "chat.completion",
+            "created": 1787173891,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"16790\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"17155\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"1st\",\n  \"CLINICAL_M_STAGE\": \"M0\",\n  \"CLINICAL_N_STAGE\": \"N1c\",\n  \"CLINICAL_T_STAGE\": \"T2b\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Localized Disease\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Non-metastatic (confirmed)\",\n  \"METHOD_OF_DIAGNOSIS\": \"Ultrasound Imaging\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G2 Intermediate Grade\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Clarifying schema requirements**\n\nI need to make sure the required fields are absent without adding anything new. Existing fields should be preserved. I'm wondering if I need to convert ages to strings based on the schema. It's a broad task with synonyms involved, but I know the schema type needs to be valid. I\u2019ll need to correct some terms like \"Edition 1\" to \"1st\" and clarify \"Grade\" to \"exact G2\". I suspect the ultrasound enum might be \"Ultrasound Imaging.\"",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.summary",
+                      "summary": "**Clarifying schema requirements**\n\nI need to make sure the required fields are absent without adding anything new. Existing fields should be preserved. I'm wondering if I need to convert ages to strings based on the schema. It's a broad task with synonyms involved, but I know the schema type needs to be valid. I\u2019ll need to correct some terms like \"Edition 1\" to \"1st\" and clarify \"Grade\" to \"exact G2\". I suspect the ultrasound enum might be \"Ultrasound Imaging.\"",
+                      "format": "openai-responses-v1",
+                      "index": 0
+                    },
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhwHxf347wBPt2Kdcr1hAej71qc7RZeo_C3lC1S_gl7dKyVOXEDq-0n7iPLQw11bM_BTRrmpjh8AJC3BxGqihL-6-LICNS39rmD0kP0UKhhBhYMHgAfnHHTtzHxK4oP-9XAzdPTKhNG51tet9dnT78jmqS0yG4XT_lQiT5i7yI1H48Ks3OoIH3ucQKmdVtzQQIE0lZBVlGBvPmTdf7WqJta1fav8mZXcmo8uCOAyFL41Y5DZ46Enya9khFJZ8CfaliOJDDoO9Ou0qxOw5TLTmFWdUosELkgnoFtrCz98sQABQt5bTK2d8Kdpj_P0SH6IgDlbfm7qNMVczRB-K21hUfKWlsWfh5vwYVNTEcyWW6iS8XsQoER17PUscuiI18qSTCaD_HUjQtMwyZGvIKhDPhLNcM3I2EbNEDzBWV10QPLvu0lXQ_Qn-Wn5A-RTt08SMh-_Vj4J_eatNpQvtzMOTsjmdLI7Z31WTAOoD0woJUDURYN6d5a-XM18zwtlgvd22c9lAHmEz8cH6pQ0TIQEKG3YgxP2jzHdHPylBVZ-AsN55RnuxjEB5bSNIwlpYiQuRNfB-1GIdsPDmJFA5pO1UJLHVU3wdgOwRMuZQt5k3Z8hulxfwxoza-8iAoO64YrSbR_9G8UUPCyrmb8vW7tgWXWwPtURv3aT0OmQBo-feUGnBNd7eU1rEnhR2dt5dU94nm1dxoFRyXYFw7YxfYVZdkHPMdbEhtoSgRKpINc4Y6GKKseczWyMTxPx_X7SzK6GBWeoWaE-c9XuPSPjsKPvtyc3g3mS7JSunXcQXd0Mbs_v1CGxj2uIoenyfJciJ5ooRhWa145DQBVu9nGR0LBeEHwx2y39idrjg7oZXWX2YnNcgRDTBGP2NF7UsWww-zbPTAdURSdruiJ6VJaH0KAWifwFI56V-2OgXCvjE4Y-VYA3aOPe4WbYQ-FUNw9ynxK4WMnIvmS_qiUcmEGDC3V7tFNn6j9SgNfBTSLi7oufaspj5qG7YAggj4DksppvdCEbWl9FQxxDgwjBAn8yO4bJeNGJ7Xp3alJGlpx42DaQeOdyxdJ8xQvrcMVrupCF0Kh_A8h2YKdTQbFadU_fFzWz0u8GUHqo4bD4L7h10sUNoCz5CJthloRhIfcN5FNtwlIonnsV8C6P_Ks5wVBu3pIA0IEbrje4NpODBQxwDgloCxkprtYOARNDlmXfNsqwZQr1EV19b1VS5rF1rfqtWMQHLZHxgUWaCDNIqqANsmgmF7aBz1keHJ_ZJyk0SsvHFs4iuvM7BnAkvi4Y5IRqytYoIJSb0EoU3fubl3ZpsrkhcsTORDI4U1bayR2qA3j23prXIbTTtwbhazaqk-jeMRCmrn4pEI4hWIpaJBaAoTFhkZFrhqMdY63PZpDPyKE0abzjKmC92p6YWFmggmBpvttkuAioutyH3iczF6jA_bWm2p9S7nsr-XXLL1P9Dc3NjLHgfvbZK7GanBSFtzX8ZJnf8J32HkGFcEtFP_gmqiuZI1RZDI1eAxkRHqVLyajulPfT3u1FENdQCSVQJLZ_m4ORw-asz07L_sAcKfxuIPsTFSlqDJciLo5AJ5LMGGtWvxKyUxixmM0_Ne_xc9hh2ajOhynk3clL9C696lHqN1waRNvu94Brrd7crlc4qPvqi2uqqboX_Y6qR0aS9BjXk2szK2-jWqVdYA3o5d8s3nuOqYV4jrkZDRf_8NZZsMRnhuU-PVHGOQUQUkcCxufda5Yb8-qsB0uUMYNZCd_LmtMHLxomDm7Db3mZ8tpuyUoCD36-ENP6zC2Y2qs9jcX31lxf00sD-5oHjbcrDtHlNZZmVj78vd-ovPbG3ZAuiChjhVdu4WHMORpgEQmxZLEF0ii-qHL4eodbddUavFuo544noKxScjD-81UexTsS1RCq0u7R88cjRNgJjVIdQ50DFW0hMWb4s1yE_0_BHfeHTceh4WEWkH3ZUSElhHARUbdTBupM4l8RC8ebexfEJUiWoLzl2eTMVzUknhWlTHXHrW61jBOqivhdarCiKwMoq43uz7OVC44J.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_0e2c40f54f634bc1016a861c04e7508197942842b5c953d590",
+                      "index": 1
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2419,
+              "completion_tokens": 294,
+              "total_tokens": 2713,
+              "cost": 0.0119675,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2416,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.0119675,
+                "upstream_inference_prompt_cost": 0.0075575,
+                "upstream_inference_completions_cost": 0.00441
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 122,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.8181818181818182,
+        "metrics": {
+          "score": 0.8181818181818182,
+          "f1": 0.7499999999999999,
+          "precision": 0.6,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 3,
+          "fp": 2,
+          "tn": 6,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 16790,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 17155,
+          "AJCC_STAGING_SYSTEM_EDITION": "1st",
+          "CLINICAL_M_STAGE": "M0",
+          "CLINICAL_N_STAGE": "N1c",
+          "CLINICAL_T_STAGE": "T2b",
+          "LAST_KNOWN_DISEASE_STATUS": "Localized Disease",
+          "METASTASIS_AT_DIAGNOSIS": "Non-metastatic (confirmed)",
+          "METHOD_OF_DIAGNOSIS": "Ultrasound Imaging",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "G2 Intermediate Grade"
+        },
+        "token_usage": {
+          "input_tokens": 2419,
+          "output_tokens": 294,
+          "total_tokens": 2713
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 15,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 22265,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 22630,
+          "AJCC_STAGING_SYSTEM_EDITION": "Sixth",
+          "CLINICAL_M_STAGE": "M1",
+          "CLINICAL_N_STAGE": "N2c",
+          "CLINICAL_T_STAGE": "T3b",
+          "LAST_KNOWN_DISEASE_STATUS": "Regional Disease",
+          "METASTASIS_AT_DIAGNOSIS": "Metastatic",
+          "METHOD_OF_DIAGNOSIS": "Biopsy",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Recurrence",
+          "TUMOR_GRADE": "High grade"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"22265\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"22630\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"6th\",\n  \"CLINICAL_M_STAGE\": \"M1\",\n  \"CLINICAL_N_STAGE\": \"N2c\",\n  \"CLINICAL_T_STAGE\": \"T3b\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Regional Disease\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Metastatic\",\n  \"METHOD_OF_DIAGNOSIS\": \"Biopsy\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Recurrent\",\n  \"TUMOR_GRADE\": \"G3 High Grade\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2417,
+            "outputTokens": 245,
+            "totalTokens": 2662
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173897-aRopqspGCDIYKZymjSrI",
+            "object": "chat.completion",
+            "created": 1787173897,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"22265\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"22630\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"6th\",\n  \"CLINICAL_M_STAGE\": \"M1\",\n  \"CLINICAL_N_STAGE\": \"N2c\",\n  \"CLINICAL_T_STAGE\": \"T3b\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Regional Disease\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Metastatic\",\n  \"METHOD_OF_DIAGNOSIS\": \"Biopsy\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Recurrent\",\n  \"TUMOR_GRADE\": \"G3 High Grade\"\n}",
+                  "refusal": null,
+                  "reasoning": null,
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhwN3CrtWtXBsGtmUjtWsW0w7BCeLpUQbVaa46fTR5PQO3S9ukkvLIWVNQWzveRMb92TmjJnw2rtDYGoccFP3Q2ursbhmDSobmvcKzhhrbgRv8HMDAUH3QSRR3uWGBATwk9lDjix9s8-UQhvkuD5gTECQJEv5uL0g8t_zqqJ-AXLpm8w7BVjMGXiAa181ckqjW2zvUNpHslrezePrprmr0Y6NOHqPGkQQsU_Gh1M5Xm_1uY7061MWgjd8H6XDpd1nEbovuVRy2J0CDMEif5hU77seqF65y84Uo5_BzzjtW-y6RpghTgVV_nqzGP6-BFAo6Q50kz4K0Aw_brwVARHgKj1z0WhK-OTU1hA_zCk69NwLdgy3_mT-sB-6jKchHHFTrHNp0zkdgEmEwkt3l-tRoK7RtAkiKKZxBd9fWdRyoKgDF8lPu1SI_YW3i2F7cbw0dbtDhohU1-saocG3e5PLD5YnAj4b_7iDXsoN9bsM39nNUcvR4oIt2rz665n2-XzuAEEj-rjVxRmcEi10W4uO-VMW0yps858T0vI0c8MUWaeTbf3GmVKMZit_e6yViNSx1LcIKU2G4QKUjRxkM1uKtR5XlHAyVIGDsxlItPLo3uwO14qf3e9ZzR5s_CpwHINe8wY8-QOlW7sVFbMCLCzy1aT8DjR2MnldIsBR9kDHhlQSYY_o34zhzZJrJooGMFaR9AuEPMS3MS5FyVz45YZ2V_6CvRpc1_KTP8t-s6qJ4IMHXX3CwGGGG7AvqrCTCWTUHzb9ZquizZB_jl_3oTxPmsoTbuDqzupSnXvWW_Y7kBlYRNAirgctdBpkbjoS1EM1Cd-HysNsKTLAX3YX7Vd2GF7imJ08jMKakVGeb2ZVU5K26ti81HtFhkqq4PMb83bvESvJAOkoEwxAYo5BHRdJQ1qA-h5TkfEI89hDW-yET8Zh--wPo3QL7OC1PVNJYzme-1jd-BqzqAOBrjsyGw4-8-7f67UZ8hoQVishnFaUwCWixUpdV8l4-yG41rr60EBlMHvkCdAR4o_RdvAu8p12YmUxHEPciLewbR-ndHnd61lpeABKQRc5efSn6UZ4tJEHaX7qnZso1TKe4uB0Hl70HTcaz9yLNz8p_j5ENmv76uM_dW8mtci4vD1TXrALnUTNjFkbs255A8GT_wZXdyD6kFPDJVP7nC6G-EdwydqjeFiXaRVeE4M2Ifzbf8aUBV-JPbOcTqNtMvJ39yYaGTrt-BPbNcoOE_EHvvwFN_0ijU2cYl1weEWA2--eGcGbXZex2Y8gdTmuqUhk4yYIWU1o4R6OSZxx_ED4LIaAvNA74148asPQUO91IsvtklAYuNGDPco5PvaBHuvB9TFmrs94ml4STUXWrdsL3Tzx8Uopbge0RxqoEQXNwmIMZWMGXS4zLGPqu45VlGOWegv1Subx5ZjbllPDJIpgeyO5e_Ynr1r81lsdssieMA3MUEl5vdM83NPFu5fcZUrrp_K11qY5Z1I5Nwa4OGMjuLH3WEne8DTjS0IP297NUVK8T4vwBDOD7RxHHChmDElrLzGC7h9CUttEZlwT4avN5wjQkbox1bDjTd5_INrVyVjWJRgaUJWjg8V0twcm7EFCdyoKl4ojvp1GPt5NfnFfc6OfXkDg81hJyAv8R5iDtVFsF5cWSzPWN597nu1YoBT5xNnk6bOF-MPDiv4HOAKcPF1hPQXUOoXlUpA2ZGcHuw6yLbyOE4j5CaBTGqGYX_07AOjbUTsDaKGSHQGmIOpA2DzSkAlzjBgq0A1ZaAAJq9e12gbz2xwcZao.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_0c0381acfec55050016a861c0aea6c87d1a349a734db1869a2",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2417,
+              "completion_tokens": 245,
+              "total_tokens": 2662,
+              "cost": 0.01122625,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2414,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.01122625,
+                "upstream_inference_prompt_cost": 0.00755125,
+                "upstream_inference_completions_cost": 0.003675
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 77,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.7272727272727273,
+        "metrics": {
+          "score": 0.7272727272727273,
+          "f1": 0.5714285714285715,
+          "precision": 0.4,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 2,
+          "fp": 3,
+          "tn": 6,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 22265,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 22630,
+          "AJCC_STAGING_SYSTEM_EDITION": "6th",
+          "CLINICAL_M_STAGE": "M1",
+          "CLINICAL_N_STAGE": "N2c",
+          "CLINICAL_T_STAGE": "T3b",
+          "LAST_KNOWN_DISEASE_STATUS": "Regional Disease",
+          "METASTASIS_AT_DIAGNOSIS": "Metastatic",
+          "METHOD_OF_DIAGNOSIS": "Biopsy",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Recurrence",
+          "TUMOR_GRADE": "G3 High Grade"
+        },
+        "token_usage": {
+          "input_tokens": 2417,
+          "output_tokens": 245,
+          "total_tokens": 2662
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 16,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 19345,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 19710,
+          "AJCC_STAGING_SYSTEM_EDITION": "7th",
+          "CLINICAL_M_STAGE": "M0",
+          "CLINICAL_N_STAGE": "N3a",
+          "CLINICAL_T_STAGE": "T4",
+          "LAST_KNOWN_DISEASE_STATUS": "With Tumor",
+          "METASTASIS_AT_DIAGNOSIS": "Non-metastatic (confirmed)",
+          "METHOD_OF_DIAGNOSIS": "Excisional Biopsy",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "G2 Intermediate Grade"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"19345\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"19710\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"7th\",\n  \"CLINICAL_M_STAGE\": \"M0\",\n  \"CLINICAL_N_STAGE\": \"N3a\",\n  \"CLINICAL_T_STAGE\": \"T4\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"With Tumor\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Non-metastatic (confirmed)\",\n  \"METHOD_OF_DIAGNOSIS\": \"Excisional Biopsy\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G2 Intermediate Grade\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2424,
+            "outputTokens": 233,
+            "totalTokens": 2657
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173902-zYu6teAx1pNDGbbtBYd2",
+            "object": "chat.completion",
+            "created": 1787173902,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"19345\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"19710\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"7th\",\n  \"CLINICAL_M_STAGE\": \"M0\",\n  \"CLINICAL_N_STAGE\": \"N3a\",\n  \"CLINICAL_T_STAGE\": \"T4\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"With Tumor\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Non-metastatic (confirmed)\",\n  \"METHOD_OF_DIAGNOSIS\": \"Excisional Biopsy\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G2 Intermediate Grade\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Refining input requirements**\n\nI need to focus on preserving only the necessary fields. Missing required fields shouldn\u2019t be included. The data type for age must be a string, which seems to contradict inputting numbers. I might need to correct these to strings, despite them being referred to as synonyms. It looks like the primary IDs are absent too, and I shouldn\u2019t add those. Finally, I should ensure the output is in JSON format only.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.summary",
+                      "summary": "**Refining input requirements**\n\nI need to focus on preserving only the necessary fields. Missing required fields shouldn\u2019t be included. The data type for age must be a string, which seems to contradict inputting numbers. I might need to correct these to strings, despite them being referred to as synonyms. It looks like the primary IDs are absent too, and I shouldn\u2019t add those. Finally, I should ensure the output is in JSON format only.",
+                      "format": "openai-responses-v1",
+                      "index": 0
+                    },
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhwSlchOeg93clsPdRY0XFMasZW2XforvSSMW1PJFG2aXFvQEpHrUlGs-AS1zg8ak8onUIHeKkg_w4ZAyMA-82yIZXfbZsrcV7vqECoPA27JF1OZKDUDVq5Mpp_v6IPMdZ6uGWEyKwRnT3ay1Gu9iFc1JAkJ5cspBuQyRGPF2IJPtfTVZ-1E2SKfeLTtKBzJXxN6bx6_eY5rJGDj9ZDY0-GU3jengIXUwiCX8NmJncmprZj9kwDezvdnKXw5SplOmt2x03Wz4eWDGbS5qEAve3B5ja3pmIYFX3wdP8_TdW6mOhtOrbBwKrefC0cKEuJK5bLSsX1P4w5rYqrrOqf0AvLZjTVRPq0oE28V6kI6EBUiTYjlw00poCeDcRTt43b9GahUsLAbqgVKoC8sQlHWqOqAL_2YNquimz0bb64UkWq8Nvx3LRbt4ETxck1LpvS842Z5VoNy4jofa33vJ_o0Vi92RvYNPvdfo_G4L0iCkOvxoqy9gBjze2lrNydQEnNqu_rmMFT71Krej2ijOTAJ-5u2eqmvUDp0Rdp1fhGUWfwsMVABO7MGcLtNyTcsiVe_JzUyqnRcMCEX1s3DxTSvCOz98FOv2lrLHI1K7qz9Phk5DwyUtgeSPWcT1RS5Lg_5JbQ-WVlzEkVM-hvuFSR-psds3X0Fu6ZVqHH3PBuPXRCmCmr5p0rhBm6jgU9HCOR90Yxfzg1LiC02AtpoGAZrfe7PyLpltIf6C4ObOE5DCD_A4cWDnZWehzpRcpOSwNyGCkZCQCUT3UXz45ZfXNWBVXH1yROoxxIIbZW5jewpLmmrQd8M5yE2fEm_OMGjtDN0hBOdfLHkpFPDOFHfnFiY3Sd8b3TLaSKMbOpBpA13xhiHNVtZRHJt05UQ5fFJLNALK-SbJvn822YUCe3nYQ54Fh9M4fbtsk1u_Wdg0xepFC57m8CuUNrJqFopQCyNF0ENiydKYcVZLLRaPFqcLMAmZL--j33IZ4L1on17rXXcAZg9kDjK-exQpREhk2IEPvX7lTUqyJKHFtaUaKqrYKV30eEB11Gprq6TPhBP8pqk3oxcYaz7GgcR8hlzWClGtaqImurZX6p3Jr1BXJRgSz02QbHAAMr2MGA_6Xopwm4f3mKl_hhwF-Z2xQRFaR_nM0Sj2cz367nFWUjqgRSydmcBdz6Z7-dultHcF0valTEh0u2ZI5ha6ngubRddynmFOnrAyKcZ1DhzYvRcFwhdEw6FVLuaXI_9Y3nmZP2xfJMZlcFrJ8BOLaJku0Osgizrf8ATKKKgOjaLy-rPMVjImc5a8jUw4cf2EdYey8eh7GbGf7ZEC7uPMGkwp51jwcyJ0MOGjLrISBFK2SIZGzOjNH9mRLowQUHGigkheopy21bFoSItHkzjS6HP-SR7dBWs4jxulypMI23J4LdLloZZwqiRnMdZQvzw4h_PxrN8NNDjsflveXtdz7fII9vO1eJtQyuF8jFOGxRKlRq3iC-Bbbn2FBF4qYk3yrMwszUAhx1WNKPC5-cCz5pmmfBPw52ijZVQPheMKAU2OPuNMwsd5sZKvIuDryy5hLcWfioiWtEIeie7tABbRDoZ6rCMmcZyxiA3JLR47Al6ixey0MNy-pFd4p-5jOlrLGfLFa8tQM3d3kMayDAxjbgqWo-AQy3kAbfEe4bdQVGxs6cHCWnlEazczfGmQO4qQ9IPE2nV5gYlYFVzNFjyHjatDfGpMRnvFgO7fcNe.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_015c98a39f79da7d016a861c0fd2ec8195ad03ede440efaf0c",
+                      "index": 1
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2424,
+              "completion_tokens": 233,
+              "total_tokens": 2657,
+              "cost": 0.011068125,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2421,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.011068125,
+                "upstream_inference_prompt_cost": 0.007573125,
+                "upstream_inference_completions_cost": 0.003495
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 60,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.8181818181818182,
+        "metrics": {
+          "score": 0.8181818181818182,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "confidence": 1.0,
+          "tp": 0,
+          "fp": 2,
+          "tn": 9,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 19345,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 19710,
+          "AJCC_STAGING_SYSTEM_EDITION": "7th",
+          "CLINICAL_M_STAGE": "M0",
+          "CLINICAL_N_STAGE": "N3a",
+          "CLINICAL_T_STAGE": "T4",
+          "LAST_KNOWN_DISEASE_STATUS": "With Tumor",
+          "METASTASIS_AT_DIAGNOSIS": "Non-metastatic (confirmed)",
+          "METHOD_OF_DIAGNOSIS": "Excisional Biopsy",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "G2 Intermediate Grade"
+        },
+        "token_usage": {
+          "input_tokens": 2424,
+          "output_tokens": 233,
+          "total_tokens": 2657
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 17,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 20805,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 21170,
+          "AJCC_STAGING_SYSTEM_EDITION": "8th",
+          "CLINICAL_M_STAGE": "M1a",
+          "CLINICAL_N_STAGE": "N3b",
+          "CLINICAL_T_STAGE": "T4a",
+          "LAST_KNOWN_DISEASE_STATUS": "Distant Metastasis",
+          "METASTASIS_AT_DIAGNOSIS": "Metastatic",
+          "METHOD_OF_DIAGNOSIS": "Incisional Biopsy",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Metastatic",
+          "TUMOR_GRADE": "G3 High Grade"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"20805\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"21170\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"8th\",\n  \"CLINICAL_M_STAGE\": \"M1a\",\n  \"CLINICAL_N_STAGE\": \"N3b\",\n  \"CLINICAL_T_STAGE\": \"T4a\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Distant Metastasis\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Metastatic\",\n  \"METHOD_OF_DIAGNOSIS\": \"Incisional Biopsy\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Metastatic\",\n  \"TUMOR_GRADE\": \"G3 High Grade\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2426,
+            "outputTokens": 234,
+            "totalTokens": 2660
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173907-IqSSkG80ZQ1A89Yjfjbg",
+            "object": "chat.completion",
+            "created": 1787173907,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"20805\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"21170\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"8th\",\n  \"CLINICAL_M_STAGE\": \"M1a\",\n  \"CLINICAL_N_STAGE\": \"N3b\",\n  \"CLINICAL_T_STAGE\": \"T4a\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Distant Metastasis\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Metastatic\",\n  \"METHOD_OF_DIAGNOSIS\": \"Incisional Biopsy\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Metastatic\",\n  \"TUMOR_GRADE\": \"G3 High Grade\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Evaluating required fields**\n\nI\u2019m thinking we need to ensure that we\u2019re not adding any missing fields incorrectly. It's important to preserve the original fields in the schema. I wonder if I should convert numbers to strings where necessary, given types like age require it to be a string? Also, while the task is broad with synonyms, I need to ensure the schema is still valid. I\u2019ll focus on returning only JSON with the exact fields.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.summary",
+                      "summary": "**Evaluating required fields**\n\nI\u2019m thinking we need to ensure that we\u2019re not adding any missing fields incorrectly. It's important to preserve the original fields in the schema. I wonder if I should convert numbers to strings where necessary, given types like age require it to be a string? Also, while the task is broad with synonyms, I need to ensure the schema is still valid. I\u2019ll focus on returning only JSON with the exact fields.",
+                      "format": "openai-responses-v1",
+                      "index": 0
+                    },
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhwVnBwoNTyAiLr1X2JcTo23eHhOepTM7CYuMOvXqP0UT8hMK2VNVgrBlaA4nOW5SAMb76yUDjhl6OOxnXo_RfhylT_z4nj-cU_VQ7wbecSNtqbDQ6hysfKC_z_fe6f6HaGnnx7WehLEv4iAB8dLsbQrljxpvP91N2NH26RAgci7fYcV2ogJOvrsKZiOjihMJ0Ju848KsKW0tZLc_2LwVuSyZvpv4yiay8hg3NfIcqtSWk3byOH4Wdv3IWnLe3DbFbgfIzQC3XNqJjNK-_rURe4fa8FNafNFIfYYVW4BXcbuu5mUr-fxtIXGO_HPk0AdWnAP_732pVL7wiJNlT3S68UDexyIBxVD6mMHpcBo0QS98_AMmPljuZShplTHMr_jIkTTyhqL-74JIASccuH1j6Bs7QVDwdpKl2hq2tWsBMarJ8KtW8uKVXBaqso6zY-ag0k-KwsqrBrc0VZ5a94vzSwBOCWwiDn_B3IulgZYVvFmpn5Uc_wy6glGcsHMqNEsi8_hTjWjE75WY--0lkz_O3QPGzi0x0OvLL4ZOMI1pqJtRqgAUm-JnemraO2dC-0EL_JDRWSrKyTe6I-uVxyMNvmRgdCxZ5GwXdl3XbZ9eXo-L7g5KRV9xp3XksS78KlGc-KwM7woFCKLmV_VYog9EyAUqlsBXY5O0d5quflwZLx5mm6rCvr5eMuQSkU7nudacGdnjOSUCyGHsUXf1cx_MN4ogMJyS8JYGHYVDxynqjTvj3QeRuq2qoqfKbeLxqj6-2V7VZCMoAw8AXg8L37hNxE-H2WIbB2Y2CB4WBDqyyoD1tdRm0EFr2mnochgOOrDUWgqSH0QbIdkGFFqZtQ22XT7HfkPuy9xdO0yc5ul5fHZiCIAE8EatwYkRSbaBSe5epUZO03Be5ZeZ0Tm8gu1lEJuiupn-eyuztOf0tk5yqywr_G32bTaPodEl_oLrY9MQ1EvvQro1XCUGQOVNtSEgsF35BRwjCVd4wJ-jt0cWT5UXxiRqLRvF0gEUdWcxgOJwl9Q08QmwzFkvUPF4B0hEagIijVhwu1STOiBdlplMUZtNEusDg59XTJCtc_xuAA2ygrjVENtL2JflGu9nSFwqTs839xQZ4aVykhmJTux--0yyFgk4bGjXdQI7ynVtak98_O5nxOllqIDF4mUvhMu76CdRPuUyImdTnbPcaMYsO5bcpvr3lEVvJ6EGMk4SUdOVw0VVXHgNCQcn2eyKP4c5vwWKFDHLVzBfT9YOYD6VQjrMgySr2BEHXhlGlBAELX_otKHvAgJSXcfBGbwbdlDMfhr9qeSZg1SVqjWvyrmApMCuoDhAMVYbQ0arYjnMYmovTIm5zMcimenU49zozhiYPDYWq479CP8c2KBLjCfqyicK_2rcZFNzfE3sbtBoNOn_InUnSk46IIZOMmC7UUhv0wwZt1KVFRAIJlmHM_cc9OqZZvqSETYOJHpko12D0GlxgzAcehsgj0QBiAAfHPEAKZVjVxl9cn-1wUOm0yVWtOhZiZAfF1morrR7XeEdLfDOE4LiepnAx-zlVWE12VGg45EDe01jraB1kjTxDAEo8oYmWKaQLynYuUf7IJz1AYxjZqGTj-lv4-4us75564n07YARXSn7yjI6yw8U2fPbo36_SAeDc57znaBV4PzoMNPEpLC2n7Mmu_VgapqdZVx5MrEIdHEHpk7U1JyuEOvUkCiDKI=.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_02ed60192da0ae65016a861c14187487d18b3fc9aeb8bc35b5",
+                      "index": 1
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2426,
+              "completion_tokens": 234,
+              "total_tokens": 2660,
+              "cost": 0.011089375,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2423,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.011089375,
+                "upstream_inference_prompt_cost": 0.007579375,
+                "upstream_inference_completions_cost": 0.00351
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 59,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.8181818181818182,
+        "metrics": {
+          "score": 0.8181818181818182,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "confidence": 1.0,
+          "tp": 0,
+          "fp": 2,
+          "tn": 9,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 20805,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 21170,
+          "AJCC_STAGING_SYSTEM_EDITION": "8th",
+          "CLINICAL_M_STAGE": "M1a",
+          "CLINICAL_N_STAGE": "N3b",
+          "CLINICAL_T_STAGE": "T4a",
+          "LAST_KNOWN_DISEASE_STATUS": "Distant Metastasis",
+          "METASTASIS_AT_DIAGNOSIS": "Metastatic",
+          "METHOD_OF_DIAGNOSIS": "Incisional Biopsy",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Metastatic",
+          "TUMOR_GRADE": "G3 High Grade"
+        },
+        "token_usage": {
+          "input_tokens": 2426,
+          "output_tokens": 234,
+          "total_tokens": 2660
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 18,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 17520,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 17885,
+          "AJCC_STAGING_SYSTEM_EDITION": "6th",
+          "CLINICAL_M_STAGE": "M0",
+          "CLINICAL_N_STAGE": "N0",
+          "CLINICAL_T_STAGE": "T1",
+          "LAST_KNOWN_DISEASE_STATUS": "Tumor Free",
+          "METASTASIS_AT_DIAGNOSIS": "Non-metastatic (confirmed)",
+          "METHOD_OF_DIAGNOSIS": "Laparoscopy",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "G1 Low Grade"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"17520\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"17885\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"6th\",\n  \"CLINICAL_M_STAGE\": \"M0\",\n  \"CLINICAL_N_STAGE\": \"N0\",\n  \"CLINICAL_T_STAGE\": \"T1\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Tumor Free\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Non-metastatic (confirmed)\",\n  \"METHOD_OF_DIAGNOSIS\": \"Laparoscopy\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G1 Low Grade\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2421,
+            "outputTokens": 217,
+            "totalTokens": 2638
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173910-v0qCK2tFR0aHtpVubTaz",
+            "object": "chat.completion",
+            "created": 1787173910,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"17520\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"17885\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"6th\",\n  \"CLINICAL_M_STAGE\": \"M0\",\n  \"CLINICAL_N_STAGE\": \"N0\",\n  \"CLINICAL_T_STAGE\": \"T1\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Tumor Free\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Non-metastatic (confirmed)\",\n  \"METHOD_OF_DIAGNOSIS\": \"Laparoscopy\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Primary\",\n  \"TUMOR_GRADE\": \"G1 Low Grade\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Ensuring schema compliance**\n\nI need to preserve fields according to the schema, which indicates that ages should be strings, not numbers. I want to ensure I don\u2019t introduce broad errors. If the schema demands strings, I\u2019ll need to convert any relevant records. Missing required fields won\u2019t allow for additions, so I should just return valid JSON only. Staying precise is key here to avoid issues with data integrity!",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.summary",
+                      "summary": "**Ensuring schema compliance**\n\nI need to preserve fields according to the schema, which indicates that ages should be strings, not numbers. I want to ensure I don\u2019t introduce broad errors. If the schema demands strings, I\u2019ll need to convert any relevant records. Missing required fields won\u2019t allow for additions, so I should just return valid JSON only. Staying precise is key here to avoid issues with data integrity!",
+                      "format": "openai-responses-v1",
+                      "index": 0
+                    },
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhwZE-gJsOvti7er8lujs5LCfHD-1gY7nvuVkG5aBRsOoJKe9h6Aqi8_J5Tg_QKT6t3BGBTsTmEbtm3aToTTZfu-F02bEivZwQX4BRGkzXQ4YfOE7bQVsAIan5qyu8pI_GU1LNX1ea_N0XlO0J11EKA0UwanEDYQ2D-PHy4apiPwK3ac9OTAfEHt4qRZe_CTGFexPSL3mdgJZqJMs0HNM0q1xBhKtVGLFIPe_tN-y5nqRw49fIcWv1edJydUf4Q-NUaVBHYzxRTC3u-p0G-lp0iZUUxcgz7l-fXJBnVeRH6Yv19dERP_No5egG_6Nj7JcRrY1EkVm0VhtqiRtpr3Vl-UV1fUYnNGdLZkADSfJWYniiU4d-P68EeTWKxDmtOD7ATnz0pCtYx5l5ra84jsf1gqfN70NboGSZ_lES5ozj0yhlN1GajDm7FyBRjEzLrzEh_7c9KYkB47ubjyrs3qpMysZewy2nfn5eOXlUBvh7rRwZZEMTXVfsh1l5o4KdJCSTkfeo7ayLsT8EFYLlr5C17lRC5e1WJa6D08jEKI6HiSWqfbvkTKnDqSLAbSLpzaLKQ73osMyGhf7V3aD4FIQq0C03cSMIrPkhGyVXqw3ovr58Q3bsO9Lb300JZcVZfR5taGlUXqwO7V-ZZL9emYKFBgpcPj1dTBIUAX8HdVLuLbaEQpQmbx0S5Z4ezUlABSXpia4ql4mS5xO7H9Fucg7g-vq0DyIzItw44q4pfz-PPJe5NSZw5r1R2C7yD0VPnIUlV_tls0TZyhvQ60DmI9_tD1QaQJKlOfyn511fXU2kkJlP7bSrHOaQMXcz9U6pZjXIKUlHe_sLUAzMHCd-O2hVpfs05D3hwUwJ3EHdRfQvP-HyEPldYlpVKUe8u1CFRM27vJsQ6HjXzy9J5kTOWZej4HTmV3HYCrF-8sjc6O1_Z2BdpdRoQRo_B5kHnqlfBtMO6UUi2vgUoG1tRgPh-FRxTU2L0yQ4qT791vlH1P6xVwTM0CvDIz3WtXLSFz3Fk6shd1w-UgkvMqfE2TFoaxij-M4hj-rUsG-_LfDJCei8bNGZc0mWRC6zjf46VEtiuFlTqaMefQAaWIXEcovqkRYe94bYy7zwzYvBik7dXmaXlaNVYH0Cy_oZ8LjQE0cnafPvs5oFUmWozc7vXqRRtAsrWnbLpiOV0-JUKxB0VJHEzf_PMXpzYqTO5Dupm2tU7RpnGN0spoibDME7Z3zmvnlkSYdtbWt57ydST0qEvHVcCwNo90xO8_FKKXdIfT2DcPcEJrGnpduHySAe4JWk18kqoR3COapBhUZJzeRBkFXrdgQcyam0o_SSDX2w-NYbp4yrZsYo2-am3tf4SFnaBJtcxU7T1Ecjc7bg8uwe9dsI6zWOfXRQhZZikVvE_IIVrw8tFp-e32952g5LD1AxwuqnSzfObH-bfKbrTZYtav3rwgwI4pUbw3mH0ElmQ57SSRi_6b-_EoGEU3gjkVvrypxnKl7zw3JcVDvwYoHYv4z_Pm0FDRbYjbiuFA3VTdvTqJOFIdUzLZQrrihi_6nVWxVk5FRki6JHUe1E9I2xZ1ijInPsdMdmc4y-09B3K7QQAm96UV-brYrV_bt4kk9Wg1f1T43yds72Z0B0ANv6nWutHYe7835c0N-P8QYLRUJrjPTzq7.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_0cbb025fd1295014016a861c179cd8819597716cf80b3fb68d",
+                      "index": 1
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2421,
+              "completion_tokens": 217,
+              "total_tokens": 2638,
+              "cost": 0.01081875,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2418,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.01081875,
+                "upstream_inference_prompt_cost": 0.00756375,
+                "upstream_inference_completions_cost": 0.003255
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 47,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.8181818181818182,
+        "metrics": {
+          "score": 0.8181818181818182,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "confidence": 1.0,
+          "tp": 0,
+          "fp": 2,
+          "tn": 9,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 17520,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 17885,
+          "AJCC_STAGING_SYSTEM_EDITION": "6th",
+          "CLINICAL_M_STAGE": "M0",
+          "CLINICAL_N_STAGE": "N0",
+          "CLINICAL_T_STAGE": "T1",
+          "LAST_KNOWN_DISEASE_STATUS": "Tumor Free",
+          "METASTASIS_AT_DIAGNOSIS": "Non-metastatic (confirmed)",
+          "METHOD_OF_DIAGNOSIS": "Laparoscopy",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Primary",
+          "TUMOR_GRADE": "G1 Low Grade"
+        },
+        "token_usage": {
+          "input_tokens": 2421,
+          "output_tokens": 217,
+          "total_tokens": 2638
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 19,
+        "input": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 23725,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 24090,
+          "AJCC_STAGING_SYSTEM_EDITION": "5th",
+          "CLINICAL_M_STAGE": "M1b",
+          "CLINICAL_N_STAGE": "N3c",
+          "CLINICAL_T_STAGE": "T4b",
+          "LAST_KNOWN_DISEASE_STATUS": "Distant Metastasis",
+          "METASTASIS_AT_DIAGNOSIS": "Metastatic",
+          "METHOD_OF_DIAGNOSIS": "Laparotomy",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Metastatic",
+          "TUMOR_GRADE": "G4 Anaplastic"
+        },
+        "response": {
+          "success": true,
+          "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"23725\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"24090\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"5th\",\n  \"CLINICAL_M_STAGE\": \"M1b\",\n  \"CLINICAL_N_STAGE\": \"N3c\",\n  \"CLINICAL_T_STAGE\": \"T4b\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Distant Metastasis\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Metastatic\",\n  \"METHOD_OF_DIAGNOSIS\": \"Laparotomy\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Metastatic\",\n  \"TUMOR_GRADE\": \"G4 Anaplastic\"\n}",
+          "model_id": "openai/gpt-5.6-sol",
+          "usage": {
+            "inputTokens": 2426,
+            "outputTokens": 280,
+            "totalTokens": 2706
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787173914-oxCY2BiIAer7HbfaOqDc",
+            "object": "chat.completion",
+            "created": 1787173914,
+            "model": "openai/gpt-5.6-sol",
+            "provider": "OpenAI",
+            "system_fingerprint": null,
+            "service_tier": "default",
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "completed",
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"AGE_IN_DAYS_AT_DIAGNOSIS\": \"23725\",\n  \"AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS\": \"24090\",\n  \"AJCC_STAGING_SYSTEM_EDITION\": \"5th\",\n  \"CLINICAL_M_STAGE\": \"M1b\",\n  \"CLINICAL_N_STAGE\": \"N3c\",\n  \"CLINICAL_T_STAGE\": \"T4b\",\n  \"LAST_KNOWN_DISEASE_STATUS\": \"Distant Metastasis\",\n  \"METASTASIS_AT_DIAGNOSIS\": \"Metastatic\",\n  \"METHOD_OF_DIAGNOSIS\": \"Laparotomy\",\n  \"TUMOR_CLASSIFICATION_CATEGORY\": \"Metastatic\",\n  \"TUMOR_GRADE\": \"G4 Anaplastic\"\n}",
+                  "refusal": null,
+                  "reasoning": "**Evaluating JSON output requirements**\n\nI need to ensure that only the necessary JSON fields are preserved, but some are missing. I shouldn\u2019t add anything unnecessarily. I\u2019m considering that age values should match the schema and might need to be converted to strings. It's essential to keep the original fields intact while ensuring the output is valid JSON. Broad synonyms for metadata corrections are not fitting, so I\u2019ll stick to exact terms from existing enums instead.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.summary",
+                      "summary": "**Evaluating JSON output requirements**\n\nI need to ensure that only the necessary JSON fields are preserved, but some are missing. I shouldn\u2019t add anything unnecessarily. I\u2019m considering that age values should match the schema and might need to be converted to strings. It's essential to keep the original fields intact while ensuring the output is valid JSON. Broad synonyms for metadata corrections are not fitting, so I\u2019ll stick to exact terms from existing enums instead.",
+                      "format": "openai-responses-v1",
+                      "index": 0
+                    },
+                    {
+                      "type": "reasoning.encrypted",
+                      "data": "gAAAAABqhhwdOTO3zWG97y6tNZb9C2EEOuz78rW-4zb6WjHohI_5-jQhyOwFP-x7TKpw4mikeygpQHoNif4e6-673wss4drg2HZ8rPmn5jofTXvrMyieWAjZOoS5T0tSIn4DU832BM1e7m4lMBNrN99cEBooCd_i9kaY2n5vKJKNjLSbaa2w9JKm_nuB66vbqJHz_J1mSdpY3ZjjeAmwBsc_vMg0m2reorWHmauwpEGfX0Th3K6odvbrMrXxI2IpwZrl8cc-LVLNZ0rdZT_R03_A2A9hBLd6225YAZeTaD3ZcQ9SFZ78QmWED1epoAEAcDSnn5pY0l6NA1nSp-n4Qu9kW8TCxxkt-8a8ehyZh2ynIqFthjDD0WfE5iUxopyvf_MLbohTOh0kZx34hfn_EkLqDNcY7g1ovv10698zqxKgBxjlN4oEEzcJTKODNDBltOk1VuOthfSmtOSJcpWHnG3pB1wfCqNrhtnVrisDm6L3Yh67AgFL2utstPA8yZ8locB7otYbqkn6UdkhgknGR6pS8QYWay6xEcXsGkXs9T1OKa3sz7JiJYaY871N-SFfalG04m1pYI8I_evMjbI8NTE1i6phjPFk4PkzG48U4Tizdh0V-Hl6l-2w05DV7hiL73XR4geX-QfY2d5rPsKgdut3wAzDUQt8afD4_nPueggxB3oRS8HCKD8cVbDoYSFWvtm-eYxVYpMW80mVZy6UVKwvRIbck_rpjHzsOwONkWpb0eNGyW3aoDLfs_ELUcnL5IMIT_uBf6DoZq0guD-WThgxfOAjx7py5t6H7DoZwjkgMZkaluP8mJe6AygHoXKY0yJLBdHGDKm0L8bPm1suTT6fUVrkwW4U7Q9NJob9SrPtSXDtz8_IjpWBWzkbh16jMxSEvWw_zQtKfZU1NDaoX3wX3V13T5pZruZmtYJxfZAi9Q4i7PESvxtJQSwTjRtXoOA2q61yLOtZeOAxb3BYlYRmI-oVfUFcl_WFmXCdAVLLrOizyaIbzh9M8j-ZR-5JoIy9zEiCR9_q9CueXD4sW6Jqyb9lHsnCoOXi4_T9acFUfMNhB9_DLbjjRRkJjBQNaUqITu6FKnP29IGFYiqMy8P-XE7qGuinWDFmoctQLTzqhad90BhYBtkhO8nqCStoH8KDuPvlPvhZkwfe-yw35vJs58fb-dATehWbat3zcsnx1l4jHHg7ypDU_FhfGccTzNNAYdakrXVb_7cAzM5Hb2QamoyNApP99qvRlP7QHdHiICxGPhd_jqLwGcrJOxoAHCMkENbnAu6w42enHwrsHtIt2yPif_ZUbe3Puvu-rMONvYop-dSsMrIO85d_mO_K1HHimKO4QsavgoCVIiMKbWabFrBIRB2LuNh9l0Mxiq4s-JX77M7qAk-GFUN-E6Y5vx76kr1mMvtPMFnFAOtrWPld9XUr7olGhBngoyepJheZH5ccBb1mom-jVJDO_HXwCZ9KZpkJDjV6FNnboxumy-h6kcdntOOzsxyEjR1TGiCLmaQXRU7p1Sk2oSznKikHDXWoJW9ybX15aTne0qSar_Fq1L5RiP1Y1lcR6GqWX4V_zeGNeo8RZHzc14QCjjS5MbzLmzdLL1A1ByvdjMxihjQzPbkCutfWD6qqAKy3I0Yg6LJlNiiqZb4IXbvFQblSuFa8nrLVPWzQS095dNgTl0sbAut_YMLga9xAdJ-tz5yDlaJR-_oZ97QFhlpNz-KDUDrbExbxIA2hMBeYMG0Ijqa4-4B3QC2WrAovg6d4hdK3Z8a_ZmSFEPU7L0B77UyH9-1ZG4RemhUETpKlmsm3QPWdr5mey3yAqDDHC_pUslS9P-_VvJG-J_1Enq7NLqLz1VPweNmOUyRQzKW4PtLqxA3seoeLoDiEdPqCQuushdjrKMa1XovgJarAiIMYanAgR7g6-ADl6HXXFdybI6hL4oKVeWyOtLeip39_4upb3iTXPvEbuySSJ3kMG3aMwrydbBWmOo9IBzlkK-SkRp5j08sjKu0MVXXzEA==.eyJlbmRwb2ludF9zbHVnIjoib3BlbmFpL2dwdC01LjYtc29sLTIwMjYwNzA5fG9wZW5haSJ9",
+                      "format": "openai-responses-v1",
+                      "id": "rs_04995ee2798123f8016a861c1ae5c087d185ce4e409d052794",
+                      "index": 1
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2426,
+              "completion_tokens": 280,
+              "total_tokens": 2706,
+              "cost": 0.011779375,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 2423,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.011779375,
+                "upstream_inference_prompt_cost": 0.007579375,
+                "upstream_inference_completions_cost": 0.0042
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 105,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.8181818181818182,
+        "metrics": {
+          "score": 0.8181818181818182,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "confidence": 1.0,
+          "tp": 0,
+          "fp": 2,
+          "tn": 9,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AGE_IN_DAYS_AT_DIAGNOSIS": 23725,
+          "AGE_IN_DAYS_AT_LAST_KNOWN_DISEASE_STATUS": 24090,
+          "AJCC_STAGING_SYSTEM_EDITION": "5th",
+          "CLINICAL_M_STAGE": "M1b",
+          "CLINICAL_N_STAGE": "N3c",
+          "CLINICAL_T_STAGE": "T4b",
+          "LAST_KNOWN_DISEASE_STATUS": "Distant Metastasis",
+          "METASTASIS_AT_DIAGNOSIS": "Metastatic",
+          "METHOD_OF_DIAGNOSIS": "Laparotomy",
+          "TUMOR_CLASSIFICATION_CATEGORY": "Metastatic",
+          "TUMOR_GRADE": "G4 Anaplastic"
+        },
+        "token_usage": {
+          "input_tokens": 2426,
+          "output_tokens": 280,
+          "total_tokens": 2706
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      }
+    ],
+    "metrics": {
+      "total_samples": 20,
+      "successful_runs": 20,
+      "failed_runs": 0,
+      "success_rate": 1.0,
+      "average_score": 0.7954545454545455,
+      "min_score": 0.7272727272727273,
+      "max_score": 0.8181818181818182,
+      "num_scored": 20,
+      "average_f1": 0.619921059332824,
+      "std_f1": 0.3343391121985641,
+      "min_f1": 0.0,
+      "max_f1": 0.9,
+      "average_precision": 0.5351082251082251,
+      "std_precision": 0.29733911536734053,
+      "average_recall": 0.7504166666666666,
+      "std_recall": 0.39947402370371354,
+      "average_confidence": 1.0,
+      "std_confidence": 0.0
+    },
+    "duration_seconds": 94.30383586883545,
+    "token_usage": {
+      "input_tokens": 48402,
+      "output_tokens": 5075,
+      "total_tokens": 53477
+    }
+  }
+}
