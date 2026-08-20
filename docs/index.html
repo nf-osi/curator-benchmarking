@@ -404,6 +404,10 @@
                         <option value="temperature">Temperature</option>
                     </select>
                 </div>
+                <div class="control-group">
+                    <label>Scatter Plot Task Set</label>
+                    <select id="taskSetSelector"></select>
+                </div>
             </div>
 
             <div id="modelLeaderboard"></div>
@@ -416,6 +420,7 @@
         let allExperiments = [];
         let filteredExperiments = [];
         let scatterXAxis = 'duration';
+        let scatterTaskSet = 'all';
 
         async function loadExperiments() {
             try {
@@ -743,7 +748,10 @@
                 const metrics = exp.overall_metrics;
                 if (!metrics) return false;
                 if (metrics.average_accuracy === null || metrics.average_accuracy === undefined) return false;
-                
+
+                // Only show the selected task-set cohort (benchmark sizes aren't comparable)
+                if (scatterTaskSet !== 'all' && (metrics.tasks_completed || 0) !== Number(scatterTaskSet)) return false;
+
                 // Validate based on selected x-axis
                 if (scatterXAxis === 'duration') {
                     if (!metrics.duration_seconds || metrics.duration_seconds <= 0) return false;
@@ -828,7 +836,8 @@
                 'tokens': 'Total Tokens vs Accuracy',
                 'temperature': 'Temperature vs Accuracy'
             };
-            document.getElementById('scatterplotTitle').textContent = titleMap[scatterXAxis] || 'Duration vs Accuracy';
+            const taskSetLabel = scatterTaskSet !== 'all' ? ` — ${scatterTaskSet}-task set` : ' — all task sets';
+            document.getElementById('scatterplotTitle').textContent = (titleMap[scatterXAxis] || 'Duration vs Accuracy') + taskSetLabel;
 
             const ctx = document.getElementById('scatterplotChart').getContext('2d');
 
@@ -951,6 +960,29 @@
                 option.textContent = model;
                 modelFilter.appendChild(option);
             });
+
+            // Populate the scatterplot task-set selector with the distinct
+            // benchmark sizes, defaulting to the largest (current benchmark)
+            // so different task sets aren't plotted side by side.
+            const taskCounts = [...new Set(allExperiments
+                .map(e => e.overall_metrics?.tasks_completed || 0)
+                .filter(n => n > 0))].sort((a, b) => b - a);
+
+            const taskSetSelector = document.getElementById('taskSetSelector');
+            taskSetSelector.innerHTML = '';
+            taskCounts.forEach((count, i) => {
+                const option = document.createElement('option');
+                option.value = String(count);
+                option.textContent = `${count} tasks${i === 0 ? ' (current)' : ''}`;
+                taskSetSelector.appendChild(option);
+            });
+            const allOption = document.createElement('option');
+            allOption.value = 'all';
+            allOption.textContent = 'All task sets';
+            taskSetSelector.appendChild(allOption);
+
+            scatterTaskSet = taskCounts.length > 0 ? String(taskCounts[0]) : 'all';
+            taskSetSelector.value = scatterTaskSet;
         }
 
         function filterAndDisplay() {
@@ -1371,6 +1403,10 @@
         document.getElementById('modelFilter').addEventListener('change', filterAndDisplay);
         document.getElementById('xAxisSelector').addEventListener('change', function() {
             scatterXAxis = this.value;
+            updateScatterplot();
+        });
+        document.getElementById('taskSetSelector').addEventListener('change', function() {
+            scatterTaskSet = this.value;
             updateScatterplot();
         });
 
