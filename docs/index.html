@@ -1058,6 +1058,16 @@
             return bestExperiments;
         }
 
+        function thinkingLabel(modelId, thinking) {
+            if (thinking) return 'Yes';
+            // The framework's thinking flag only controls Bedrock Anthropic models
+            // before the Claude 5 family. OpenRouter models and Claude 5 models run
+            // with their provider-default reasoning behavior regardless of the flag.
+            const isOpenRouter = (modelId || '').includes('/');
+            const isClaude5 = /claude-(opus|sonnet|fable)-5/.test(modelId || '');
+            return (isOpenRouter || isClaude5) ? 'Default' : 'No';
+        }
+
         function taskCountCohorts(experiments) {
             // Group experiments by the number of tasks they were tested against,
             // so scores are only ranked against runs on the same benchmark size.
@@ -1103,7 +1113,7 @@
                                 const tempDisplay = perf.temperature !== null && perf.temperature !== undefined
                                     ? perf.temperature.toFixed(2)
                                     : 'N/A';
-                                const thinkingDisplay = perf.thinking ? 'Yes' : 'No';
+                                const thinkingDisplay = thinkingLabel(perf.model_id, perf.thinking);
                                 const tools = perf.tools || [];
                                 const toolsDisplay = tools.length > 0 ? tools.join(', ') : 'None';
                                 const durationSeconds = perf.durationSeconds || 0;
@@ -1295,7 +1305,7 @@
                                     const tempDisplay = exp.temperature !== null && exp.temperature !== undefined 
                                         ? exp.temperature.toFixed(2) 
                                         : 'N/A';
-                                    const thinkingDisplay = exp.thinking ? 'Yes' : 'No';
+                                    const thinkingDisplay = thinkingLabel(exp.model_id, exp.thinking);
                                     const tools = exp.tools || [];
                                     const toolsDisplay = tools.length > 0 ? tools.join(', ') : 'None';
                                     const durationSeconds = exp.durationSeconds || 0;
