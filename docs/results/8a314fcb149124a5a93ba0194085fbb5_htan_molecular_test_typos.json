@@ -1,0 +1,2383 @@
+{
+  "experiment_id": "8a314fcb149124a5a93ba0194085fbb5",
+  "task_name": "htan_molecular_test_typos",
+  "task_hash": "8c52f35d6f0d03b89676f665f42b40b4",
+  "model_id": "moonshotai/kimi-k3",
+  "system_instructions": "You are a metadata curation assistant. Your task is to help improve and correct metadata \naccording to the specific instructions provided for each task. Be precise, accurate, and \nfollow the guidelines carefully.\n",
+  "temperature": 0.0,
+  "thinking": false,
+  "tools": [],
+  "timestamp": "2026-08-20T00:46:35.999504",
+  "task_result": {
+    "task_name": "htan_molecular_test_typos",
+    "num_samples": 20,
+    "results": [
+      {
+        "sample_index": 0,
+        "input": {
+          "AA_CHANGE": "R116Q",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 15000,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 15005,
+          "CLINICAL_BIOSPECIMEN_TYPE": "blood",
+          "COPY_NUMBER": 2,
+          "EXON": 5,
+          "GENE_SYMBOL": "brca1",
+          "MOLECULAR_ANALYSIS_METHOD": "pcr",
+          "MOLECULAR_ANALYSIS_RESULT": "positive",
+          "PATHOGENICITY": "pathogenic",
+          "TEST_RESULT": 0.85,
+          "VARIANT_ORIGIN": "somatic",
+          "VARIANT_TYPE": "deletion"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"R116Q\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 15000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 15005,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"BLOOD\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 5,\n  \"GENE_SYMBOL\": \"BRCA1\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"PCR\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Positive\",\n  \"PATHOGENICITY\": \"Pathogenic\",\n  \"TEST_RESULT\": \"0.85\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Deletion\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2533,
+            "outputTokens": 495,
+            "totalTokens": 3028
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186322-n1eApMYZuAc1OkD8Qx8D",
+            "object": "chat.completion",
+            "created": 1787186322,
+            "model": "moonshotai/kimi-k3",
+            "provider": "Morph",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"R116Q\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 15000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 15005,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"BLOOD\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 5,\n  \"GENE_SYMBOL\": \"BRCA1\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"PCR\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Positive\",\n  \"PATHOGENICITY\": \"Pathogenic\",\n  \"TEST_RESULT\": \"0.85\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Deletion\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data against the schema:\n\n1. \"AA_CHANGE\": \"R116Q\" - string, looks fine.\n\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 15000 - integer, fine.\n\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 15005 - integer, fine.\n\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"blood\" - enum error, should be \"BLOOD\" (case-sensitive).\n\n5. \"COPY_NUMBER\": 2 - integer, fine.\n\n6. \"EXON\": 5 - integer, fine.\n\n7. \"GENE_SYMBOL\": \"brca1\" - gene symbols are uppercase, should be \"BRCA1\".\n\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"pcr\" - enum error, should be \"PCR\".\n\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"positive\" - enum error, should be \"Positive\".\n\n10. \"PATHOGENICITY\": \"pathogenic\" - enum error, should be \"Pathogenic\".\n\n11. \"TEST_RESULT\": 0.85 - schema says type string. So should be \"0.85\" as a string. The description says \"Specific result of a clinical molecular test.\" Type is string. So convert 0.85 to \"0.85\".\n\n12. \"VARIANT_ORIGIN\": \"somatic\" - enum error, should be \"Somatic\".\n\n13. \"VARIANT_TYPE\": \"deletion\" - enum error, should be \"Deletion\".\n\nLet me construct the corrected JSON.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data against the schema:\n\n1. \"AA_CHANGE\": \"R116Q\" - string, looks fine.\n\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 15000 - integer, fine.\n\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 15005 - integer, fine.\n\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"blood\" - enum error, should be \"BLOOD\" (case-sensitive).\n\n5. \"COPY_NUMBER\": 2 - integer, fine.\n\n6. \"EXON\": 5 - integer, fine.\n\n7. \"GENE_SYMBOL\": \"brca1\" - gene symbols are uppercase, should be \"BRCA1\".\n\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"pcr\" - enum error, should be \"PCR\".\n\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"positive\" - enum error, should be \"Positive\".\n\n10. \"PATHOGENICITY\": \"pathogenic\" - enum error, should be \"Pathogenic\".\n\n11. \"TEST_RESULT\": 0.85 - schema says type string. So should be \"0.85\" as a string. The description says \"Specific result of a clinical molecular test.\" Type is string. So convert 0.85 to \"0.85\".\n\n12. \"VARIANT_ORIGIN\": \"somatic\" - enum error, should be \"Somatic\".\n\n13. \"VARIANT_TYPE\": \"deletion\" - enum error, should be \"Deletion\".\n\nLet me construct the corrected JSON.",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2533,
+              "completion_tokens": 495,
+              "total_tokens": 3028,
+              "cost": 0.0140224,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.0140224,
+                "upstream_inference_prompt_cost": 0.0070924,
+                "upstream_inference_completions_cost": 0.00693
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 272,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.9333333333333333,
+          "precision": 0.875,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 7,
+          "fp": 1,
+          "tn": 5,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "R116Q",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 15000,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 15005,
+          "CLINICAL_BIOSPECIMEN_TYPE": "BLOOD",
+          "COPY_NUMBER": 2,
+          "EXON": 5,
+          "GENE_SYMBOL": "BRCA1",
+          "MOLECULAR_ANALYSIS_METHOD": "PCR",
+          "MOLECULAR_ANALYSIS_RESULT": "Positive",
+          "PATHOGENICITY": "Pathogenic",
+          "TEST_RESULT": 0.85,
+          "VARIANT_ORIGIN": "Somatic",
+          "VARIANT_TYPE": "Deletion"
+        },
+        "token_usage": {
+          "input_tokens": 2533,
+          "output_tokens": 495,
+          "total_tokens": 3028
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 1,
+        "input": {
+          "AA_CHANGE": "V600E",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 18250,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 18255,
+          "CLINICAL_BIOSPECIMEN_TYPE": "FORMALIN FIXD PARAFFIN EMBEDDED TISSUE",
+          "COPY_NUMBER": 3,
+          "EXON": 15,
+          "GENE_SYMBOL": "BRAF",
+          "MOLECULAR_ANALYSIS_METHOD": "Immunofluorescense",
+          "MOLECULAR_ANALYSIS_RESULT": "Overexpresed",
+          "PATHOGENICITY": "Likley Pathogenic",
+          "TEST_RESULT": 1.2,
+          "VARIANT_ORIGIN": "Germlin",
+          "VARIANT_TYPE": "Amplificaton"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"V600E\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 18250,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 18255,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\",\n  \"COPY_NUMBER\": 3,\n  \"EXON\": 15,\n  \"GENE_SYMBOL\": \"BRAF\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Immunofluorescence\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Overexpressed\",\n  \"PATHOGENICITY\": \"Likely Pathogenic\",\n  \"TEST_RESULT\": \"1.2\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Amplification\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2557,
+            "outputTokens": 589,
+            "totalTokens": 3146
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186336-cbeD0AV2IOIvFDBcpjtb",
+            "object": "chat.completion",
+            "created": 1787186336,
+            "model": "moonshotai/kimi-k3",
+            "provider": "DeepInfra",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"V600E\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 18250,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 18255,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\",\n  \"COPY_NUMBER\": 3,\n  \"EXON\": 15,\n  \"GENE_SYMBOL\": \"BRAF\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Immunofluorescence\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Overexpressed\",\n  \"PATHOGENICITY\": \"Likely Pathogenic\",\n  \"TEST_RESULT\": \"1.2\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Amplification\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data for errors:\n\n1. \"AA_CHANGE\": \"V600E\" - looks fine, free text string\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 18250 - integer, fine\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 18255 - integer, fine\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"FORMALIN FIXD PARAFFIN EMBEDDED TISSUE\" - typo \"FIXD\" should be \"FIXED\" \u2192 \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\"\n5. \"COPY_NUMBER\": 3 - integer, fine\n6. \"EXON\": 15 - integer, fine\n7. \"GENE_SYMBOL\": \"BRAF\" - valid gene symbol\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"Immunofluorescense\" - typo, should be \"Immunofluorescence\"\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"Overexpresed\" - typo, should be \"Overexpressed\"\n10. \"PATHOGENICITY\": \"Likley Pathogenic\" - typo, should be \"Likely Pathogenic\"\n11. \"TEST_RESULT\": 1.2 - schema says type string. \"Specific result of a clinical molecular test.\" The type is string, so 1.2 should be \"1.2\" as a string. This is a type mismatch - number for string. Convert to string \"1.2\".\n12. \"VARIANT_ORIGIN\": \"Germlin\" - typo, should be \"Germline\"\n13. \"VARIANT_TYPE\": \"Amplificaton\" - typo, should be \"Amplification\"\n\nLet me double-check TEST_RESULT: schema type is \"string\". Input is 1.2 (a number). So correct to \"1.2\".\n\nAll other fields preserved.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data for errors:\n\n1. \"AA_CHANGE\": \"V600E\" - looks fine, free text string\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 18250 - integer, fine\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 18255 - integer, fine\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"FORMALIN FIXD PARAFFIN EMBEDDED TISSUE\" - typo \"FIXD\" should be \"FIXED\" \u2192 \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\"\n5. \"COPY_NUMBER\": 3 - integer, fine\n6. \"EXON\": 15 - integer, fine\n7. \"GENE_SYMBOL\": \"BRAF\" - valid gene symbol\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"Immunofluorescense\" - typo, should be \"Immunofluorescence\"\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"Overexpresed\" - typo, should be \"Overexpressed\"\n10. \"PATHOGENICITY\": \"Likley Pathogenic\" - typo, should be \"Likely Pathogenic\"\n11. \"TEST_RESULT\": 1.2 - schema says type string. \"Specific result of a clinical molecular test.\" The type is string, so 1.2 should be \"1.2\" as a string. This is a type mismatch - number for string. Convert to string \"1.2\".\n12. \"VARIANT_ORIGIN\": \"Germlin\" - typo, should be \"Germline\"\n13. \"VARIANT_TYPE\": \"Amplificaton\" - typo, should be \"Amplification\"\n\nLet me double-check TEST_RESULT: schema type is \"string\". Input is 1.2 (a number). So correct to \"1.2\".\n\nAll other fields preserved.",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2557,
+              "completion_tokens": 589,
+              "total_tokens": 3146,
+              "cost": 0.0156807,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.0156807,
+                "upstream_inference_prompt_cost": 0.00728745,
+                "upstream_inference_completions_cost": 0.00839325
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 312,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.923076923076923,
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 6,
+          "fp": 1,
+          "tn": 6,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "V600E",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 18250,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 18255,
+          "CLINICAL_BIOSPECIMEN_TYPE": "FORMALIN FIXED PARAFFIN EMBEDDED TISSUE",
+          "COPY_NUMBER": 3,
+          "EXON": 15,
+          "GENE_SYMBOL": "BRAF",
+          "MOLECULAR_ANALYSIS_METHOD": "Immunofluorescence",
+          "MOLECULAR_ANALYSIS_RESULT": "Overexpressed",
+          "PATHOGENICITY": "Likely Pathogenic",
+          "TEST_RESULT": 1.2,
+          "VARIANT_ORIGIN": "Germline",
+          "VARIANT_TYPE": "Amplification"
+        },
+        "token_usage": {
+          "input_tokens": 2557,
+          "output_tokens": 589,
+          "total_tokens": 3146
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 2,
+        "input": {
+          "AA_CHANGE": "L858R",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 20000,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 20007,
+          "CLINICAL_BIOSPECIMEN_TYPE": " BLOOD ",
+          "COPY_NUMBER": 1,
+          "EXON": 21,
+          "GENE_SYMBOL": " EGFR ",
+          "MOLECULAR_ANALYSIS_METHOD": "  PCR  ",
+          "MOLECULAR_ANALYSIS_RESULT": " Positive ",
+          "PATHOGENICITY": "Pathogenic  ",
+          "TEST_RESULT": 0.95,
+          "VARIANT_ORIGIN": "  Somatic",
+          "VARIANT_TYPE": "Insertion "
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"L858R\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 20000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 20007,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"BLOOD\",\n  \"COPY_NUMBER\": 1,\n  \"EXON\": 21,\n  \"GENE_SYMBOL\": \"EGFR\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"PCR\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Positive\",\n  \"PATHOGENICITY\": \"Pathogenic\",\n  \"TEST_RESULT\": \"0.95\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Insertion\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2573,
+            "outputTokens": 699,
+            "totalTokens": 3272
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186425-KTLRv5mUbq9wHWgmqEiL",
+            "object": "chat.completion",
+            "created": 1787186425,
+            "model": "moonshotai/kimi-k3",
+            "provider": "Sail Research",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"L858R\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 20000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 20007,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"BLOOD\",\n  \"COPY_NUMBER\": 1,\n  \"EXON\": 21,\n  \"GENE_SYMBOL\": \"EGFR\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"PCR\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Positive\",\n  \"PATHOGENICITY\": \"Pathogenic\",\n  \"TEST_RESULT\": \"0.95\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Insertion\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data for errors:\n\n1. `AA_CHANGE`: \"L858R\" - looks fine, free text string\n2. `AGE_IN_DAYS_AT_MOLECULAR_TEST_START`: 20000 - integer, fine\n3. `AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP`: 20007 - integer, fine\n4. `CLINICAL_BIOSPECIMEN_TYPE`: \" BLOOD \" - has leading/trailing whitespace, should be \"BLOOD\"\n5. `COPY_NUMBER`: 1 - integer, fine\n6. `EXON`: 21 - integer, fine\n7. `GENE_SYMBOL`: \" EGFR \" - whitespace, should be \"EGFR\"\n8. `MOLECULAR_ANALYSIS_METHOD`: \"  PCR  \" - whitespace, should be \"PCR\"\n9. `MOLECULAR_ANALYSIS_RESULT`: \" Positive \" - whitespace, should be \"Positive\"\n10. `PATHOGENICITY`: \"Pathogenic  \" - trailing whitespace, should be \"Pathogenic\"\n11. `TEST_RESULT`: 0.95 - schema says type is string. \"Specific result of a clinical molecular test.\" The type is string, so 0.95 should be converted to \"0.95\"\n12. `VARIANT_ORIGIN`: \"  Somatic\" - leading whitespace, should be \"Somatic\"\n13. `VARIANT_TYPE`: \"Insertion \" - trailing whitespace, should be \"Insertion\"\n\nThe main errors here are whitespace issues and the TEST_RESULT type mismatch (number instead of string).\n\nLet me correct:\n- CLINICAL_BIOSPECIMEN_TYPE: \"BLOOD\"\n- GENE_SYMBOL: \"EGFR\"\n- MOLECULAR_ANALYSIS_METHOD: \"PCR\"\n- MOLECULAR_ANALYSIS_RESULT: \"Positive\"\n- PATHOGENICITY: \"Pathogenic\"\n- TEST_RESULT: \"0.95\" (string type)\n- VARIANT_ORIGIN: \"Somatic\"\n- VARIANT_TYPE: \"Insertion\"\n\nAll enum values check out:\n- \"BLOOD\" is in CLINICAL_BIOSPECIMEN_TYPE enum \u2713\n- \"PCR\" is in MOLECULAR_ANALYSIS_METHOD enum \u2713\n- \"Positive\" is in MOLECULAR_ANALYSIS_RESULT enum \u2713\n- \"Pathogenic\" is in PATHOGENICITY enum \u2713\n- \"Somatic\" is in VARIANT_ORIGIN enum \u2713\n- \"Insertion\" is in VARIANT_TYPE enum \u2713\n- \"EGFR\" is a valid HGNC gene symbol \u2713\n\nOutput the corrected JSON.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data for errors:\n\n1. `AA_CHANGE`: \"L858R\" - looks fine, free text string\n2. `AGE_IN_DAYS_AT_MOLECULAR_TEST_START`: 20000 - integer, fine\n3. `AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP`: 20007 - integer, fine\n4. `CLINICAL_BIOSPECIMEN_TYPE`: \" BLOOD \" - has leading/trailing whitespace, should be \"BLOOD\"\n5. `COPY_NUMBER`: 1 - integer, fine\n6. `EXON`: 21 - integer, fine\n7. `GENE_SYMBOL`: \" EGFR \" - whitespace, should be \"EGFR\"\n8. `MOLECULAR_ANALYSIS_METHOD`: \"  PCR  \" - whitespace, should be \"PCR\"\n9. `MOLECULAR_ANALYSIS_RESULT`: \" Positive \" - whitespace, should be \"Positive\"\n10. `PATHOGENICITY`: \"Pathogenic  \" - trailing whitespace, should be \"Pathogenic\"\n11. `TEST_RESULT`: 0.95 - schema says type is string. \"Specific result of a clinical molecular test.\" The type is string, so 0.95 should be converted to \"0.95\"\n12. `VARIANT_ORIGIN`: \"  Somatic\" - leading whitespace, should be \"Somatic\"\n13. `VARIANT_TYPE`: \"Insertion \" - trailing whitespace, should be \"Insertion\"\n\nThe main errors here are whitespace issues and the TEST_RESULT type mismatch (number instead of string).\n\nLet me correct:\n- CLINICAL_BIOSPECIMEN_TYPE: \"BLOOD\"\n- GENE_SYMBOL: \"EGFR\"\n- MOLECULAR_ANALYSIS_METHOD: \"PCR\"\n- MOLECULAR_ANALYSIS_RESULT: \"Positive\"\n- PATHOGENICITY: \"Pathogenic\"\n- TEST_RESULT: \"0.95\" (string type)\n- VARIANT_ORIGIN: \"Somatic\"\n- VARIANT_TYPE: \"Insertion\"\n\nAll enum values check out:\n- \"BLOOD\" is in CLINICAL_BIOSPECIMEN_TYPE enum \u2713\n- \"PCR\" is in MOLECULAR_ANALYSIS_METHOD enum \u2713\n- \"Positive\" is in MOLECULAR_ANALYSIS_RESULT enum \u2713\n- \"Pathogenic\" is in PATHOGENICITY enum \u2713\n- \"Somatic\" is in VARIANT_ORIGIN enum \u2713\n- \"Insertion\" is in VARIANT_TYPE enum \u2713\n- \"EGFR\" is a valid HGNC gene symbol \u2713\n\nOutput the corrected JSON.",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2573,
+              "completion_tokens": 699,
+              "total_tokens": 3272,
+              "cost": 0.01562896,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 64,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.01562896,
+                "upstream_inference_prompt_cost": 0.00654196,
+                "upstream_inference_completions_cost": 0.009087
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 533,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.9333333333333333,
+          "precision": 0.875,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 7,
+          "fp": 1,
+          "tn": 5,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "L858R",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 20000,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 20007,
+          "CLINICAL_BIOSPECIMEN_TYPE": "BLOOD",
+          "COPY_NUMBER": 1,
+          "EXON": 21,
+          "GENE_SYMBOL": "EGFR",
+          "MOLECULAR_ANALYSIS_METHOD": "PCR",
+          "MOLECULAR_ANALYSIS_RESULT": "Positive",
+          "PATHOGENICITY": "Pathogenic",
+          "TEST_RESULT": 0.95,
+          "VARIANT_ORIGIN": "Somatic",
+          "VARIANT_TYPE": "Insertion"
+        },
+        "token_usage": {
+          "input_tokens": 2573,
+          "output_tokens": 699,
+          "total_tokens": 3272
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 3,
+        "input": {
+          "AA_CHANGE": "T790M",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 22000,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 22005,
+          "CLINICAL_BIOSPECIMEN_TYPE": "FROZEN",
+          "COPY_NUMBER": 2,
+          "EXON": 20,
+          "GENE_SYMBOL": "EGFR",
+          "MOLECULAR_ANALYSIS_METHOD": "Flow",
+          "MOLECULAR_ANALYSIS_RESULT": "Abnormal",
+          "PATHOGENICITY": "Uncertain",
+          "TEST_RESULT": 0.75,
+          "VARIANT_ORIGIN": "Not Report",
+          "VARIANT_TYPE": "Dup"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"T790M\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 22000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 22005,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FROZEN TISSUE\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 20,\n  \"GENE_SYMBOL\": \"EGFR\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Flow cytometry\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Abnormal, NOS\",\n  \"PATHOGENICITY\": \"Uncertain Significance\",\n  \"TEST_RESULT\": \"0.75\",\n  \"VARIANT_ORIGIN\": \"Not Reported\",\n  \"VARIANT_TYPE\": \"Duplication\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2572,
+            "outputTokens": 858,
+            "totalTokens": 3430
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186431-MKbW5pPFYf205p0XfSfS",
+            "object": "chat.completion",
+            "created": 1787186431,
+            "model": "moonshotai/kimi-k3",
+            "provider": "Sail Research",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"T790M\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 22000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 22005,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FROZEN TISSUE\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 20,\n  \"GENE_SYMBOL\": \"EGFR\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Flow cytometry\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Abnormal, NOS\",\n  \"PATHOGENICITY\": \"Uncertain Significance\",\n  \"TEST_RESULT\": \"0.75\",\n  \"VARIANT_ORIGIN\": \"Not Reported\",\n  \"VARIANT_TYPE\": \"Duplication\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data against the schema:\n\n1. **AA_CHANGE**: \"T790M\" - string, looks fine.\n\n2. **AGE_IN_DAYS_AT_MOLECULAR_TEST_START**: 22000 - integer, fine.\n\n3. **AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP**: 22005 - integer, fine.\n\n4. **CLINICAL_BIOSPECIMEN_TYPE**: \"FROZEN\" - enum values include \"FROZEN TISSUE\". \"FROZEN\" is not in the enum. Should be \"FROZEN TISSUE\".\n\n5. **COPY_NUMBER**: 2 - integer, fine.\n\n6. **EXON**: 20 - integer, fine.\n\n7. **GENE_SYMBOL**: \"EGFR\" - valid HGNC gene symbol, fine.\n\n8. **MOLECULAR_ANALYSIS_METHOD**: \"Flow\" - enum includes \"Flow cytometry\". \"Flow\" is not valid. Should be \"Flow cytometry\".\n\n9. **MOLECULAR_ANALYSIS_RESULT**: \"Abnormal\" - enum includes \"Abnormal, NOS\". \"Abnormal\" alone is not valid. Should be \"Abnormal, NOS\".\n\n10. **PATHOGENICITY**: \"Uncertain\" - enum includes \"Uncertain Significance\". Should be \"Uncertain Significance\".\n\n11. **TEST_RESULT**: 0.75 - schema says type is string. \"Specific result of a clinical molecular test.\" So it should be a string \"0.75\". Type mismatch - should be string.\n\n12. **VARIANT_ORIGIN**: \"Not Report\" - enum includes \"Not Reported\". Should be \"Not Reported\".\n\n13. **VARIANT_TYPE**: \"Dup\" - enum includes \"Duplication\". \"Dup\" is an abbreviation. Should be \"Duplication\".\n\nLet me double-check each:\n\n- CLINICAL_BIOSPECIMEN_TYPE enum: [\"BLOOD\", \"BONE MARROW\", \"BUCCAL CELL SAMPLE\", \"CEREBROSPINAL FLUID\", \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\", \"FORMALIN FIXED TISSUE\", \"FRESH TISSUE\", \"FROZEN TISSUE\", \"OTHER BODILY FLUIDS\", \"SALIVA\", \"STOOL\", \"URINE\"]. \"FROZEN\" \u2192 \"FROZEN TISSUE\". \u2713\n\n- MOLECULAR_ANALYSIS_METHOD enum preview: \"Flow cytometry\" is there. \"Flow\" \u2192 \"Flow cytometry\". \u2713\n\n- MOLECULAR_ANALYSIS_RESULT enum: \"Abnormal, NOS\" is the closest. \"Abnormal\" \u2192 \"Abnormal, NOS\". \u2713\n\n- PATHOGENICITY enum: \"Uncertain Significance\". \"Uncertain\" \u2192 \"Uncertain Significance\". \u2713\n\n- TEST_RESULT: type string. 0.75 \u2192 \"0.75\". \u2713\n\n- VARIANT_ORIGIN enum: \"Not Reported\". \"Not Report\" \u2192 \"Not Reported\". \u2713\n\n- VARIANT_TYPE enum preview: \"Duplication\". \"Dup\" \u2192 \"Duplication\". \u2713\n\nOutput the corrected JSON.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data against the schema:\n\n1. **AA_CHANGE**: \"T790M\" - string, looks fine.\n\n2. **AGE_IN_DAYS_AT_MOLECULAR_TEST_START**: 22000 - integer, fine.\n\n3. **AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP**: 22005 - integer, fine.\n\n4. **CLINICAL_BIOSPECIMEN_TYPE**: \"FROZEN\" - enum values include \"FROZEN TISSUE\". \"FROZEN\" is not in the enum. Should be \"FROZEN TISSUE\".\n\n5. **COPY_NUMBER**: 2 - integer, fine.\n\n6. **EXON**: 20 - integer, fine.\n\n7. **GENE_SYMBOL**: \"EGFR\" - valid HGNC gene symbol, fine.\n\n8. **MOLECULAR_ANALYSIS_METHOD**: \"Flow\" - enum includes \"Flow cytometry\". \"Flow\" is not valid. Should be \"Flow cytometry\".\n\n9. **MOLECULAR_ANALYSIS_RESULT**: \"Abnormal\" - enum includes \"Abnormal, NOS\". \"Abnormal\" alone is not valid. Should be \"Abnormal, NOS\".\n\n10. **PATHOGENICITY**: \"Uncertain\" - enum includes \"Uncertain Significance\". Should be \"Uncertain Significance\".\n\n11. **TEST_RESULT**: 0.75 - schema says type is string. \"Specific result of a clinical molecular test.\" So it should be a string \"0.75\". Type mismatch - should be string.\n\n12. **VARIANT_ORIGIN**: \"Not Report\" - enum includes \"Not Reported\". Should be \"Not Reported\".\n\n13. **VARIANT_TYPE**: \"Dup\" - enum includes \"Duplication\". \"Dup\" is an abbreviation. Should be \"Duplication\".\n\nLet me double-check each:\n\n- CLINICAL_BIOSPECIMEN_TYPE enum: [\"BLOOD\", \"BONE MARROW\", \"BUCCAL CELL SAMPLE\", \"CEREBROSPINAL FLUID\", \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\", \"FORMALIN FIXED TISSUE\", \"FRESH TISSUE\", \"FROZEN TISSUE\", \"OTHER BODILY FLUIDS\", \"SALIVA\", \"STOOL\", \"URINE\"]. \"FROZEN\" \u2192 \"FROZEN TISSUE\". \u2713\n\n- MOLECULAR_ANALYSIS_METHOD enum preview: \"Flow cytometry\" is there. \"Flow\" \u2192 \"Flow cytometry\". \u2713\n\n- MOLECULAR_ANALYSIS_RESULT enum: \"Abnormal, NOS\" is the closest. \"Abnormal\" \u2192 \"Abnormal, NOS\". \u2713\n\n- PATHOGENICITY enum: \"Uncertain Significance\". \"Uncertain\" \u2192 \"Uncertain Significance\". \u2713\n\n- TEST_RESULT: type string. 0.75 \u2192 \"0.75\". \u2713\n\n- VARIANT_ORIGIN enum: \"Not Reported\". \"Not Report\" \u2192 \"Not Reported\". \u2713\n\n- VARIANT_TYPE enum preview: \"Duplication\". \"Dup\" \u2192 \"Duplication\". \u2713\n\nOutput the corrected JSON.",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2572,
+              "completion_tokens": 858,
+              "total_tokens": 3430,
+              "cost": 0.01311032,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 2048,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.01311032,
+                "upstream_inference_prompt_cost": 0.00195632,
+                "upstream_inference_completions_cost": 0.011154
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 676,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.923076923076923,
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 6,
+          "fp": 1,
+          "tn": 6,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "T790M",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 22000,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 22005,
+          "CLINICAL_BIOSPECIMEN_TYPE": "FROZEN TISSUE",
+          "COPY_NUMBER": 2,
+          "EXON": 20,
+          "GENE_SYMBOL": "EGFR",
+          "MOLECULAR_ANALYSIS_METHOD": "Flow cytometry",
+          "MOLECULAR_ANALYSIS_RESULT": "Abnormal, NOS",
+          "PATHOGENICITY": "Uncertain Significance",
+          "TEST_RESULT": 0.75,
+          "VARIANT_ORIGIN": "Not Reported",
+          "VARIANT_TYPE": "Duplication"
+        },
+        "token_usage": {
+          "input_tokens": 2572,
+          "output_tokens": 858,
+          "total_tokens": 3430
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 4,
+        "input": {
+          "AA_CHANGE": "G12D",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 16000,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 16003,
+          "CLINICAL_BIOSPECIMEN_TYPE": "FFPE",
+          "COPY_NUMBER": 4,
+          "EXON": 2,
+          "GENE_SYMBOL": "KRAS",
+          "MOLECULAR_ANALYSIS_METHOD": "IHC",
+          "MOLECULAR_ANALYSIS_RESULT": "Pos",
+          "PATHOGENICITY": "Path",
+          "TEST_RESULT": 2.1,
+          "VARIANT_ORIGIN": "Som",
+          "VARIANT_TYPE": "Del"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"G12D\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 16000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 16003,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\",\n  \"COPY_NUMBER\": 4,\n  \"EXON\": 2,\n  \"GENE_SYMBOL\": \"KRAS\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"IHC\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Positive\",\n  \"PATHOGENICITY\": \"Pathogenic\",\n  \"TEST_RESULT\": \"2.1\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Deletion\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2568,
+            "outputTokens": 826,
+            "totalTokens": 3394
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186436-j6ZSBwlm91sOnMfkiTEf",
+            "object": "chat.completion",
+            "created": 1787186436,
+            "model": "moonshotai/kimi-k3",
+            "provider": "Sail Research",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"G12D\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 16000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 16003,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\",\n  \"COPY_NUMBER\": 4,\n  \"EXON\": 2,\n  \"GENE_SYMBOL\": \"KRAS\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"IHC\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Positive\",\n  \"PATHOGENICITY\": \"Pathogenic\",\n  \"TEST_RESULT\": \"2.1\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Deletion\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data against the target schema to identify errors:\n\n1. **AA_CHANGE**: \"G12D\" - string, looks fine.\n\n2. **AGE_IN_DAYS_AT_MOLECULAR_TEST_START**: 16000 - integer, valid.\n\n3. **AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP**: 16003 - integer, valid.\n\n4. **CLINICAL_BIOSPECIMEN_TYPE**: \"FFPE\" - This is not in the enum. The enum has \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\" which is what FFPE stands for. So correct to \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\".\n\n5. **COPY_NUMBER**: 4 - integer, valid.\n\n6. **EXON**: 2 - integer, valid.\n\n7. **GENE_SYMBOL**: \"KRAS\" - valid HGNC gene symbol.\n\n8. **MOLECULAR_ANALYSIS_METHOD**: \"IHC\" - in enum, valid.\n\n9. **MOLECULAR_ANALYSIS_RESULT**: \"Pos\" - not in enum. The enum has \"Positive\". So correct to \"Positive\".\n\n10. **PATHOGENICITY**: \"Path\" - not in enum. The enum has \"Pathogenic\". So correct to \"Pathogenic\".\n\n11. **TEST_RESULT**: 2.1 - schema says type is \"string\". So this should be a string \"2.1\". Type mismatch - number for string. Correct to \"2.1\".\n\n12. **VARIANT_ORIGIN**: \"Som\" - not in enum. The enum has \"Somatic\". So correct to \"Somatic\".\n\n13. **VARIANT_TYPE**: \"Del\" - not in enum. The enum has \"Deletion\". So correct to \"Deletion\".\n\nLet me construct the corrected JSON:\n\n```json\n{\n  \"AA_CHANGE\": \"G12D\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 16000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 16003,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\",\n  \"COPY_NUMBER\": 4,\n  \"EXON\": 2,\n  \"GENE_SYMBOL\": \"KRAS\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"IHC\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Positive\",\n  \"PATHOGENICITY\": \"Pathogenic\",\n  \"TEST_RESULT\": \"2.1\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Deletion\"\n}\n```\n\nWait, for MOLECULAR_ANALYSIS_RESULT, \"Pos\" could be \"Positive\". Yes, that's the most likely mapping.\n\nFor PATHOGENICITY, \"Path\" \u2192 \"Pathogenic\". Yes.\n\nFor VARIANT_ORIGIN, \"Som\" \u2192 \"Somatic\". Yes.\n\nFor VARIANT_TYPE, \"Del\" \u2192 \"Deletion\". Yes.\n\nFor TEST_RESULT, the schema type is string, so 2.1 should be \"2.1\".\n\nAll other fields are preserved.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data against the target schema to identify errors:\n\n1. **AA_CHANGE**: \"G12D\" - string, looks fine.\n\n2. **AGE_IN_DAYS_AT_MOLECULAR_TEST_START**: 16000 - integer, valid.\n\n3. **AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP**: 16003 - integer, valid.\n\n4. **CLINICAL_BIOSPECIMEN_TYPE**: \"FFPE\" - This is not in the enum. The enum has \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\" which is what FFPE stands for. So correct to \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\".\n\n5. **COPY_NUMBER**: 4 - integer, valid.\n\n6. **EXON**: 2 - integer, valid.\n\n7. **GENE_SYMBOL**: \"KRAS\" - valid HGNC gene symbol.\n\n8. **MOLECULAR_ANALYSIS_METHOD**: \"IHC\" - in enum, valid.\n\n9. **MOLECULAR_ANALYSIS_RESULT**: \"Pos\" - not in enum. The enum has \"Positive\". So correct to \"Positive\".\n\n10. **PATHOGENICITY**: \"Path\" - not in enum. The enum has \"Pathogenic\". So correct to \"Pathogenic\".\n\n11. **TEST_RESULT**: 2.1 - schema says type is \"string\". So this should be a string \"2.1\". Type mismatch - number for string. Correct to \"2.1\".\n\n12. **VARIANT_ORIGIN**: \"Som\" - not in enum. The enum has \"Somatic\". So correct to \"Somatic\".\n\n13. **VARIANT_TYPE**: \"Del\" - not in enum. The enum has \"Deletion\". So correct to \"Deletion\".\n\nLet me construct the corrected JSON:\n\n```json\n{\n  \"AA_CHANGE\": \"G12D\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 16000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 16003,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\",\n  \"COPY_NUMBER\": 4,\n  \"EXON\": 2,\n  \"GENE_SYMBOL\": \"KRAS\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"IHC\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Positive\",\n  \"PATHOGENICITY\": \"Pathogenic\",\n  \"TEST_RESULT\": \"2.1\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Deletion\"\n}\n```\n\nWait, for MOLECULAR_ANALYSIS_RESULT, \"Pos\" could be \"Positive\". Yes, that's the most likely mapping.\n\nFor PATHOGENICITY, \"Path\" \u2192 \"Pathogenic\". Yes.\n\nFor VARIANT_ORIGIN, \"Som\" \u2192 \"Somatic\". Yes.\n\nFor VARIANT_TYPE, \"Del\" \u2192 \"Deletion\". Yes.\n\nFor TEST_RESULT, the schema type is string, so 2.1 should be \"2.1\".\n\nAll other fields are preserved.",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2568,
+              "completion_tokens": 826,
+              "total_tokens": 3394,
+              "cost": 0.01194472,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 2368,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.01194472,
+                "upstream_inference_prompt_cost": 0.00120672,
+                "upstream_inference_completions_cost": 0.010738
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 647,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.9090909090909091,
+          "precision": 0.8333333333333334,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 5,
+          "fp": 1,
+          "tn": 7,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "G12D",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 16000,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 16003,
+          "CLINICAL_BIOSPECIMEN_TYPE": "FORMALIN FIXED PARAFFIN EMBEDDED TISSUE",
+          "COPY_NUMBER": 4,
+          "EXON": 2,
+          "GENE_SYMBOL": "KRAS",
+          "MOLECULAR_ANALYSIS_METHOD": "IHC",
+          "MOLECULAR_ANALYSIS_RESULT": "Positive",
+          "PATHOGENICITY": "Pathogenic",
+          "TEST_RESULT": 2.1,
+          "VARIANT_ORIGIN": "Somatic",
+          "VARIANT_TYPE": "Deletion"
+        },
+        "token_usage": {
+          "input_tokens": 2568,
+          "output_tokens": 826,
+          "total_tokens": 3394
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 5,
+        "input": {
+          "AA_CHANGE": "E545K",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 19000,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 19006,
+          "CLINICAL_BIOSPECIMEN_TYPE": "Bone Marrow",
+          "COPY_NUMBER": 3,
+          "EXON": 9,
+          "GENE_SYMBOL": "PIK3CA",
+          "MOLECULAR_ANALYSIS_METHOD": "Rna Sequencing",
+          "MOLECULAR_ANALYSIS_RESULT": "HIGH",
+          "PATHOGENICITY": "LIKELY PATHOGENIC",
+          "TEST_RESULT": 1.8,
+          "VARIANT_ORIGIN": "GERMLINE",
+          "VARIANT_TYPE": "DUPLICATION"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"E545K\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 19000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 19006,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"BONE MARROW\",\n  \"COPY_NUMBER\": 3,\n  \"EXON\": 9,\n  \"GENE_SYMBOL\": \"PIK3CA\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"RNA sequencing\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"High\",\n  \"PATHOGENICITY\": \"Likely Pathogenic\",\n  \"TEST_RESULT\": \"1.8\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Duplication\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2581,
+            "outputTokens": 639,
+            "totalTokens": 3220
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186441-CObvdoehaAnycVK2vL6F",
+            "object": "chat.completion",
+            "created": 1787186441,
+            "model": "moonshotai/kimi-k3",
+            "provider": "Sail Research",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"E545K\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 19000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 19006,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"BONE MARROW\",\n  \"COPY_NUMBER\": 3,\n  \"EXON\": 9,\n  \"GENE_SYMBOL\": \"PIK3CA\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"RNA sequencing\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"High\",\n  \"PATHOGENICITY\": \"Likely Pathogenic\",\n  \"TEST_RESULT\": \"1.8\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Duplication\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data against the target schema:\n\n1. **AA_CHANGE**: \"E545K\" - string, looks fine.\n\n2. **AGE_IN_DAYS_AT_MOLECULAR_TEST_START**: 19000 - integer, valid.\n\n3. **AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP**: 19006 - integer, valid.\n\n4. **CLINICAL_BIOSPECIMEN_TYPE**: \"Bone Marrow\" - enum error. Should be \"BONE MARROW\" (case-sensitive).\n\n5. **COPY_NUMBER**: 3 - integer, valid.\n\n6. **EXON**: 9 - integer, valid.\n\n7. **GENE_SYMBOL**: \"PIK3CA\" - valid HGNC gene symbol.\n\n8. **MOLECULAR_ANALYSIS_METHOD**: \"Rna Sequencing\" - enum error. Should be \"RNA sequencing\" (from enum preview).\n\n9. **MOLECULAR_ANALYSIS_RESULT**: \"HIGH\" - enum error. Should be \"High\".\n\n10. **PATHOGENICITY**: \"LIKELY PATHOGENIC\" - enum error. Should be \"Likely Pathogenic\".\n\n11. **TEST_RESULT**: 1.8 - schema says type is \"string\". So this should be a string \"1.8\". The description says \"Specific result of a clinical molecular test.\" Type is string, so convert 1.8 to \"1.8\".\n\n12. **VARIANT_ORIGIN**: \"GERMLINE\" - enum error. Should be \"Germline\".\n\n13. **VARIANT_TYPE**: \"DUPLICATION\" - enum error. Should be \"Duplication\".\n\nLet me double-check the enum values:\n- CLINICAL_BIOSPECIMEN_TYPE enum: \"BONE MARROW\" \u2713\n- MOLECULAR_ANALYSIS_METHOD enum preview: \"RNA sequencing\" \u2713\n- MOLECULAR_ANALYSIS_RESULT enum: \"High\" \u2713\n- PATHOGENICITY enum: \"Likely Pathogenic\" \u2713\n- VARIANT_ORIGIN enum: \"Germline\" \u2713\n- VARIANT_TYPE enum preview: \"Duplication\" \u2713\n\nTEST_RESULT: type is \"string\", so 1.8 should become \"1.8\".\n\nOutput the corrected JSON.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data against the target schema:\n\n1. **AA_CHANGE**: \"E545K\" - string, looks fine.\n\n2. **AGE_IN_DAYS_AT_MOLECULAR_TEST_START**: 19000 - integer, valid.\n\n3. **AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP**: 19006 - integer, valid.\n\n4. **CLINICAL_BIOSPECIMEN_TYPE**: \"Bone Marrow\" - enum error. Should be \"BONE MARROW\" (case-sensitive).\n\n5. **COPY_NUMBER**: 3 - integer, valid.\n\n6. **EXON**: 9 - integer, valid.\n\n7. **GENE_SYMBOL**: \"PIK3CA\" - valid HGNC gene symbol.\n\n8. **MOLECULAR_ANALYSIS_METHOD**: \"Rna Sequencing\" - enum error. Should be \"RNA sequencing\" (from enum preview).\n\n9. **MOLECULAR_ANALYSIS_RESULT**: \"HIGH\" - enum error. Should be \"High\".\n\n10. **PATHOGENICITY**: \"LIKELY PATHOGENIC\" - enum error. Should be \"Likely Pathogenic\".\n\n11. **TEST_RESULT**: 1.8 - schema says type is \"string\". So this should be a string \"1.8\". The description says \"Specific result of a clinical molecular test.\" Type is string, so convert 1.8 to \"1.8\".\n\n12. **VARIANT_ORIGIN**: \"GERMLINE\" - enum error. Should be \"Germline\".\n\n13. **VARIANT_TYPE**: \"DUPLICATION\" - enum error. Should be \"Duplication\".\n\nLet me double-check the enum values:\n- CLINICAL_BIOSPECIMEN_TYPE enum: \"BONE MARROW\" \u2713\n- MOLECULAR_ANALYSIS_METHOD enum preview: \"RNA sequencing\" \u2713\n- MOLECULAR_ANALYSIS_RESULT enum: \"High\" \u2713\n- PATHOGENICITY enum: \"Likely Pathogenic\" \u2713\n- VARIANT_ORIGIN enum: \"Germline\" \u2713\n- VARIANT_TYPE enum preview: \"Duplication\" \u2713\n\nTEST_RESULT: type is \"string\", so 1.8 should become \"1.8\".\n\nOutput the corrected JSON.",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2581,
+              "completion_tokens": 639,
+              "total_tokens": 3220,
+              "cost": 0.00954752,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 2368,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00954752,
+                "upstream_inference_prompt_cost": 0.00124052,
+                "upstream_inference_completions_cost": 0.008307
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 465,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.923076923076923,
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 6,
+          "fp": 1,
+          "tn": 6,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "E545K",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 19000,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 19006,
+          "CLINICAL_BIOSPECIMEN_TYPE": "BONE MARROW",
+          "COPY_NUMBER": 3,
+          "EXON": 9,
+          "GENE_SYMBOL": "PIK3CA",
+          "MOLECULAR_ANALYSIS_METHOD": "RNA sequencing",
+          "MOLECULAR_ANALYSIS_RESULT": "High",
+          "PATHOGENICITY": "Likely Pathogenic",
+          "TEST_RESULT": 1.8,
+          "VARIANT_ORIGIN": "Germline",
+          "VARIANT_TYPE": "Duplication"
+        },
+        "token_usage": {
+          "input_tokens": 2581,
+          "output_tokens": 639,
+          "total_tokens": 3220
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 6,
+        "input": {
+          "AA_CHANGE": "H1047R",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 21000,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 21004,
+          "CLINICAL_BIOSPECIMEN_TYPE": "CEREBROSPINAL FLUD",
+          "COPY_NUMBER": 2,
+          "EXON": 20,
+          "GENE_SYMBOL": "PIK3CA",
+          "MOLECULAR_ANALYSIS_METHOD": "Comparitive genomic hybridization",
+          "MOLECULAR_ANALYSIS_RESULT": "Copy Number Reportd",
+          "PATHOGENICITY": "Likley Benign",
+          "TEST_RESULT": 0.65,
+          "VARIANT_ORIGIN": "Somatic Mosiac",
+          "VARIANT_TYPE": "Chromosmal Gain"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"H1047R\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 21000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 21004,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"CEREBROSPINAL FLUID\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 20,\n  \"GENE_SYMBOL\": \"PIK3CA\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Comparative genomic hybridization\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Copy Number Reported\",\n  \"PATHOGENICITY\": \"Likely Benign\",\n  \"TEST_RESULT\": \"0.65\",\n  \"VARIANT_ORIGIN\": \"Somatic Mosaic\",\n  \"VARIANT_TYPE\": \"Chromosomal Gain\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2593,
+            "outputTokens": 589,
+            "totalTokens": 3182
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186444-IfX3TCTCGPuS8QVsI8qv",
+            "object": "chat.completion",
+            "created": 1787186444,
+            "model": "moonshotai/kimi-k3",
+            "provider": "Sail Research",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"H1047R\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 21000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 21004,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"CEREBROSPINAL FLUID\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 20,\n  \"GENE_SYMBOL\": \"PIK3CA\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Comparative genomic hybridization\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Copy Number Reported\",\n  \"PATHOGENICITY\": \"Likely Benign\",\n  \"TEST_RESULT\": \"0.65\",\n  \"VARIANT_ORIGIN\": \"Somatic Mosaic\",\n  \"VARIANT_TYPE\": \"Chromosomal Gain\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data for errors:\n\n1. \"AA_CHANGE\": \"H1047R\" - looks fine, free text string\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 21000 - integer, fine\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 21004 - integer, fine\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"CEREBROSPINAL FLUD\" - typo, should be \"CEREBROSPINAL FLUID\"\n5. \"COPY_NUMBER\": 2 - integer, fine\n6. \"EXON\": 20 - integer, fine\n7. \"GENE_SYMBOL\": \"PIK3CA\" - valid gene symbol\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"Comparitive genomic hybridization\" - typo, should be \"Comparative genomic hybridization\"\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"Copy Number Reportd\" - typo, should be \"Copy Number Reported\"\n10. \"PATHOGENICITY\": \"Likley Benign\" - typo, should be \"Likely Benign\"\n11. \"TEST_RESULT\": 0.65 - schema says type string. Hmm, TEST_RESULT is described as \"Specific result of a clinical molecular test\" - type is string. The value 0.65 is a number. Should it be converted to string \"0.65\"? The schema type is string, so I should convert it to \"0.65\". The error types mention \"Type mismatch - float\" (truncated in the prompt). So yes, TEST_RESULT should be a string \"0.65\".\n12. \"VARIANT_ORIGIN\": \"Somatic Mosiac\" - typo, should be \"Somatic Mosaic\"\n13. \"VARIANT_TYPE\": \"Chromosmal Gain\" - typo, should be \"Chromosomal Gain\"\n\nLet me correct all of these.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data for errors:\n\n1. \"AA_CHANGE\": \"H1047R\" - looks fine, free text string\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 21000 - integer, fine\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 21004 - integer, fine\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"CEREBROSPINAL FLUD\" - typo, should be \"CEREBROSPINAL FLUID\"\n5. \"COPY_NUMBER\": 2 - integer, fine\n6. \"EXON\": 20 - integer, fine\n7. \"GENE_SYMBOL\": \"PIK3CA\" - valid gene symbol\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"Comparitive genomic hybridization\" - typo, should be \"Comparative genomic hybridization\"\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"Copy Number Reportd\" - typo, should be \"Copy Number Reported\"\n10. \"PATHOGENICITY\": \"Likley Benign\" - typo, should be \"Likely Benign\"\n11. \"TEST_RESULT\": 0.65 - schema says type string. Hmm, TEST_RESULT is described as \"Specific result of a clinical molecular test\" - type is string. The value 0.65 is a number. Should it be converted to string \"0.65\"? The schema type is string, so I should convert it to \"0.65\". The error types mention \"Type mismatch - float\" (truncated in the prompt). So yes, TEST_RESULT should be a string \"0.65\".\n12. \"VARIANT_ORIGIN\": \"Somatic Mosiac\" - typo, should be \"Somatic Mosaic\"\n13. \"VARIANT_TYPE\": \"Chromosmal Gain\" - typo, should be \"Chromosomal Gain\"\n\nLet me correct all of these.",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2593,
+              "completion_tokens": 589,
+              "total_tokens": 3182,
+              "cost": 0.00892872,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 2368,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00892872,
+                "upstream_inference_prompt_cost": 0.00127172,
+                "upstream_inference_completions_cost": 0.007657
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 401,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.923076923076923,
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 6,
+          "fp": 1,
+          "tn": 6,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "H1047R",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 21000,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 21004,
+          "CLINICAL_BIOSPECIMEN_TYPE": "CEREBROSPINAL FLUID",
+          "COPY_NUMBER": 2,
+          "EXON": 20,
+          "GENE_SYMBOL": "PIK3CA",
+          "MOLECULAR_ANALYSIS_METHOD": "Comparative genomic hybridization",
+          "MOLECULAR_ANALYSIS_RESULT": "Copy Number Reported",
+          "PATHOGENICITY": "Likely Benign",
+          "TEST_RESULT": 0.65,
+          "VARIANT_ORIGIN": "Somatic Mosaic",
+          "VARIANT_TYPE": "Chromosomal Gain"
+        },
+        "token_usage": {
+          "input_tokens": 2593,
+          "output_tokens": 589,
+          "total_tokens": 3182
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 7,
+        "input": {
+          "AA_CHANGE": "D816V",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 17500,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 17508,
+          "CLINICAL_BIOSPECIMEN_TYPE": "BUCCAL CEL SAMPLE",
+          "COPY_NUMBER": 1,
+          "EXON": 17,
+          "GENE_SYMBOL": "KIT",
+          "MOLECULAR_ANALYSIS_METHOD": "Microsatelite analysis",
+          "MOLECULAR_ANALYSIS_RESULT": "Equivocl",
+          "PATHOGENICITY": "Bening",
+          "TEST_RESULT": 0.55,
+          "VARIANT_ORIGIN": "Unkown",
+          "VARIANT_TYPE": "Inversio"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"D816V\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 17500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 17508,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"BUCCAL CELL SAMPLE\",\n  \"COPY_NUMBER\": 1,\n  \"EXON\": 17,\n  \"GENE_SYMBOL\": \"KIT\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Microsatellite analysis\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Equivocal\",\n  \"PATHOGENICITY\": \"Benign\",\n  \"TEST_RESULT\": \"0.55\",\n  \"VARIANT_ORIGIN\": \"Unknown\",\n  \"VARIANT_TYPE\": \"Inversion\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2579,
+            "outputTokens": 548,
+            "totalTokens": 3127
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186448-IXID2roKZS6v1x3zvkLy",
+            "object": "chat.completion",
+            "created": 1787186448,
+            "model": "moonshotai/kimi-k3",
+            "provider": "Sail Research",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"D816V\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 17500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 17508,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"BUCCAL CELL SAMPLE\",\n  \"COPY_NUMBER\": 1,\n  \"EXON\": 17,\n  \"GENE_SYMBOL\": \"KIT\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Microsatellite analysis\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Equivocal\",\n  \"PATHOGENICITY\": \"Benign\",\n  \"TEST_RESULT\": \"0.55\",\n  \"VARIANT_ORIGIN\": \"Unknown\",\n  \"VARIANT_TYPE\": \"Inversion\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data for errors:\n\n1. \"AA_CHANGE\": \"D816V\" - looks fine, free text\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 17500 - integer, fine\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 17508 - integer, fine\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"BUCCAL CEL SAMPLE\" - typo, should be \"BUCCAL CELL SAMPLE\"\n5. \"COPY_NUMBER\": 1 - integer, fine\n6. \"EXON\": 17 - integer, fine\n7. \"GENE_SYMBOL\": \"KIT\" - valid gene symbol\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"Microsatelite analysis\" - typo, should be \"Microsatellite analysis\"\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"Equivocl\" - typo, should be \"Equivocal\"\n10. \"PATHOGENICITY\": \"Bening\" - typo, should be \"Benign\"\n11. \"TEST_RESULT\": 0.55 - schema says string type. Should be \"0.55\" as string\n12. \"VARIANT_ORIGIN\": \"Unkown\" - typo, should be \"Unknown\"\n13. \"VARIANT_TYPE\": \"Inversio\" - typo, should be \"Inversion\"\n\nCorrections:\n- CLINICAL_BIOSPECIMEN_TYPE: \"BUCCAL CELL SAMPLE\"\n- MOLECULAR_ANALYSIS_METHOD: \"Microsatellite analysis\"\n- MOLECULAR_ANALYSIS_RESULT: \"Equivocal\"\n- PATHOGENICITY: \"Benign\"\n- TEST_RESULT: \"0.55\" (string type per schema)\n- VARIANT_ORIGIN: \"Unknown\"\n- VARIANT_TYPE: \"Inversion\"",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data for errors:\n\n1. \"AA_CHANGE\": \"D816V\" - looks fine, free text\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 17500 - integer, fine\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 17508 - integer, fine\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"BUCCAL CEL SAMPLE\" - typo, should be \"BUCCAL CELL SAMPLE\"\n5. \"COPY_NUMBER\": 1 - integer, fine\n6. \"EXON\": 17 - integer, fine\n7. \"GENE_SYMBOL\": \"KIT\" - valid gene symbol\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"Microsatelite analysis\" - typo, should be \"Microsatellite analysis\"\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"Equivocl\" - typo, should be \"Equivocal\"\n10. \"PATHOGENICITY\": \"Bening\" - typo, should be \"Benign\"\n11. \"TEST_RESULT\": 0.55 - schema says string type. Should be \"0.55\" as string\n12. \"VARIANT_ORIGIN\": \"Unkown\" - typo, should be \"Unknown\"\n13. \"VARIANT_TYPE\": \"Inversio\" - typo, should be \"Inversion\"\n\nCorrections:\n- CLINICAL_BIOSPECIMEN_TYPE: \"BUCCAL CELL SAMPLE\"\n- MOLECULAR_ANALYSIS_METHOD: \"Microsatellite analysis\"\n- MOLECULAR_ANALYSIS_RESULT: \"Equivocal\"\n- PATHOGENICITY: \"Benign\"\n- TEST_RESULT: \"0.55\" (string type per schema)\n- VARIANT_ORIGIN: \"Unknown\"\n- VARIANT_TYPE: \"Inversion\"",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2579,
+              "completion_tokens": 548,
+              "total_tokens": 3127,
+              "cost": 0.00835932,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 2368,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00835932,
+                "upstream_inference_prompt_cost": 0.00123532,
+                "upstream_inference_completions_cost": 0.007124
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 376,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.923076923076923,
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 6,
+          "fp": 1,
+          "tn": 6,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "D816V",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 17500,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 17508,
+          "CLINICAL_BIOSPECIMEN_TYPE": "BUCCAL CELL SAMPLE",
+          "COPY_NUMBER": 1,
+          "EXON": 17,
+          "GENE_SYMBOL": "KIT",
+          "MOLECULAR_ANALYSIS_METHOD": "Microsatellite analysis",
+          "MOLECULAR_ANALYSIS_RESULT": "Equivocal",
+          "PATHOGENICITY": "Benign",
+          "TEST_RESULT": 0.55,
+          "VARIANT_ORIGIN": "Unknown",
+          "VARIANT_TYPE": "Inversion"
+        },
+        "token_usage": {
+          "input_tokens": 2579,
+          "output_tokens": 548,
+          "total_tokens": 3127
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 8,
+        "input": {
+          "AA_CHANGE": "R132H",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 19500,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 19510,
+          "CLINICAL_BIOSPECIMEN_TYPE": "FRESHTTISSUE",
+          "COPY_NUMBER": 2,
+          "EXON": 4,
+          "GENE_SYMBOL": "IDH1",
+          "MOLECULAR_ANALYSIS_METHOD": "Nuclearstaining",
+          "MOLECULAR_ANALYSIS_RESULT": "LossofExpression",
+          "PATHOGENICITY": "NotReported",
+          "TEST_RESULT": 0.45,
+          "VARIANT_ORIGIN": "NotReported",
+          "VARIANT_TYPE": "Hypermethylaton"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"R132H\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 19500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 19510,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FRESH TISSUE\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 4,\n  \"GENE_SYMBOL\": \"IDH1\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Nuclear staining\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Loss of Expression\",\n  \"PATHOGENICITY\": \"Not Reported\",\n  \"TEST_RESULT\": \"0.45\",\n  \"VARIANT_ORIGIN\": \"Not Reported\",\n  \"VARIANT_TYPE\": \"Hypermethylation\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2584,
+            "outputTokens": 588,
+            "totalTokens": 3172
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186457-jC1GmQiWPnaZ2CSpTH9o",
+            "object": "chat.completion",
+            "created": 1787186457,
+            "model": "moonshotai/kimi-k3",
+            "provider": "Sail Research",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"R132H\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 19500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 19510,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FRESH TISSUE\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 4,\n  \"GENE_SYMBOL\": \"IDH1\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Nuclear staining\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Loss of Expression\",\n  \"PATHOGENICITY\": \"Not Reported\",\n  \"TEST_RESULT\": \"0.45\",\n  \"VARIANT_ORIGIN\": \"Not Reported\",\n  \"VARIANT_TYPE\": \"Hypermethylation\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data for errors:\n\n1. \"AA_CHANGE\": \"R132H\" - looks fine, free text string\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 19500 - integer, fine\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 19510 - integer, fine\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"FRESHTTISSUE\" - typo, should be \"FRESH TISSUE\"\n5. \"COPY_NUMBER\": 2 - integer, fine\n6. \"EXON\": 4 - integer, fine\n7. \"GENE_SYMBOL\": \"IDH1\" - valid gene symbol\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"Nuclearstaining\" - should be \"Nuclear staining\"\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"LossofExpression\" - should be \"Loss of Expression\"\n10. \"PATHOGENICITY\": \"NotReported\" - should be \"Not Reported\"\n11. \"TEST_RESULT\": 0.45 - schema says type string. Hmm, TEST_RESULT is described as \"Specific result of a clinical molecular test\" - type is string. The value 0.45 is a number. Should it be converted to string \"0.45\"? The schema type is string, so I should convert to \"0.45\". But wait - maybe TEST_RESULT should be a string representation. Let me convert it to \"0.45\".\n12. \"VARIANT_ORIGIN\": \"NotReported\" - should be \"Not Reported\"\n13. \"VARIANT_TYPE\": \"Hypermethylaton\" - typo, should be \"Hypermethylation\"\n\nAlso, TEST_UNITS is not present - that's fine, don't add fields.\n\nMOLECULAR_CONSEQUENCE not present - fine.\n\nTIMEPOINT_LABEL not present - fine.\n\nTEST_ANALYTE_TYPE not present - fine.\n\nLet me produce the corrected JSON.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data for errors:\n\n1. \"AA_CHANGE\": \"R132H\" - looks fine, free text string\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 19500 - integer, fine\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 19510 - integer, fine\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"FRESHTTISSUE\" - typo, should be \"FRESH TISSUE\"\n5. \"COPY_NUMBER\": 2 - integer, fine\n6. \"EXON\": 4 - integer, fine\n7. \"GENE_SYMBOL\": \"IDH1\" - valid gene symbol\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"Nuclearstaining\" - should be \"Nuclear staining\"\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"LossofExpression\" - should be \"Loss of Expression\"\n10. \"PATHOGENICITY\": \"NotReported\" - should be \"Not Reported\"\n11. \"TEST_RESULT\": 0.45 - schema says type string. Hmm, TEST_RESULT is described as \"Specific result of a clinical molecular test\" - type is string. The value 0.45 is a number. Should it be converted to string \"0.45\"? The schema type is string, so I should convert to \"0.45\". But wait - maybe TEST_RESULT should be a string representation. Let me convert it to \"0.45\".\n12. \"VARIANT_ORIGIN\": \"NotReported\" - should be \"Not Reported\"\n13. \"VARIANT_TYPE\": \"Hypermethylaton\" - typo, should be \"Hypermethylation\"\n\nAlso, TEST_UNITS is not present - that's fine, don't add fields.\n\nMOLECULAR_CONSEQUENCE not present - fine.\n\nTIMEPOINT_LABEL not present - fine.\n\nTEST_ANALYTE_TYPE not present - fine.\n\nLet me produce the corrected JSON.",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2584,
+              "completion_tokens": 588,
+              "total_tokens": 3172,
+              "cost": 0.00889232,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 2368,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00889232,
+                "upstream_inference_prompt_cost": 0.00124832,
+                "upstream_inference_completions_cost": 0.007644
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 410,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.923076923076923,
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 6,
+          "fp": 1,
+          "tn": 6,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "R132H",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 19500,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 19510,
+          "CLINICAL_BIOSPECIMEN_TYPE": "FRESH TISSUE",
+          "COPY_NUMBER": 2,
+          "EXON": 4,
+          "GENE_SYMBOL": "IDH1",
+          "MOLECULAR_ANALYSIS_METHOD": "Nuclear staining",
+          "MOLECULAR_ANALYSIS_RESULT": "Loss of Expression",
+          "PATHOGENICITY": "Not Reported",
+          "TEST_RESULT": 0.45,
+          "VARIANT_ORIGIN": "Not Reported",
+          "VARIANT_TYPE": "Hypermethylation"
+        },
+        "token_usage": {
+          "input_tokens": 2584,
+          "output_tokens": 588,
+          "total_tokens": 3172
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 9,
+        "input": {
+          "AA_CHANGE": "R175H",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 20500,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 20507,
+          "CLINICAL_BIOSPECIMEN_TYPE": "saliva",
+          "COPY_NUMBER": 1,
+          "EXON": 5,
+          "GENE_SYMBOL": "TP53",
+          "MOLECULAR_ANALYSIS_METHOD": "FISH",
+          "MOLECULAR_ANALYSIS_RESULT": "NEGATIVE",
+          "PATHOGENICITY": "unknown",
+          "TEST_RESULT": 0.35,
+          "VARIANT_ORIGIN": "germline",
+          "VARIANT_TYPE": "conversion"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"R175H\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 20500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 20507,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"SALIVA\",\n  \"COPY_NUMBER\": 1,\n  \"EXON\": 5,\n  \"GENE_SYMBOL\": \"TP53\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"FISH\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Negative\",\n  \"PATHOGENICITY\": \"Unknown\",\n  \"TEST_RESULT\": \"0.35\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Conversion\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2571,
+            "outputTokens": 673,
+            "totalTokens": 3244
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186469-QGZEzff2ZDnazvZRMGYm",
+            "object": "chat.completion",
+            "created": 1787186469,
+            "model": "moonshotai/kimi-k3",
+            "provider": "Sail Research",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"R175H\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 20500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 20507,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"SALIVA\",\n  \"COPY_NUMBER\": 1,\n  \"EXON\": 5,\n  \"GENE_SYMBOL\": \"TP53\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"FISH\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Negative\",\n  \"PATHOGENICITY\": \"Unknown\",\n  \"TEST_RESULT\": \"0.35\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Conversion\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data against the schema:\n\n1. \"AA_CHANGE\": \"R175H\" - string, looks fine.\n\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 20500 - integer, fine.\n\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 20507 - integer, fine.\n\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"saliva\" - enum case error. Should be \"SALIVA\".\n\n5. \"COPY_NUMBER\": 1 - integer, fine.\n\n6. \"EXON\": 5 - integer, fine.\n\n7. \"GENE_SYMBOL\": \"TP53\" - valid gene symbol, fine.\n\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"FISH\" - valid enum, fine.\n\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"NEGATIVE\" - enum case error. Should be \"Negative\".\n\n10. \"PATHOGENICITY\": \"unknown\" - enum case error. Should be \"Unknown\".\n\n11. \"TEST_RESULT\": 0.35 - schema says type string. So this is a type mismatch - should be a string \"0.35\". The description says \"Specific result of a clinical molecular test.\" Type is string. So convert 0.35 to \"0.35\".\n\n12. \"VARIANT_ORIGIN\": \"germline\" - enum case error. Should be \"Germline\".\n\n13. \"VARIANT_TYPE\": \"conversion\" - enum case error. Should be \"Conversion\".\n\nLet me double-check TEST_RESULT: schema type is \"string\". Input is 0.35 (a number). So correct to \"0.35\".\n\nCorrected record:\n{\n  \"AA_CHANGE\": \"R175H\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 20500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 20507,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"SALIVA\",\n  \"COPY_NUMBER\": 1,\n  \"EXON\": 5,\n  \"GENE_SYMBOL\": \"TP53\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"FISH\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Negative\",\n  \"PATHOGENICITY\": \"Unknown\",\n  \"TEST_RESULT\": \"0.35\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Conversion\"\n}",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data against the schema:\n\n1. \"AA_CHANGE\": \"R175H\" - string, looks fine.\n\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 20500 - integer, fine.\n\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 20507 - integer, fine.\n\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"saliva\" - enum case error. Should be \"SALIVA\".\n\n5. \"COPY_NUMBER\": 1 - integer, fine.\n\n6. \"EXON\": 5 - integer, fine.\n\n7. \"GENE_SYMBOL\": \"TP53\" - valid gene symbol, fine.\n\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"FISH\" - valid enum, fine.\n\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"NEGATIVE\" - enum case error. Should be \"Negative\".\n\n10. \"PATHOGENICITY\": \"unknown\" - enum case error. Should be \"Unknown\".\n\n11. \"TEST_RESULT\": 0.35 - schema says type string. So this is a type mismatch - should be a string \"0.35\". The description says \"Specific result of a clinical molecular test.\" Type is string. So convert 0.35 to \"0.35\".\n\n12. \"VARIANT_ORIGIN\": \"germline\" - enum case error. Should be \"Germline\".\n\n13. \"VARIANT_TYPE\": \"conversion\" - enum case error. Should be \"Conversion\".\n\nLet me double-check TEST_RESULT: schema type is \"string\". Input is 0.35 (a number). So correct to \"0.35\".\n\nCorrected record:\n{\n  \"AA_CHANGE\": \"R175H\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 20500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 20507,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"SALIVA\",\n  \"COPY_NUMBER\": 1,\n  \"EXON\": 5,\n  \"GENE_SYMBOL\": \"TP53\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"FISH\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Negative\",\n  \"PATHOGENICITY\": \"Unknown\",\n  \"TEST_RESULT\": \"0.35\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Conversion\"\n}",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2571,
+              "completion_tokens": 673,
+              "total_tokens": 3244,
+              "cost": 0.00996352,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 2368,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00996352,
+                "upstream_inference_prompt_cost": 0.00121452,
+                "upstream_inference_completions_cost": 0.008749
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 505,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.9090909090909091,
+          "precision": 0.8333333333333334,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 5,
+          "fp": 1,
+          "tn": 7,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "R175H",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 20500,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 20507,
+          "CLINICAL_BIOSPECIMEN_TYPE": "SALIVA",
+          "COPY_NUMBER": 1,
+          "EXON": 5,
+          "GENE_SYMBOL": "TP53",
+          "MOLECULAR_ANALYSIS_METHOD": "FISH",
+          "MOLECULAR_ANALYSIS_RESULT": "Negative",
+          "PATHOGENICITY": "Unknown",
+          "TEST_RESULT": 0.35,
+          "VARIANT_ORIGIN": "Germline",
+          "VARIANT_TYPE": "Conversion"
+        },
+        "token_usage": {
+          "input_tokens": 2571,
+          "output_tokens": 673,
+          "total_tokens": 3244
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 10,
+        "input": {
+          "AA_CHANGE": "G12C",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 18500,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 18505,
+          "CLINICAL_BIOSPECIMEN_TYPE": "OTHR BODILY FLUIDS",
+          "COPY_NUMBER": 3,
+          "EXON": 2,
+          "GENE_SYMBOL": "KRAS",
+          "MOLECULAR_ANALYSIS_METHOD": "Microaray",
+          "MOLECULAR_ANALYSIS_RESULT": "Intermedate",
+          "PATHOGENICITY": "Uncertainn Significance",
+          "TEST_RESULT": 1.5,
+          "VARIANT_ORIGIN": "Somatc",
+          "VARIANT_TYPE": "Deletio-insertion"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"G12C\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 18500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 18505,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"OTHER BODILY FLUIDS\",\n  \"COPY_NUMBER\": 3,\n  \"EXON\": 2,\n  \"GENE_SYMBOL\": \"KRAS\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Microarray\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Intermediate\",\n  \"PATHOGENICITY\": \"Uncertain Significance\",\n  \"TEST_RESULT\": \"1.5\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Deletion-insertion\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2550,
+            "outputTokens": 579,
+            "totalTokens": 3129
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186478-UBnoEKnKiRLdS30HAX3o",
+            "object": "chat.completion",
+            "created": 1787186478,
+            "model": "moonshotai/kimi-k3",
+            "provider": "Morph",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"G12C\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 18500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 18505,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"OTHER BODILY FLUIDS\",\n  \"COPY_NUMBER\": 3,\n  \"EXON\": 2,\n  \"GENE_SYMBOL\": \"KRAS\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Microarray\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Intermediate\",\n  \"PATHOGENICITY\": \"Uncertain Significance\",\n  \"TEST_RESULT\": \"1.5\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Deletion-insertion\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data for errors:\n\n1. \"AA_CHANGE\": \"G12C\" - looks fine, free text string\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 18500 - integer, fine\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 18505 - integer, fine\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"OTHR BODILY FLUIDS\" - typo, should be \"OTHER BODILY FLUIDS\"\n5. \"COPY_NUMBER\": 3 - integer, fine\n6. \"EXON\": 2 - integer, fine\n7. \"GENE_SYMBOL\": \"KRAS\" - valid gene symbol\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"Microaray\" - typo, should be \"Microarray\"\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"Intermedate\" - typo, should be \"Intermediate\"\n10. \"PATHOGENICITY\": \"Uncertainn Significance\" - typo, should be \"Uncertain Significance\"\n11. \"TEST_RESULT\": 1.5 - schema says type string. Should be \"1.5\" as string\n12. \"VARIANT_ORIGIN\": \"Somatc\" - typo, should be \"Somatic\"\n13. \"VARIANT_TYPE\": \"Deletio-insertion\" - typo, should be \"Deletion-insertion\"\n\nLet me correct all of these:\n\n- CLINICAL_BIOSPECIMEN_TYPE: \"OTHER BODILY FLUIDS\"\n- MOLECULAR_ANALYSIS_METHOD: \"Microarray\"\n- MOLECULAR_ANALYSIS_RESULT: \"Intermediate\"\n- PATHOGENICITY: \"Uncertain Significance\"\n- TEST_RESULT: \"1.5\" (string type per schema)\n- VARIANT_ORIGIN: \"Somatic\"\n- VARIANT_TYPE: \"Deletion-insertion\"\n\nAll other fields preserved.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data for errors:\n\n1. \"AA_CHANGE\": \"G12C\" - looks fine, free text string\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 18500 - integer, fine\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 18505 - integer, fine\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"OTHR BODILY FLUIDS\" - typo, should be \"OTHER BODILY FLUIDS\"\n5. \"COPY_NUMBER\": 3 - integer, fine\n6. \"EXON\": 2 - integer, fine\n7. \"GENE_SYMBOL\": \"KRAS\" - valid gene symbol\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"Microaray\" - typo, should be \"Microarray\"\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"Intermedate\" - typo, should be \"Intermediate\"\n10. \"PATHOGENICITY\": \"Uncertainn Significance\" - typo, should be \"Uncertain Significance\"\n11. \"TEST_RESULT\": 1.5 - schema says type string. Should be \"1.5\" as string\n12. \"VARIANT_ORIGIN\": \"Somatc\" - typo, should be \"Somatic\"\n13. \"VARIANT_TYPE\": \"Deletio-insertion\" - typo, should be \"Deletion-insertion\"\n\nLet me correct all of these:\n\n- CLINICAL_BIOSPECIMEN_TYPE: \"OTHER BODILY FLUIDS\"\n- MOLECULAR_ANALYSIS_METHOD: \"Microarray\"\n- MOLECULAR_ANALYSIS_RESULT: \"Intermediate\"\n- PATHOGENICITY: \"Uncertain Significance\"\n- TEST_RESULT: \"1.5\" (string type per schema)\n- VARIANT_ORIGIN: \"Somatic\"\n- VARIANT_TYPE: \"Deletion-insertion\"\n\nAll other fields preserved.",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2550,
+              "completion_tokens": 579,
+              "total_tokens": 3129,
+              "cost": 0.01139064,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1536,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.01139064,
+                "upstream_inference_prompt_cost": 0.00328464,
+                "upstream_inference_completions_cost": 0.008106
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 315,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.923076923076923,
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 6,
+          "fp": 1,
+          "tn": 6,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "G12C",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 18500,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 18505,
+          "CLINICAL_BIOSPECIMEN_TYPE": "OTHER BODILY FLUIDS",
+          "COPY_NUMBER": 3,
+          "EXON": 2,
+          "GENE_SYMBOL": "KRAS",
+          "MOLECULAR_ANALYSIS_METHOD": "Microarray",
+          "MOLECULAR_ANALYSIS_RESULT": "Intermediate",
+          "PATHOGENICITY": "Uncertain Significance",
+          "TEST_RESULT": 1.5,
+          "VARIANT_ORIGIN": "Somatic",
+          "VARIANT_TYPE": "Deletion-insertion"
+        },
+        "token_usage": {
+          "input_tokens": 2550,
+          "output_tokens": 579,
+          "total_tokens": 3129
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 11,
+        "input": {
+          "AA_CHANGE": "S768I",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 16500,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 16510,
+          "CLINICAL_BIOSPECIMEN_TYPE": "STOOL",
+          "COPY_NUMBER": 2,
+          "EXON": 19,
+          "GENE_SYMBOL": "EGFR",
+          "MOLECULAR_ANALYSIS_METHOD": "Karyotyp",
+          "MOLECULAR_ANALYSIS_RESULT": "Norml",
+          "PATHOGENICITY": "Likly Benign",
+          "TEST_RESULT": 0.88,
+          "VARIANT_ORIGIN": "Germlin",
+          "VARIANT_TYPE": "Extention"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"S768I\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 16500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 16510,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"STOOL\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 19,\n  \"GENE_SYMBOL\": \"EGFR\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Karyotype\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Normal\",\n  \"PATHOGENICITY\": \"Likely Benign\",\n  \"TEST_RESULT\": \"0.88\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Extension\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2575,
+            "outputTokens": 620,
+            "totalTokens": 3195
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186506-sl2ZaN4rVHLf134CvXU9",
+            "object": "chat.completion",
+            "created": 1787186506,
+            "model": "moonshotai/kimi-k3",
+            "provider": "Sail Research",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"S768I\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 16500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 16510,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"STOOL\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 19,\n  \"GENE_SYMBOL\": \"EGFR\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Karyotype\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Normal\",\n  \"PATHOGENICITY\": \"Likely Benign\",\n  \"TEST_RESULT\": \"0.88\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Extension\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data for errors:\n\n1. \"AA_CHANGE\": \"S768I\" - looks fine, string\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 16500 - integer, fine\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 16510 - integer, fine\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"STOOL\" - valid enum, fine\n5. \"COPY_NUMBER\": 2 - integer, fine\n6. \"EXON\": 19 - integer, fine\n7. \"GENE_SYMBOL\": \"EGFR\" - valid gene symbol, fine\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"Karyotyp\" - typo, should be \"Karyotype\"\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"Norml\" - typo, should be \"Normal\"\n10. \"PATHOGENICITY\": \"Likly Benign\" - typo, should be \"Likely Benign\"\n11. \"TEST_RESULT\": 0.88 - schema says string type. The description says \"Specific result of a clinical molecular test.\" Type is string. So 0.88 should be \"0.88\"? The schema type is string. So convert to string \"0.88\".\n12. \"VARIANT_ORIGIN\": \"Germlin\" - typo, should be \"Germline\"\n13. \"VARIANT_TYPE\": \"Extention\" - typo, should be \"Extension\"\n\nLet me check TEST_RESULT - schema type is \"string\". The value 0.88 is a number. Should convert to string \"0.88\".\n\nCorrections:\n- MOLECULAR_ANALYSIS_METHOD: \"Karyotyp\" \u2192 \"Karyotype\"\n- MOLECULAR_ANALYSIS_RESULT: \"Norml\" \u2192 \"Normal\"\n- PATHOGENICITY: \"Likly Benign\" \u2192 \"Likely Benign\"\n- TEST_RESULT: 0.88 \u2192 \"0.88\" (type string)\n- VARIANT_ORIGIN: \"Germlin\" \u2192 \"Germline\"\n- VARIANT_TYPE: \"Extention\" \u2192 \"Extension\"\n\nReturn the full corrected JSON.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data for errors:\n\n1. \"AA_CHANGE\": \"S768I\" - looks fine, string\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 16500 - integer, fine\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 16510 - integer, fine\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"STOOL\" - valid enum, fine\n5. \"COPY_NUMBER\": 2 - integer, fine\n6. \"EXON\": 19 - integer, fine\n7. \"GENE_SYMBOL\": \"EGFR\" - valid gene symbol, fine\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"Karyotyp\" - typo, should be \"Karyotype\"\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"Norml\" - typo, should be \"Normal\"\n10. \"PATHOGENICITY\": \"Likly Benign\" - typo, should be \"Likely Benign\"\n11. \"TEST_RESULT\": 0.88 - schema says string type. The description says \"Specific result of a clinical molecular test.\" Type is string. So 0.88 should be \"0.88\"? The schema type is string. So convert to string \"0.88\".\n12. \"VARIANT_ORIGIN\": \"Germlin\" - typo, should be \"Germline\"\n13. \"VARIANT_TYPE\": \"Extention\" - typo, should be \"Extension\"\n\nLet me check TEST_RESULT - schema type is \"string\". The value 0.88 is a number. Should convert to string \"0.88\".\n\nCorrections:\n- MOLECULAR_ANALYSIS_METHOD: \"Karyotyp\" \u2192 \"Karyotype\"\n- MOLECULAR_ANALYSIS_RESULT: \"Norml\" \u2192 \"Normal\"\n- PATHOGENICITY: \"Likly Benign\" \u2192 \"Likely Benign\"\n- TEST_RESULT: 0.88 \u2192 \"0.88\" (type string)\n- VARIANT_ORIGIN: \"Germlin\" \u2192 \"Germline\"\n- VARIANT_TYPE: \"Extention\" \u2192 \"Extension\"\n\nReturn the full corrected JSON.",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2575,
+              "completion_tokens": 620,
+              "total_tokens": 3195,
+              "cost": 0.00928492,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 2368,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00928492,
+                "upstream_inference_prompt_cost": 0.00122492,
+                "upstream_inference_completions_cost": 0.00806
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 450,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.9090909090909091,
+          "precision": 0.8333333333333334,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 5,
+          "fp": 1,
+          "tn": 7,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "S768I",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 16500,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 16510,
+          "CLINICAL_BIOSPECIMEN_TYPE": "STOOL",
+          "COPY_NUMBER": 2,
+          "EXON": 19,
+          "GENE_SYMBOL": "EGFR",
+          "MOLECULAR_ANALYSIS_METHOD": "Karyotype",
+          "MOLECULAR_ANALYSIS_RESULT": "Normal",
+          "PATHOGENICITY": "Likely Benign",
+          "TEST_RESULT": 0.88,
+          "VARIANT_ORIGIN": "Germline",
+          "VARIANT_TYPE": "Extension"
+        },
+        "token_usage": {
+          "input_tokens": 2575,
+          "output_tokens": 620,
+          "total_tokens": 3195
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 12,
+        "input": {
+          "AA_CHANGE": "Q61H",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 21500,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 21505,
+          "CLINICAL_BIOSPECIMEN_TYPE": "URINE ",
+          "COPY_NUMBER": 1,
+          "EXON": 3,
+          "GENE_SYMBOL": "NRAS",
+          "MOLECULAR_ANALYSIS_METHOD": " ISH",
+          "MOLECULAR_ANALYSIS_RESULT": "Test Value Reportd",
+          "PATHOGENICITY": " Pathogenic",
+          "TEST_RESULT": 1.95,
+          "VARIANT_ORIGIN": "Somatic ",
+          "VARIANT_TYPE": " Methylation"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"Q61H\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 21500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 21505,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"URINE\",\n  \"COPY_NUMBER\": 1,\n  \"EXON\": 3,\n  \"GENE_SYMBOL\": \"NRAS\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"ISH\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Test Value Reported\",\n  \"PATHOGENICITY\": \"Pathogenic\",\n  \"TEST_RESULT\": \"1.95\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Methylation\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2574,
+            "outputTokens": 750,
+            "totalTokens": 3324
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186516-7nU8qGn9XxFq3NQX9h9e",
+            "object": "chat.completion",
+            "created": 1787186516,
+            "model": "moonshotai/kimi-k3",
+            "provider": "Sail Research",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"Q61H\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 21500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 21505,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"URINE\",\n  \"COPY_NUMBER\": 1,\n  \"EXON\": 3,\n  \"GENE_SYMBOL\": \"NRAS\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"ISH\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Test Value Reported\",\n  \"PATHOGENICITY\": \"Pathogenic\",\n  \"TEST_RESULT\": \"1.95\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Methylation\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data for errors:\n\n1. \"AA_CHANGE\": \"Q61H\" - looks fine, string\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 21500 - integer, fine\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 21505 - integer, fine\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"URINE \" - trailing whitespace, should be \"URINE\"\n5. \"COPY_NUMBER\": 1 - integer, fine\n6. \"EXON\": 3 - integer, fine\n7. \"GENE_SYMBOL\": \"NRAS\" - valid gene symbol\n8. \"MOLECULAR_ANALYSIS_METHOD\": \" ISH\" - leading whitespace, should be \"ISH\"\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"Test Value Reportd\" - misspelling, should be \"Test Value Reported\"\n10. \"PATHOGENICITY\": \" Pathogenic\" - leading whitespace, should be \"Pathogenic\"\n11. \"TEST_RESULT\": 1.95 - schema says type string. Hmm, TEST_RESULT is described as \"Specific result of a clinical molecular test\" and type is string. The value 1.95 is a number. Should it be converted to string \"1.95\"? The schema type is string, so yes, convert to \"1.95\".\n12. \"VARIANT_ORIGIN\": \"Somatic \" - trailing whitespace, should be \"Somatic\"\n13. \"VARIANT_TYPE\": \" Methylation\" - leading whitespace, should be \"Methylation\"\n\nLet me check TEST_RESULT more carefully. The schema says:\n\"TEST_RESULT\": {\n  \"type\": \"string\",\n  \"description\": \"Specific result of a clinical molecular test. Use this field only if one of the permissible values i...\"\n}\n\nSo it's a string type. The input has 1.95 (a float). This is a type mismatch - should be \"1.95\" as a string.\n\nCorrected record:\n{\n  \"AA_CHANGE\": \"Q61H\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 21500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 21505,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"URINE\",\n  \"COPY_NUMBER\": 1,\n  \"EXON\": 3,\n  \"GENE_SYMBOL\": \"NRAS\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"ISH\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Test Value Reported\",\n  \"PATHOGENICITY\": \"Pathogenic\",\n  \"TEST_RESULT\": \"1.95\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Methylation\"\n}",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data for errors:\n\n1. \"AA_CHANGE\": \"Q61H\" - looks fine, string\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 21500 - integer, fine\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 21505 - integer, fine\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"URINE \" - trailing whitespace, should be \"URINE\"\n5. \"COPY_NUMBER\": 1 - integer, fine\n6. \"EXON\": 3 - integer, fine\n7. \"GENE_SYMBOL\": \"NRAS\" - valid gene symbol\n8. \"MOLECULAR_ANALYSIS_METHOD\": \" ISH\" - leading whitespace, should be \"ISH\"\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"Test Value Reportd\" - misspelling, should be \"Test Value Reported\"\n10. \"PATHOGENICITY\": \" Pathogenic\" - leading whitespace, should be \"Pathogenic\"\n11. \"TEST_RESULT\": 1.95 - schema says type string. Hmm, TEST_RESULT is described as \"Specific result of a clinical molecular test\" and type is string. The value 1.95 is a number. Should it be converted to string \"1.95\"? The schema type is string, so yes, convert to \"1.95\".\n12. \"VARIANT_ORIGIN\": \"Somatic \" - trailing whitespace, should be \"Somatic\"\n13. \"VARIANT_TYPE\": \" Methylation\" - leading whitespace, should be \"Methylation\"\n\nLet me check TEST_RESULT more carefully. The schema says:\n\"TEST_RESULT\": {\n  \"type\": \"string\",\n  \"description\": \"Specific result of a clinical molecular test. Use this field only if one of the permissible values i...\"\n}\n\nSo it's a string type. The input has 1.95 (a float). This is a type mismatch - should be \"1.95\" as a string.\n\nCorrected record:\n{\n  \"AA_CHANGE\": \"Q61H\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 21500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 21505,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"URINE\",\n  \"COPY_NUMBER\": 1,\n  \"EXON\": 3,\n  \"GENE_SYMBOL\": \"NRAS\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"ISH\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Test Value Reported\",\n  \"PATHOGENICITY\": \"Pathogenic\",\n  \"TEST_RESULT\": \"1.95\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Methylation\"\n}",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2574,
+              "completion_tokens": 750,
+              "total_tokens": 3324,
+              "cost": 0.01097232,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 2368,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.01097232,
+                "upstream_inference_prompt_cost": 0.00122232,
+                "upstream_inference_completions_cost": 0.00975
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 579,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.923076923076923,
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 6,
+          "fp": 1,
+          "tn": 6,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "Q61H",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 21500,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 21505,
+          "CLINICAL_BIOSPECIMEN_TYPE": "URINE",
+          "COPY_NUMBER": 1,
+          "EXON": 3,
+          "GENE_SYMBOL": "NRAS",
+          "MOLECULAR_ANALYSIS_METHOD": "ISH",
+          "MOLECULAR_ANALYSIS_RESULT": "Test Value Reported",
+          "PATHOGENICITY": "Pathogenic",
+          "TEST_RESULT": 1.95,
+          "VARIANT_ORIGIN": "Somatic",
+          "VARIANT_TYPE": "Methylation"
+        },
+        "token_usage": {
+          "input_tokens": 2574,
+          "output_tokens": 750,
+          "total_tokens": 3324
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 13,
+        "input": {
+          "AA_CHANGE": "L747S",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 17000,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 17008,
+          "CLINICAL_BIOSPECIMEN_TYPE": "FORMALIN FIXED",
+          "COPY_NUMBER": 2,
+          "EXON": 19,
+          "GENE_SYMBOL": "EGFR",
+          "MOLECULAR_ANALYSIS_METHOD": "Cytogenetics",
+          "MOLECULAR_ANALYSIS_RESULT": "Low",
+          "PATHOGENICITY": "Likely Path",
+          "TEST_RESULT": 0.72,
+          "VARIANT_ORIGIN": "Som Mosaic",
+          "VARIANT_TYPE": "Chromos Loss"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"L747S\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 17000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 17008,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FORMALIN FIXED TISSUE\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 19,\n  \"GENE_SYMBOL\": \"EGFR\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Cytogenetics, NOS\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Low\",\n  \"PATHOGENICITY\": \"Likely Pathogenic\",\n  \"TEST_RESULT\": \"0.72\",\n  \"VARIANT_ORIGIN\": \"Somatic Mosaic\",\n  \"VARIANT_TYPE\": \"Chromosomal Loss\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2539,
+            "outputTokens": 869,
+            "totalTokens": 3408
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186530-v7tStYtsEuMZxUzCEEDH",
+            "object": "chat.completion",
+            "created": 1787186530,
+            "model": "moonshotai/kimi-k3",
+            "provider": "Morph",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"L747S\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 17000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 17008,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FORMALIN FIXED TISSUE\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 19,\n  \"GENE_SYMBOL\": \"EGFR\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Cytogenetics, NOS\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Low\",\n  \"PATHOGENICITY\": \"Likely Pathogenic\",\n  \"TEST_RESULT\": \"0.72\",\n  \"VARIANT_ORIGIN\": \"Somatic Mosaic\",\n  \"VARIANT_TYPE\": \"Chromosomal Loss\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data against the schema to identify errors:\n\n1. **AA_CHANGE**: \"L747S\" - string, looks fine.\n\n2. **AGE_IN_DAYS_AT_MOLECULAR_TEST_START**: 17000 - integer, valid.\n\n3. **AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP**: 17008 - integer, valid.\n\n4. **CLINICAL_BIOSPECIMEN_TYPE**: \"FORMALIN FIXED\" - not in enum. The enum has \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\" and \"FORMALIN FIXED TISSUE\". \"FORMALIN FIXED\" is likely a truncated version of \"FORMALIN FIXED TISSUE\". I'll correct to \"FORMALIN FIXED TISSUE\".\n\n5. **COPY_NUMBER**: 2 - integer, valid.\n\n6. **EXON**: 19 - integer, valid.\n\n7. **GENE_SYMBOL**: \"EGFR\" - valid HGNC gene symbol.\n\n8. **MOLECULAR_ANALYSIS_METHOD**: \"Cytogenetics\" - enum has \"Cytogenetics, NOS\". So \"Cytogenetics\" should be \"Cytogenetics, NOS\".\n\n9. **MOLECULAR_ANALYSIS_RESULT**: \"Low\" - valid enum value.\n\n10. **PATHOGENICITY**: \"Likely Path\" - should be \"Likely Pathogenic\".\n\n11. **TEST_RESULT**: 0.72 - schema says type string. So should be \"0.72\" as a string.\n\n12. **VARIANT_ORIGIN**: \"Som Mosaic\" - should be \"Somatic Mosaic\".\n\n13. **VARIANT_TYPE**: \"Chromos Loss\" - should be \"Chromosomal Loss\".\n\nLet me construct the corrected JSON:\n\n```json\n{\n  \"AA_CHANGE\": \"L747S\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 17000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 17008,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FORMALIN FIXED TISSUE\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 19,\n  \"GENE_SYMBOL\": \"EGFR\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Cytogenetics, NOS\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Low\",\n  \"PATHOGENICITY\": \"Likely Pathogenic\",\n  \"TEST_RESULT\": \"0.72\",\n  \"VARIANT_ORIGIN\": \"Somatic Mosaic\",\n  \"VARIANT_TYPE\": \"Chromosomal Loss\"\n}\n```\n\nWait, for TEST_RESULT - the schema says type string. The input is 0.72 (a number). Should I convert to string \"0.72\"? Yes, to match the schema type.\n\nFor CLINICAL_BIOSPECIMEN_TYPE - \"FORMALIN FIXED\" could be either \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\" or \"FORMALIN FIXED TISSUE\". The most direct match (prefix match) is \"FORMALIN FIXED TISSUE\" since \"FORMALIN FIXED\" is the beginning of both, but \"FORMALIN FIXED TISSUE\" is the shorter/more direct completion. I'll go with \"FORMALIN FIXED TISSUE\".",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data against the schema to identify errors:\n\n1. **AA_CHANGE**: \"L747S\" - string, looks fine.\n\n2. **AGE_IN_DAYS_AT_MOLECULAR_TEST_START**: 17000 - integer, valid.\n\n3. **AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP**: 17008 - integer, valid.\n\n4. **CLINICAL_BIOSPECIMEN_TYPE**: \"FORMALIN FIXED\" - not in enum. The enum has \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\" and \"FORMALIN FIXED TISSUE\". \"FORMALIN FIXED\" is likely a truncated version of \"FORMALIN FIXED TISSUE\". I'll correct to \"FORMALIN FIXED TISSUE\".\n\n5. **COPY_NUMBER**: 2 - integer, valid.\n\n6. **EXON**: 19 - integer, valid.\n\n7. **GENE_SYMBOL**: \"EGFR\" - valid HGNC gene symbol.\n\n8. **MOLECULAR_ANALYSIS_METHOD**: \"Cytogenetics\" - enum has \"Cytogenetics, NOS\". So \"Cytogenetics\" should be \"Cytogenetics, NOS\".\n\n9. **MOLECULAR_ANALYSIS_RESULT**: \"Low\" - valid enum value.\n\n10. **PATHOGENICITY**: \"Likely Path\" - should be \"Likely Pathogenic\".\n\n11. **TEST_RESULT**: 0.72 - schema says type string. So should be \"0.72\" as a string.\n\n12. **VARIANT_ORIGIN**: \"Som Mosaic\" - should be \"Somatic Mosaic\".\n\n13. **VARIANT_TYPE**: \"Chromos Loss\" - should be \"Chromosomal Loss\".\n\nLet me construct the corrected JSON:\n\n```json\n{\n  \"AA_CHANGE\": \"L747S\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 17000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 17008,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FORMALIN FIXED TISSUE\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 19,\n  \"GENE_SYMBOL\": \"EGFR\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Cytogenetics, NOS\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Low\",\n  \"PATHOGENICITY\": \"Likely Pathogenic\",\n  \"TEST_RESULT\": \"0.72\",\n  \"VARIANT_ORIGIN\": \"Somatic Mosaic\",\n  \"VARIANT_TYPE\": \"Chromosomal Loss\"\n}\n```\n\nWait, for TEST_RESULT - the schema says type string. The input is 0.72 (a number). Should I convert to string \"0.72\"? Yes, to match the schema type.\n\nFor CLINICAL_BIOSPECIMEN_TYPE - \"FORMALIN FIXED\" could be either \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\" or \"FORMALIN FIXED TISSUE\". The most direct match (prefix match) is \"FORMALIN FIXED TISSUE\" since \"FORMALIN FIXED\" is the beginning of both, but \"FORMALIN FIXED TISSUE\" is the shorter/more direct completion. I'll go with \"FORMALIN FIXED TISSUE\".",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2539,
+              "completion_tokens": 869,
+              "total_tokens": 3408,
+              "cost": 0.01541984,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1536,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.01541984,
+                "upstream_inference_prompt_cost": 0.00325384,
+                "upstream_inference_completions_cost": 0.012166
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 553,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.9090909090909091,
+          "precision": 0.8333333333333334,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 5,
+          "fp": 1,
+          "tn": 7,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "L747S",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 17000,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 17008,
+          "CLINICAL_BIOSPECIMEN_TYPE": "FORMALIN FIXED TISSUE",
+          "COPY_NUMBER": 2,
+          "EXON": 19,
+          "GENE_SYMBOL": "EGFR",
+          "MOLECULAR_ANALYSIS_METHOD": "Cytogenetics, NOS",
+          "MOLECULAR_ANALYSIS_RESULT": "Low",
+          "PATHOGENICITY": "Likely Pathogenic",
+          "TEST_RESULT": 0.72,
+          "VARIANT_ORIGIN": "Somatic Mosaic",
+          "VARIANT_TYPE": "Chromosomal Loss"
+        },
+        "token_usage": {
+          "input_tokens": 2539,
+          "output_tokens": 869,
+          "total_tokens": 3408
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 14,
+        "input": {
+          "AA_CHANGE": "F1174L",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 14000,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 14006,
+          "CLINICAL_BIOSPECIMEN_TYPE": "BONE MAROW",
+          "COPY_NUMBER": 4,
+          "EXON": 23,
+          "GENE_SYMBOL": "ALK",
+          "MOLECULAR_ANALYSIS_METHOD": "Othr",
+          "MOLECULAR_ANALYSIS_RESULT": "Overexpressd",
+          "PATHOGENICITY": "Pathogennic",
+          "TEST_RESULT": 2.5,
+          "VARIANT_ORIGIN": "Somatc",
+          "VARIANT_TYPE": "Chimerism"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"F1174L\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 14000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 14006,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"BONE MARROW\",\n  \"COPY_NUMBER\": 4,\n  \"EXON\": 23,\n  \"GENE_SYMBOL\": \"ALK\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Other\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Overexpressed\",\n  \"PATHOGENICITY\": \"Pathogenic\",\n  \"TEST_RESULT\": \"2.5\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Chimerism\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2576,
+            "outputTokens": 541,
+            "totalTokens": 3117
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186549-VGqMVbtJDhNmc20tw4R1",
+            "object": "chat.completion",
+            "created": 1787186549,
+            "model": "moonshotai/kimi-k3",
+            "provider": "Chutes",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"F1174L\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 14000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 14006,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"BONE MARROW\",\n  \"COPY_NUMBER\": 4,\n  \"EXON\": 23,\n  \"GENE_SYMBOL\": \"ALK\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Other\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Overexpressed\",\n  \"PATHOGENICITY\": \"Pathogenic\",\n  \"TEST_RESULT\": \"2.5\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Chimerism\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data for errors:\n\n1. \"AA_CHANGE\": \"F1174L\" - looks fine, free text string\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 14000 - integer, fine\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 14006 - integer, fine\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"BONE MAROW\" - misspelling, should be \"BONE MARROW\"\n5. \"COPY_NUMBER\": 4 - integer, fine\n6. \"EXON\": 23 - integer, fine\n7. \"GENE_SYMBOL\": \"ALK\" - valid gene symbol\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"Othr\" - misspelling, should be \"Other\"\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"Overexpressd\" - misspelling, should be \"Overexpressed\"\n10. \"PATHOGENICITY\": \"Pathogennic\" - misspelling, should be \"Pathogenic\"\n11. \"TEST_RESULT\": 2.5 - schema says type string. Should be \"2.5\" as string\n12. \"VARIANT_ORIGIN\": \"Somatc\" - misspelling, should be \"Somatic\"\n13. \"VARIANT_TYPE\": \"Chimerism\" - valid enum value\n\nCorrections:\n- CLINICAL_BIOSPECIMEN_TYPE: \"BONE MARROW\"\n- MOLECULAR_ANALYSIS_METHOD: \"Other\"\n- MOLECULAR_ANALYSIS_RESULT: \"Overexpressed\"\n- PATHOGENICITY: \"Pathogenic\"\n- TEST_RESULT: \"2.5\" (string type)\n- VARIANT_ORIGIN: \"Somatic\"",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data for errors:\n\n1. \"AA_CHANGE\": \"F1174L\" - looks fine, free text string\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 14000 - integer, fine\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 14006 - integer, fine\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"BONE MAROW\" - misspelling, should be \"BONE MARROW\"\n5. \"COPY_NUMBER\": 4 - integer, fine\n6. \"EXON\": 23 - integer, fine\n7. \"GENE_SYMBOL\": \"ALK\" - valid gene symbol\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"Othr\" - misspelling, should be \"Other\"\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"Overexpressd\" - misspelling, should be \"Overexpressed\"\n10. \"PATHOGENICITY\": \"Pathogennic\" - misspelling, should be \"Pathogenic\"\n11. \"TEST_RESULT\": 2.5 - schema says type string. Should be \"2.5\" as string\n12. \"VARIANT_ORIGIN\": \"Somatc\" - misspelling, should be \"Somatic\"\n13. \"VARIANT_TYPE\": \"Chimerism\" - valid enum value\n\nCorrections:\n- CLINICAL_BIOSPECIMEN_TYPE: \"BONE MARROW\"\n- MOLECULAR_ANALYSIS_METHOD: \"Other\"\n- MOLECULAR_ANALYSIS_RESULT: \"Overexpressed\"\n- PATHOGENICITY: \"Pathogenic\"\n- TEST_RESULT: \"2.5\" (string type)\n- VARIANT_ORIGIN: \"Somatic\"",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2576,
+              "completion_tokens": 541,
+              "total_tokens": 3117,
+              "cost": 0.015843,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.015843,
+                "upstream_inference_prompt_cost": 0.007728,
+                "upstream_inference_completions_cost": 0.008115
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 369,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.9090909090909091,
+          "precision": 0.8333333333333334,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 5,
+          "fp": 1,
+          "tn": 7,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "F1174L",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 14000,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 14006,
+          "CLINICAL_BIOSPECIMEN_TYPE": "BONE MARROW",
+          "COPY_NUMBER": 4,
+          "EXON": 23,
+          "GENE_SYMBOL": "ALK",
+          "MOLECULAR_ANALYSIS_METHOD": "Other",
+          "MOLECULAR_ANALYSIS_RESULT": "Overexpressed",
+          "PATHOGENICITY": "Pathogenic",
+          "TEST_RESULT": 2.5,
+          "VARIANT_ORIGIN": "Somatic",
+          "VARIANT_TYPE": "Chimerism"
+        },
+        "token_usage": {
+          "input_tokens": 2576,
+          "output_tokens": 541,
+          "total_tokens": 3117
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 15,
+        "input": {
+          "AA_CHANGE": "R248Q",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 22500,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 22510,
+          "CLINICAL_BIOSPECIMEN_TYPE": "Fresh Tissue",
+          "COPY_NUMBER": 1,
+          "EXON": 7,
+          "GENE_SYMBOL": "TP53",
+          "MOLECULAR_ANALYSIS_METHOD": "rna sequencing",
+          "MOLECULAR_ANALYSIS_RESULT": "POSITIVE",
+          "PATHOGENICITY": "PATHOGENIC",
+          "TEST_RESULT": 1.75,
+          "VARIANT_ORIGIN": "SOMATIC",
+          "VARIANT_TYPE": "DELETION"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"R248Q\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 22500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 22510,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FRESH TISSUE\",\n  \"COPY_NUMBER\": 1,\n  \"EXON\": 7,\n  \"GENE_SYMBOL\": \"TP53\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"RNA sequencing\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Positive\",\n  \"PATHOGENICITY\": \"Pathogenic\",\n  \"TEST_RESULT\": \"1.75\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Deletion\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2575,
+            "outputTokens": 568,
+            "totalTokens": 3143
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186586-Ei9eT5a7ce4K2WEO3Ok4",
+            "object": "chat.completion",
+            "created": 1787186586,
+            "model": "moonshotai/kimi-k3",
+            "provider": "Sail Research",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"R248Q\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 22500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 22510,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FRESH TISSUE\",\n  \"COPY_NUMBER\": 1,\n  \"EXON\": 7,\n  \"GENE_SYMBOL\": \"TP53\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"RNA sequencing\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Positive\",\n  \"PATHOGENICITY\": \"Pathogenic\",\n  \"TEST_RESULT\": \"1.75\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Deletion\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data against the schema:\n\n1. \"AA_CHANGE\": \"R248Q\" - string, looks fine.\n\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 22500 - integer, fine.\n\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 22510 - integer, fine.\n\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"Fresh Tissue\" - enum requires \"FRESH TISSUE\" (uppercase). Fix to \"FRESH TISSUE\".\n\n5. \"COPY_NUMBER\": 1 - integer, fine.\n\n6. \"EXON\": 7 - integer, fine.\n\n7. \"GENE_SYMBOL\": \"TP53\" - valid gene symbol, fine.\n\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"rna sequencing\" - enum has \"RNA sequencing\". Fix case.\n\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"POSITIVE\" - enum has \"Positive\". Fix case.\n\n10. \"PATHOGENICITY\": \"PATHOGENIC\" - enum has \"Pathogenic\". Fix case.\n\n11. \"TEST_RESULT\": 1.75 - schema says type string. Description: \"Specific result of a clinical molecular test.\" It's a string type, so convert to \"1.75\".\n\n12. \"VARIANT_ORIGIN\": \"SOMATIC\" - enum has \"Somatic\". Fix case.\n\n13. \"VARIANT_TYPE\": \"DELETION\" - enum has \"Deletion\". Fix case.\n\nSo corrections:\n- CLINICAL_BIOSPECIMEN_TYPE: \"FRESH TISSUE\"\n- MOLECULAR_ANALYSIS_METHOD: \"RNA sequencing\"\n- MOLECULAR_ANALYSIS_RESULT: \"Positive\"\n- PATHOGENICITY: \"Pathogenic\"\n- TEST_RESULT: \"1.75\" (string)\n- VARIANT_ORIGIN: \"Somatic\"\n- VARIANT_TYPE: \"Deletion\"\n\nReturn only JSON.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data against the schema:\n\n1. \"AA_CHANGE\": \"R248Q\" - string, looks fine.\n\n2. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 22500 - integer, fine.\n\n3. \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 22510 - integer, fine.\n\n4. \"CLINICAL_BIOSPECIMEN_TYPE\": \"Fresh Tissue\" - enum requires \"FRESH TISSUE\" (uppercase). Fix to \"FRESH TISSUE\".\n\n5. \"COPY_NUMBER\": 1 - integer, fine.\n\n6. \"EXON\": 7 - integer, fine.\n\n7. \"GENE_SYMBOL\": \"TP53\" - valid gene symbol, fine.\n\n8. \"MOLECULAR_ANALYSIS_METHOD\": \"rna sequencing\" - enum has \"RNA sequencing\". Fix case.\n\n9. \"MOLECULAR_ANALYSIS_RESULT\": \"POSITIVE\" - enum has \"Positive\". Fix case.\n\n10. \"PATHOGENICITY\": \"PATHOGENIC\" - enum has \"Pathogenic\". Fix case.\n\n11. \"TEST_RESULT\": 1.75 - schema says type string. Description: \"Specific result of a clinical molecular test.\" It's a string type, so convert to \"1.75\".\n\n12. \"VARIANT_ORIGIN\": \"SOMATIC\" - enum has \"Somatic\". Fix case.\n\n13. \"VARIANT_TYPE\": \"DELETION\" - enum has \"Deletion\". Fix case.\n\nSo corrections:\n- CLINICAL_BIOSPECIMEN_TYPE: \"FRESH TISSUE\"\n- MOLECULAR_ANALYSIS_METHOD: \"RNA sequencing\"\n- MOLECULAR_ANALYSIS_RESULT: \"Positive\"\n- PATHOGENICITY: \"Pathogenic\"\n- TEST_RESULT: \"1.75\" (string)\n- VARIANT_ORIGIN: \"Somatic\"\n- VARIANT_TYPE: \"Deletion\"\n\nReturn only JSON.",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2575,
+              "completion_tokens": 568,
+              "total_tokens": 3143,
+              "cost": 0.00934812,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 2048,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00934812,
+                "upstream_inference_prompt_cost": 0.00196412,
+                "upstream_inference_completions_cost": 0.007384
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 398,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.923076923076923,
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 6,
+          "fp": 1,
+          "tn": 6,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "R248Q",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 22500,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 22510,
+          "CLINICAL_BIOSPECIMEN_TYPE": "FRESH TISSUE",
+          "COPY_NUMBER": 1,
+          "EXON": 7,
+          "GENE_SYMBOL": "TP53",
+          "MOLECULAR_ANALYSIS_METHOD": "RNA sequencing",
+          "MOLECULAR_ANALYSIS_RESULT": "Positive",
+          "PATHOGENICITY": "Pathogenic",
+          "TEST_RESULT": 1.75,
+          "VARIANT_ORIGIN": "Somatic",
+          "VARIANT_TYPE": "Deletion"
+        },
+        "token_usage": {
+          "input_tokens": 2575,
+          "output_tokens": 568,
+          "total_tokens": 3143
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 16,
+        "input": {
+          "AA_CHANGE": "C797S",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 19800,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 19805,
+          "CLINICAL_BIOSPECIMEN_TYPE": "FORMALIN FIXD PARAFIN EMBEDDED TISSUE",
+          "COPY_NUMBER": 2,
+          "EXON": 20,
+          "GENE_SYMBOL": "EGFR",
+          "MOLECULAR_ANALYSIS_METHOD": "Comparativ genomic hybridiztion",
+          "MOLECULAR_ANALYSIS_RESULT": "Loss of Expresion",
+          "PATHOGENICITY": "Uncertain Signifcance",
+          "TEST_RESULT": 0.62,
+          "VARIANT_ORIGIN": "Germlin",
+          "VARIANT_TYPE": "Mosaicsm"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"C797S\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 19800,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 19805,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 20,\n  \"GENE_SYMBOL\": \"EGFR\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Comparative genomic hybridization\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Loss of Expression\",\n  \"PATHOGENICITY\": \"Uncertain Significance\",\n  \"TEST_RESULT\": \"0.62\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Mosaicism\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2558,
+            "outputTokens": 901,
+            "totalTokens": 3459
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186604-7veopLunc9kN7OJdM5Oy",
+            "object": "chat.completion",
+            "created": 1787186604,
+            "model": "moonshotai/kimi-k3",
+            "provider": "Moonshot AI",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"C797S\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 19800,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 19805,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 20,\n  \"GENE_SYMBOL\": \"EGFR\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Comparative genomic hybridization\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Loss of Expression\",\n  \"PATHOGENICITY\": \"Uncertain Significance\",\n  \"TEST_RESULT\": \"0.62\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Mosaicism\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data for errors:\n\n1. `AA_CHANGE`: \"C797S\" - looks fine, alphanumeric amino acid change format.\n\n2. `AGE_IN_DAYS_AT_MOLECULAR_TEST_START`: 19800 - integer, fine.\n\n3. `AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP`: 19805 - integer, fine.\n\n4. `CLINICAL_BIOSPECIMEN_TYPE`: \"FORMALIN FIXD PARAFIN EMBEDDED TISSUE\" - misspelled. Should be \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\". Errors: \"FIXD\" \u2192 \"FIXED\", \"PARAFIN\" \u2192 \"PARAFFIN\".\n\n5. `COPY_NUMBER`: 2 - integer, fine.\n\n6. `EXON`: 20 - integer, fine.\n\n7. `GENE_SYMBOL`: \"EGFR\" - valid gene symbol.\n\n8. `MOLECULAR_ANALYSIS_METHOD`: \"Comparativ genomic hybridiztion\" - misspelled. Should be \"Comparative genomic hybridization\".\n\n9. `MOLECULAR_ANALYSIS_RESULT`: \"Loss of Expresion\" - misspelled. Should be \"Loss of Expression\".\n\n10. `PATHOGENICITY`: \"Uncertain Signifcance\" - misspelled. Should be \"Uncertain Significance\".\n\n11. `TEST_RESULT`: 0.62 - type mismatch. Schema says TEST_RESULT is a string. So it should be \"0.62\" as a string. The error types mention \"Type mismatch - float\" (truncated). So 0.62 should be converted to string \"0.62\".\n\n12. `VARIANT_ORIGIN`: \"Germlin\" - misspelled. Should be \"Germline\".\n\n13. `VARIANT_TYPE`: \"Mosaicsm\" - misspelled. Should be \"Mosaicism\".\n\nLet me check all fields in the schema:\n- AA_CHANGE: present \u2713\n- AGE_IN_DAYS_AT_MOLECULAR_TEST_START: present \u2713\n- AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP: present \u2713\n- CLINICAL_BIOSPECIMEN_TYPE: present \u2713 (fix spelling)\n- COPY_NUMBER: present \u2713\n- EXON: present \u2713\n- GENE_SYMBOL: present \u2713\n- MOLECULAR_ANALYSIS_METHOD: present \u2713 (fix spelling)\n- MOLECULAR_ANALYSIS_RESULT: present \u2713 (fix spelling)\n- PATHOGENICITY: present \u2713 (fix spelling)\n- TEST_RESULT: present \u2713 (fix type - number to string)\n- VARIANT_ORIGIN: present \u2713 (fix spelling)\n- VARIANT_TYPE: present \u2713 (fix spelling)\n\nNot present: MOLECULAR_CONSEQUENCE, TEST_ANALYTE_TYPE, TEST_UNITS, TIMEPOINT_LABEL - don't add them.\n\nCorrections:\n- CLINICAL_BIOSPECIMEN_TYPE: \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\"\n- MOLECULAR_ANALYSIS_METHOD: \"Comparative genomic hybridization\"\n- MOLECULAR_ANALYSIS_RESULT: \"Loss of Expression\"\n- PATHOGENICITY: \"Uncertain Significance\"\n- TEST_RESULT: \"0.62\" (string type)\n- VARIANT_ORIGIN: \"Germline\"\n- VARIANT_TYPE: \"Mosaicism\"\n\nOutput JSON.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data for errors:\n\n1. `AA_CHANGE`: \"C797S\" - looks fine, alphanumeric amino acid change format.\n\n2. `AGE_IN_DAYS_AT_MOLECULAR_TEST_START`: 19800 - integer, fine.\n\n3. `AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP`: 19805 - integer, fine.\n\n4. `CLINICAL_BIOSPECIMEN_TYPE`: \"FORMALIN FIXD PARAFIN EMBEDDED TISSUE\" - misspelled. Should be \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\". Errors: \"FIXD\" \u2192 \"FIXED\", \"PARAFIN\" \u2192 \"PARAFFIN\".\n\n5. `COPY_NUMBER`: 2 - integer, fine.\n\n6. `EXON`: 20 - integer, fine.\n\n7. `GENE_SYMBOL`: \"EGFR\" - valid gene symbol.\n\n8. `MOLECULAR_ANALYSIS_METHOD`: \"Comparativ genomic hybridiztion\" - misspelled. Should be \"Comparative genomic hybridization\".\n\n9. `MOLECULAR_ANALYSIS_RESULT`: \"Loss of Expresion\" - misspelled. Should be \"Loss of Expression\".\n\n10. `PATHOGENICITY`: \"Uncertain Signifcance\" - misspelled. Should be \"Uncertain Significance\".\n\n11. `TEST_RESULT`: 0.62 - type mismatch. Schema says TEST_RESULT is a string. So it should be \"0.62\" as a string. The error types mention \"Type mismatch - float\" (truncated). So 0.62 should be converted to string \"0.62\".\n\n12. `VARIANT_ORIGIN`: \"Germlin\" - misspelled. Should be \"Germline\".\n\n13. `VARIANT_TYPE`: \"Mosaicsm\" - misspelled. Should be \"Mosaicism\".\n\nLet me check all fields in the schema:\n- AA_CHANGE: present \u2713\n- AGE_IN_DAYS_AT_MOLECULAR_TEST_START: present \u2713\n- AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP: present \u2713\n- CLINICAL_BIOSPECIMEN_TYPE: present \u2713 (fix spelling)\n- COPY_NUMBER: present \u2713\n- EXON: present \u2713\n- GENE_SYMBOL: present \u2713\n- MOLECULAR_ANALYSIS_METHOD: present \u2713 (fix spelling)\n- MOLECULAR_ANALYSIS_RESULT: present \u2713 (fix spelling)\n- PATHOGENICITY: present \u2713 (fix spelling)\n- TEST_RESULT: present \u2713 (fix type - number to string)\n- VARIANT_ORIGIN: present \u2713 (fix spelling)\n- VARIANT_TYPE: present \u2713 (fix spelling)\n\nNot present: MOLECULAR_CONSEQUENCE, TEST_ANALYTE_TYPE, TEST_UNITS, TIMEPOINT_LABEL - don't add them.\n\nCorrections:\n- CLINICAL_BIOSPECIMEN_TYPE: \"FORMALIN FIXED PARAFFIN EMBEDDED TISSUE\"\n- MOLECULAR_ANALYSIS_METHOD: \"Comparative genomic hybridization\"\n- MOLECULAR_ANALYSIS_RESULT: \"Loss of Expression\"\n- PATHOGENICITY: \"Uncertain Significance\"\n- TEST_RESULT: \"0.62\" (string type)\n- VARIANT_ORIGIN: \"Germline\"\n- VARIANT_TYPE: \"Mosaicism\"\n\nOutput JSON.",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2558,
+              "completion_tokens": 901,
+              "total_tokens": 3459,
+              "cost": 0.021189,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.021189,
+                "upstream_inference_prompt_cost": 0.007674,
+                "upstream_inference_completions_cost": 0.013515
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 706,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.923076923076923,
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 6,
+          "fp": 1,
+          "tn": 6,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "C797S",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 19800,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 19805,
+          "CLINICAL_BIOSPECIMEN_TYPE": "FORMALIN FIXED PARAFFIN EMBEDDED TISSUE",
+          "COPY_NUMBER": 2,
+          "EXON": 20,
+          "GENE_SYMBOL": "EGFR",
+          "MOLECULAR_ANALYSIS_METHOD": "Comparative genomic hybridization",
+          "MOLECULAR_ANALYSIS_RESULT": "Loss of Expression",
+          "PATHOGENICITY": "Uncertain Significance",
+          "TEST_RESULT": 0.62,
+          "VARIANT_ORIGIN": "Germline",
+          "VARIANT_TYPE": "Mosaicism"
+        },
+        "token_usage": {
+          "input_tokens": 2558,
+          "output_tokens": 901,
+          "total_tokens": 3459
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 17,
+        "input": {
+          "AA_CHANGE": "G13D",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 15500,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 15507,
+          "CLINICAL_BIOSPECIMEN_TYPE": "Frozen",
+          "COPY_NUMBER": 3,
+          "EXON": 2,
+          "GENE_SYMBOL": "KRAS",
+          "MOLECULAR_ANALYSIS_METHOD": "pcr",
+          "MOLECULAR_ANALYSIS_RESULT": "Neg",
+          "PATHOGENICITY": "Unk",
+          "TEST_RESULT": 0.42,
+          "VARIANT_ORIGIN": "germ",
+          "VARIANT_TYPE": "Ins"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"G13D\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 15500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 15507,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FROZEN TISSUE\",\n  \"COPY_NUMBER\": 3,\n  \"EXON\": 2,\n  \"GENE_SYMBOL\": \"KRAS\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"PCR\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Negative\",\n  \"PATHOGENICITY\": \"Unknown\",\n  \"TEST_RESULT\": \"0.42\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Insertion\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2531,
+            "outputTokens": 839,
+            "totalTokens": 3370
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186625-3NLEtu3ggy8u6132irUI",
+            "object": "chat.completion",
+            "created": 1787186625,
+            "model": "moonshotai/kimi-k3",
+            "provider": "Morph",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"G13D\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 15500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 15507,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FROZEN TISSUE\",\n  \"COPY_NUMBER\": 3,\n  \"EXON\": 2,\n  \"GENE_SYMBOL\": \"KRAS\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"PCR\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Negative\",\n  \"PATHOGENICITY\": \"Unknown\",\n  \"TEST_RESULT\": \"0.42\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Insertion\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data against the target schema to identify all errors:\n\n1. **AA_CHANGE**: \"G13D\" - This is a string, looks fine. No error.\n\n2. **AGE_IN_DAYS_AT_MOLECULAR_TEST_START**: 15500 - integer, valid. No error.\n\n3. **AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP**: 15507 - integer, valid. No error.\n\n4. **CLINICAL_BIOSPECIMEN_TYPE**: \"Frozen\" - This is not in the enum. The enum has \"FROZEN TISSUE\". \"Frozen\" should be corrected to \"FROZEN TISSUE\". Error: invalid enum value / case error.\n\n5. **COPY_NUMBER**: 3 - integer, valid. No error.\n\n6. **EXON**: 2 - integer, valid. No error.\n\n7. **GENE_SYMBOL**: \"KRAS\" - valid gene symbol. No error.\n\n8. **MOLECULAR_ANALYSIS_METHOD**: \"pcr\" - case error. Should be \"PCR\" from the enum. Error.\n\n9. **MOLECULAR_ANALYSIS_RESULT**: \"Neg\" - not in enum. Should be \"Negative\". Error.\n\n10. **PATHOGENICITY**: \"Unk\" - not in enum. Should be \"Unknown\". Error.\n\n11. **TEST_RESULT**: 0.42 - The schema says TEST_RESULT is type \"string\". So this is a type mismatch - should be a string \"0.42\". Error: type mismatch.\n\n12. **VARIANT_ORIGIN**: \"germ\" - not in enum. Should be \"Germline\". Error.\n\n13. **VARIANT_TYPE**: \"Ins\" - not in enum (based on preview). Should be \"Insertion\". Error.\n\nLet me correct all of these:\n\n- CLINICAL_BIOSPECIMEN_TYPE: \"Frozen\" \u2192 \"FROZEN TISSUE\"\n- MOLECULAR_ANALYSIS_METHOD: \"pcr\" \u2192 \"PCR\"\n- MOLECULAR_ANALYSIS_RESULT: \"Neg\" \u2192 \"Negative\"\n- PATHOGENICITY: \"Unk\" \u2192 \"Unknown\"\n- TEST_RESULT: 0.42 \u2192 \"0.42\" (string type)\n- VARIANT_ORIGIN: \"germ\" \u2192 \"Germline\"\n- VARIANT_TYPE: \"Ins\" \u2192 \"Insertion\"\n\nThe corrected record:\n\n```json\n{\n  \"AA_CHANGE\": \"G13D\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 15500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 15507,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FROZEN TISSUE\",\n  \"COPY_NUMBER\": 3,\n  \"EXON\": 2,\n  \"GENE_SYMBOL\": \"KRAS\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"PCR\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Negative\",\n  \"PATHOGENICITY\": \"Unknown\",\n  \"TEST_RESULT\": \"0.42\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Insertion\"\n}\n```\n\nThat looks complete. All fields preserved, all errors corrected.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data against the target schema to identify all errors:\n\n1. **AA_CHANGE**: \"G13D\" - This is a string, looks fine. No error.\n\n2. **AGE_IN_DAYS_AT_MOLECULAR_TEST_START**: 15500 - integer, valid. No error.\n\n3. **AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP**: 15507 - integer, valid. No error.\n\n4. **CLINICAL_BIOSPECIMEN_TYPE**: \"Frozen\" - This is not in the enum. The enum has \"FROZEN TISSUE\". \"Frozen\" should be corrected to \"FROZEN TISSUE\". Error: invalid enum value / case error.\n\n5. **COPY_NUMBER**: 3 - integer, valid. No error.\n\n6. **EXON**: 2 - integer, valid. No error.\n\n7. **GENE_SYMBOL**: \"KRAS\" - valid gene symbol. No error.\n\n8. **MOLECULAR_ANALYSIS_METHOD**: \"pcr\" - case error. Should be \"PCR\" from the enum. Error.\n\n9. **MOLECULAR_ANALYSIS_RESULT**: \"Neg\" - not in enum. Should be \"Negative\". Error.\n\n10. **PATHOGENICITY**: \"Unk\" - not in enum. Should be \"Unknown\". Error.\n\n11. **TEST_RESULT**: 0.42 - The schema says TEST_RESULT is type \"string\". So this is a type mismatch - should be a string \"0.42\". Error: type mismatch.\n\n12. **VARIANT_ORIGIN**: \"germ\" - not in enum. Should be \"Germline\". Error.\n\n13. **VARIANT_TYPE**: \"Ins\" - not in enum (based on preview). Should be \"Insertion\". Error.\n\nLet me correct all of these:\n\n- CLINICAL_BIOSPECIMEN_TYPE: \"Frozen\" \u2192 \"FROZEN TISSUE\"\n- MOLECULAR_ANALYSIS_METHOD: \"pcr\" \u2192 \"PCR\"\n- MOLECULAR_ANALYSIS_RESULT: \"Neg\" \u2192 \"Negative\"\n- PATHOGENICITY: \"Unk\" \u2192 \"Unknown\"\n- TEST_RESULT: 0.42 \u2192 \"0.42\" (string type)\n- VARIANT_ORIGIN: \"germ\" \u2192 \"Germline\"\n- VARIANT_TYPE: \"Ins\" \u2192 \"Insertion\"\n\nThe corrected record:\n\n```json\n{\n  \"AA_CHANGE\": \"G13D\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 15500,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 15507,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"FROZEN TISSUE\",\n  \"COPY_NUMBER\": 3,\n  \"EXON\": 2,\n  \"GENE_SYMBOL\": \"KRAS\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"PCR\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Negative\",\n  \"PATHOGENICITY\": \"Unknown\",\n  \"TEST_RESULT\": \"0.42\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Insertion\"\n}\n```\n\nThat looks complete. All fields preserved, all errors corrected.",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2531,
+              "completion_tokens": 839,
+              "total_tokens": 3370,
+              "cost": 0.0188328,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.0188328,
+                "upstream_inference_prompt_cost": 0.0070868,
+                "upstream_inference_completions_cost": 0.011746
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 540,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.923076923076923,
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 6,
+          "fp": 1,
+          "tn": 6,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "G13D",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 15500,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 15507,
+          "CLINICAL_BIOSPECIMEN_TYPE": "FROZEN TISSUE",
+          "COPY_NUMBER": 3,
+          "EXON": 2,
+          "GENE_SYMBOL": "KRAS",
+          "MOLECULAR_ANALYSIS_METHOD": "PCR",
+          "MOLECULAR_ANALYSIS_RESULT": "Negative",
+          "PATHOGENICITY": "Unknown",
+          "TEST_RESULT": 0.42,
+          "VARIANT_ORIGIN": "Germline",
+          "VARIANT_TYPE": "Insertion"
+        },
+        "token_usage": {
+          "input_tokens": 2531,
+          "output_tokens": 839,
+          "total_tokens": 3370
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 18,
+        "input": {
+          "AA_CHANGE": "E17K",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 16800,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 16805,
+          "CLINICAL_BIOSPECIMEN_TYPE": "  BLOOD  ",
+          "COPY_NUMBER": 2,
+          "EXON": 1,
+          "GENE_SYMBOL": "AKT1",
+          "MOLECULAR_ANALYSIS_METHOD": "Flow  cytometry",
+          "MOLECULAR_ANALYSIS_RESULT": "High ",
+          "PATHOGENICITY": " Likely Pathogenic ",
+          "TEST_RESULT": 1.65,
+          "VARIANT_ORIGIN": "Somatic  ",
+          "VARIANT_TYPE": "  Amplification"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"E17K\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 16800,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 16805,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"BLOOD\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 1,\n  \"GENE_SYMBOL\": \"AKT1\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Flow cytometry\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"High\",\n  \"PATHOGENICITY\": \"Likely Pathogenic\",\n  \"TEST_RESULT\": \"1.65\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Amplification\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2542,
+            "outputTokens": 921,
+            "totalTokens": 3463
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186655-GMtw4FOJR8jkquePct4o",
+            "object": "chat.completion",
+            "created": 1787186655,
+            "model": "moonshotai/kimi-k3",
+            "provider": "DeepInfra",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"E17K\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 16800,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 16805,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"BLOOD\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 1,\n  \"GENE_SYMBOL\": \"AKT1\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Flow cytometry\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"High\",\n  \"PATHOGENICITY\": \"Likely Pathogenic\",\n  \"TEST_RESULT\": \"1.65\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Amplification\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data for errors:\n\n1. `AA_CHANGE`: \"E17K\" - looks fine, string type\n2. `AGE_IN_DAYS_AT_MOLECULAR_TEST_START`: 16800 - integer, fine\n3. `AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP`: 16805 - integer, fine\n4. `CLINICAL_BIOSPECIMEN_TYPE`: \"  BLOOD  \" - has leading/trailing whitespace, should be \"BLOOD\"\n5. `COPY_NUMBER`: 2 - integer, fine\n6. `EXON`: 1 - integer, fine\n7. `GENE_SYMBOL`: \"AKT1\" - valid gene symbol\n8. `MOLECULAR_ANALYSIS_METHOD`: \"Flow  cytometry\" - has double space, should be \"Flow cytometry\"\n9. `MOLECULAR_ANALYSIS_RESULT`: \"High \" - trailing whitespace, should be \"High\"\n10. `PATHOGENICITY`: \" Likely Pathogenic \" - leading/trailing whitespace, should be \"Likely Pathogenic\"\n11. `TEST_RESULT`: 1.65 - schema says type is string. Hmm, the description says \"Specific result of a clinical molecular test.\" The type is \"string\". So 1.65 should be converted to \"1.65\"? The schema type is string, so I should convert it to a string \"1.65\".\n12. `VARIANT_ORIGIN`: \"Somatic  \" - trailing whitespace, should be \"Somatic\"\n13. `VARIANT_TYPE`: \"  Amplification\" - leading whitespace, should be \"Amplification\"\n\nLet me check TEST_RESULT more carefully. The schema says:\n```\n\"TEST_RESULT\": {\n  \"type\": \"string\",\n  \"description\": \"Specific result of a clinical molecular test. Use this field only if one of the permissible values i...\"\n}\n```\n\nType is string, so 1.65 (a number) should be \"1.65\" (a string). This is a type mismatch error - the common error types mention \"Type mismatch - float\" (truncated in the prompt). So yes, TEST_RESULT should be a string \"1.65\".\n\nCorrected record:\n```json\n{\n  \"AA_CHANGE\": \"E17K\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 16800,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 16805,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"BLOOD\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 1,\n  \"GENE_SYMBOL\": \"AKT1\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Flow cytometry\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"High\",\n  \"PATHOGENICITY\": \"Likely Pathogenic\",\n  \"TEST_RESULT\": \"1.65\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Amplification\"\n}\n```\n\nAll enum values check out:\n- \"BLOOD\" is in CLINICAL_BIOSPECIMEN_TYPE enum \u2713\n- \"Flow cytometry\" is in MOLECULAR_ANALYSIS_METHOD enum \u2713\n- \"High\" is in MOLECULAR_ANALYSIS_RESULT enum \u2713\n- \"Likely Pathogenic\" is in PATHOGENICITY enum \u2713\n- \"Somatic\" is in VARIANT_ORIGIN enum \u2713\n- \"Amplification\" is in VARIANT_TYPE enum \u2713\n- \"AKT1\" is a valid HGNC gene symbol \u2713\n\nReturn only the JSON.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data for errors:\n\n1. `AA_CHANGE`: \"E17K\" - looks fine, string type\n2. `AGE_IN_DAYS_AT_MOLECULAR_TEST_START`: 16800 - integer, fine\n3. `AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP`: 16805 - integer, fine\n4. `CLINICAL_BIOSPECIMEN_TYPE`: \"  BLOOD  \" - has leading/trailing whitespace, should be \"BLOOD\"\n5. `COPY_NUMBER`: 2 - integer, fine\n6. `EXON`: 1 - integer, fine\n7. `GENE_SYMBOL`: \"AKT1\" - valid gene symbol\n8. `MOLECULAR_ANALYSIS_METHOD`: \"Flow  cytometry\" - has double space, should be \"Flow cytometry\"\n9. `MOLECULAR_ANALYSIS_RESULT`: \"High \" - trailing whitespace, should be \"High\"\n10. `PATHOGENICITY`: \" Likely Pathogenic \" - leading/trailing whitespace, should be \"Likely Pathogenic\"\n11. `TEST_RESULT`: 1.65 - schema says type is string. Hmm, the description says \"Specific result of a clinical molecular test.\" The type is \"string\". So 1.65 should be converted to \"1.65\"? The schema type is string, so I should convert it to a string \"1.65\".\n12. `VARIANT_ORIGIN`: \"Somatic  \" - trailing whitespace, should be \"Somatic\"\n13. `VARIANT_TYPE`: \"  Amplification\" - leading whitespace, should be \"Amplification\"\n\nLet me check TEST_RESULT more carefully. The schema says:\n```\n\"TEST_RESULT\": {\n  \"type\": \"string\",\n  \"description\": \"Specific result of a clinical molecular test. Use this field only if one of the permissible values i...\"\n}\n```\n\nType is string, so 1.65 (a number) should be \"1.65\" (a string). This is a type mismatch error - the common error types mention \"Type mismatch - float\" (truncated in the prompt). So yes, TEST_RESULT should be a string \"1.65\".\n\nCorrected record:\n```json\n{\n  \"AA_CHANGE\": \"E17K\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 16800,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 16805,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"BLOOD\",\n  \"COPY_NUMBER\": 2,\n  \"EXON\": 1,\n  \"GENE_SYMBOL\": \"AKT1\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Flow cytometry\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"High\",\n  \"PATHOGENICITY\": \"Likely Pathogenic\",\n  \"TEST_RESULT\": \"1.65\",\n  \"VARIANT_ORIGIN\": \"Somatic\",\n  \"VARIANT_TYPE\": \"Amplification\"\n}\n```\n\nAll enum values check out:\n- \"BLOOD\" is in CLINICAL_BIOSPECIMEN_TYPE enum \u2713\n- \"Flow cytometry\" is in MOLECULAR_ANALYSIS_METHOD enum \u2713\n- \"High\" is in MOLECULAR_ANALYSIS_RESULT enum \u2713\n- \"Likely Pathogenic\" is in PATHOGENICITY enum \u2713\n- \"Somatic\" is in VARIANT_ORIGIN enum \u2713\n- \"Amplification\" is in VARIANT_TYPE enum \u2713\n- \"AKT1\" is a valid HGNC gene symbol \u2713\n\nReturn only the JSON.",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2542,
+              "completion_tokens": 921,
+              "total_tokens": 3463,
+              "cost": 0.02036895,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.02036895,
+                "upstream_inference_prompt_cost": 0.0072447,
+                "upstream_inference_completions_cost": 0.01312425
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 627,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.923076923076923,
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 6,
+          "fp": 1,
+          "tn": 6,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "E17K",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 16800,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 16805,
+          "CLINICAL_BIOSPECIMEN_TYPE": "BLOOD",
+          "COPY_NUMBER": 2,
+          "EXON": 1,
+          "GENE_SYMBOL": "AKT1",
+          "MOLECULAR_ANALYSIS_METHOD": "Flow cytometry",
+          "MOLECULAR_ANALYSIS_RESULT": "High",
+          "PATHOGENICITY": "Likely Pathogenic",
+          "TEST_RESULT": 1.65,
+          "VARIANT_ORIGIN": "Somatic",
+          "VARIANT_TYPE": "Amplification"
+        },
+        "token_usage": {
+          "input_tokens": 2542,
+          "output_tokens": 921,
+          "total_tokens": 3463
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      },
+      {
+        "sample_index": 19,
+        "input": {
+          "AA_CHANGE": "R273H",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 23000,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 23007,
+          "CLINICAL_BIOSPECIMEN_TYPE": "CEREBROSPINAL FLUD",
+          "COPY_NUMBER": 1,
+          "EXON": 8,
+          "GENE_SYMBOL": "tp53",
+          "MOLECULAR_ANALYSIS_METHOD": "Immunofluorescence",
+          "MOLECULAR_ANALYSIS_RESULT": "OVEREXPRESSED",
+          "PATHOGENICITY": "likley pathogenic",
+          "TEST_RESULT": 2.2,
+          "VARIANT_ORIGIN": "GERMLINE",
+          "VARIANT_TYPE": "Chromosomal  Gain"
+        },
+        "response": {
+          "success": true,
+          "content": "```json\n{\n  \"AA_CHANGE\": \"R273H\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 23000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 23007,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"CEREBROSPINAL FLUID\",\n  \"COPY_NUMBER\": 1,\n  \"EXON\": 8,\n  \"GENE_SYMBOL\": \"TP53\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Immunofluorescence\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Overexpressed\",\n  \"PATHOGENICITY\": \"Likely Pathogenic\",\n  \"TEST_RESULT\": \"2.2\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Chromosomal Gain\"\n}\n```",
+          "model_id": "moonshotai/kimi-k3",
+          "usage": {
+            "inputTokens": 2550,
+            "outputTokens": 795,
+            "totalTokens": 3345
+          },
+          "attempt": 1,
+          "raw_response": {
+            "id": "gen-1787186735-olkfmg9ZeKUjYbqjPz74",
+            "object": "chat.completion",
+            "created": 1787186735,
+            "model": "moonshotai/kimi-k3",
+            "provider": "DeepInfra",
+            "system_fingerprint": null,
+            "service_tier": null,
+            "choices": [
+              {
+                "index": 0,
+                "logprobs": null,
+                "finish_reason": "stop",
+                "native_finish_reason": "stop",
+                "message": {
+                  "role": "assistant",
+                  "content": "```json\n{\n  \"AA_CHANGE\": \"R273H\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 23000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 23007,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"CEREBROSPINAL FLUID\",\n  \"COPY_NUMBER\": 1,\n  \"EXON\": 8,\n  \"GENE_SYMBOL\": \"TP53\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Immunofluorescence\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Overexpressed\",\n  \"PATHOGENICITY\": \"Likely Pathogenic\",\n  \"TEST_RESULT\": \"2.2\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Chromosomal Gain\"\n}\n```",
+                  "refusal": null,
+                  "reasoning": "Let me analyze the input data against the schema to identify all errors:\n\n1. **AA_CHANGE**: \"R273H\" - free text string, looks fine.\n\n2. **AGE_IN_DAYS_AT_MOLECULAR_TEST_START**: 23000 - integer, valid.\n\n3. **AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP**: 23007 - integer, valid.\n\n4. **CLINICAL_BIOSPECIMEN_TYPE**: \"CEREBROSPINAL FLUD\" - typo, should be \"CEREBROSPINAL FLUID\" (from enum).\n\n5. **COPY_NUMBER**: 1 - integer, valid.\n\n6. **EXON**: 8 - integer, valid.\n\n7. **GENE_SYMBOL**: \"tp53\" - gene symbols are uppercase, should be \"TP53\".\n\n8. **MOLECULAR_ANALYSIS_METHOD**: \"Immunofluorescence\" - matches enum exactly. Valid.\n\n9. **MOLECULAR_ANALYSIS_RESULT**: \"OVEREXPRESSED\" - wrong case, should be \"Overexpressed\".\n\n10. **PATHOGENICITY**: \"likley pathogenic\" - misspelling and wrong case, should be \"Likely Pathogenic\".\n\n11. **TEST_RESULT**: 2.2 - schema says type is \"string\". So this should be a string \"2.2\". The description says \"Specific result of a clinical molecular test.\" Type is string, so convert number to string.\n\n12. **VARIANT_ORIGIN**: \"GERMLINE\" - wrong case, should be \"Germline\".\n\n13. **VARIANT_TYPE**: \"Chromosomal  Gain\" - double space, should be \"Chromosomal Gain\".\n\nLet me compile the corrected record:\n\n```json\n{\n  \"AA_CHANGE\": \"R273H\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 23000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 23007,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"CEREBROSPINAL FLUID\",\n  \"COPY_NUMBER\": 1,\n  \"EXON\": 8,\n  \"GENE_SYMBOL\": \"TP53\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Immunofluorescence\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Overexpressed\",\n  \"PATHOGENICITY\": \"Likely Pathogenic\",\n  \"TEST_RESULT\": \"2.2\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Chromosomal Gain\"\n}\n```\n\nWait, TEST_RESULT - the schema type is \"string\". The input is 2.2 (a number). Should I convert it to a string \"2.2\"? Yes, to match the schema type. The instructions say \"Ensure correct data types (integer vs number vs string vs array)\". So TEST_RESULT should be \"2.2\" as a string.\n\nAll fields preserved. That's the corrected record.",
+                  "reasoning_details": [
+                    {
+                      "type": "reasoning.text",
+                      "text": "Let me analyze the input data against the schema to identify all errors:\n\n1. **AA_CHANGE**: \"R273H\" - free text string, looks fine.\n\n2. **AGE_IN_DAYS_AT_MOLECULAR_TEST_START**: 23000 - integer, valid.\n\n3. **AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP**: 23007 - integer, valid.\n\n4. **CLINICAL_BIOSPECIMEN_TYPE**: \"CEREBROSPINAL FLUD\" - typo, should be \"CEREBROSPINAL FLUID\" (from enum).\n\n5. **COPY_NUMBER**: 1 - integer, valid.\n\n6. **EXON**: 8 - integer, valid.\n\n7. **GENE_SYMBOL**: \"tp53\" - gene symbols are uppercase, should be \"TP53\".\n\n8. **MOLECULAR_ANALYSIS_METHOD**: \"Immunofluorescence\" - matches enum exactly. Valid.\n\n9. **MOLECULAR_ANALYSIS_RESULT**: \"OVEREXPRESSED\" - wrong case, should be \"Overexpressed\".\n\n10. **PATHOGENICITY**: \"likley pathogenic\" - misspelling and wrong case, should be \"Likely Pathogenic\".\n\n11. **TEST_RESULT**: 2.2 - schema says type is \"string\". So this should be a string \"2.2\". The description says \"Specific result of a clinical molecular test.\" Type is string, so convert number to string.\n\n12. **VARIANT_ORIGIN**: \"GERMLINE\" - wrong case, should be \"Germline\".\n\n13. **VARIANT_TYPE**: \"Chromosomal  Gain\" - double space, should be \"Chromosomal Gain\".\n\nLet me compile the corrected record:\n\n```json\n{\n  \"AA_CHANGE\": \"R273H\",\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_START\": 23000,\n  \"AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP\": 23007,\n  \"CLINICAL_BIOSPECIMEN_TYPE\": \"CEREBROSPINAL FLUID\",\n  \"COPY_NUMBER\": 1,\n  \"EXON\": 8,\n  \"GENE_SYMBOL\": \"TP53\",\n  \"MOLECULAR_ANALYSIS_METHOD\": \"Immunofluorescence\",\n  \"MOLECULAR_ANALYSIS_RESULT\": \"Overexpressed\",\n  \"PATHOGENICITY\": \"Likely Pathogenic\",\n  \"TEST_RESULT\": \"2.2\",\n  \"VARIANT_ORIGIN\": \"Germline\",\n  \"VARIANT_TYPE\": \"Chromosomal Gain\"\n}\n```\n\nWait, TEST_RESULT - the schema type is \"string\". The input is 2.2 (a number). Should I convert it to a string \"2.2\"? Yes, to match the schema type. The instructions say \"Ensure correct data types (integer vs number vs string vs array)\". So TEST_RESULT should be \"2.2\" as a string.\n\nAll fields preserved. That's the corrected record.",
+                      "format": "unknown",
+                      "index": 0
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 2550,
+              "completion_tokens": 795,
+              "total_tokens": 3345,
+              "cost": 0.01465641,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1536,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.01465641,
+                "upstream_inference_prompt_cost": 0.00332766,
+                "upstream_inference_completions_cost": 0.01132875
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 521,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9230769230769231,
+        "metrics": {
+          "score": 0.9230769230769231,
+          "f1": 0.923076923076923,
+          "precision": 0.8571428571428571,
+          "recall": 1.0,
+          "confidence": 1.0,
+          "tp": 6,
+          "fp": 1,
+          "tn": 6,
+          "fn": 0
+        },
+        "ground_truth": {
+          "AA_CHANGE": "R273H",
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_START": 23000,
+          "AGE_IN_DAYS_AT_MOLECULAR_TEST_STOP": 23007,
+          "CLINICAL_BIOSPECIMEN_TYPE": "CEREBROSPINAL FLUID",
+          "COPY_NUMBER": 1,
+          "EXON": 8,
+          "GENE_SYMBOL": "TP53",
+          "MOLECULAR_ANALYSIS_METHOD": "Immunofluorescence",
+          "MOLECULAR_ANALYSIS_RESULT": "Overexpressed",
+          "PATHOGENICITY": "Likely Pathogenic",
+          "TEST_RESULT": 2.2,
+          "VARIANT_ORIGIN": "Germline",
+          "VARIANT_TYPE": "Chromosomal Gain"
+        },
+        "token_usage": {
+          "input_tokens": 2550,
+          "output_tokens": 795,
+          "total_tokens": 3345
+        },
+        "tool_calls": [],
+        "tool_execution_history": []
+      }
+    ],
+    "metrics": {
+      "total_samples": 20,
+      "successful_runs": 20,
+      "failed_runs": 0,
+      "success_rate": 1.0,
+      "average_score": 0.9230769230769231,
+      "min_score": 0.9230769230769231,
+      "max_score": 0.9230769230769231,
+      "num_scored": 20,
+      "average_f1": 0.9206060606060605,
+      "std_f1": 0.007491495570530056,
+      "min_f1": 0.9090909090909091,
+      "max_f1": 0.9333333333333333,
+      "average_precision": 0.8529761904761907,
+      "std_precision": 0.0128247294010644,
+      "average_recall": 1.0,
+      "std_recall": 0.0,
+      "average_confidence": 1.0,
+      "std_confidence": 0.0
+    },
+    "duration_seconds": 473.4078097343445,
+    "token_usage": {
+      "input_tokens": 51281,
+      "output_tokens": 13887,
+      "total_tokens": 65168
+    }
+  }
+}
