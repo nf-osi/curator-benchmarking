@@ -3,6 +3,7 @@ from typing import Dict, Any, Optional, List
 from .config import Config
 from .bedrock_client import BedrockClient
 from .openrouter_client import OpenRouterClient
+from .anthropic_client import AnthropicClient
 from .tool import Tool
 from .tool_executor import ToolExecutor
 
@@ -15,6 +16,15 @@ class ModelClient:
         self.config = config
         self.bedrock_client = None
         self.openrouter_client = None
+        self.anthropic_client = None
+
+    def _is_anthropic_api_model(self, model_id: str) -> bool:
+        """Bare first-party Anthropic IDs (e.g. claude-fable-5) use the Anthropic API.
+
+        Bedrock Anthropic models carry an "anthropic." segment (us.anthropic.*,
+        global.anthropic.*) and OpenRouter ones an "anthropic/" prefix.
+        """
+        return model_id.startswith('claude-') and '/' not in model_id
     
     def _is_openrouter_model(self, model_id: str) -> bool:
         """
@@ -55,6 +65,12 @@ class ModelClient:
         if self.openrouter_client is None:
             self.openrouter_client = OpenRouterClient(self.config)
         return self.openrouter_client
+
+    def _get_anthropic_client(self) -> AnthropicClient:
+        """Get or create Anthropic API client."""
+        if self.anthropic_client is None:
+            self.anthropic_client = AnthropicClient(self.config)
+        return self.anthropic_client
     
     def invoke_model(
         self,
@@ -87,7 +103,10 @@ class ModelClient:
         Returns:
             Dictionary containing the response and metadata
         """
-        if self._is_openrouter_model(model_id):
+        if self._is_anthropic_api_model(model_id):
+            print(f"    [INFO] Using Anthropic API for model: {model_id}")
+            client = self._get_anthropic_client()
+        elif self._is_openrouter_model(model_id):
             print(f"    [INFO] Using OpenRouter API for model: {model_id}")
             client = self._get_openrouter_client()
         else:

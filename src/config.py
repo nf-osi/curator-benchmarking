@@ -78,10 +78,21 @@ class Config:
         env_key = os.getenv('OPENROUTER_API_KEY')
         if env_key:
             return env_key
-        
+
         # Then check creds file
         if self._creds and 'OPENROUTER_API_KEY' in self._creds:
             return self._creds['OPENROUTER_API_KEY']
-        
+
+        return None
+
+    def get_anthropic_api_key(self) -> Optional[str]:
+        """Get Anthropic API key from .aws/creds.yaml or environment."""
+        env_key = os.getenv('ANTHROPIC_API_KEY')
+        if env_key:
+            return env_key
+
+        if self._creds and 'ANTHROPIC_API_KEY' in self._creds:
+            return self._creds['ANTHROPIC_API_KEY']
+
         return None
 
