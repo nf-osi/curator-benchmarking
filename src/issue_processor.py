@@ -101,8 +101,19 @@ class IssueProcessor:
             if checked_tools:
                 params['tool_names'] = checked_tools
         
+        # Extract task subset (comma- or newline-separated task directory names).
+        # Empty, "all", or "_No response_" means run every task.
+        task_subset_match = re.search(r'### Task Subset\s*\n\n(.*?)(?=\n###|\Z)', issue_body, re.DOTALL)
+        if task_subset_match:
+            subset_text = task_subset_match.group(1).strip()
+            if subset_text and subset_text.lower() not in ('all', '_no response_', 'none', '-'):
+                task_names = [t.strip().lstrip('-').strip() for t in re.split(r'[,\n]', subset_text)]
+                task_names = [t for t in task_names if t]
+                if task_names:
+                    params['task_names'] = task_names
+
         # Prompt is always task default, so ignore any prompt field in issue
-        
+
         # Extract description
         desc_match = re.search(r'### Experiment Description\s*\n\n(.*?)(?=\n###|\Z)', issue_body, re.DOTALL)
         if desc_match:
@@ -155,6 +166,13 @@ class IssueProcessor:
         temperature = params.get('temperature')
         thinking = params.get('thinking')
         tool_names = params.get('tool_names', [])
+        task_names = params.get('task_names')
+
+        # Warn about task names that don't exist so typos don't silently shrink the run
+        if task_names:
+            missing = [t for t in task_names if not (self.tasks_dir / t).is_dir()]
+            if missing:
+                print(f"  Warning: Task Subset names not found in tasks/: {', '.join(missing)}")
         
         # Load tools if specified
         tools = None
@@ -178,8 +196,11 @@ class IssueProcessor:
             print(f"  Thinking mode: {thinking}")
         if tools:
             print(f"  Tools: {', '.join([t.name for t in tools])}")
-        print(f"  Running all tasks...")
-        
+        if task_names:
+            print(f"  Running task subset ({len(task_names)} tasks): {', '.join(task_names)}")
+        else:
+            print(f"  Running all tasks...")
+
         experiment = Experiment(
             tasks_dir=self.tasks_dir,
             model_id=model_id,
@@ -188,7 +209,8 @@ class IssueProcessor:
             thinking=thinking,
             config=self.config,
             tools=tools,
-            tool_registry=tool_registry
+            tool_registry=tool_registry,
+            task_names=task_names
         )
         
         result = experiment.run()
