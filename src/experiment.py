@@ -47,17 +47,39 @@ class NaNSafeJSONEncoder(json.JSONEncoder):
         return obj
 
 
+def _content_digest(data: bytes) -> str:
+    """
+    Return a non-cryptographic fingerprint of ``data``.
+
+    MD5 is used here only to detect content changes and to derive stable
+    experiment IDs. It is not a security control: these digests are never
+    used for authentication, integrity guarantees, or signatures, so
+    ``usedforsecurity=False`` declares that intent (Bandit B324 / CWE-327).
+
+    The value is identical to a plain ``hashlib.md5`` digest, which matters:
+    experiment IDs and task hashes are persisted in ``docs/results/``
+    filenames and in ``experiments_log.jsonl``, so they must stay stable.
+
+    Args:
+        data: The bytes to fingerprint
+
+    Returns:
+        Hex digest string
+    """
+    return hashlib.md5(data, usedforsecurity=False).hexdigest()
+
+
 def compute_task_hash(task: Task) -> str:
     """
     Compute a hash of a task's content to detect changes.
-    
+
     Includes all files in the task directory except README.md.
-    
+
     Args:
         task: The Task object to hash
-        
+
     Returns:
-        MD5 hash string representing the task's content
+        Content fingerprint string representing the task's content
     """
     # Hash all files in the task directory except README.md
     task_dir = task.task_dir
@@ -77,14 +99,14 @@ def compute_task_hash(task: Task) -> str:
         try:
             with open(file_path, 'rb') as f:
                 content = f.read()
-                combined_content.append(f"{file_path.name}:{hashlib.md5(content).hexdigest()}")
+                combined_content.append(f"{file_path.name}:{_content_digest(content)}")
         except Exception:
             # If file can't be read, include its name
             combined_content.append(f"{file_path.name}:error")
     
     # Hash the combined content
     combined_str = "\n".join(combined_content)
-    return hashlib.md5(combined_str.encode()).hexdigest()
+    return _content_digest(combined_str.encode())
 
 
 class Experiment:
@@ -147,13 +169,13 @@ class Experiment:
             for tool in sorted(self.tools, key=lambda t: t.name):
                 schema = tool.get_schema()
                 # Create a hash of the tool definition (name + schema)
-                tool_hash = hashlib.md5(
+                tool_hash = _content_digest(
                     json.dumps({
                         "name": tool.name,
                         "description": tool.description,
                         "schema": schema
                     }, sort_keys=True).encode()
-                ).hexdigest()[:8]
+                )[:8]
                 tool_info.append(f"{tool.name}:{tool_hash}")
             tools_str = ",".join(tool_info)
         else:
@@ -162,10 +184,10 @@ class Experiment:
         # Include task names in hash if specific tasks are selected
         tasks_str = ""
         if self.task_names:
-            tasks_str = "_" + hashlib.md5(",".join(sorted(self.task_names)).encode()).hexdigest()[:8]
+            tasks_str = "_" + _content_digest(",".join(sorted(self.task_names)).encode())[:8]
         
         params_str = f"{self.model_id}_{self.system_instructions}_{self.temperature}_{self.thinking}_{self.test_mode}_{tools_str}{tasks_str}"
-        return hashlib.md5(params_str.encode()).hexdigest()
+        return _content_digest(params_str.encode())
     
     def _get_all_tasks(self) -> List[Task]:
         """Get all available tasks (excluding example_task)."""

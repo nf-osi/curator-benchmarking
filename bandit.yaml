@@ -1,0 +1,23 @@
+# Bandit configuration (SEC-419 / SEC-385).
+#
+# Passed explicitly via `bandit -c bandit.yaml`. A YAML config is used rather
+# than the auto-discovered `.bandit` INI file because `-c` only parses YAML
+# (`--ini` is the INI equivalent), and mixing the two silently misconfigures
+# the scan.
+#
+# Excluded paths hold data rather than shipped code:
+#   ./docs  - experiment results archive and the static dashboard
+#   ./tasks - task fixtures (input CSV/TSV, prompts, JSON schemas)
+#   ./venv  - local virtualenv created by setup.sh
+#
+# The leading "./" is required, not cosmetic. Bandit matches exclude_dirs as a
+# substring of the file path, so a bare "docs" or "tasks" entry also silently
+# skips real source files whose names happen to contain them - here that was
+# tools/synapse_sql_docs_tool.py and scripts/prepare_htan_tasks.py. Anchoring
+# the patterns keeps the exclusion to actual directories. If you edit this
+# list, re-check the scanned file count so nothing is dropped by accident.
+exclude_dirs:
+  - ./.git
+  - ./docs
+  - ./tasks
+  - ./venv
